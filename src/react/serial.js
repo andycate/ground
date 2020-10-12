@@ -1,5 +1,3 @@
-import { ipcRenderer } from "electron";
-
 class Serial {
   constructor() {
     this.ipc = null;
@@ -25,10 +23,10 @@ class Serial {
   }
 
   startDataListening = (handler) => {
-    ipcRenderer.on('new-data', (event, data) => {
+    this.ipc.on('new-data', (event, data) => {
       handler(data);
     });
-    ipcRenderer.send('start-data-listening');
+    this.ipc.send('start-data-listening');
   }
 
   selectPort = async (port, baud) => {

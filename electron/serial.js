@@ -1,5 +1,6 @@
 const { ipcMain } = require('electron');
 const SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
 
 let state = {
   port: null,
@@ -30,7 +31,9 @@ ipcMain.handle('open-port', async (event, port, baud) => {
 });
 
 ipcMain.on('start-data-listening', (event) => {
-  state.port.on('data', (data) => {
+  const parser = new Readline();
+  state.port.pipe(parser);
+  parser.on('data', (data) => {
     event.reply('new-data', data);
   });
 });
