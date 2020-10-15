@@ -1,0 +1,5 @@
+// connection actions
+export const SET_CONNECTED = 'SET_CONNECTED';
+export const SET_DISCONNECTED = 'SET_DISCONNECTED';
+export const SET_PORT = 'SET_PORT';
+export const UPDATE_SECONDS_SINCE_CHANGE = 'UPDATE_SECONDS_SINCE_CHANGE';

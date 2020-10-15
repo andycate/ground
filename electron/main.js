@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
 let mainWindow;
@@ -9,15 +10,23 @@ function createWindow () {
     slashes: true,
   });
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    show: false,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      // worldSafeExecuteJavaScript: true,
+      // contextIsolation: true
     },
   });
+  mainWindow.maximize();
+  if(!isDev) {
+    mainWindow.removeMenu();
+  }
   mainWindow.loadURL(startUrl);
   mainWindow.on('closed', function () {
     mainWindow = null;
+  });
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show();
   });
 }
 app.on('ready', createWindow);
@@ -39,4 +48,4 @@ ipcMain.handle('app-info', async (event) => {
   };
 });
 
-require('./serial'); // initialize serial
+require('./comms'); // initialize comms
