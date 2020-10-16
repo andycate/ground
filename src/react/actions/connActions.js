@@ -14,7 +14,7 @@ export const getAvailablePorts = async () => {
 }
 
 export const selectPort = (port, baud) => async dispatch => {
-  const success = await comms.selectPort(port.path, baud);
+  const success = await comms.selectPort(port, baud);
   if(success) {
     dispatch({
       type: SET_PORT,
@@ -24,6 +24,20 @@ export const selectPort = (port, baud) => async dispatch => {
     });
   }
   return success;
+}
+
+export const updateConnState = () => async dispatch => {
+  const connected = await comms.getConnected();
+  const port = await comms.getPort();
+  dispatch({type: connected ? SET_CONNECTED : SET_DISCONNECTED});
+  if(port) {
+    dispatch({
+      type: SET_PORT,
+      payload: {
+        port
+      }
+    });
+  }
 }
 
 export const startConnListen = () => dispatch => {

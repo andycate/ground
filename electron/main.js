@@ -2,6 +2,9 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
+const comms = require('./comms');
+comms.init();
+
 let mainWindow;
 function createWindow () {
   const startUrl = process.env.ELECTRON_START_URL || url.format({
@@ -25,6 +28,9 @@ function createWindow () {
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
+  mainWindow.webContents.on('did-finish-load', () => {
+    comms.openWebCon(mainWindow.webContents);
+  });
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
@@ -47,5 +53,3 @@ ipcMain.handle('app-info', async (event) => {
     appVersion: app.getVersion(),
   };
 });
-
-require('./comms'); // initialize comms

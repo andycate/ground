@@ -30,15 +30,15 @@ class PortModal extends Component {
   openPort = async () => {
     this.setState({ loading: true });
     const success = await this.props.selectPort(this.state.ports[this.state.selectedPort], this.state.baud);
-    if(success) {
-      this.props.startConnListen();
-      this.props.startSensorListen();
-    }
+    // if(success) {
+    //   this.props.startConnListen();
+    //   this.props.startSensorListen();
+    // }
     this.setState({ success, loading: false });
   }
   render() {
     return (
-      <Modal show={!this.state.success}>
+      <Modal show={!(this.state.success || this.props.conn.port)}>
         <Modal.Body>
           <p className='h3 font-weight-light'>Select a port</p>
           <Form>

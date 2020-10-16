@@ -10,44 +10,54 @@ import { addSensorListener, removeSensorListener } from './actions/connActions'
 class Graph extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      window: 30
-    };
+    // this.state = {
+    //   latestValue: 0
+    // };
     this.canvas = React.createRef();
+    this.buffer = [];
   }
-  listener = (data, timestamp) => {
-    if(this.chart.data.datasets[0].data.length > 0) {
-      if(timestamp.diff(this.chart.data.datasets[0].data[0].x, 'seconds', true) > this.state.window) {
-        this.chart.data.datasets[0].data.shift();
+  makeListener = (sensor, i) => (data, timestamp) => {
+    if(this.buffer[i].length > 0) {
+      if(timestamp.diff(this.buffer[i][0].x, 'seconds', true) > this.props.window) {
+        this.buffer[i].shift();
       }
     }
-    this.chart.data.datasets[0].data.push({
+    this.buffer[i].push({
       x: timestamp,
       y: data[0]
     });
-    this.chart.options.scales.xAxes[0].ticks.min = timestamp.clone().subtract(30, 'seconds');
-    this.chart.options.scales.xAxes[0].ticks.max = timestamp;
-    this.chart.update();
+    // this.setState({latestValue: data[0]});
   }
   componentDidMount() {
     const ctx = this.canvas.current.getContext('2d');
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: [1, 2, 3, 4, 5],
-        datasets: [{
-          label: 'test',
+        // datasets: [{
+        //   label: this.props.label,
+        //   data: [],
+        //   fill: false,
+        //   lineTension: 0.1,
+        //   backgroundColor: 'MediumSeaGreen',
+        //   borderColor: 'MediumSeaGreen',
+        //   borderJoinStyle: 'miter',
+        //   pointRadius: 0
+        // }]
+        datasets: this.props.sensors.map(v => ({
+          label: v.label,
           data: [],
           fill: false,
           lineTension: 0.1,
-          backgroundColor: 'MediumSeaGreen',
-          borderColor: 'MediumSeaGreen',
+          backgroundColor: v.color,
+          borderColor: v.color,
           borderJoinStyle: 'miter',
           pointRadius: 0
-        }]
+        }))
       },
       options: {
-        animation: false,
+        animation: {
+          duration: 0
+        },
         scales: {
           xAxes: [{
             type: 'time',
@@ -57,9 +67,10 @@ class Graph extends Component {
             bounds: 'ticks',
             ticks: {
               // https://www.chartjs.org/docs/latest/axes/labelling.html#creating-custom-tick-formats
-              callback: function(value, index, values) {
+                callback: function(value, index, values) {
                 // console.log(value)
-                return moment(values[index].value).diff(moment(values[values.length-1].value), 'seconds', true);
+                // return moment(values[index].value).diff(moment(values[values.length-1].value), 'seconds', true);
+                return '';
               }
             }
           }],
@@ -69,10 +80,30 @@ class Graph extends Component {
               suggestedMax: this.props.max
             }
           }]
+        },
+        tooltips: {
+          mode: 'index'
+        },
+        hover: {
+          intersect: false
         }
       }
     });
-    addSensorListener(this.props.sensorId, this.listener);
+    this.props.sensors.forEach((v, i) => {
+      this.buffer.push([]);
+      addSensorListener(v.id, this.makeListener(v, i));
+    });
+    window.setInterval(() => {
+      this.props.sensors.forEach((v, i) => {
+        this.chart.data.datasets[i].data = this.buffer[i];
+        if(this.buffer[i].length > 0) {
+          this.chart.options.scales.xAxes[0].ticks.min = this.buffer[i][this.buffer[i].length-1].x.clone().subtract(30, 'seconds');
+          this.chart.options.scales.xAxes[0].ticks.max = this.buffer[i][this.buffer[i].length-1].x;
+        }
+      })
+      console.log(`${this.chart.data.datasets[0].data.length} ${this.chart.data.datasets[1].data.length} ${this.buffer[0].length} ${this.buffer[1].length}`);
+      this.chart.update();
+    }, 100);
     // window.setInterval(() => {
     //   this.chart.data.datasets[0].data.push({
     //     x: moment(),
@@ -85,8 +116,9 @@ class Graph extends Component {
     return (
       <Card>
         <Card.Body>
-          <p className='lead'>{this.props.label}</p>
+          <p className='lead text-center'>{this.props.label}</p>
           <canvas ref={this.canvas}/>
+          {/* <p className='p-0'>Current value: {this.state.latestValue} PSI</p> */}
         </Card.Body>
       </Card>
     );

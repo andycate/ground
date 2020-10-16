@@ -23,31 +23,37 @@ class Comms {
   }
 
   /**
-   * @param {string} port the name of the port
+   * @param {Object} port port object
    * @param {Number} baud the baud rate for the port (should be 57600 for Radio)
    */
-  selectPort = async (path, baud) => {
-    return await this.ipc.invoke('select-port', path, baud);
+  selectPort = async (port, baud) => {
+    return await this.ipc.invoke('select-port', port, baud);
+  }
+
+  getConnected = async () => {
+    return await this.ipc.invoke('get-connected');
+  }
+
+  getPort = async () => {
+    return await this.ipc.invoke('get-port');
   }
 
   /**
    * @param {function} handle function to call when connection status changes
    */
   connListen = handle => {
-    this.ipc.on('connect', (event, data) => {
+    this.ipc.on('connect', (event) => {
       handle(true);
     });
-    this.ipc.on('disconnect', (event, data) => {
+    this.ipc.on('disconnect', (event) => {
       handle(false);
     });
-    this.ipc.send('start-conn-listening');
   }
 
   sensorListen = handle => {
     this.ipc.on('sensor-data', (event, payload) => {
       handle(payload);
     });
-    this.ipc.send('start-sensor-listening');
   }
 }
 
