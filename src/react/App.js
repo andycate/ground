@@ -20,24 +20,48 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
+      <div className='App'>
         <PortModal/>
-        <Row>
-          <Col>
+        <Row className='m-0 pt-2 pr-2'>
+          <Col className='p-0 pl-2'>
             <Graph sensors={
               [{
-                label: 'LOX Injector Low Pressure',
+                label: 'LOX Injector',
                 id: 1,
                 color: 'MediumSeaGreen'
               },{
-                label: 'Prop Injector Low Pressure',
+                label: 'Prop Injector',
                 id: 2,
                 color: 'Tomato'
               }]
-            } max={800} window={30} label='Injector'/>
+            } max={800} window={30} interval={80} label='Injectors'/>
           </Col>
-          <Col>
-            {/* <Graph label='Prop Injector Low Pressure' sensorId={2} max={800}/> */}
+          <Col className='p-0 pl-2'>
+            <Graph sensors={
+              [{
+                label: 'LOX Tank',
+                id: 3,
+                color: '#8E44AD'
+              },{
+                label: 'Prop Tank',
+                id: 4,
+                color: '#B9770E'
+              }]
+            } max={800} window={10} interval={80} label='Tanks'/>
+          </Col>
+        </Row>
+        <Row className='m-0 pt-2 pr-2'>
+          <Col className='p-0 pl-2'>
+            <Graph sensors={
+              [{
+                label: 'High Pressure',
+                id: 5,
+                color: 'MediumSeaGreen'
+              }]
+            } max={800} window={30} interval={120} label='Nitrogen'/>
+          </Col>
+          <Col className='p-0 pl-2'>
+
           </Col>
         </Row>
       </div>

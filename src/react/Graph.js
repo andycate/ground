@@ -82,11 +82,14 @@ class Graph extends Component {
           }]
         },
         tooltips: {
-          mode: 'index'
+          mode: 'index',
+          enabled: false
         },
         hover: {
-          intersect: false
-        }
+          intersect: false,
+          mode: null
+        },
+        events: []
       }
     });
     this.props.sensors.forEach((v, i) => {
@@ -97,13 +100,12 @@ class Graph extends Component {
       this.props.sensors.forEach((v, i) => {
         this.chart.data.datasets[i].data = this.buffer[i];
         if(this.buffer[i].length > 0) {
-          this.chart.options.scales.xAxes[0].ticks.min = this.buffer[i][this.buffer[i].length-1].x.clone().subtract(30, 'seconds');
+          this.chart.options.scales.xAxes[0].ticks.min = this.buffer[i][this.buffer[i].length-1].x.clone().subtract(this.props.window, 'seconds');
           this.chart.options.scales.xAxes[0].ticks.max = this.buffer[i][this.buffer[i].length-1].x;
         }
       })
-      console.log(`${this.chart.data.datasets[0].data.length} ${this.chart.data.datasets[1].data.length} ${this.buffer[0].length} ${this.buffer[1].length}`);
       this.chart.update();
-    }, 100);
+    }, this.props.interval);
     // window.setInterval(() => {
     //   this.chart.data.datasets[0].data.push({
     //     x: moment(),
@@ -116,7 +118,7 @@ class Graph extends Component {
     return (
       <Card>
         <Card.Body>
-          <p className='lead text-center'>{this.props.label}</p>
+          <p className='lead text-center p-0 m-0'>{this.props.label}</p>
           <canvas ref={this.canvas}/>
           {/* <p className='p-0'>Current value: {this.state.latestValue} PSI</p> */}
         </Card.Body>

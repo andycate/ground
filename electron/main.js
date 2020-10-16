@@ -28,7 +28,7 @@ function createWindow () {
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
-  mainWindow.webContents.on('did-finish-load', () => {
+  mainWindow.webContents.once('did-finish-load', () => {
     comms.openWebCon(mainWindow.webContents);
   });
   mainWindow.once('ready-to-show', () => {

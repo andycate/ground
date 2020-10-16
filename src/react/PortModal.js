@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 
 import { getAvailablePorts,
          selectPort,
@@ -19,13 +19,17 @@ class PortModal extends Component {
       loading: true
     };
   }
-  componentDidMount = async () => {
+  refresh = async () => {
+    this.setState({loading: true});
     const ports = await getAvailablePorts();
+    console.log(ports);
     this.setState({
-      selectedPort: 0,
       ports,
       loading: false
     });
+  }
+  componentDidMount = async () => {
+    await this.refresh();
   }
   openPort = async () => {
     this.setState({ loading: true });
@@ -40,7 +44,14 @@ class PortModal extends Component {
     return (
       <Modal show={!(this.state.success || this.props.conn.port)}>
         <Modal.Body>
-          <p className='h3 font-weight-light'>Select a port</p>
+          <Row>
+            <Col md='auto' className='p-0 pl-3'>
+              <p className='h3 font-weight-light'>Select a port</p>
+            </Col>
+            <Col>
+              <Button variant='light' onClick={this.refresh}>{this.state.loading?<Spinner animation='border' size='sm'/>:'Refresh'}</Button>
+            </Col>
+          </Row>
           <Form>
             <Form.Control as='select' value={this.state.selectedPort} onChange={e => this.setState({selectedPort: parseInt(e.target.value)})}>
               {this.state.ports.map((v, i) => (
