@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
-import { Card } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import Chart from 'chart.js';
 import moment from 'moment';
 
@@ -10,9 +10,9 @@ import { addSensorListener, removeSensorListener } from './actions/connActions'
 class Graph extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   latestValue: 0
-    // };
+    this.state = {
+      latestValues: {}
+    };
     this.canvas = React.createRef();
     this.buffer = [];
   }
@@ -22,10 +22,12 @@ class Graph extends Component {
         this.buffer[i].shift();
       }
     }
+    const newValue = sensor.interpolate(data[sensor.index]);
     this.buffer[i].push({
       x: timestamp,
-      y: data[0]
+      y: newValue
     });
+    this.setState({[i]: newValue});
     // this.setState({latestValue: data[0]});
   }
   componentDidMount() {
@@ -106,13 +108,6 @@ class Graph extends Component {
       })
       this.chart.update();
     }, this.props.interval);
-    // window.setInterval(() => {
-    //   this.chart.data.datasets[0].data.push({
-    //     x: moment(),
-    //     y: Math.random()*5
-    //   });
-    //   this.chart.update();
-    // }, 1000);
   }
   render() {
     return (
@@ -122,6 +117,15 @@ class Graph extends Component {
           <canvas ref={this.canvas}/>
           {/* <p className='p-0'>Current value: {this.state.latestValue} PSI</p> */}
         </Card.Body>
+        <Row className='m-0 text-center'>
+          {
+            this.props.sensors.map((v, i) => (
+              <Col>
+                <p className='lead mb-1'>{v.label}: {(this.state[i] || 0).toString().substr(0, 5)}</p>
+              </Col>
+            ))
+          }
+        </Row>
       </Card>
     );
   }

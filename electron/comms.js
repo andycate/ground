@@ -12,7 +12,7 @@ class Comms {
       port: null,
       portSelected: null,
       open: false,
-      connected: false,
+      connected: true,
       connTimeout: null
     }
     // TODO: add code to transmit ping and wait for pong
@@ -72,6 +72,7 @@ class Comms {
   }
 
   openWebCon = (webCon) => {
+    console.log('web connection');
     this.webCon = webCon;
 
     this.connEvents.on('connect', () => {
@@ -84,11 +85,13 @@ class Comms {
     });
 
     this.sensorEvents.on('data', data => {
+      console.log(data);
       this.webCon.send('sensor-data', data);
     });
   }
 
   processData = rawData => {
+    console.log('here');
     const timestamp = moment().toJSON();
     const data = rawData.replace(/(\r\n|\n|\r)/gm, '');
     if(data === 'ping') {
@@ -101,14 +104,14 @@ class Comms {
       const [ rawValues, checksum ] = data.replace(/({|})/gm, '').split('|');
       const [ id, ...values ] = rawValues.split(',').map(v => parseFloat(v));
       const calculatedChecksum = this.fletcher16(Buffer.from(rawValues, 'binary'));
-      if(parseInt(checksum) !== calculatedChecksum) {
+      if(parseInt(Number('0x' + checksum), 10) !== calculatedChecksum) {
         console.log(`Checksums don't match! Message: ${data} Checksum: ${calculatedChecksum}`);
         return;
       }
-      const sensorConf = config.sensors.find(v => v.id === id);
-      if(!sensorConf) {
-        return;
-      }
+      // const sensorConf = config.sensors.find(v => v.id === id);
+      // if(!sensorConf) {
+      //   return;
+      // }
       const payload = {
         id: id,
         data: values,
