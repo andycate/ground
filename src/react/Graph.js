@@ -22,7 +22,13 @@ class Graph extends Component {
         this.buffer[i].shift();
       }
     }
-    const newValue = sensor.interpolate(data[sensor.index]);
+    let newValue = sensor.interpolate(data[sensor.index]);
+    if(newValue < 0) {
+      try {
+        newValue = this.buffer[i][this.buffer[i].length-1].y;
+      } catch(err) {
+      }
+    }
     this.buffer[i].push({
       x: timestamp,
       y: newValue
@@ -74,13 +80,16 @@ class Graph extends Component {
                 // return moment(values[index].value).diff(moment(values[values.length-1].value), 'seconds', true);
                 return '';
               }
+            },
+            gridLines: {
+              display:false
             }
           }],
           yAxes: [{
             ticks: {
               suggestedMin: 0,
               suggestedMax: this.props.max
-            }
+            },
           }]
         },
         tooltips: {
@@ -116,16 +125,16 @@ class Graph extends Component {
           <p className='lead text-center p-0 m-0'>{this.props.label}</p>
           <canvas ref={this.canvas}/>
           {/* <p className='p-0'>Current value: {this.state.latestValue} PSI</p> */}
-        </Card.Body>
-        <Row className='m-0 text-center'>
+          <Row className='m-0 text-center'>
           {
             this.props.sensors.map((v, i) => (
-              <Col>
-                <p className='lead mb-1'>{v.label}: {(this.state[i] || 0).toString().substr(0, 5)}</p>
+              <Col className='p-0'>
+                <p className='lead m-0'>{v.label}: {(this.state[i] || 0).toString().substr(0, 5)}</p>
               </Col>
             ))
           }
         </Row>
+        </Card.Body>
       </Card>
     );
   }

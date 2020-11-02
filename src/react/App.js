@@ -25,8 +25,8 @@ class App extends Component {
         <Row className='m-0 pt-2 pr-2'>
           <Col className='p-0 pl-2'>
             <Graph sensors={
-              [/*{
-                label: 'LOX Tank',
+              [{
+                label: 'LOX T',
                 id: 1,
                 index: 0,
                 color: '#7D3C98',
@@ -34,8 +34,8 @@ class App extends Component {
                   return 1.2258857538273733 * value * (1024 / Math.pow(2, 23)) - 123.89876445934394;
                   // return value * 5 / Math.pow(2, 23)
                 }
-              },*/{
-                label: 'Prop Tank',
+              },{
+                label: 'Prop T',
                 id: 1,
                 index: 1,
                 color: '#2E86C1',
@@ -44,7 +44,7 @@ class App extends Component {
                   // return value * 5 / Math.pow(2, 23)
                 }
               },{
-                label: 'LOX Injector',
+                label: 'LOX I',
                 id: 1,
                 index: 2,
                 color: '#229954',
@@ -53,7 +53,7 @@ class App extends Component {
                   // return value * 5 / Math.pow(2, 23)
                 }
               },{
-                label: 'Prop Injector',
+                label: 'Prop I',
                 id: 1,
                 index: 3,
                 color: '#D68910',
@@ -62,7 +62,7 @@ class App extends Component {
                   // return value * 5 / Math.pow(2, 23)
                 }
               }]
-            } max={600} window={30} interval={80} label='Pressures'/>
+            } max={600} window={60} interval={80} label='Pressures'/>
           </Col>
           <Col className='p-0 pl-2'>
             <Graph sensors={
@@ -74,6 +74,7 @@ class App extends Component {
                 interpolate: (value) => {
                   // y, x
                   const map = [
+                    // [0, 0, ]
                     [0,15,1702887.424],
                     [150,100,1845493.76],
                     [700,580,2650800.128],
@@ -107,19 +108,28 @@ class App extends Component {
                     [4221,3460,7482638.335999999],
                     [4365,3590,7700742.143999999],
                   ];
-                  const calcPressure = (5000 / 20) * (value * 5 * (20.0/4.36) / Math.pow(2, 23));
+                  const calcPressure = (5000 / 16) * ((value * 5 * (20.0/4.36) / Math.pow(2, 23)) - 4);
                   // const index = map.findIndex((v, i) => {
                   //   return v[1] <= calcPressure && map[i+1][1] >= calcPressure;
                   // });
-                  // console.log(index);
+                  // // console.log(index);
                   // if(index === -1) {
                   //   return calcPressure;
                   // }
-                  return calcPressure;
-                  // return map[index][0] + (map[index+1][0] - map[index][0]) * ((calcPressure - map[index][1]) / (map[index+1][1] - map[index][1]));
+                  // // return calcPressure;
+                  // return map[index][1] + (map[index+1][1] - map[index][1]) * ((calcPressure - map[index][0]) / (map[index+1][0] - map[index][0]));
+
+                  const index = map.findIndex((v, i) => {
+                    return v[2] <= value && map[i+1][2] >= value;
+                  });
+                  // console.log(index);
+                  if(index === -1) {
+                    return calcPressure;
+                  }
+                  return map[index][0] + (map[index+1][0] - map[index][0]) * ((value - map[index][2]) / (map[index+1][2] - map[index][2]))
                 }
               }]
-            } max={3500} window={30} interval={80} label='Pressures'/>
+            } max={0} window={60} interval={80} label='Pressures'/>
           </Col>
           {/* <Col className='p-0 pl-2'>
             <Graph sensors={
@@ -150,11 +160,25 @@ class App extends Component {
                 index: 1,
                 color: 'Tomato',
                 interpolate: value => (value)
+              },{
+                label: 'Current',
+                id: 2,
+                index: 2,
+                color: 'Blue',
+                interpolate: value => (value)
               }]
-            } max={26} window={30} interval={200} label='Battery'/>
+            } max={26} window={60} interval={200} label='Battery'/>
           </Col>
           <Col className='p-0 pl-2'>
-
+            <Graph sensors={
+              [{
+                label: 'Temperature',
+                id: 0,
+                index: 0,
+                color: 'MediumSeaGreen',
+                interpolate: value => (value)
+              }]
+            } max={0} window={60} interval={200} label='Temperature'/>
           </Col>
         </Row>
       </div>

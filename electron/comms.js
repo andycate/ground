@@ -3,6 +3,10 @@ const { EventEmitter } = require('events');
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 const moment = require('moment');
+const path = require('path');
+const express = require('express');
+const serveStatic = require('serve-static');
+const app = express();
 
 const config = require('./config');
 
@@ -13,7 +17,8 @@ class Comms {
       portSelected: null,
       open: false,
       connected: true,
-      connTimeout: null
+      connTimeout: null,
+      highPressure: "hello, world!"
     }
     // TODO: add code to transmit ping and wait for pong
     this.connEvents = new EventEmitter();
@@ -21,6 +26,13 @@ class Comms {
   }
 
   init = () => {
+    app.use(serveStatic(path.join(__dirname, 'viewer'), { 'index': ['index.html'] }))
+    // app.use(express.static('viewer'))
+    // app.get('/', (req, res) => {
+    //   res.send(this.state.highPressure);
+    // });
+    app.listen(3001, '0.0.0.0');
+
     this.connEvents.on('ping', () => {
       if(!this.state.connected) {
         this.connEvents.emit('connect');
@@ -85,13 +97,11 @@ class Comms {
     });
 
     this.sensorEvents.on('data', data => {
-      console.log(data);
       this.webCon.send('sensor-data', data);
     });
   }
 
   processData = rawData => {
-    console.log('here');
     const timestamp = moment().toJSON();
     const data = rawData.replace(/(\r\n|\n|\r)/gm, '');
     if(data === 'ping') {
