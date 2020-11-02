@@ -3,10 +3,6 @@ const { EventEmitter } = require('events');
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 const moment = require('moment');
-const path = require('path');
-const express = require('express');
-const serveStatic = require('serve-static');
-const app = express();
 
 const config = require('./config');
 
@@ -18,20 +14,14 @@ class Comms {
       open: false,
       connected: true,
       connTimeout: null,
-      highPressure: "hello, world!"
-    }
+      bandwidth: 0, // bits per second
+    };
     // TODO: add code to transmit ping and wait for pong
     this.connEvents = new EventEmitter();
     this.sensorEvents = new EventEmitter();
   }
 
   init = () => {
-    app.use(serveStatic(path.join(__dirname, 'viewer'), { 'index': ['index.html'] }))
-    // app.use(express.static('viewer'))
-    // app.get('/', (req, res) => {
-    //   res.send(this.state.highPressure);
-    // });
-    app.listen(3001, '0.0.0.0');
 
     this.connEvents.on('ping', () => {
       if(!this.state.connected) {
@@ -51,11 +41,11 @@ class Comms {
 
     ipcMain.handle('get-connected', async (event) => {
       return this.state.connected;
-    })
+    });
 
     ipcMain.handle('get-port', async (event) => {
       return this.state.portSelected;
-    })
+    });
 
     ipcMain.handle('select-port', async (event, port, baud) => {
       console.log(port.path);
@@ -99,9 +89,17 @@ class Comms {
     this.sensorEvents.on('data', data => {
       this.webCon.send('sensor-data', data);
     });
+
+    this.bandwidthCounter = 0;
+    this.bandwidthInterval = setInterval(() => {
+      this.state.bandwidth = this.bandwidthCounter;
+      this.bandwidthCounter = 0;
+      this.webCon.send('bandwidth', this.state.bandwidth);
+    }, 1000);
   }
 
   processData = rawData => {
+    this.bandwidthCounter += rawData.length * 8 + 3 // 8 bits per byte plus one start bit and two stop bits
     const timestamp = moment().toJSON();
     const data = rawData.replace(/(\r\n|\n|\r)/gm, '');
     if(data === 'ping') {
