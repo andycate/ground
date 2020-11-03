@@ -4,7 +4,7 @@ const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 const moment = require('moment');
 
-const config = require('./config');
+const { config, getPacketConfig } = require('./config');
 
 class Comms {
   constructor() {
@@ -22,6 +22,7 @@ class Comms {
   }
 
   init = () => {
+    this.packetConfig = getPacketConfig();
 
     this.connEvents.on('ping', () => {
       if(!this.state.connected) {
@@ -98,15 +99,14 @@ class Comms {
     }, 1000);
   }
 
-  processData = rawData => {
-    this.bandwidthCounter += rawData.length * 8 + 3 // 8 bits per byte plus one start bit and two stop bits
-    const timestamp = moment().toJSON();
+  parsePacket = rawData => {
     const data = rawData.replace(/(\r\n|\n|\r)/gm, '');
     if(data === 'ping') {
       this.connEvents.emit('ping');
+      return null;
     }
     if(!this.state.connected) {
-      return;
+      return null;
     }
     if(data.substring(0, 1) === '{') { // data packet
       const [ rawValues, checksum ] = data.replace(/({|})/gm, '').split('|');
@@ -114,19 +114,57 @@ class Comms {
       const calculatedChecksum = this.fletcher16(Buffer.from(rawValues, 'binary'));
       if(parseInt(Number('0x' + checksum), 10) !== calculatedChecksum) {
         console.log(`Checksums don't match! Message: ${data} Checksum: ${calculatedChecksum}`);
-        return;
+        return null;
       }
-      // const sensorConf = config.sensors.find(v => v.id === id);
-      // if(!sensorConf) {
-      //   return;
-      // }
+      return {
+        id,
+        values
+      };
+    }
+    return null;
+  }
+
+  processData = rawData => {
+    this.bandwidthCounter += rawData.length * 8 + 3 // 8 bits per byte plus one start bit and two stop bits
+    const timestamp = moment().toJSON();
+    const packet = this.parsePacket(rawData);
+    if(!packet) { // packet is not data or is invalid
+      return;
+    }
+    if(!this.packetConfig[packet.id]) { // if no config exists for this packet, we don't know about it
+      return;
+    }
+    this.packetConfig[packet.id].forEach(idx => {
+      const sensor = config.sensors[idx]; // get sensor that is associated with this packet
       const payload = {
-        id: id,
-        data: values,
-        timestamp
+        idx,
+        timestamp,
+        values: sensor.values.map(v => {
+          switch(v.interpolation.type) {
+            case "none":
+              return packet.values[v.packetPosition];
+            case "linear":
+              return this.linearInterpolate(packet.values[v.packetPosition], v.interpolation.values);
+            default:
+              return packet.values[v.packetPosition];
+          }
+        })
       };
       this.sensorEvents.emit('data', payload);
+    });
+  }
+
+  linearInterpolate = (rawValue, map) => {
+    if(map[map.length-1][0] < rawValue) {
+      return map[map.length-1][1];
     }
+    if(map[0] > rawValue) {
+      return map[0][1];
+    }
+    const index = map.findIndex((v, i) => {
+      return v[0] <= rawValue && map[i+1][0] >= rawValue;
+    });
+    return map[index][1] + (map[index+1][1] - map[index][1]) * ((rawValue - map[index][0]) / (map[index+1][0] - map[index][0]));
   }
 
   fletcher16 = (data) => {

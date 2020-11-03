@@ -2,14 +2,13 @@ const config = {
   sensors: [
     {
       name: "LOX Tank Pressure",
+      packetId: 1,
       values: [
         {
-          packetId: 1,
           packetPosition: 0,
           label: "pressure",
           interpolation: {
             type: "linear", // linear, quadratic
-            endCondition: "cap", // cap
             unit: "PSI",
             values: [ // [x, y] pairs
               [0, -123.89876445934394],
@@ -21,6 +20,7 @@ const config = {
     },
     {
       name: "Prop Tank Pressure",
+      packetId: 1,
       values: [
         {
           packetId: 1,
@@ -28,7 +28,6 @@ const config = {
           label: "pressure",
           interpolation: {
             type: "linear", // linear, quadratic
-            endCondition: "cap", // cap
             unit: "PSI",
             values: [ // [x, y] pairs
               [0, -123.89876445934394],
@@ -40,14 +39,13 @@ const config = {
     },
     {
       name: "LOX Injector Pressure",
+      packetId: 1,
       values: [
         {
-          packetId: 1,
           packetPosition: 2,
           label: "pressure",
           interpolation: {
             type: "linear", // linear, quadratic
-            endCondition: "cap", // cap
             unit: "PSI",
             values: [ // [x, y] pairs
               [0, -123.89876445934394],
@@ -59,14 +57,13 @@ const config = {
     },
     {
       name: "Prop Injector Pressure",
+      packetId: 1,
       values: [
         {
-          packetId: 1,
           packetPosition: 3,
           label: "pressure",
           interpolation: {
             type: "linear", // none, linear, quadratic
-            endCondition: "cap", // cap
             unit: "PSI",
             values: [ // [x, y] pairs
               [0, -123.89876445934394],
@@ -78,14 +75,13 @@ const config = {
     },
     {
       name: "Nitrogen Pressure",
+      packetId: 1,
       values: [
         {
-          packetId: 1,
           packetPosition: 4,
           label: "pressure",
           interpolation: {
             type: "linear", // linear, quadratic
-            endCondition: "cap", // cap
             unit: "PSI",
             values: [ // [x, y] pairs
               [1677721,0],
@@ -127,9 +123,9 @@ const config = {
     },
     {
       name: "Battery",
+      packetId: 2,
       values: [
         {
-          packetId: 2,
           packetPosition: 0,
           label: "voltage",
           interpolation: {
@@ -138,7 +134,6 @@ const config = {
           }
         },
         {
-          packetId: 2,
           packetPosition: 1,
           label: "wattage",
           interpolation: {
@@ -147,7 +142,6 @@ const config = {
           }
         },
         {
-          packetId: 2,
           packetPosition: 2,
           label: "current",
           interpolation: {
@@ -159,9 +153,9 @@ const config = {
     },
     {
       name: "Fitting Tree",
+      packetId: 0,
       values: [
         {
-          packetId: 0,
           packetPosition: 0,
           label: "temperature",
           interpolation: {
@@ -174,4 +168,14 @@ const config = {
   ]
 };
 
-module.exports = config;
+const getPacketConfig = () => {
+  const packets = {};
+  config.sensors.forEach((s, i) => {
+    if(!packets[s.packetId]) {
+      packets[s.packetId] = [];
+    }
+    packets[s.packetId].push(i);
+  });
+}
+
+module.exports.config = { config, getPacketConfig };
