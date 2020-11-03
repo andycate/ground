@@ -55,19 +55,19 @@ export const startConnListen = () => dispatch => {
 
 export const startSensorListen = () => dispatch => {
   comms.sensorListen(payload => {
-    sensorListeners.filter(v => v.id === payload.id).forEach(v => {
-      v.handler(payload.data, moment(payload.timestamp));
+    sensorListeners.filter(v => v.idx === payload.idx).forEach(v => {
+      v.handler(payload.values, moment(payload.timestamp));
     });
   });
 }
 
-export const addSensorListener = (id, handler) => {
+export const addSensorListener = (idx, handler) => {
   sensorListeners.push({
-    id,
+    idx,
     handler
   });
 }
 
-export const removeSensorListener = (id, handler) => {
-  sensorListeners.splice(sensorListeners.findIndex(v => v.id === id && v.handler === handler), 1);
+export const removeSensorListener = (idx, handler) => {
+  sensorListeners.splice(sensorListeners.findIndex(v => v.idx === idx && v.handler === handler), 1);
 }

@@ -22,35 +22,18 @@ class Graph extends Component {
         this.buffer[i].shift();
       }
     }
-    let newValue = sensor.interpolate(data[sensor.index]);
-    if(newValue < 0) {
-      try {
-        newValue = this.buffer[i][this.buffer[i].length-1].y;
-      } catch(err) {
-      }
-    }
+    let newValue = data[sensor.index];
     this.buffer[i].push({
       x: timestamp,
       y: newValue
     });
     this.setState({[i]: newValue});
-    // this.setState({latestValue: data[0]});
   }
   componentDidMount() {
-    const ctx = this.canvas.current.getContext('2d');
-    this.chart = new Chart(ctx, {
+    this.ctx = this.canvas.current.getContext('2d');
+    this.chart = new Chart(this.ctx, {
       type: 'line',
       data: {
-        // datasets: [{
-        //   label: this.props.label,
-        //   data: [],
-        //   fill: false,
-        //   lineTension: 0.1,
-        //   backgroundColor: 'MediumSeaGreen',
-        //   borderColor: 'MediumSeaGreen',
-        //   borderJoinStyle: 'miter',
-        //   pointRadius: 0
-        // }]
         datasets: this.props.sensors.map(v => ({
           label: v.label,
           data: [],
@@ -74,12 +57,7 @@ class Graph extends Component {
             },
             bounds: 'ticks',
             ticks: {
-              // https://www.chartjs.org/docs/latest/axes/labelling.html#creating-custom-tick-formats
-                callback: function(value, index, values) {
-                // console.log(value)
-                // return moment(values[index].value).diff(moment(values[values.length-1].value), 'seconds', true);
-                return '';
-              }
+              display: false
             },
             gridLines: {
               display:false
@@ -105,7 +83,7 @@ class Graph extends Component {
     });
     this.props.sensors.forEach((v, i) => {
       this.buffer.push([]);
-      addSensorListener(v.id, this.makeListener(v, i));
+      addSensorListener(v.idx, this.makeListener(v, i));
     });
     window.setInterval(() => {
       this.props.sensors.forEach((v, i) => {

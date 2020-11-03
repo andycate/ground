@@ -176,6 +176,7 @@ const getPacketConfig = () => {
     }
     packets[s.packetId].push(i);
   });
+  return packets;
 }
 
-module.exports.config = { config, getPacketConfig };
+module.exports = { config, getPacketConfig };

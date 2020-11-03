@@ -23,6 +23,7 @@ class Comms {
 
   init = () => {
     this.packetConfig = getPacketConfig();
+    console.log(this.packetConfig);
 
     this.connEvents.on('ping', () => {
       if(!this.state.connected) {
@@ -34,6 +35,10 @@ class Comms {
         this.connEvents.emit('disconnect');
       }, 2000);
       this.state.connected = true;
+    });
+
+    ipcMain.handle('get-config', (event) => {
+      return config;
     });
 
     ipcMain.handle('list-ports', async (event) => {
@@ -140,6 +145,7 @@ class Comms {
         idx,
         timestamp,
         values: sensor.values.map(v => {
+          if(!packet.values[v.packetPosition]) return; // sonetimes packets have sensors with different read frequencies
           switch(v.interpolation.type) {
             case "none":
               return packet.values[v.packetPosition];
@@ -158,7 +164,7 @@ class Comms {
     if(map[map.length-1][0] < rawValue) {
       return map[map.length-1][1];
     }
-    if(map[0] > rawValue) {
+    if(map[0][0] > rawValue) {
       return map[0][1];
     }
     const index = map.findIndex((v, i) => {
