@@ -11,6 +11,7 @@ import { updateConnState,
 
 import PortModal from './PortModal';
 import Graph from './Graph';
+import Bandwidth from './Bandwidth';
 
 class App extends Component {
   componentDidMount() {
@@ -31,7 +32,7 @@ class App extends Component {
                 index: 0,
                 color: '#7D3C98'
               }]
-            } max={600} window={15} interval={80} label='Pressures'/>
+            } max={600} window={5} interval={80} label='Pressures'/>
             <Graph sensors={
               [{
                 label: 'LOX T',
@@ -39,7 +40,7 @@ class App extends Component {
                 index: 0,
                 color: '#7D3C98'
               }]
-            } max={600} window={15} interval={80} label='Pressures'/>
+            } max={600} window={5} interval={80} label='Pressures'/>
             </Col>
             <Col>
             <Graph sensors={
@@ -49,7 +50,7 @@ class App extends Component {
                 index: 0,
                 color: '#7D3C98'
               }]
-            } max={600} window={15} interval={80} label='Pressures'/>
+            } max={600} window={5} interval={80} label='Pressures'/>
             <Graph sensors={
               [{
                 label: 'LOX T',
@@ -57,9 +58,10 @@ class App extends Component {
                 index: 0,
                 color: '#7D3C98'
               }]
-            } max={600} window={15} interval={80} label='Pressures'/>
+            } max={600} window={5} interval={80} label='Pressures'/>
           </Col>
           <Col>
+            <Bandwidth />
           </Col>
         </Row>
       </div>

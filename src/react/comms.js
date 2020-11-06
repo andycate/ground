@@ -55,6 +55,12 @@ class Comms {
       handle(payload);
     });
   }
+
+  bandwidthListen = handle => {
+    this.ipc.on('bandwidth', (event, payload) => {
+      handle(payload);
+    });
+  }
 }
 
 const instance = new Comms();

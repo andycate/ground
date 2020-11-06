@@ -71,3 +71,7 @@ export const addSensorListener = (idx, handler) => {
 export const removeSensorListener = (idx, handler) => {
   sensorListeners.splice(sensorListeners.findIndex(v => v.idx === idx && v.handler === handler), 1);
 }
+
+export const addBandwidthListener = (handler) => {
+  comms.bandwidthListen(handler);
+}
