@@ -23,7 +23,10 @@ class Comms {
         loxTank: 0,
         propTank: 0,
         loxInjector: 0,
-        propInjector: 0
+        propInjector: 0,
+        highPressure: 0,
+        battery: 0,
+        wattage: 0
       }
     };
     // TODO: add code to transmit ping and wait for pong
@@ -39,16 +42,23 @@ class Comms {
     this.sensorEvents.on('data', data => {
       switch(data.idx) {
         case 0:
-          this.state.sensors.loxTank = values[0];
+          this.state.sensors.loxTank = data.values[0];
           break;
         case 1:
-          this.state.sensors.propTank = values[0];
+          this.state.sensors.propTank = data.values[0];
           break;
         case 2:
-          this.state.sensors.loxInjector = values[0];
+          this.state.sensors.loxInjector = data.values[0];
           break;
         case 3:
-          this.state.sensors.propInjector = values[0];
+          this.state.sensors.propInjector = data.values[0];
+          break;
+        case 4:
+          this.state.sensors.highPressure = data.values[0];
+          break;
+        case 5:
+          this.state.sensors.battery = data.values[0];
+          this.state.sensors.wattage = data.values[1];
           break;
       }
     });
@@ -196,15 +206,16 @@ class Comms {
   }
 
   linearInterpolate = (rawValue, map) => {
+    var index = 0;
     if(map[map.length-1][0] < rawValue) {
-      return map[map.length-1][1];
-    }
-    if(map[0][0] > rawValue) {
+      index = map.length-2;
+    } else if(map[0][0] > rawValue) {
       return map[0][1];
+    } else {
+      index = map.findIndex((v, i) => {
+        return v[0] <= rawValue && map[i+1][0] >= rawValue;
+      });
     }
-    const index = map.findIndex((v, i) => {
-      return v[0] <= rawValue && map[i+1][0] >= rawValue;
-    });
     return map[index][1] + (map[index+1][1] - map[index][1]) * ((rawValue - map[index][0]) / (map[index+1][0] - map[index][0]));
   }
 
