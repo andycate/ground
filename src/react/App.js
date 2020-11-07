@@ -31,35 +31,45 @@ class App extends Component {
                 index: 0,
                 color: '#7D3C98'
               }]
-            } max={600} window={15} interval={80} label='Pressures'/>
+            } max={600} window={60} interval={80} label='Pressures'/>
             <Graph sensors={
               [{
-                label: 'LOX T',
+                label: 'PROP T',
                 idx: 1,
                 index: 0,
-                color: '#7D3C98'
+                color: 'Tomato'
               }]
-            } max={600} window={15} interval={80} label='Pressures'/>
+            } max={600} window={60} interval={80} label='Pressures'/>
             </Col>
             <Col>
             <Graph sensors={
               [{
-                label: 'LOX T',
+                label: 'LOX I',
                 idx: 2,
                 index: 0,
-                color: '#7D3C98'
+                color: 'Blue'
               }]
-            } max={600} window={15} interval={80} label='Pressures'/>
+            } max={600} window={60} interval={80} label='Pressures'/>
             <Graph sensors={
               [{
-                label: 'LOX T',
+                label: 'PROP I',
                 idx: 3,
+                index: 0,
+                color: 'Green'
+              }]
+            } max={600} window={60} interval={80} label='Pressures'/>
+          </Col>
+        </Row>
+        <Row className='m-0 pt-2 pr-2'>
+          <Col className='p-0 pl-2'>
+            <Graph sensors={
+              [{
+                label: 'HIGH T',
+                idx: 4,
                 index: 0,
                 color: '#7D3C98'
               }]
-            } max={600} window={15} interval={80} label='Pressures'/>
-          </Col>
-          <Col>
+            } max={1200} window={60} interval={80} label='Pressures'/>
           </Col>
         </Row>
       </div>

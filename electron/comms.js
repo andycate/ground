@@ -3,6 +3,10 @@ const { EventEmitter } = require('events');
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 const moment = require('moment');
+const path = require('path');
+const express = require('express');
+const serveStatic = require('serve-static');
+const app = express();
 
 const { config, getPacketConfig } = require('./config');
 
@@ -15,6 +19,12 @@ class Comms {
       connected: true,
       connTimeout: null,
       bandwidth: 0, // bits per second
+      sensors: { // For web server
+        loxTank: 0,
+        propTank: 0,
+        loxInjector: 0,
+        propInjector: 0
+      }
     };
     // TODO: add code to transmit ping and wait for pong
     this.connEvents = new EventEmitter();
@@ -22,6 +32,31 @@ class Comms {
   }
 
   init = () => {
+    app.use(serveStatic(path.join(__dirname, 'viewer'), { 'index': ['index.html'] }));
+    app.get('/sensors', (req, res) => {
+      res.send(this.state.sensors);
+    });
+    this.sensorEvents.on('data', data => {
+      switch(data.idx) {
+        case 0:
+          this.state.sensors.loxTank = values[0];
+          break;
+        case 1:
+          this.state.sensors.propTank = values[0];
+          break;
+        case 2:
+          this.state.sensors.loxInjector = values[0];
+          break;
+        case 3:
+          this.state.sensors.propInjector = values[0];
+          break;
+      }
+    });
+    app.listen(3001, '0.0.0.0');
+
+
+
+
     this.packetConfig = getPacketConfig();
     console.log(this.packetConfig);
 
