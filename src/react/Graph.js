@@ -11,7 +11,8 @@ class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      latestValues: {}
+      latestValues: {},
+      shouldScale: false
     };
     this.canvas = React.createRef();
     this.buffer = [];
@@ -65,8 +66,8 @@ class Graph extends Component {
           }],
           yAxes: [{
             ticks: {
-              suggestedMin: 0,
-              suggestedMax: this.props.max
+              suggestedMin: (this.state.shouldScale?0:undefined),
+              suggestedMax: (this.state.shouldScale?this.props.max:undefined)
             },
           }]
         },
