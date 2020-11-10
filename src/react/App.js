@@ -1,98 +1,149 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import 'fontsource-roboto';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Row, Col } from 'react-bootstrap';
+
+import { createMuiTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 import { updateConnState,
          startConnListen,
          startSensorListen } from './actions/connActions';
 
-import PortModal from './PortModal';
+import Navbar from './Navbar';
 import Graph from './Graph';
-import Bandwidth from './Bandwidth';
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    height: '100vh',
+  },
+  container: {
+    flexGrow: 1,
+    height: '100%'
+  },
+  row: {
+    height: '100%'
+  },
+  item: {
+    height: '50%'
+  }
+});
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isDark: false
+    };
+  }
   componentDidMount() {
     this.props.updateConnState();
     this.props.startConnListen();
     this.props.startSensorListen();
   }
   render() {
+    const { classes } = this.props;
+    const theme = createMuiTheme({
+      palette: {
+        type: this.state.isDark ? 'dark' : 'light'
+      }
+    });
     return (
-      <div className='App'>
-        <PortModal/>
-        <Row className='m-0 pt-2 pr-2'>
-          <Col className='p-0 pl-2'>
-            <Graph sensors={
-              [{
-                label: 'LOX T',
-                idx: 0,
-                index: 0,
-                color: '#7D3C98'
-              },{
-                label: 'PROP T',
-                idx: 1,
-                index: 0,
-                color: 'Tomato'
-              }]
-            } max={600} window={90} interval={80} label='Pressures'/>
-            </Col>
-            <Col>
-            <Graph sensors={
-              [{
-                label: 'LOX I',
-                idx: 2,
-                index: 0,
-                color: 'Blue'
-              },{
-                label: 'PROP I',
-                idx: 3,
-                index: 0,
-                color: 'Green'
-              }]
-            } max={600} window={90} interval={80} label='Pressures'/>
-          </Col>
-        </Row>
-        <Row className='m-0 pt-2 pr-2'>
-          <Col className='p-0 pl-2'>
-            <Graph sensors={
-              [{
-                label: 'HIGH T',
-                idx: 4,
-                index: 0,
-                color: '#7D3C98'
-              }]
-            } max={0} window={90} interval={80} label='Pressures'/>
-          </Col>
-          <Col className='p-0 pl-2'>
-            <Graph sensors={
-              [{
-                label: 'Battery',
-                idx: 5,
-                index: 0,
-                color: 'Blue'
-              },
-              {
-                label: 'Current',
-                idx: 5,
-                index: 1,
-                color: 'Tomato'
-              }]
-            } max={24} window={90} interval={150} label='Power'/>
-          </Col>
-        </Row>
-      </div>
+      <ThemeProvider theme={theme}>
+        <CssBaseline/>
+        <Grid container className={classes.root} justify='space-around'>
+          <Grid item xs={12}>
+            {/* <AppBar position='static' color='default'>
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  onClick={e => this.setState({isDark: !this.state.isDark})}
+                >
+                  <Brightness4Icon />
+                </IconButton>
+              </Toolbar>
+            </AppBar> */}
+            <Navbar onThemeChange={isDark => this.setState({isDark})} isDark={this.state.isDark} />
+          </Grid>
+          <Grid item xs={12}>
+            <Container maxWidth='xl' className={classes.container}>
+              <Grid container spacing={3} className={classes.row}>
+                <Grid item xs={6} className={classes.item}>
+                  <Graph sensors={
+                    [{
+                      label: 'LOX TANK',
+                      idx: 0,
+                      index: 0,
+                      color: '#7b1fa2'
+                    },{
+                      label: 'PROP TANK',
+                      idx: 1,
+                      index: 0,
+                      color: '#d32f2f'
+                    }]
+                  } max={600} window={90} interval={80} label='Pressures'/>
+                </Grid>
+                <Grid item xs={6} className={classes.item}>
+                  <Graph sensors={
+                    [{
+                      label: 'LOX INJECTOR',
+                      idx: 2,
+                      index: 0,
+                      color: '#388e3c'
+                    },{
+                      label: 'PROP INJECTOR',
+                      idx: 3,
+                      index: 0,
+                      color: '#1976d2'
+                    }]
+                  } max={600} window={90} interval={80} label='Pressures'/>
+                </Grid>
+                <Grid item xs={6} className={classes.item}>
+                  <Graph sensors={
+                    [{
+                      label: 'PRESSURANT',
+                      idx: 4,
+                      index: 0,
+                      color: '#f57c00'
+                    }]
+                  } max={0} window={90} interval={80} label='Pressures'/>
+                </Grid>
+                <Grid item xs={6} className={classes.item}>
+                  <Graph sensors={
+                    [{
+                      label: 'BATTERY',
+                      idx: 5,
+                      index: 0,
+                      color: '#00796b'
+                    },
+                    {
+                      label: 'POWER',
+                      idx: 5,
+                      index: 1,
+                      color: '#fbc02d'
+                    }]
+                  } max={24} window={90} interval={150} label='Power'/>
+                </Grid>
+              </Grid>
+            </Container>
+          </Grid>
+        </Grid>
+      </ThemeProvider>
     );
   }
 }
 
-PortModal.propTypes = {};
+App.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 const mapStateToProps = state => ({});
 export default connect(
   mapStateToProps,
   { updateConnState,
     startConnListen,
     startSensorListen }
-)(App);
+)(withStyles(styles)(App));

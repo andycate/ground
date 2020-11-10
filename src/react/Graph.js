@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
-import { Card, Row, Col } from 'react-bootstrap';
-import Chart from 'chart.js';
-import moment from 'moment';
 
-import { addSensorListener, removeSensorListener } from './actions/connActions'
+import { withStyles, withTheme } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
+import Chart from 'chart.js';
+
+import { addSensorListener,
+         removeSensorListener } from './actions/connActions';
+
+const styles = theme => ({
+  root: {
+    height: '100%'
+  },
+  cardContent: {
+    height: '100%'
+  }
+});
 
 class Graph extends Component {
   constructor(props) {
@@ -47,6 +58,8 @@ class Graph extends Component {
         }))
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         animation: {
           duration: 0
         },
@@ -69,7 +82,19 @@ class Graph extends Component {
               suggestedMin: (this.state.shouldScale?0:undefined),
               suggestedMax: (this.state.shouldScale?this.props.max:undefined)
             },
-          }]
+            gridLines: {
+              color: this.props.theme.palette.action.selected,
+              zeroLineColor: this.props.theme.palette.action.disabledBackground
+            },
+            ticks: {
+              fontColor: this.props.theme.palette.text.secondary
+            }
+          }],
+        },
+        legend: {
+          labels: {
+            fontColor: this.props.theme.palette.text.primary
+          }
         },
         tooltips: {
           mode: 'index',
@@ -97,26 +122,27 @@ class Graph extends Component {
       this.chart.update();
     }, this.props.interval);
   }
+  componentDidUpdate(prevProps, prevState) {
+    console.log('update');
+    if(prevProps.theme !== this.props.theme) {
+      console.log('yeet')
+      // update graph colors
+      this.chart.options.legend.labels.fontColor = this.props.theme.palette.text.primary;
+      this.chart.options.scales.yAxes[0].ticks.fontColor = this.props.theme.palette.text.secondary;
+      this.chart.options.scales.yAxes[0].gridLines.color = this.props.theme.palette.action.selected;
+      this.chart.options.scales.yAxes[0].gridLines.zeroLineColor = this.props.theme.palette.action.disabledBackground;
+    }
+  }
   render() {
+    const { classes } = this.props;
     return (
-      <Card>
-        <Card.Body>
-          <p className='lead text-center p-0 m-0'>{this.props.label}</p>
+      <Card className={classes.root}>
+        <CardContent className={classes.cardContent}>
           <canvas ref={this.canvas}/>
-          {/* <p className='p-0'>Current value: {this.state.latestValue} PSI</p> */}
-          <Row className='m-0 text-center'>
-          {
-            this.props.sensors.map((v, i) => (
-              <Col className='p-0'>
-                <p className='lead m-0'>{v.label}: {(this.state[i] || 0).toString().substr(0, 5)}</p>
-              </Col>
-            ))
-          }
-        </Row>
-        </Card.Body>
+        </CardContent>
       </Card>
     );
   }
 }
 
-export default Graph;
+export default withTheme(withStyles(styles)(Graph));
