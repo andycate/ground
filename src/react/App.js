@@ -9,7 +9,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import { updateConnState,
+import { getAvailablePorts,
+         updateConnState,
          startConnListen,
          startSensorListen } from './actions/connActions';
 
@@ -57,17 +58,11 @@ class App extends Component {
         <CssBaseline/>
         <Grid container className={classes.root} justify='space-around'>
           <Grid item xs={12}>
-            {/* <AppBar position='static' color='default'>
-              <Toolbar>
-                <IconButton
-                  color="inherit"
-                  onClick={e => this.setState({isDark: !this.state.isDark})}
-                >
-                  <Brightness4Icon />
-                </IconButton>
-              </Toolbar>
-            </AppBar> */}
-            <Navbar onThemeChange={isDark => this.setState({isDark})} isDark={this.state.isDark} />
+            <Navbar
+              onThemeChange={isDark => this.setState({isDark})}
+              isDark={this.state.isDark} 
+              getPorts={getAvailablePorts}
+            />
           </Grid>
           <Grid item xs={12}>
             <Container maxWidth='xl' className={classes.container}>
