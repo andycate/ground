@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import './index.css';
 import comms from './react/comms';
 import App from './react/App';
-import store from './react/store';
 import * as serviceWorker from './serviceWorker';
 
 const { ipcRenderer } = window;
@@ -12,9 +10,7 @@ comms.init(ipcRenderer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

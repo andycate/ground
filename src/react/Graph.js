@@ -6,9 +6,6 @@ import CardContent from '@material-ui/core/CardContent';
 
 import Chart from 'chart.js';
 
-import { addSensorListener,
-         removeSensorListener } from './actions/connActions';
-
 const styles = theme => ({
   root: {
     height: '100%'
@@ -80,15 +77,13 @@ class Graph extends Component {
           yAxes: [{
             ticks: {
               suggestedMin: (this.state.shouldScale?0:undefined),
-              suggestedMax: (this.state.shouldScale?this.props.max:undefined)
+              suggestedMax: (this.state.shouldScale?this.props.max:undefined),
+              fontColor: this.props.theme.palette.text.secondary
             },
             gridLines: {
               color: this.props.theme.palette.action.selected,
               zeroLineColor: this.props.theme.palette.action.disabledBackground
             },
-            ticks: {
-              fontColor: this.props.theme.palette.text.secondary
-            }
           }],
         },
         legend: {
@@ -109,7 +104,7 @@ class Graph extends Component {
     });
     this.props.sensors.forEach((v, i) => {
       this.buffer.push([]);
-      addSensorListener(v.idx, this.makeListener(v, i));
+      this.props.addSensorListener(v.idx, this.makeListener(v, i));
     });
     window.setInterval(() => {
       this.props.sensors.forEach((v, i) => {
@@ -123,9 +118,7 @@ class Graph extends Component {
     }, this.props.interval);
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log('update');
     if(prevProps.theme !== this.props.theme) {
-      console.log('yeet')
       // update graph colors
       this.chart.options.legend.labels.fontColor = this.props.theme.palette.text.primary;
       this.chart.options.scales.yAxes[0].ticks.fontColor = this.props.theme.palette.text.secondary;

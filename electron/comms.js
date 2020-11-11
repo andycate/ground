@@ -16,7 +16,7 @@ class Comms {
       port: null,
       portSelected: null,
       open: false,
-      connected: true,
+      connected: false,
       connTimeout: null,
       bandwidth: 0, // bits per second
       sensors: { // For web server
@@ -70,17 +70,16 @@ class Comms {
     this.packetConfig = getPacketConfig();
     console.log(this.packetConfig);
 
-    this.connEvents.on('ping', () => {
-      if(!this.state.connected) {
-        this.connEvents.emit('connect');
-      }
-      clearTimeout(this.state.connTimeout);
-      this.state.connTimeout = setTimeout(() => {
+    this.receivedPacket = true;
+    this.connectionInterval = setInterval(() => {
+      if(!this.receivedPacket) {
+        if(this.state.connected) {
+          this.connEvents.emit('disconnect');
+        }
         this.state.connected = false;
-        this.connEvents.emit('disconnect');
-      }, 2000);
-      this.state.connected = true;
-    });
+      }
+      this.receivedPacket = false;
+    }, 1000);
 
     ipcMain.handle('get-config', (event) => {
       return config;
@@ -151,14 +150,12 @@ class Comms {
 
   parsePacket = rawData => {
     const data = rawData.replace(/(\r\n|\n|\r)/gm, '');
-    if(data === 'ping') {
-      this.connEvents.emit('ping');
-      return null;
-    }
-    if(!this.state.connected) {
-      return null;
-    }
     if(data.substring(0, 1) === '{') { // data packet
+      if(!this.state.connected) {
+        this.connEvents.emit('connect');
+        this.state.connected = true;
+      }
+      this.receivedPacket = true;
       const [ rawValues, checksum ] = data.replace(/({|})/gm, '').split('|');
       const [ id, ...values ] = rawValues.split(',').map(v => parseFloat(v));
       const calculatedChecksum = this.fletcher16(Buffer.from(rawValues, 'binary'));
