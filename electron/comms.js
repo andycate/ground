@@ -36,7 +36,7 @@ class Comms {
 
   init = () => {
     app.use(serveStatic(path.join(__dirname, 'viewer'), { 'index': ['index.html'] }));
-    app.get('/sensors', (req, res) => {
+    app.get('/data', (req, res) => {
       res.send(this.state.sensors);
     });
     this.sensorEvents.on('data', data => {
@@ -62,7 +62,7 @@ class Comms {
           break;
       }
     });
-    app.listen(3001, '0.0.0.0');
+    app.listen(5000, '0.0.0.0');
 
 
 
