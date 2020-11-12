@@ -8,6 +8,7 @@ import { createMuiTheme, withStyles, ThemeProvider } from '@material-ui/core/sty
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 
 import comms from './comms';
 
@@ -21,13 +22,20 @@ const styles = theme => ({
   },
   container: {
     flexGrow: 1,
-    height: '100%'
+    // height: '100%'
+    position: 'absolute',
+    top: theme.spacing(8),
+    bottom: '0px',
+    paddingTop: theme.spacing(3)
   },
   row: {
     height: '100%'
   },
   item: {
     height: '50%'
+  },
+  navbarGrid: {
+    // height: theme.spacing(2)
   }
 });
 
@@ -104,113 +112,116 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline/>
-        <Grid container className={classes.root} justify='space-around'>
-          <Grid item xs={12}>
-            <Navbar
-              onThemeChange={isDark => this.setState({ isDark })}
-              isDark={this.state.isDark}
-              connect={this.connect}
-              port={this.state.port}
-              ports={this.state.ports}
-              selectPort={port => this.setState({ port })}
-              baud={this.state.baud}
-              setBaud={baud => this.setState({ baud })}
-              connected={this.state.connected}
-              portOpened={this.state.portOpened}
-              addBandwidthListener={this.addBandwidthListener}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Container maxWidth='xl' className={classes.container}>
-              <Grid container spacing={3} className={classes.row}>
-                <Grid item xs={6} className={classes.item}>
-                  <Graph
-                    sensors={
-                      [{
-                        label: 'LOX TANK',
-                        idx: 0,
-                        index: 0,
-                        color: '#7b1fa2'
-                      },{
-                        label: 'PROP TANK',
-                        idx: 1,
-                        index: 0,
-                        color: '#d32f2f'
-                      }]
-                    }
-                    max={600}
-                    window={90}
-                    interval={80}
-                    label='Pressures'
-                    addSensorListener={this.addSensorListener}
-                  />
-                </Grid>
-                <Grid item xs={6} className={classes.item}>
-                  <Graph
-                    sensors={
-                      [{
-                        label: 'LOX INJECTOR',
-                        idx: 2,
-                        index: 0,
-                        color: '#388e3c'
-                      },{
-                        label: 'PROP INJECTOR',
-                        idx: 3,
-                        index: 0,
-                        color: '#1976d2'
-                      }]
-                    }
-                    max={600}
-                    window={90}
-                    interval={80}
-                    label='Pressures'
-                    addSensorListener={this.addSensorListener}
-                  />
-                </Grid>
-                <Grid item xs={6} className={classes.item}>
-                  <Graph
-                    sensors={
-                      [{
-                        label: 'PRESSURANT',
-                        idx: 4,
-                        index: 0,
-                        color: '#f57c00'
-                      }]
-                    }
-                    max={0}
-                    window={90}
-                    interval={80}
-                    label='Pressures'
-                    addSensorListener={this.addSensorListener}
-                  />
-                </Grid>
-                <Grid item xs={6} className={classes.item}>
-                  <Graph
-                    sensors={
-                      [{
-                        label: 'BATTERY',
-                        idx: 5,
-                        index: 0,
-                        color: '#00796b'
-                      },
-                      {
-                        label: 'POWER',
-                        idx: 5,
-                        index: 1,
-                        color: '#fbc02d'
-                      }]
-                    }
-                    max={24}
-                    window={90}
-                    interval={150}
-                    label='Power'
-                    addSensorListener={this.addSensorListener}
-                  />
-                </Grid>
+        <Box>
+          <Navbar
+            onThemeChange={isDark => this.setState({ isDark })}
+            isDark={this.state.isDark}
+            connect={this.connect}
+            port={this.state.port}
+            ports={this.state.ports}
+            selectPort={port => this.setState({ port })}
+            baud={this.state.baud}
+            setBaud={baud => this.setState({ baud })}
+            connected={this.state.connected}
+            portOpened={this.state.portOpened}
+            addBandwidthListener={this.addBandwidthListener}
+          />
+          <Container maxWidth='xl' className={classes.container}>
+            <Grid container spacing={3} className={classes.row}>
+              <Grid item xs={6} className={classes.item}>
+                <Graph
+                  sensors={
+                    [{
+                      label: 'LOX TANK',
+                      unit: 'PSI',
+                      idx: 0,
+                      index: 0,
+                      color: '#7b1fa2'
+                    },{
+                      label: 'PROP TANK',
+                      unit: 'PSI',
+                      idx: 1,
+                      index: 0,
+                      color: '#d32f2f'
+                    }]
+                  }
+                  max={600}
+                  defaultWindow={90}
+                  interval={80}
+                  title='Tank Pressures'
+                  addSensorListener={this.addSensorListener}
+                />
               </Grid>
-            </Container>
-          </Grid>
-        </Grid>
+              <Grid item xs={6} className={classes.item}>
+                <Graph
+                  sensors={
+                    [{
+                      label: 'LOX INJECTOR',
+                      unit: 'PSI',
+                      idx: 2,
+                      index: 0,
+                      color: '#388e3c'
+                    },{
+                      label: 'PROP INJECTOR',
+                      unit: 'PSI',
+                      idx: 3,
+                      index: 0,
+                      color: '#1976d2'
+                    }]
+                  }
+                  max={600}
+                  defaultWindow={90}
+                  interval={80}
+                  title='Injector Pressures'
+                  addSensorListener={this.addSensorListener}
+                />
+              </Grid>
+              <Grid item xs={6} className={classes.item}>
+                <Graph
+                  sensors={
+                    [{
+                      label: 'PRESSURANT',
+                      unit: 'PSI',
+                      idx: 4,
+                      index: 0,
+                      color: '#f57c00'
+                    }]
+                  }
+                  max={4800}
+                  defaultWindow={90}
+                  interval={80}
+                  title='High Pressure'
+                  addSensorListener={this.addSensorListener}
+                />
+              </Grid>
+              <Grid item xs={6} className={classes.item}>
+                <Graph
+                  sensors={
+                    [{
+                      label: 'BATTERY',
+                      unit: 'Volts',
+                      idx: 5,
+                      index: 0,
+                      color: '#00796b'
+                    },
+                    {
+                      label: 'POWER',
+                      unit: 'Watts',
+                      idx: 5,
+                      index: 1,
+                      color: '#fbc02d'
+                    }]
+                  }
+                  max={24}
+                  defaultWindow={90}
+                  interval={150}
+                  title='Power'
+                  addSensorListener={this.addSensorListener}
+                />
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
       </ThemeProvider>
     );
   }

@@ -187,7 +187,7 @@ class Comms {
         idx,
         timestamp,
         values: sensor.values.map(v => {
-          if(!packet.values[v.packetPosition]) return; // sonetimes packets have sensors with different read frequencies
+          if(!packet.values[v.packetPosition]) return NaN; // sonetimes packets have sensors with different read frequencies
           switch(v.interpolation.type) {
             case "none":
               return packet.values[v.packetPosition];

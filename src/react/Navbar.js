@@ -44,7 +44,8 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bandwidth: 0
+      bandwidth: 0,
+      time: 0
     };
   }
   componentDidMount() {
@@ -61,7 +62,7 @@ class Navbar extends Component {
         <Toolbar>
           <div className={classes.grow}></div>
           <Button className={classes.paper}>
-            TX {Math.round(this.state.bandwidth * 100 / this.props.baud)}%
+            RX {Math.round(this.state.bandwidth * 100 / this.props.baud)}%
           </Button>
           <Button
             color='primary'
