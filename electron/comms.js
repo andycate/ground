@@ -34,7 +34,8 @@ class Comms {
         loxFiveWay: false,
         propFiveWay: false,
         loxGems: false,
-        propGems: false
+        propGems: false,
+        HPS: false
       }
     };
     // TODO: add code to transmit ping and wait for pong
@@ -72,7 +73,6 @@ class Comms {
       }
     });
     this.valveEvents.on('update', data => {
-      console.log(data);
       this.state.valves = data;
     });
     app.listen(5000, '0.0.0.0');
@@ -203,7 +203,8 @@ class Comms {
         loxFiveWay: packet.values[2] === 1,
         propFiveWay: packet.values[3] === 1,
         loxGems: packet.values[4] === 1,
-        propGems: packet.values[5] === 1
+        propGems: packet.values[5] === 1,
+        HPS: packet.values[6] === 1
       };
       this.valveEvents.emit('update', valves);
       return;
