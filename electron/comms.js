@@ -27,17 +27,26 @@ class Comms {
         highPressure: 0,
         battery: 0,
         wattage: 0
+      },
+      valves: {
+        loxTwoWay: false,
+        propTwoWay: false,
+        loxFiveWay: false,
+        propFiveWay: false,
+        loxGems: false,
+        propGems: false
       }
     };
     // TODO: add code to transmit ping and wait for pong
     this.connEvents = new EventEmitter();
     this.sensorEvents = new EventEmitter();
+    this.valveEvents = new EventEmitter();
   }
 
   init = () => {
     app.use(serveStatic(path.join(__dirname, 'viewer'), { 'index': ['index.html'] }));
     app.get('/data', (req, res) => {
-      res.send(this.state.sensors);
+      res.send({sensors: this.state.sensors, valves: this.state.valves});
     });
     this.sensorEvents.on('data', data => {
       switch(data.idx) {
@@ -61,6 +70,10 @@ class Comms {
           this.state.sensors.wattage = data.values[1];
           break;
       }
+    });
+    this.valveEvents.on('update', data => {
+      console.log(data);
+      this.state.valves = data;
     });
     app.listen(5000, '0.0.0.0');
 
@@ -140,6 +153,10 @@ class Comms {
       this.webCon.send('sensor-data', data);
     });
 
+    this.valveEvents.on('update', data => {
+      this.webCon.send('valve-update', data);
+    });
+
     this.bandwidthCounter = 0;
     this.bandwidthInterval = setInterval(() => {
       this.state.bandwidth = this.bandwidthCounter;
@@ -178,6 +195,20 @@ class Comms {
     if(!packet) { // packet is not data or is invalid
       return;
     }
+
+    if(packet.id >= 20 && packet.id <= 28) {
+      const valves = {
+        loxTwoWay: packet.values[0] === 1,
+        propTwoWay: packet.values[1] === 1,
+        loxFiveWay: packet.values[2] === 1,
+        propFiveWay: packet.values[3] === 1,
+        loxGems: packet.values[4] === 1,
+        propGems: packet.values[5] === 1
+      };
+      this.valveEvents.emit('update', valves);
+      return;
+    }
+
     if(!this.packetConfig[packet.id]) { // if no config exists for this packet, we don't know about it
       return;
     }
