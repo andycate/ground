@@ -85,7 +85,7 @@ class Navbar extends Component {
             <IconButton
               className={classes.themeButton}
               color="inherit"
-              onClick={e => this.handleRecording}
+              onClick={e => (this.props.recording?this.props.stopRecording():this.props.startRecording(this.state.name))}
             >
               {this.state.recordingFilled?<GpsFixedIcon />:<GpsNotFixedIcon/>}
             </IconButton>

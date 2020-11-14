@@ -9,7 +9,7 @@ const serveStatic = require('serve-static');
 const app = express();
 
 const { config, getPacketConfig } = require('./config');
-const { handleSensorData, startRecording, stopRecording } = require('./storage');
+const { handleSensorData, handleValveEvent, startRecording, stopRecording } = require('./storage');
 
 class Comms {
   constructor() {
@@ -74,6 +74,12 @@ class Comms {
       }
     });
     this.valveEvents.on('update', data => {
+      // find differences
+      Object.keys(data).forEach(k => {
+        if(data[k] !== this.state.valves[k]) {
+          handleValveEvent(k, data[k]);
+        }
+      });
       this.state.valves = data;
     });
     app.listen(5000, '0.0.0.0');

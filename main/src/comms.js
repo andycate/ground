@@ -38,6 +38,16 @@ class Comms {
     return await this.ipc.invoke('get-port');
   }
 
+
+  startRecording = async (name) => {
+    return await this.ipc.invoke('start-recording', name);
+  }
+
+  stopRecording = async () => {
+    return await this.ipc.invoke('stop-recording');
+  }
+
+
   /**
    * @param {function} handle function to call when connection status changes
    */

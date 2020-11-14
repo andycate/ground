@@ -120,6 +120,14 @@ class App extends Component {
             portOpened={this.state.portOpened}
             addBandwidthListener={this.addBandwidthListener}
             recording={this.state.recording}
+            startRecording={async (name) => {
+              await comms.startRecording(name);
+              this.setState({recording: true});
+            }}
+            stopRecording={async () => {
+              await comms.stopRecording();
+              this.setState({recording: false});
+            }}
           />
           <Container maxWidth='xl' className={classes.container}>
             <Grid container spacing={3} className={classes.row}>

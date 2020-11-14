@@ -99,11 +99,15 @@ module.exports.handleSensorData = async data => {
 }
 
 // state of valves
-module.exports.handleValveEvent = async state => {
-  // record, etc
+module.exports.handleValveEvent = async (name, state) => {
+  const evt = await Event.create({
+    timestamp: moment(),
+    type: name,
+    value: (state?'open':'close')
+  });
 }
 
-module.exports.startRecording = name => {
+module.exports.startRecording = async name => {
   console.log('start recording')
   const dayDir = path.join(dataDir, moment().format('YYYY-MM-DD'));
   if(!fs.existsSync(dayDir)) {
@@ -112,15 +116,24 @@ module.exports.startRecording = name => {
   const fileName = path.join(dayDir, `${name}_${moment().format('YYYY-MM-DD_HH-mm-ss')}.csv`);
   recordingStream = fs.createWriteStream(fileName);
   recordingStart = moment();
+  const evt = await Event.create({
+    timestamp: recordingStart,
+    type: 'recording-start',
+    value: name
+  });
 }
 
 module.exports.stopRecording = () => {
   console.log('stop recording')
   if(recordingStream) {
     return new Promise((res) => {
-      recordingStream.end(() => {
+      recordingStream.end(async () => {
         recordingStream = null;
         recordingStart = null;
+        await Event.create({
+          timestamp: moment(),
+          type: 'recording-stop'
+        });
         res();
       });
     });
