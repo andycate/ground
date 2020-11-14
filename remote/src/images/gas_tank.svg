@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:lucid="lucid" width="117.8" height="217.11"><g lucid:page-tab-id="0_0" stroke="#000" stroke-width="2" fill="#fff"><path d="M20 42.14v132.83c0 12.23 17.42 22.14 38.9 22.14 21.5 0 38.9-9.9 38.9-22.13V42.14C97.8 29.9 80.4 20 58.9 20 37.42 20 20 29.9 20 42.14zM20 42.14h77.8M20 174.97h77.8"/></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.2.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns:lucid="lucid"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 117.8 145"
+	 style="enable-background:new 0 0 117.8 145;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;stroke:#000000;stroke-width:2;}
+</style>
+<g lucid:page-tab-id="0_0">
+	<path class="st0" d="M20,21v103.5c0,9.5,17.4,17.3,38.9,17.3c21.5,0,38.9-7.7,38.9-17.2V21c0-9.5-17.4-17.3-38.9-17.3
+		C37.4,3.7,20,11.4,20,21z M20,21h77.8 M20,124.5h77.8"/>
+</g>
+</svg>

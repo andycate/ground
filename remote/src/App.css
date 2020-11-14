@@ -1,11 +1,28 @@
 .App {
   /* text-align: center; */
+  height: 100vh;
 }
 
 div.Diagram {
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
-  width: 20%;
-  height: 80%;
+  width: 4.5rem;
+  height: 100%;
+}
+
+div.Diagram.img {
+  margin-top: -1rem;
+}
+
+div.gn-tank {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  color: black;
+  margin-bottom: -1.2rem;
+  margin-top: -0.5rem;
 }
 
 div.tank {
@@ -14,6 +31,8 @@ div.tank {
   left: 0px;
   text-align: center;
   color: black;
+  margin-bottom: -1.2rem;
+  margin-top: -1.2rem;
 }
 
 div.pt {

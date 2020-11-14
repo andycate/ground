@@ -33,116 +33,70 @@ class App extends Component {
         propTwoWay: false,
         loxFiveWay: false,
         propFiveWay: false,
-        loxGems: gems_closed,
-        propGems: gems_closed,
-        HPS: high_pressure_closed
+        loxGems: false,
+        propGems: false,
+        HPS: false
       },
-      date: new Date(),
-      test: 0
+      connected: false,
+      stale: false
     };
-
-    this.ims = {
-      closed: {
-        HPS: high_pressure_closed,
-        loxGems: gems_closed,
-        propGems: gems_closed,
-        loxTwoWay: two_way_closed,
-        propTwoWay: gems_closed,
-        loxFiveWay: lox_five_way_closed,
-        propFiveWay: prop_five_way_closed,
-      },
-      open: {
-        HPS: high_pressure_open,
-        loxGems: gems_open,
-        propGems: gems_open,
-        loxTwoWay: two_way_open,
-        propTwoWay: gems_open,
-        loxFiveWay: lox_five_way_open,
-        propFiveWay: prop_five_way_open,
-      }
-    }
+    this.timeSinceLastUpdate = 0;
+    this.lastResponse = '';
   }
 
   componentDidMount() {
     window.setInterval(async () => {
-      console.log('ere')
-      const res = await axios.get('/data');
-      // Set valve image according to state
-      var valves = res.data.valves;
-      for (var key of Object.keys(valves)) {
-        if (Boolean(valves[key])) {
-          valves[key] = this.ims['open'][key];
+      try {
+        const res = await axios.get('/data', { transformResponse: (r) => r });
+        if(res.data === this.lastResponse) {
+          this.timeSinceLastUpdate += 300;
         } else {
-          valves[key] = this.ims['closed'][key];
+          this.timeSinceLastUpdate = 0;
         }
+        this.lastResponse = res.data;
+        const stale = (this.timeSinceLastUpdate > 1000);
+        const data = JSON.parse(res.data);
+        Object.keys(data.sensors).forEach(k => {
+          data.sensors[k] = Math.round(data.sensors[k]);
+        });
+        this.setState({...data, connected: true, stale});
+      } catch(err) {
+        this.setState({connected: false});
       }
-      this.setState({valves: valves});
-      // Round sensor readings for display
-      var sensors = res.data.sensors;
-      for (var key of Object.keys(sensors)) {
-        sensors[key] = Math.round(sensors[key]);
-      }
-      this.setState({sensors: sensors});
-    }, 1000);
-
-    this.timer = setInterval(
-      () => this.tick(),
-      1000
-    );
-
+    }, 300);
   }
-
-  tick() {
-    this.setState({
-      date: new Date()
-    });
-    console.log("testing")
-  }
-
-
-
 
   render() {
-    // {this.state.date.toLocaleTimeString()}{JSON.stringify(this.state)}
-
-    let gems_styles = {
-      width: '50px',
-      height: '50px',
-      overflow: 'hidden',
-    };
-    let gems_style = {
-      width: '50%'
-    };
+    const { sensors, valves, connected, stale } = this.state;
     return (
       <div className="App">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-        <div className="test">
+        <div style={{position: 'absolute', width: '6rem', height: '2rem', backgroundColor: connected?(stale?'orange':'green'):'red', margin: '1rem'}}>
         </div>
-
-        <div class="Diagram">
-          <img src={this.state.valves.HPS}/>
-          <div class="tank" >
+        <div className="Diagram">
+          <img src={valves.HPS?high_pressure_open:high_pressure_closed}/>
+          <div className="gn-tank">
             <img src={gas_tank} />
-            <div class="top-center-gn2">GN2</div>
-            <div class="centered-gn2">{this.state.sensors.highPressure}</div>
+            <div className="top-center-gn2">GN2</div>
+            <div className="centered-gn2">{sensors.highPressure}</div>
           </div>
-          <img src={this.state.valves.loxGems} />
-          <div class="tank" >
+          <img src={valves.loxGems?gems_open:gems_closed} />
+          <div className="tank" >
             <img src={fluid_tank} />
-            <div class="top-center">LOX</div>
-            <div class="centered">{this.state.sensors.loxTank}</div>
+            <div className="top-center">LOX</div>
+            <div className="centered">{sensors.loxTank}</div>
           </div>
-          <img src={this.state.valves.propGems} />
-          <div class="tank" >
+          <img src={valves.propGems?gems_open:gems_closed} />
+          <div className="tank" >
             <img src={fluid_tank} />
-            <div class="top-center">PROP</div>
-            <div class="centered">{this.state.sensors.propTank}</div>
+            <div className="top-center">PROP</div>
+            <div className="centered">{sensors.propTank}</div>
           </div>
-          <img src={this.state.valves.loxTwoWay} />
+          <img src={valves.loxTwoWay?two_way_open:two_way_closed} />
           <br />
-          <img src={this.state.valves.loxFiveWay} style={gems_style}/>
-          <img src={this.state.valves.propFiveWay} style={gems_style}/>
+          <div style={{marginLeft: '-1.5rem', marginRight: '-1.5rem', marginTop: '-1rem'}}>
+            <img src={valves.loxFiveWay?lox_five_way_open:lox_five_way_closed} style={{width: '50%'}}/>
+            <img src={valves.propFiveWay?prop_five_way_open:prop_five_way_closed} style={{width: '50%'}}/>
+          </div>
         </div>
       </div>
     );
