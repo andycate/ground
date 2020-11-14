@@ -6,6 +6,7 @@ const config = {
       values: [
         {
           packetPosition: 0,
+          storageName: "loxTank",
           label: "pressure",
           interpolation: {
             type: "linear", // linear, quadratic
@@ -23,8 +24,8 @@ const config = {
       packetId: 1,
       values: [
         {
-          packetId: 1,
           packetPosition: 1,
+          storageName: "propTank",
           label: "pressure",
           interpolation: {
             type: "linear", // linear, quadratic
@@ -43,6 +44,7 @@ const config = {
       values: [
         {
           packetPosition: 2,
+          storageName: "loxInjector",
           label: "pressure",
           interpolation: {
             type: "linear", // linear, quadratic
@@ -61,6 +63,7 @@ const config = {
       values: [
         {
           packetPosition: 3,
+          storageName: "propInjector",
           label: "pressure",
           interpolation: {
             type: "linear", // none, linear, quadratic
@@ -79,6 +82,7 @@ const config = {
       values: [
         {
           packetPosition: 4,
+          storageName: "highPressure",
           label: "pressure",
           interpolation: {
             type: "linear", // linear, quadratic
@@ -165,6 +169,7 @@ const config = {
       values: [
         {
           packetPosition: 0,
+          storageName: "batteryVoltage",
           label: "voltage",
           interpolation: {
             type: "none",
@@ -173,6 +178,7 @@ const config = {
         },
         {
           packetPosition: 1,
+          storageName: "wattage",
           label: "wattage",
           interpolation: {
             type: "none",
@@ -181,6 +187,7 @@ const config = {
         },
         {
           packetPosition: 2,
+          storageName: "batteryAmperage",
           label: "current",
           interpolation: {
             type: "none",
@@ -195,10 +202,20 @@ const config = {
       values: [
         {
           packetPosition: 0,
+          storageName: "fittingTreeTemperature",
           label: "temperature",
           interpolation: {
             type: "none", // none, linear, quadratic
             unit: "Celcius"
+          }
+        },
+        {
+          packetPosition: 1,
+          storageName: "fittingTreeHeater",
+          label: "heater",
+          interpolation: {
+            type: "none", // none, linear, quadratic
+            unit: "Volts"
           }
         }
       ]

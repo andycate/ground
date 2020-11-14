@@ -9,6 +9,7 @@ const serveStatic = require('serve-static');
 const app = express();
 
 const { config, getPacketConfig } = require('./config');
+const { handleSensorData, startRecording, stopRecording } = require('./storage');
 
 class Comms {
   constructor() {
@@ -134,6 +135,14 @@ class Comms {
       });
       return this.state.open;
     });
+
+    ipcMain.handle('start-recording', (event, name) => {
+      startRecording(name);
+    });
+
+    ipcMain.handle('stop-recording', async (event) => {
+      await stopRecording();
+    });
   }
 
   openWebCon = (webCon) => {
@@ -213,6 +222,7 @@ class Comms {
     if(!this.packetConfig[packet.id]) { // if no config exists for this packet, we don't know about it
       return;
     }
+    const storageValues = { timestamp };
     this.packetConfig[packet.id].forEach(idx => {
       const sensor = config.sensors[idx]; // get sensor that is associated with this packet
       const payload = {
@@ -220,18 +230,25 @@ class Comms {
         timestamp,
         values: sensor.values.map(v => {
           if(!packet.values[v.packetPosition]) return NaN; // sonetimes packets have sensors with different read frequencies
+          let res;
           switch(v.interpolation.type) {
             case "none":
-              return packet.values[v.packetPosition];
+              res = packet.values[v.packetPosition];
+              break;
             case "linear":
-              return this.linearInterpolate(packet.values[v.packetPosition], v.interpolation.values);
+              res = this.linearInterpolate(packet.values[v.packetPosition], v.interpolation.values);
+              break;
             default:
-              return packet.values[v.packetPosition];
+              res = packet.values[v.packetPosition];
+              break;
           }
+          storageValues[v.storageName] = res;
+          return res;
         })
       };
       this.sensorEvents.emit('data', payload);
     });
+    handleSensorData(storageValues);
   }
 
   linearInterpolate = (rawValue, map) => {

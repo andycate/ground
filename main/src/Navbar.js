@@ -8,8 +8,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 import Brightness4Icon from '@material-ui/icons/Brightness4';
+import GpsFixedIcon from '@material-ui/icons/GpsFixed';
+import GpsNotFixedIcon from '@material-ui/icons/GpsNotFixed';
 
 const styles = theme => ({
   grow: {
@@ -43,8 +46,11 @@ class Navbar extends Component {
     super(props);
     this.state = {
       bandwidth: 0,
-      time: 0
+      time: 0,
+      recordingFilled: true,
+      name: ''
     };
+    this.recordingInterval = null;
   }
   componentDidMount() {
     this.props.addBandwidthListener(bandwidth => {
@@ -53,12 +59,37 @@ class Navbar extends Component {
       });
     });
   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log('update')
+  //   if(prevProps.recording !== this.props.recording) {
+  //     if(this.props.recording) {
+  //       this.recordingInterval = setInterval(() => {
+  //         console.log('here')
+  //         this.setState({recordingFilled: !this.state.recordingFilled});
+  //       }, 1000);
+  //     } else {
+  //       clearInterval(this.recordingInterval);
+  //       this.recordingInterval = null;
+  //       this.setState({recordingFilled: true});
+  //     }
+  //   }
+  // }
   render() {
     const { classes } = this.props;
     return (
       <AppBar position='static' color='default'>
         <Toolbar>
           <div className={classes.grow}></div>
+          <TextField label='recording name' value={this.state.name} onChange={e => this.setState({name: e.target.value})} disabled={this.props.recording}/>
+          <Tooltip title={this.props.recording?'Stop recording':'Start recording'}>
+            <IconButton
+              className={classes.themeButton}
+              color="inherit"
+              onClick={e => this.handleRecording}
+            >
+              {this.state.recordingFilled?<GpsFixedIcon />:<GpsNotFixedIcon/>}
+            </IconButton>
+          </Tooltip>
           <Button className={classes.display}>
             RX {Math.round(this.state.bandwidth * 100 / this.props.baud)}%
           </Button>

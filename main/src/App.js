@@ -48,7 +48,8 @@ class App extends Component {
       port: 0,
       ports: [],
       baud: 57600,
-      portOpened: false
+      portOpened: false,
+      recording: false
     };
     this.sensorListeners = [];
     this.bandwidthListeners = [];
@@ -76,12 +77,6 @@ class App extends Component {
         b(payload);
       });
     });
-    if(!port) {
-      this.portInterval = window.setInterval(async () => {
-        const ports = await comms.listPorts();
-        this.setState({ ports });
-      }, 2000);
-    }
   }
   addSensorListener = (idx, handler) => {
     this.sensorListeners.push({
@@ -98,7 +93,6 @@ class App extends Component {
       this.setState({
         portOpened: true
       });
-      window.clearInterval(this.portInterval);
     }
     return success; // maybe put this in the state?
   }
@@ -125,6 +119,7 @@ class App extends Component {
             connected={this.state.connected}
             portOpened={this.state.portOpened}
             addBandwidthListener={this.addBandwidthListener}
+            recording={this.state.recording}
           />
           <Container maxWidth='xl' className={classes.container}>
             <Grid container spacing={3} className={classes.row}>
