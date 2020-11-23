@@ -49,12 +49,12 @@ class App extends Component {
       try {
         const res = await axios.get('/data', { transformResponse: (r) => r });
         if(res.data === this.lastResponse) {
-          this.timeSinceLastUpdate += 300;
+          this.timeSinceLastUpdate += 500;
         } else {
           this.timeSinceLastUpdate = 0;
         }
         this.lastResponse = res.data;
-        const stale = (this.timeSinceLastUpdate > 1000);
+        const stale = (this.timeSinceLastUpdate > 2000);
         const data = JSON.parse(res.data);
         Object.keys(data.sensors).forEach(k => {
           data.sensors[k] = Math.round(data.sensors[k]);
@@ -63,7 +63,7 @@ class App extends Component {
       } catch(err) {
         this.setState({connected: false});
       }
-    }, 300);
+    }, 500);
   }
 
   render() {
@@ -96,6 +96,10 @@ class App extends Component {
           <div style={{marginLeft: '-1.5rem', marginRight: '-1.5rem', marginTop: '-1rem'}}>
             <img src={valves.loxFiveWay?lox_five_way_open:lox_five_way_closed} style={{width: '50%'}}/>
             <img src={valves.propFiveWay?prop_five_way_open:prop_five_way_closed} style={{width: '50%'}}/>
+          </div>
+          <div style={{marginLeft: '-1.5rem', marginRight: '-1.5rem', marginTop: '-1rem'}}>
+            <div style={{width: '50%'}}>{sensors.loxInjector}</div>
+            <div style={{width: '50%', float: 'right', marginTop: '-1rem'}}>{sensors.propInjector}</div>
           </div>
         </div>
       </div>

@@ -52,6 +52,22 @@ const DataRow = sequelize.define('DataRow', {
 }, {
   timestamps: false
 });
+const ValveEvent = sequelize.define('ValveEvent', {
+  timestamp: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
+  valve: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  event: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  timestamps: false
+});
 const Event = sequelize.define('Event', {
   timestamp: {
     type: DataTypes.DATE,
@@ -100,10 +116,10 @@ module.exports.handleSensorData = async data => {
 
 // state of valves
 module.exports.handleValveEvent = async (name, state) => {
-  const evt = await Event.create({
+  const evt = await ValveEvent.create({
     timestamp: moment(),
-    type: name,
-    value: (state?'open':'close')
+    valve: name,
+    event: (state?'open':'close')
   });
 }
 
