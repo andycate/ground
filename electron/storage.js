@@ -48,6 +48,18 @@ const DataRow = sequelize.define('DataRow', {
   },
   batteryAmperage: {
     type: DataTypes.FLOAT
+  },
+  cryoLoxTank: {
+    type: DataTypes.FLOAT
+  },
+  cryoInj1: {
+    type: DataTypes.FLOAT
+  },
+  cryoInj2: {
+    type: DataTypes.FLOAT
+  },
+  auxTherm: {
+    type: DataTypes.FLOAT
   }
 }, {
   timestamps: false
@@ -108,7 +120,11 @@ module.exports.handleSensorData = async data => {
       dataRow.highPressure,
       dataRow.batteryVoltage,
       dataRow.wattage,
-      dataRow.batteryAmperage
+      dataRow.batteryAmperage,
+      dataRow.cryoLoxTank,
+      dataRow.cryoInj1,
+      dataRow.cryoInj2,
+      dataRow.auxTherm
     ].join(',');
     recordingStream.write(`${dataString}\n`);
   }
