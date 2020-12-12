@@ -1,68 +1,62 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Ground Station
+## About
+This repository contains code for the ground station that
+will be used to view live telemetry from and control the
+rocket.
 
-## Available Scripts
+The UI frontend is written using the [React](https://reactjs.org/)
+framework. All the UI code lives in the `main` directory,
+which was created using [create-react-app](https://create-react-app.dev/).
+The app itself uses [Electron](https://www.electronjs.org/) as a
+framework for displaying the UI. All the code that runs on the
+backend, including processing data from the rocket, lives in the
+`electron` directory.
 
-In the project directory, you can run:
+## Setup
+Here is a guide to get started with running the dashboard.
+First, make sure you have NodeJS installed. If you don't,
+read [these](https://nodejs.org/en/download/) instructions
+to install it. Once node is installed, `cd` into this
+directory and run `npm i`. This will install all the
+dependencies required by this project that are defined in
+the `package.json` file. Next, `cd` into the `main` directory
+and run `npm i`. Repeat for the `remote` directory. The `main`
+directory contains all the code for the web based UI. The
+`remote` directory contains all the code for the web page
+that can be loaded on your phone to view pressure values
+remotely over wifi.
 
-### `npm start`
+Now that you have all the dependencies installed, `cd` back
+to the top directory. Then, run `npx electron-rebuild`. This
+command rebuilds some of the native libraries for the specific
+platform you are running. That's all that is required to setup
+for development.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Running
+NOTE: Running the ground station for the first time will create
+a new directory in your home directory called `GroundStation`,
+where it will store data files.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+To start the ground station, first `cd` into the `main` directory
+and run `npm run start`. Then open a new terminal window and make
+sure you are in the top directory. Run `npm run start-electron` to
+open the ground station window.
 
-### `npm test`
+If you would like to run the remote viewing web page, open a new
+terminal window and `cd` into the `remote` directory. Then run
+`npm run start`.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Usage
+Once the app is running, you can connect to the rocket by opening
+the serial port on your computer corresponding to the radio on the
+ground station. By default, any valid data that is received will be
+recorded in an SQLite database file that is stored in the
+`GroundStation` directory created when the ground station was run for
+the first time. When a recording is started, the data will also be
+written to a CSV file in that same directory.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+## Packaging the app
+There is a way to package the app into a nice neat executable that
+is standalone, but I'm too lazy to write the instructions to do it
+right now. I will do it at some point, when that feature actually
+becomes useful/relevant.
