@@ -5,13 +5,20 @@ const url = require('url');
 const comms = require('./comms');
 comms.init();
 
-let mainWindow;
+let mainWindow, controlWindow;
 function createWindow () {
-  const startUrl = process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, '../index.html'),
-    protocol: 'file:',
-    slashes: true,
-  });
+  startUrls = {'graphs': '', 'control': ''};
+
+  for (var key in startUrls) {
+    // use process.env.ELECTRON_START_URL if in dev mode, path to index file otherwise
+    startUrls[key] = process.env.ELECTRON_START_URL ? process.env.ELECTRON_START_URL + '?' + key : url.format({
+      pathname: path.join(__dirname, '../index.html?' + key),
+      protocol: 'file:',
+      slashes: true,
+    });
+  }
+
+
   mainWindow = new BrowserWindow({
     show: false,
     webPreferences: {
@@ -24,7 +31,7 @@ function createWindow () {
   if(!isDev) {
     mainWindow.removeMenu();
   }
-  mainWindow.loadURL(startUrl);
+  mainWindow.loadURL(startUrls['graphs']);
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
@@ -34,13 +41,48 @@ function createWindow () {
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
+
+  // use process.env.ELECTRON_START_URL if in dev mode, path to index file otherwise
+  const controlStartUrl = process.env.ELECTRON_START_URL ? process.env.ELECTRON_START_URL + '?control' : url.format({
+    pathname: path.join(__dirname, '../index.html?control'),
+    protocol: 'file:',
+    slashes: true,
+  });
+  controlWindow = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+    },
+  });
+  controlWindow.maximize();
+  if(!isDev) {
+    controlWindow.removeMenu();
+  }
+  controlWindow.loadURL(controlStartUrl);
+  controlWindow.on('closed', function () {
+    controlWindow = null;
+  });
+  controlWindow.webContents.once('did-finish-load', () => {
+    comms.openWebCon(controlWindow.webContents);
+  });
+  controlWindow.once('ready-to-show', () => {
+    controlWindow.show();
+  });
+
 }
+
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs
 app.on('ready', createWindow);
+
+
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
+
 app.on('activate', function () {
   if (mainWindow === null) {
     createWindow();

@@ -4,13 +4,14 @@ import './index.css';
 import comms from './comms';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ViewManager from './ViewManager';
 
 const { ipcRenderer } = window;
 comms.init(ipcRenderer);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ViewManager />
   </React.StrictMode>,
   document.getElementById('root')
 );

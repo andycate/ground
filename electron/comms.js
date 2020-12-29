@@ -149,6 +149,16 @@ class Comms {
     ipcMain.handle('stop-recording', async (event) => {
       await stopRecording();
     });
+
+    ipcMain.handle('send-packet', async (event) => {
+      this.sendPacket();
+      return 3;
+    });
+  }
+
+  sendPacket = () => {
+    console.log('test2');
+    return 3;
   }
 
   openWebCon = (webCon) => {
@@ -203,6 +213,10 @@ class Comms {
     return null;
   }
 
+  createPacket = payload => {
+    return null;
+  }
+
   processData = rawData => {
     this.bandwidthCounter += rawData.length * 8 + 3 // 8 bits per byte plus one start bit and two stop bits
     const timestamp = moment().toJSON();
@@ -211,6 +225,7 @@ class Comms {
       return;
     }
 
+    // Update Valves States based off Valve Status Packets
     if(packet.id >= 20 && packet.id <= 28) {
       const valves = {
         loxTwoWay: packet.values[0] === 1,
@@ -280,5 +295,6 @@ class Comms {
     return a | (b << 8);
   }
 }
+
 
 module.exports = new Comms();

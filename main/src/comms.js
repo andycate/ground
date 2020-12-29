@@ -2,7 +2,7 @@ class Comms {
   constructor() {
     this.ipc = null;
   }
-  
+
   /**
    * The IPC object allows the renderer process
    * (this one) to talk to the main process. This is
@@ -47,6 +47,9 @@ class Comms {
     return await this.ipc.invoke('stop-recording');
   }
 
+  test = async() => {
+    return await this.ipc.invoke('send-packet');
+  }
 
   /**
    * @param {function} handle function to call when connection status changes
