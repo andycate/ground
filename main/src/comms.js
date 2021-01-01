@@ -47,8 +47,8 @@ class Comms {
     return await this.ipc.invoke('stop-recording');
   }
 
-  test = async() => {
-    return await this.ipc.invoke('send-packet');
+  sendPacket = async (id, data) => {
+    return await this.ipc.invoke('send-packet', id, data);
   }
 
   /**

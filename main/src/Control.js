@@ -72,7 +72,6 @@ const styles = theme => ({
 });
 
 const statusBox = {
-  bgcolor: 'background.paper',
   borderColor: 'text.primary',
   m: 1,
   border: 1,
@@ -99,7 +98,7 @@ class Control extends Component {
     this.state = {
       isDark: false,
       open: false,
-      open2: false
+      open_vars: [false, false, false, false, false]
     };
     this.sensorListeners = [];
     this.bandwidthListeners = [];
@@ -150,9 +149,26 @@ class Control extends Component {
     return success; // maybe put this in the state?
   }
 
-  toggle = async (e) => {
-    this.setState({open: !this.state.open, open2: !this.state.open2});
-    const b = await comms.test();
+
+  toggle2 = async (i) => {
+    let open_vars = this.state.open_vars;
+    open_vars[i] = !open_vars[i]
+    this.setState({open_vars: open_vars});
+    const b = await comms.sendPacket(12);
+  }
+
+  open = async (i, id) => {
+    let open_vars = this.state.open_vars;
+    open_vars[i] = true;
+    this.setState({open_vars: open_vars});
+    const b = await comms.sendPacket(id,[1]);
+  }
+
+  close = async (i, id) => {
+    let open_vars = this.state.open_vars;
+    open_vars[i] = false;
+    this.setState({open_vars: open_vars});
+    const b = await comms.sendPacket(id,[0]);
   }
 
   render() {
@@ -170,23 +186,21 @@ class Control extends Component {
           <Container maxWidth='xl' className={classes.container}>
             <Grid container spacing={3} className={classes.row}>
               <Grid item xs={6} className={classes.item}>
-              <div style={{width: '6rem', height: '1rem', backgroundColor: this.state.open ? 'green' : 'red', margin: '1rem'}}>
+              <div style={{width: '6rem', height: '1rem', backgroundColor: this.state.open_vars[0] ? 'green' : 'red', margin: '1rem'}}>
               </div>
                 <Button
                 color='secondary'
                 variant='outlined'
-                className={!this.state.open ? classes.closedButton : classes.closedButtonOutline}
-                onClick={this.toggle}
-                disabled={!this.state.open}
+                className={!this.state.open_vars[0] ? classes.closedButton : classes.closedButtonOutline}
+                onClick={(e) => this.close(0, 20)}
                 >
                   Close
                 </Button>
                 <Button
                 color='primary'
                 variant='outlined'
-                className={this.state.open ? classes.openButton : classes.openButtonOutline}
-                onClick={this.toggle}
-                disabled={this.state.open}
+                className={this.state.open_vars[0] ? classes.openButton : classes.openButtonOutline}
+                onClick={(e) => this.open(0, 20)}
                 >
                   Open
                 </Button>
@@ -195,17 +209,39 @@ class Control extends Component {
                 <Button variant='outlined'>LOX Gems</Button>
                 <PurpleSwitch name="checkedA" />
               </Grid>
-              <Grid item xs={6} className={classes.item}>
-                <Box borderRadius={4} {...statusBox} />
-                <Button variant='outlined'>Prop GEMS</Button>
+              <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
+                <Grid item >
+                  <Paper className={this.state.open_vars[1] ? classes.openStatusBox : classes.closedStatusBox}>{this.state.open_vars[1] ? 'Open' : 'Closed'}</Paper>
+                </Grid>
+                <Grid item >
+                  <Button variant='outlined' onClick={(e) => this.toggle2(1)}>Close</Button>
+                  <Button variant='outlined' onClick={(e) => this.toggle2(1)}>Open</Button>
+                </Grid>
               </Grid>
               <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
                 <Grid item >
-                  <Paper className={this.state.open2 ? classes.openStatusBox : classes.closedStatusBox}>{this.state.open2 ? 'Open' : 'Closed'}</Paper>
+                  <Paper className={this.state.open_vars[2] ? classes.openStatusBox : classes.closedStatusBox}>{this.state.open_vars[2] ? 'Open' : 'Closed'}</Paper>
                 </Grid>
                 <Grid item >
-                  <Button variant='outlined' onClick={this.toggle}>Close</Button>
-                  <Button variant='outlined' onClick={this.toggle}>Open</Button>
+                  <Button variant='outlined' onClick={(e) => this.toggle2(2)} disabled={!this.state.open_vars[2]} >Close</Button>
+                  <Button variant='outlined' onClick={(e) => this.toggle2(2)} disabled={this.state.open_vars[2]}>Open</Button>
+                </Grid>
+              </Grid>
+              <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
+                <Grid item >
+                  <Box borderRadius={4} {...statusBox} bgcolor={this.state.open_vars[3] ? theme.palette.success.main : theme.palette.error.main}/>
+                </Grid>
+                <Grid item >
+                  <Button variant='outlined' onClick={(e) => this.toggle2(3)} >Close</Button>
+                  <Button variant='outlined' onClick={(e) => this.toggle2(3)} >Open</Button>
+                </Grid>
+              </Grid>
+              <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
+                <Grid item >
+                  <Box borderRadius={4} {...statusBox} bgcolor={this.state.open_vars[4] ? theme.palette.success.main : theme.palette.error.main}/>
+                </Grid>
+                <Grid item >
+                  <Button variant='outlined'onClick={(e) => this.toggle2(4)} >Switch</Button>
                 </Grid>
               </Grid>
               <Grid item xs={6} className={classes.item}>

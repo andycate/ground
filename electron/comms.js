@@ -150,14 +150,15 @@ class Comms {
       await stopRecording();
     });
 
-    ipcMain.handle('send-packet', async (event) => {
-      this.sendPacket();
+    ipcMain.handle('send-packet', async (event, id, data) => {
+      this.sendPacket(id, data);
       return 3;
     });
   }
 
-  sendPacket = () => {
-    console.log('test2');
+  sendPacket = (id, data) => {
+    // console.log(id,...data);
+    console.log(this.createPacket(id, data));
     return 3;
   }
 
@@ -213,8 +214,9 @@ class Comms {
     return null;
   }
 
-  createPacket = payload => {
-    return null;
+  createPacket = (id, payload) => {
+    let data = [id].concat(payload).toString();
+    return `{${data}|${this.fletcher16(data.split("").map(c => c.charCodeAt(0))).toString(16)}}`;
   }
 
   processData = rawData => {
