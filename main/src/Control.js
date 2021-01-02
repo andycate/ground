@@ -18,6 +18,7 @@ import comms from './comms';
 
 import Navbar from './Navbar';
 import Graph from './Graph';
+import ButtonGroup from './ButtonGroup'
 
 const styles = theme => ({
   root: {
@@ -185,71 +186,30 @@ class Control extends Component {
 
           <Container maxWidth='xl' className={classes.container}>
             <Grid container spacing={3} className={classes.row}>
-              <Grid item xs={6} className={classes.item}>
-              <div style={{width: '6rem', height: '1rem', backgroundColor: this.state.open_vars[0] ? 'green' : 'red', margin: '1rem'}}>
-              </div>
-                <Button
-                color='secondary'
-                variant='outlined'
-                className={!this.state.open_vars[0] ? classes.closedButton : classes.closedButtonOutline}
-                onClick={(e) => this.close(0, 20)}
-                >
-                  Close
-                </Button>
-                <Button
-                color='primary'
-                variant='outlined'
-                className={this.state.open_vars[0] ? classes.openButton : classes.openButtonOutline}
-                onClick={(e) => this.open(0, 20)}
-                >
-                  Open
-                </Button>
-              </Grid>
-              <Grid item xs={6} className={classes.item}>
-                <Button variant='outlined'>LOX Gems</Button>
-                <PurpleSwitch name="checkedA" />
-              </Grid>
-              <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
-                <Grid item >
-                  <Paper className={this.state.open_vars[1] ? classes.openStatusBox : classes.closedStatusBox}>{this.state.open_vars[1] ? 'Open' : 'Closed'}</Paper>
-                </Grid>
-                <Grid item >
-                  <Button variant='outlined' onClick={(e) => this.toggle2(1)}>Close</Button>
-                  <Button variant='outlined' onClick={(e) => this.toggle2(1)}>Open</Button>
-                </Grid>
-              </Grid>
-              <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
-                <Grid item >
-                  <Paper className={this.state.open_vars[2] ? classes.openStatusBox : classes.closedStatusBox}>{this.state.open_vars[2] ? 'Open' : 'Closed'}</Paper>
-                </Grid>
-                <Grid item >
-                  <Button variant='outlined' onClick={(e) => this.toggle2(2)} disabled={!this.state.open_vars[2]} >Close</Button>
-                  <Button variant='outlined' onClick={(e) => this.toggle2(2)} disabled={this.state.open_vars[2]}>Open</Button>
-                </Grid>
-              </Grid>
-              <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
-                <Grid item >
-                  <Box borderRadius={4} {...statusBox} bgcolor={this.state.open_vars[3] ? theme.palette.success.main : theme.palette.error.main}/>
-                </Grid>
-                <Grid item >
-                  <Button variant='outlined' onClick={(e) => this.toggle2(3)} >Close</Button>
-                  <Button variant='outlined' onClick={(e) => this.toggle2(3)} >Open</Button>
-                </Grid>
-              </Grid>
-              <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
-                <Grid item >
-                  <Box borderRadius={4} {...statusBox} bgcolor={this.state.open_vars[4] ? theme.palette.success.main : theme.palette.error.main}/>
-                </Grid>
-                <Grid item >
-                  <Button variant='outlined'onClick={(e) => this.toggle2(4)} >Switch</Button>
-                </Grid>
-              </Grid>
-              <Grid item xs={6} className={classes.item}>
-                <Button variant='outlined'>LOX 5 Way</Button>
-              </Grid>
-              <Grid item xs={6} className={classes.item}>
-                <Button variant='outlined'>Prop 5 Way</Button>
-              </Grid>
+              <ButtonGroup
+              text='High Pressure Solenoid'
+              width={1}
+              />
+              <ButtonGroup
+              text='LOX GEMS'
+              width={0.5}
+              />
+              <ButtonGroup
+              text='Propane GEMS'
+              width={0.5}
+              />
+              <ButtonGroup
+              text='Arm Main Valve'
+              width={1}
+              />
+              <ButtonGroup
+              text='LOX Main Valve'
+              width={0.5}
+              />
+              <ButtonGroup
+              text='Prop Main Valve'
+              width={0.5}
+              />
             </Grid>
           </Container>
 
