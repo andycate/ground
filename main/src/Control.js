@@ -189,26 +189,32 @@ class Control extends Component {
               <ButtonGroup
               text='High Pressure Solenoid'
               width={1}
+              id={26}
               />
               <ButtonGroup
               text='LOX GEMS'
               width={0.5}
+              id={22}
               />
               <ButtonGroup
               text='Propane GEMS'
               width={0.5}
+              id={25}
               />
               <ButtonGroup
-              text='Arm Main Valve'
+              text='Arm Main Valves'
               width={1}
+              id={21}
               />
               <ButtonGroup
               text='LOX Main Valve'
               width={0.5}
+              id={20}
               />
               <ButtonGroup
               text='Prop Main Valve'
               width={0.5}
+              id={23}
               />
             </Grid>
           </Container>

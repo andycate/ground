@@ -158,7 +158,17 @@ class Comms {
 
   sendPacket = (id, data) => {
     // console.log(id,...data);
-    console.log(this.createPacket(id, data));
+    const pack = this.createPacket(id, data);
+    console.log(pack);
+    if (this.state.open) {
+      this.state.port.write(pack, (err) => {
+        if (err) {
+          return console.log('Error on write: ', err.message);
+        }
+        console.log('message written');
+      });
+    }
+
     return 3;
   }
 

@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 
+import comms from './comms';
+
 const styles = theme => ({
   openButton: {
     backgroundColor: theme.palette.success.main + ' !important',
@@ -59,6 +61,12 @@ class ButtonGroup extends Component {
 
   };
 
+  change = async (state) => {
+    this.setState({open: state});
+    const b = await comms.sendPacket(this.props.id, state ? [1] : [0]);
+
+  }
+
   render() {
     const { classes } = this.props;
     const theme = createMuiTheme({
@@ -80,7 +88,7 @@ class ButtonGroup extends Component {
           color='secondary'
           variant='outlined'
           className={!this.state.open ? classes.closedButton : classes.closedButtonOutline}
-
+          onClick={(e) => this.change(false)}
           >
             Close
           </Button>
@@ -88,7 +96,7 @@ class ButtonGroup extends Component {
           color='primary'
           variant='outlined'
           className={this.state.open ? classes.openButton : classes.openButtonOutline}
-
+          onClick={(e) => this.change(true)}
           >
             Open
           </Button>
