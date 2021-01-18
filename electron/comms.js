@@ -11,9 +11,9 @@ const app = express();
 const { config, getPacketConfig } = require('./config');
 const { initInfluxLocal,
         getSelectedInfluxDB,
-        handleSensorData, 
-        handleValveEvent, 
-        startRecording, 
+        handleSensorData,
+        handleValveEvent,
+        startRecording,
         stopRecording } = require('./storage');
 
 const { PerformanceObserver, performance } = require('perf_hooks');
@@ -169,7 +169,7 @@ class Comms {
     ipcMain.handle('select-database', async (event, db) => {
       await initInfluxLocal(db);
     });
-    
+
     ipcMain.handle('send-packet', async (event, id, data) => {
       this.sendPacket(id, data);
       return 3;
@@ -284,7 +284,7 @@ class Comms {
     }
 
     // Update Valves States based off Valve Status Packets
-    if(packet.id >= 20 && packet.id <= 28) {
+    if(packet.id >= 20 && packet.id <= 29 && packet.values.length == 7) {
       const valves = {
         loxTwoWay: packet.values[0] === 1,
         propTwoWay: packet.values[1] === 1,
