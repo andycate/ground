@@ -213,6 +213,12 @@ class Control extends Component {
               id={24}
               valveState={this.state.valve_states.propFiveWay}
               />
+              <ButtonGroup
+              text='Begin Flow'
+              width={0.5}
+              id={29}
+              valveState={this.state.valve_states.propFiveWay}
+              />
             </Grid>
             <Button
             color='secondary'
