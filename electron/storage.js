@@ -69,7 +69,7 @@ module.exports.handleValveEvent = async (name, state) => {
       measurement: name,
       tags: {recording: recordingName, type: 'valve', event: (state?'open':'close')},
       fields: {value: (state?1:0)},
-      timestamp: timestamp.toDate()
+      timestamp: moment().toDate()
     }
   ]);
 }
