@@ -1,8 +1,9 @@
 class Comms {
   constructor() {
     this.ipc = null;
+    this.connHandles = [];
   }
-  
+
   /**
    * The IPC object allows the renderer process
    * (this one) to talk to the main process. This is
@@ -54,6 +55,11 @@ class Comms {
   setInfluxDB = async (db) => {
     return await this.ipc.invoke('select-database', db);
   }
+  
+  sendPacket = async (id, data) => {
+    return await this.ipc.invoke('send-packet', id, data);
+  }
+
 
 
   /**
@@ -76,6 +82,15 @@ class Comms {
 
   bandwidthListen = handle => {
     this.ipc.on('bandwidth', (event, payload) => {
+      handle(payload);
+    });
+  }
+
+  /**
+   * @param {function} handle function to call when connection status changes
+   */
+  valveListen = handle => {
+    this.ipc.on('valve-update', (event, payload) => {
       handle(payload);
     });
   }
