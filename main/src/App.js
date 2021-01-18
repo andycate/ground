@@ -45,6 +45,7 @@ class App extends Component {
     this.state = {
       isDark: false,
       connected: false,
+      selectedDb: null,
       port: 0,
       ports: [],
       baud: 57600,
@@ -56,10 +57,12 @@ class App extends Component {
   }
   componentDidMount = async () => {
     const connected = await comms.getConnected();
+    const selectedDb = await comms.getSelectedInfluxDB();
     const ports = await comms.listPorts();
     const port = await comms.getPort();
     this.setState({
       connected,
+      selectedDb,
       port: port ? ports.findIndex(p => p.path === port.path) : 0,
       ports,
       portOpened: !!port
@@ -96,6 +99,12 @@ class App extends Component {
     }
     return success; // maybe put this in the state?
   }
+  selectDb = async db => {
+    await comms.setInfluxDB(db);
+    this.setState({
+      selectedDb: db
+    });
+  }
   render() {
     const { classes } = this.props;
     const theme = createMuiTheme({
@@ -111,6 +120,8 @@ class App extends Component {
             onThemeChange={isDark => this.setState({ isDark })}
             isDark={this.state.isDark}
             connect={this.connect}
+            selectedDb={this.state.selectedDb}
+            selectDb={this.selectDb}
             port={this.state.port}
             ports={this.state.ports}
             selectPort={port => this.setState({ port })}

@@ -9,7 +9,19 @@ const serveStatic = require('serve-static');
 const app = express();
 
 const { config, getPacketConfig } = require('./config');
-const { handleSensorData, handleValveEvent, startRecording, stopRecording } = require('./storage');
+const { initInfluxLocal,
+        getSelectedInfluxDB,
+        handleSensorData, 
+        handleValveEvent, 
+        startRecording, 
+        stopRecording } = require('./storage');
+
+const { PerformanceObserver, performance } = require('perf_hooks');
+const obs = new PerformanceObserver((items) => {
+  console.log(items.getEntries()[0].duration);
+  performance.clearMarks();
+});
+obs.observe({ entryTypes: ['measure'] });
 
 class Comms {
   constructor() {
@@ -149,6 +161,14 @@ class Comms {
     ipcMain.handle('stop-recording', async (event) => {
       await stopRecording();
     });
+
+    ipcMain.handle('get-database', async (event) => {
+      return getSelectedInfluxDB();
+    });
+
+    ipcMain.handle('select-database', async (event, db) => {
+      await initInfluxLocal(db);
+    });
   }
 
   openWebCon = (webCon) => {
@@ -203,6 +223,7 @@ class Comms {
     return null;
   }
 
+  // takes about .5 milliseconds best case
   processData = rawData => {
     this.bandwidthCounter += rawData.length * 8 + 3 // 8 bits per byte plus one start bit and two stop bits
     const timestamp = moment().toJSON();
@@ -228,7 +249,7 @@ class Comms {
     if(!this.packetConfig[packet.id]) { // if no config exists for this packet, we don't know about it
       return;
     }
-    const storageValues = { timestamp };
+    const storageValues = { timestamp, values: {} };
     this.packetConfig[packet.id].forEach(idx => {
       const sensor = config.sensors[idx]; // get sensor that is associated with this packet
       const payload = {
@@ -248,7 +269,7 @@ class Comms {
               res = packet.values[v.packetPosition];
               break;
           }
-          storageValues[v.storageName] = res;
+          storageValues.values[v.storageName] = res;
           return res;
         })
       };

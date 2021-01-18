@@ -47,6 +47,14 @@ class Comms {
     return await this.ipc.invoke('stop-recording');
   }
 
+  getSelectedInfluxDB = async () => {
+    return await this.ipc.invoke('get-database');
+  }
+
+  setInfluxDB = async (db) => {
+    return await this.ipc.invoke('select-database', db);
+  }
+
 
   /**
    * @param {function} handle function to call when connection status changes
