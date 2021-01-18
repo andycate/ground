@@ -1,6 +1,7 @@
 class Comms {
   constructor() {
     this.ipc = null;
+    this.connHandles = [];
   }
 
   /**
@@ -51,6 +52,8 @@ class Comms {
     return await this.ipc.invoke('send-packet', id, data);
   }
 
+
+
   /**
    * @param {function} handle function to call when connection status changes
    */
@@ -71,6 +74,15 @@ class Comms {
 
   bandwidthListen = handle => {
     this.ipc.on('bandwidth', (event, payload) => {
+      handle(payload);
+    });
+  }
+
+  /**
+   * @param {function} handle function to call when connection status changes
+   */
+  valveListen = handle => {
+    this.ipc.on('valve-update', (event, payload) => {
       handle(payload);
     });
   }

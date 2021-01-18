@@ -165,7 +165,6 @@ class Comms {
         if (err) {
           return console.log('Error on write: ', err.message);
         }
-        console.log('message written');
       });
     }
 
@@ -190,6 +189,7 @@ class Comms {
     });
 
     this.valveEvents.on('update', data => {
+      console.log('Sending Valve Telemetry - Graphs');
       this.webCon.send('valve-update', data);
     });
 
@@ -200,6 +200,32 @@ class Comms {
       this.webCon.send('bandwidth', this.state.bandwidth);
     }, 1000);
   }
+
+  openControlWebCon = (webCon) => {
+    console.log('control web connection');
+    this.controlWebCon = webCon;
+
+    this.connEvents.on('connect', () => {
+      console.log('Connected!');
+      this.controlWebCon.send('connect');
+    });
+
+    this.connEvents.on('disconnect', () => {
+      console.log('Disconnected!');
+      this.controlWebCon.send('disconnect');
+    });
+
+    this.valveEvents.on('update', data => {
+      console.log('Sending Valve Telemetry - Control');
+      this.controlWebCon.send('valve-update', data);
+    });
+
+  }
+
+
+
+
+
 
   parsePacket = rawData => {
     const data = rawData.replace(/(\r\n|\n|\r)/gm, '');
@@ -249,6 +275,7 @@ class Comms {
         HPS: packet.values[6] === 1
       };
       this.valveEvents.emit('update', valves);
+      console.log("Recevied packet:" + JSON.stringify(packet));
       return;
     }
 

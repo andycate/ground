@@ -99,7 +99,17 @@ class Control extends Component {
     this.state = {
       isDark: false,
       open: false,
-      open_vars: [false, false, false, false, false]
+      open_vars: [false, false, false, false, false],
+      valve_data: false,
+      valve_states: {
+        loxTwoWay: false,
+        propTwoWay: false,
+        loxFiveWay: false,
+        propFiveWay: false,
+        loxGems: false,
+        propGems: false,
+        HPS: false
+      },
     };
     this.sensorListeners = [];
     this.bandwidthListeners = [];
@@ -114,19 +124,14 @@ class Control extends Component {
       ports,
       portOpened: !!port
     });
+    comms.valveListen(valves => {
+      this.setState({valve_states: valves});
+    });
     comms.connListen(connected => {
       this.setState({ connected });
     });
-    comms.sensorListen(payload => {
-      this.sensorListeners.filter(v => v.idx === payload.idx).forEach(v => {
-        v.handler(payload.values, moment(payload.timestamp));
-      });
-    });
-    comms.bandwidthListen(payload => {
-      this.bandwidthListeners.forEach(b => {
-        b(payload);
-      });
-    });
+
+
   }
 
   addSensorListener = (idx, handler) => {
@@ -134,20 +139,6 @@ class Control extends Component {
       idx,
       handler
     });
-  }
-
-  addBandwidthListener = handler => {
-    this.bandwidthListeners.push(handler);
-  }
-
-  connect = async () => {
-    const success = await comms.selectPort(this.state.ports[this.state.port], this.state.baud);
-    if(success) {
-      this.setState({
-        portOpened: true
-      });
-    }
-    return success; // maybe put this in the state?
   }
 
 
@@ -217,6 +208,7 @@ class Control extends Component {
               id={23}
               />
             </Grid>
+            
           </Container>
 
 

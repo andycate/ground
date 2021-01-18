@@ -63,7 +63,7 @@ function createWindow () {
     controlWindow = null;
   });
   controlWindow.webContents.once('did-finish-load', () => {
-    comms.openWebCon(controlWindow.webContents);
+    comms.openControlWebCon(controlWindow.webContents);
   });
   controlWindow.once('ready-to-show', () => {
     controlWindow.show();
