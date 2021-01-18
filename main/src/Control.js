@@ -181,34 +181,46 @@ class Control extends Component {
               text='High Pressure Solenoid'
               width={1}
               id={26}
+              valveState={this.state.valve_states.HPS}
               />
               <ButtonGroup
               text='LOX GEMS'
               width={0.5}
               id={22}
+              valveState={this.state.valve_states.loxGems}
               />
               <ButtonGroup
               text='Propane GEMS'
               width={0.5}
               id={25}
+              valveState={this.state.valve_states.propGems}
               />
               <ButtonGroup
               text='Arm Main Valves'
               width={1}
-              id={21}
+              id={20}
+              valveState={this.state.valve_states.loxTwoWay}
               />
               <ButtonGroup
               text='LOX Main Valve'
               width={0.5}
-              id={20}
+              id={21}
+              valveState={this.state.valve_states.loxFiveWay}
               />
               <ButtonGroup
               text='Prop Main Valve'
               width={0.5}
-              id={23}
+              id={24}
+              valveState={this.state.valve_states.propFiveWay}
               />
             </Grid>
-            
+            <Button
+            color='secondary'
+            variant='outlined'
+            className={!this.state.connected ? classes.closedButton : classes.openButton}
+            >
+              {!this.state.connected ? 'Disconnected' : 'Connected'}
+            </Button>
           </Container>
 
 

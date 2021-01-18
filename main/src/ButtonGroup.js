@@ -81,7 +81,7 @@ class ButtonGroup extends Component {
           <Box component="span" display="block">{this.props.text}</Box>
         </Grid>
         <Grid item>
-          <Box borderRadius={4} {...statusBox} bgcolor={this.state.open ? theme.palette.success.main : theme.palette.error.main}/>
+          <Box borderRadius={4} {...statusBox} bgcolor={this.props.valveState ? theme.palette.success.main : theme.palette.error.main}/>
         </Grid>
         <Grid item >
           <Button
