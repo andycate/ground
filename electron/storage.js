@@ -22,9 +22,13 @@ module.exports.getSelectedInfluxDB = () => {
 
 module.exports.initInfluxLocal = async (db) => {
   influxLocal = new Influx.InfluxDB({
-    host: 'localhost',
+    host: 'influx.andycate.com',
     database: db,
     // schema: []
+    protocol: 'https',
+    username: '',
+    password: '',
+    port: 443
   });
   selectedDb = db;
 }
@@ -32,14 +36,18 @@ module.exports.initInfluxLocal = async (db) => {
 module.exports.handleSensorData = async data => {
   // record, etc
   const timestamp = moment(data.timestamp);
-  await influxLocal.writePoints(Object.keys(data.values).map(k => (
-    {
-      measurement: k,
-      tags: {recording: recordingName, type: 'sensor'},
-      fields: {value: data.values[k]},
-      timestamp: timestamp.toDate()
-    }
-  )));
+  try {
+    await influxLocal.writePoints(Object.keys(data.values).map(k => (
+      {
+        measurement: k,
+        tags: {recording: recordingName, type: 'sensor'},
+        fields: {value: data.values[k]},
+        timestamp: timestamp.toDate()
+      }
+    )));
+  } catch(err) {
+    console.error(err);
+  }
   if(recordingStream) {
     const dataString = [
       timestamp.diff(recordingStart, 'seconds', true),

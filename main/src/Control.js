@@ -134,13 +134,6 @@ class Control extends Component {
 
   }
 
-  addSensorListener = (idx, handler) => {
-    this.sensorListeners.push({
-      idx,
-      handler
-    });
-  }
-
 
   toggle2 = async (i) => {
     let open_vars = this.state.open_vars;
@@ -170,6 +163,7 @@ class Control extends Component {
         type: this.state.isDark ? 'dark' : 'light'
       }
     });
+    console.log('render');
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline/>

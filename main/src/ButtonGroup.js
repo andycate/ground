@@ -74,6 +74,7 @@ class ButtonGroup extends Component {
         type: this.state.isDark ? 'dark' : 'light'
       }
     });
+    console.log('render2');
     return (
       <ThemeProvider theme={theme}>
       <Grid item container spacing={1} direction="column" alignItems='center' xs={12*this.props.width}>
