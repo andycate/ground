@@ -43,6 +43,7 @@ class Graph extends Component {
       window: this.props.defaultWindow
     };
     this.canvas = React.createRef();
+    this.lastUpdate = Date.now();
   }
   makeListener = (sensor, i) => {
     let values = [];
@@ -63,7 +64,7 @@ class Graph extends Component {
       if(isNaN(newValue)) {
         return;
       }
-      if(values.length >= 4) {
+      if(values.length >= 32) {
         values = [];
         values.push(newValue);
         buffer.push({
@@ -94,7 +95,10 @@ class Graph extends Component {
       }
       this.chart.data.datasets[i].label = `${sensor.label} (${latest[0]}.${latest[1]} ${sensor.unit})`;
       // console.log(buffer);
-      this.chart.update();
+      if(Date.now() - this.lastUpdate > 100.0) {
+        this.chart.update();
+        this.lastUpdate = Date.now();
+      }
     }
   }
   componentDidMount() {
