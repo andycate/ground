@@ -1,0 +1,97 @@
+.App {
+  /* text-align: center; */
+  height: 100vh;
+}
+
+div.Diagram {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  width: 4.5rem;
+  height: 100%;
+}
+
+div.Diagram.img {
+  margin-top: -1rem;
+}
+
+div.gn-tank {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  color: black;
+  margin-bottom: -1.2rem;
+  margin-top: -0.5rem;
+}
+
+div.tank {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  color: black;
+  margin-bottom: -1.2rem;
+  margin-top: -1.2rem;
+}
+
+div.pt {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+div.gems {
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+div.fiveWay {
+  width: 50%;
+}
+
+.Diagram {
+  text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#left, #right {display: inline-block; *display: inline; zoom: 1; vertical-align: top; font-size: 12px;}
+#left {width: 50%;}
+#right {width: 50%;}
+
+/* Centered text */
+div.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div.top-center {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Can't seem to change font size on GN2 tank */
+div.centered-gn2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 80%;
+  transform: translate(-50%, -50%);
+}
+
+div.top-center-gn2 {
+  position: absolute;
+  top: 26%;
+  left: 50%;
+  font-size: 80%;
+  transform: translate(-50%, -50%);
+}
