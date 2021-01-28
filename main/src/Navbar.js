@@ -48,11 +48,13 @@ class Navbar extends Component {
       bandwidth: 0,
       time: 0,
       recordingFilled: true,
-      name: ''
+      name: '',
+      dbName: ''
     };
     this.recordingInterval = null;
   }
   componentDidMount() {
+    this.setState({dbName: this.props.selectedDb?this.props.selectedDb:''});
     this.props.addBandwidthListener(bandwidth => {
       this.setState({
         bandwidth
@@ -80,6 +82,10 @@ class Navbar extends Component {
       <AppBar position='static' color='default'>
         <Toolbar>
           <div className={classes.grow}></div>
+          <TextField label='database name' value={this.state.dbName} onChange={e => this.setState({dbName: e.target.value})} disabled={this.props.selectedDb}/>
+          <Button color='primary' variant='contained' disableElevation onClick={e => this.props.selectDb(this.state.dbName)} disabled={this.props.selectedDb}>
+            Set DB
+          </Button>
           <TextField label='recording name' value={this.state.name} onChange={e => this.setState({name: e.target.value})} disabled={this.props.recording}/>
           <Tooltip title={this.props.recording?'Stop recording':'Start recording'}>
             <IconButton

@@ -1,0 +1,17 @@
+version: "3"
+services:
+  influxdb:
+    image: influxdb
+    # environment:
+    #   - 
+    volumes:
+      - ./persist:/var/lib/influxdb
+    ports:
+      - "8086:8086"
+  chronograf:
+    image: chronograf
+    # environment:
+    #   - 
+    ports:
+      - "8888:8888"
+    command: --influxdb-url=http://influxdb:8086

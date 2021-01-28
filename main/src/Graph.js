@@ -43,32 +43,63 @@ class Graph extends Component {
       window: this.props.defaultWindow
     };
     this.canvas = React.createRef();
-    this.buffer = [];
-    this.bufferSaveInterval = 60*3; // save 3 minutes of data
+    this.lastUpdate = Date.now();
   }
-  makeListener = (sensor, i) => (data, timestamp) => {
-    const buffer = this.chart.data.datasets[i].data;
-    if(buffer.length > 0) {
-      if(timestamp.diff(buffer[0].x, 'seconds', true) > this.state.window) {
-        buffer.shift();
+  makeListener = (sensor, i) => {
+    let values = [];
+    return (data, timestamp) => {
+      const buffer = this.chart.data.datasets[i].data;
+      let newValue = data[sensor.index];
+      if(buffer.length > 0) {
+        if(timestamp.diff(buffer[0].x, 'seconds', true) > this.state.window) {
+          buffer.shift();
+        }
+      } else {
+        buffer.push({
+          x: timestamp,
+          y: newValue
+        });
       }
-      if(timestamp.diff(this.buffer[i][0].x, 'seconds', true) > this.bufferSaveInterval) {
-        this.buffer[i].shift();
+      // console.log(newValue);
+      if(isNaN(newValue)) {
+        return;
+      }
+      if(values.length >= 12) {
+        values = [];
+        values.push(newValue);
+        buffer.push({
+          x: timestamp,
+          y: newValue
+        });
+      } else {
+        values.push(newValue);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const ave = values.reduce((prev, curr) => prev + curr) / values.length;
+        // console.log(min);
+        if(ave - min > max - ave) {
+          // use min
+          buffer[buffer.length-1].y = min;
+        } else {
+          // use max
+          buffer[buffer.length-1].y = max;
+        }
+        buffer[buffer.length-1].x = timestamp;
+      }
+      this.chart.options.scales.xAxes[0].ticks.min = buffer[buffer.length-1].x.clone().subtract(this.state.window, 'seconds');
+      this.chart.options.scales.xAxes[0].ticks.max = buffer[buffer.length-1].x;
+
+      const latest = (Math.round(newValue * 10) / 10).toString().split('.');
+      if(!latest[1]) {
+        latest[1] = '0';
+      }
+      this.chart.data.datasets[i].label = `${sensor.label} (${latest[0]}.${latest[1]} ${sensor.unit})`;
+      // console.log(buffer);
+      if(Date.now() - this.lastUpdate > 100.0) {
+        this.chart.update();
+        this.lastUpdate = Date.now();
       }
     }
-    let newValue = data[sensor.index];
-    // console.log(newValue);
-    if(isNaN(newValue)) {
-      return;
-    }
-    buffer.push({
-      x: timestamp,
-      y: newValue
-    });
-    this.buffer[i].push({
-      x: timestamp,
-      y: newValue
-    });
   }
   componentDidMount() {
     this.ctx = this.canvas.current.getContext('2d');
@@ -131,31 +162,37 @@ class Graph extends Component {
         },
         hover: {
           intersect: false,
-          mode: null
+          mode: null,
+          animationDuration: 0
         },
-        events: []
+        events: [],
+        responsiveAnimationDuration: 0,
+        elements: {
+          line: {
+            tension: 0
+          }
+        }
       }
     });
     this.props.sensors.forEach((v, i) => {
-      this.buffer.push([]);
       this.props.addSensorListener(v.idx, this.makeListener(v, i));
     });
-    window.setInterval(() => {
-      this.props.sensors.forEach((v, i) => {
-        const buffer = this.chart.data.datasets[i].data;
-        if(buffer.length > 0) {
-          this.chart.options.scales.xAxes[0].ticks.min = buffer[buffer.length-1].x.clone().subtract(this.state.window, 'seconds');
-          this.chart.options.scales.xAxes[0].ticks.max = buffer[buffer.length-1].x;
+    // window.setInterval(() => {
+    //   this.props.sensors.forEach((v, i) => {
+    //     const buffer = this.chart.data.datasets[i].data;
+    //     if(buffer.length > 0) {
+    //       this.chart.options.scales.xAxes[0].ticks.min = buffer[buffer.length-1].x.clone().subtract(this.state.window, 'seconds');
+    //       this.chart.options.scales.xAxes[0].ticks.max = buffer[buffer.length-1].x;
 
-          const latest = (Math.round(buffer[buffer.length-1].y * 10) / 10).toString().split('.');
-          if(!latest[1]) {
-            latest[1] = '0';
-          }
-          this.chart.data.datasets[i].label = `${v.label} (${latest[0]}.${latest[1]} ${v.unit})`;
-        }
-      })
-      this.chart.update();
-    }, this.props.interval);
+    //       const latest = (Math.round(buffer[buffer.length-1].y * 10) / 10).toString().split('.');
+    //       if(!latest[1]) {
+    //         latest[1] = '0';
+    //       }
+    //       this.chart.data.datasets[i].label = `${v.label} (${latest[0]}.${latest[1]} ${v.unit})`;
+    //     }
+    //   })
+    //   this.chart.update();
+    // }, this.props.interval);
   }
   componentDidUpdate(prevProps, prevState) {
     // update graph colors
@@ -168,17 +205,6 @@ class Graph extends Component {
     this.chart.options.scales.yAxes[0].ticks.suggestedMax = (this.state.shouldScale?this.props.max:undefined);
 
     this.chart.options.scales.xAxes[0].ticks.min = moment(this.chart.options.scales.xAxes[0].ticks.max).clone().subtract(this.state.window, 'seconds');
-    if(prevState.window < this.state.window) {
-      this.props.sensors.forEach((v, i) => {
-        const latest = this.buffer[i][this.buffer[i].length-1].x;
-        for(let j = this.buffer[i].length-1;j>=0;j--) {
-          if(latest.diff(this.buffer[i][j].x, 'seconds', true) > this.state.window) {
-            this.chart.data.datasets[i].data = this.buffer[i].slice(j);
-            break;
-          }
-        }
-      });
-    }
   }
   render() {
     const { classes } = this.props;

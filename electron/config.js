@@ -227,6 +227,119 @@ const config = {
   ]
 };
 
+// const config = {
+//   sensors: [
+//     {
+//       name: "LOX Tank Pressure",
+//       packetId: 0,
+//       values: [
+//         {
+//           packetPosition: 0,
+//           storageName: "loxTank",
+//           label: "pressure",
+//           interpolation: {
+//             type: "none", // linear, quadratic, none
+//             unit: "PSI"
+//           }
+//         }
+//       ]
+//     },
+//     {
+//       name: "Prop Tank Pressure",
+//       packetId: 1,
+//       values: [
+//         {
+//           packetPosition: 0,
+//           storageName: "propTank",
+//           label: "pressure",
+//           interpolation: {
+//             type: "none", // linear, quadratic
+//             unit: "PSI"
+//           }
+//         }
+//       ]
+//     },
+//     {
+//       name: "LOX Injector Pressure",
+//       packetId: 2,
+//       values: [
+//         {
+//           packetPosition: 0,
+//           storageName: "loxInjector",
+//           label: "pressure",
+//           interpolation: {
+//             type: "none", // linear, quadratic
+//             unit: "PSI",
+//           }
+//         }
+//       ]
+//     },
+//     {
+//       name: "Prop Injector Pressure",
+//       packetId: 3,
+//       values: [
+//         {
+//           packetPosition: 0,
+//           storageName: "propInjector",
+//           label: "pressure",
+//           interpolation: {
+//             type: "none", // none, linear, quadratic
+//             unit: "PSI"
+//           }
+//         }
+//       ]
+//     },
+//     {
+//       name: "Nitrogen Pressure",
+//       packetId: 4,
+//       values: [
+//         {
+//           packetPosition: 0,
+//           storageName: "highPressure",
+//           label: "pressure",
+//           interpolation: {
+//             type: "none", // linear, quadratic
+//             unit: "PSI",
+//           }
+//         }
+//       ]
+//     },
+//     {
+//       name: "Battery",
+//       packetId: 2,
+//       values: [
+//         {
+//           packetPosition: 0,
+//           storageName: "batteryVoltage",
+//           label: "voltage",
+//           interpolation: {
+//             type: "none",
+//             unit: "Volts"
+//           }
+//         },
+//         {
+//           packetPosition: 1,
+//           storageName: "wattage",
+//           label: "wattage",
+//           interpolation: {
+//             type: "none",
+//             unit: "Watts"
+//           }
+//         },
+//         {
+//           packetPosition: 2,
+//           storageName: "batteryAmperage",
+//           label: "current",
+//           interpolation: {
+//             type: "none",
+//             unit: "Amps"
+//           }
+//         }
+//       ]
+//     },
+//   ]
+// };
+
 const getPacketConfig = () => {
   const packets = {};
   config.sensors.forEach((s, i) => {

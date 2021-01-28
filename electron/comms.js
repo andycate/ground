@@ -9,7 +9,19 @@ const serveStatic = require('serve-static');
 const app = express();
 
 const { config, getPacketConfig } = require('./config');
-const { handleSensorData, handleValveEvent, startRecording, stopRecording } = require('./storage');
+const { initInfluxLocal,
+        getSelectedInfluxDB,
+        handleSensorData,
+        handleValveEvent,
+        startRecording,
+        stopRecording } = require('./storage');
+
+const { PerformanceObserver, performance } = require('perf_hooks');
+const obs = new PerformanceObserver((items) => {
+  console.log(items.getEntries()[0].duration);
+  performance.clearMarks();
+});
+obs.observe({ entryTypes: ['measure'] });
 
 class Comms {
   constructor() {
@@ -149,6 +161,34 @@ class Comms {
     ipcMain.handle('stop-recording', async (event) => {
       await stopRecording();
     });
+
+    ipcMain.handle('get-database', async (event) => {
+      return getSelectedInfluxDB();
+    });
+
+    ipcMain.handle('select-database', async (event, db) => {
+      await initInfluxLocal(db);
+    });
+
+    ipcMain.handle('send-packet', async (event, id, data) => {
+      this.sendPacket(id, data);
+      return 3;
+    });
+  }
+
+  sendPacket = (id, data) => {
+    // console.log(id,...data);
+    const pack = this.createPacket(id, data);
+    console.log(pack);
+    if (this.state.open) {
+      this.state.port.write(pack, (err) => {
+        if (err) {
+          return console.log('Error on write: ', err.message);
+        }
+      });
+    }
+
+    return 3;
   }
 
   openWebCon = (webCon) => {
@@ -169,6 +209,7 @@ class Comms {
     });
 
     this.valveEvents.on('update', data => {
+      console.log('Sending Valve Telemetry - Graphs');
       this.webCon.send('valve-update', data);
     });
 
@@ -179,6 +220,32 @@ class Comms {
       this.webCon.send('bandwidth', this.state.bandwidth);
     }, 1000);
   }
+
+  openControlWebCon = (webCon) => {
+    console.log('control web connection');
+    this.controlWebCon = webCon;
+
+    this.connEvents.on('connect', () => {
+      console.log('Connected!');
+      this.controlWebCon.send('connect');
+    });
+
+    this.connEvents.on('disconnect', () => {
+      console.log('Disconnected!');
+      this.controlWebCon.send('disconnect');
+    });
+
+    this.valveEvents.on('update', data => {
+      console.log('Sending Valve Telemetry - Control');
+      this.controlWebCon.send('valve-update', data);
+    });
+
+  }
+
+
+
+
+
 
   parsePacket = rawData => {
     const data = rawData.replace(/(\r\n|\n|\r)/gm, '');
@@ -203,6 +270,11 @@ class Comms {
     return null;
   }
 
+  createPacket = (id, payload) => {
+    let data = [id].concat(payload).toString();
+    return `{${data}|${this.fletcher16(data.split("").map(c => c.charCodeAt(0))).toString(16)}}`;
+  }
+
   processData = rawData => {
     this.bandwidthCounter += rawData.length * 8 + 3 // 8 bits per byte plus one start bit and two stop bits
     const timestamp = moment().toJSON();
@@ -211,7 +283,8 @@ class Comms {
       return;
     }
 
-    if(packet.id >= 20 && packet.id <= 28) {
+    // Update Valves States based off Valve Status Packets
+    if(packet.id >= 20 && packet.id <= 29 && packet.values.length == 7) {
       const valves = {
         loxTwoWay: packet.values[0] === 1,
         propTwoWay: packet.values[1] === 1,
@@ -222,13 +295,14 @@ class Comms {
         HPS: packet.values[6] === 1
       };
       this.valveEvents.emit('update', valves);
+      console.log("Recevied packet:" + JSON.stringify(packet));
       return;
     }
 
     if(!this.packetConfig[packet.id]) { // if no config exists for this packet, we don't know about it
       return;
     }
-    const storageValues = { timestamp };
+    const storageValues = { timestamp, values: {} };
     this.packetConfig[packet.id].forEach(idx => {
       const sensor = config.sensors[idx]; // get sensor that is associated with this packet
       const payload = {
@@ -248,7 +322,7 @@ class Comms {
               res = packet.values[v.packetPosition];
               break;
           }
-          storageValues[v.storageName] = res;
+          storageValues.values[v.storageName] = res;
           return res;
         })
       };
@@ -280,5 +354,6 @@ class Comms {
     return a | (b << 8);
   }
 }
+
 
 module.exports = new Comms();
