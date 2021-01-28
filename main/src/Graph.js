@@ -64,7 +64,7 @@ class Graph extends Component {
       if(isNaN(newValue)) {
         return;
       }
-      if(values.length >= 32) {
+      if(values.length >= 12) {
         values = [];
         values.push(newValue);
         buffer.push({
