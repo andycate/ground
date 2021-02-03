@@ -13,7 +13,7 @@ import Box from '@material-ui/core/Box';
 import comms from './comms';
 
 import Navbar from './Navbar';
-import Graph from './Graph';
+import NewGraph from './NewGraph';
 
 const styles = theme => ({
   root: {
@@ -143,7 +143,7 @@ class App extends Component {
           <Container maxWidth='xl' className={classes.container}>
             <Grid container spacing={3} className={classes.row}>
               <Grid item xs={6} className={classes.item}>
-                <Graph
+                <NewGraph
                   sensors={
                     [{
                       label: 'LOX TANK',
@@ -166,7 +166,7 @@ class App extends Component {
                   addSensorListener={this.addSensorListener}
                 />
               </Grid>
-              <Grid item xs={6} className={classes.item}>
+              {/* <Grid item xs={6} className={classes.item}>
                 <Graph
                   sensors={
                     [{
@@ -244,7 +244,7 @@ class App extends Component {
                   title='Power'
                   addSensorListener={this.addSensorListener}
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
           </Container>
         </Box>

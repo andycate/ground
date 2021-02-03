@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import WebGlPlot, { WebglLine, ColorRGBA } from "webgl-plot";
+import WebGLPlot, { WebglLine, ColorRGBA } from "webgl-plot";
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -30,11 +30,18 @@ const styles = theme => ({
     zIndex: 1000
   },
   canvas: {
-    position: 'absolute'
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
+  },
+  sizeDetector: {
+    position: 'relative',
+    width: '100%',
+    height: '100%'
   }
 });
 
-class Graph extends Component {
+class NewGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,6 +50,7 @@ class Graph extends Component {
       window: this.props.defaultWindow
     };
     this.canvas = React.createRef();
+    this.sizeDetector = React.createRef();
     this.lastUpdate = Date.now();
   }
   makeListener = (sensor, i) => {
@@ -102,32 +110,53 @@ class Graph extends Component {
     }
   }
   componentDidMount() {
+    console.log(window.devicePixelRatio)
+    const width = this.sizeDetector.current.clientWidth;
+    const height = this.sizeDetector.current.clientHeight;
+
+    this.canvas.current.width = width * window.devicePixelRatio;
+    this.canvas.current.height = height * window.devicePixelRatio;
+
     this.webglp = new WebGLPlot(this.canvas.current);
     const numX = 1000;
 
     const line = new WebglLine(new ColorRGBA(1, 0, 0, 1), numX);
-    webglp.addLine(line);
+    this.webglp.addLine(line);
 
     line.lineSpaceX(-1, 2 / numX);
 
-    requestAnimationFrame()
+    let values = new Float32Array(numX);
+    let currVal = 0.0;
 
-    this.props.sensors.forEach((v, i) => {
-      this.props.addSensorListener(v.idx, this.makeListener(v, i));
-    });
+    const renderPlot = () => {
+      const noise1 = 0.1;
+      // for (let i = 0; i < line.numPoints; i+=2) {
+      //   const ySin = Math.sin(Math.PI * i * 0.001 * Math.PI * 2);
+      //   const yNoise = Math.random() - 0.5;
+      //   line.setY(i, ySin * 0.5 + yNoise * noise1);
+      // }
+      let yNoise = (Math.random() - 0.5) * 0.1;
+      // if(currVal > 1) yNoise = -Math.abs(yNoise);
+      // if(currVal < -1) yNoise = Math.abs(yNoise);
+      currVal += yNoise;
+      for(let i = 0; i < numX - 1; i++) {
+        values[i] = values[i+1];
+      }
+      values[numX-1] = currVal;
+      const minValue = Math.min.apply(null, values);
+      const maxValue = Math.max.apply(null, values);
+      line.scaleY = 2.0 / (maxValue - minValue);
+      line.offsetY = -minValue * line.scaleY - 1;
+      line.shiftAdd(new Float32Array([currVal]));
+      this.animationId = requestAnimationFrame(renderPlot);
+      this.webglp.update();
+    }
+    this.animationId = requestAnimationFrame(renderPlot);
+
+    // this.props.sensors.forEach((v, i) => {
+    //   this.props.addSensorListener(v.idx, this.makeListener(v, i));
+    // });
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   // update graph colors
-  //   this.chart.options.legend.labels.fontColor = this.props.theme.palette.text.primary;
-  //   this.chart.options.scales.yAxes[0].ticks.fontColor = this.props.theme.palette.text.secondary;
-  //   this.chart.options.scales.yAxes[0].gridLines.color = this.props.theme.palette.action.selected;
-  //   this.chart.options.scales.yAxes[0].gridLines.zeroLineColor = this.props.theme.palette.action.disabledBackground;
-
-  //   this.chart.options.scales.yAxes[0].ticks.suggestedMin = (this.state.shouldScale?0:undefined);
-  //   this.chart.options.scales.yAxes[0].ticks.suggestedMax = (this.state.shouldScale?this.props.max:undefined);
-
-  //   this.chart.options.scales.xAxes[0].ticks.min = moment(this.chart.options.scales.xAxes[0].ticks.max).clone().subtract(this.state.window, 'seconds');
-  // }
   render() {
     const { classes } = this.props;
     return (
@@ -136,7 +165,9 @@ class Graph extends Component {
           <Button className={classes.button} size='small' disableElevation onClick={e => this.setState({showSettings: true})}>
             <SettingsIcon/>
           </Button>
-          <canvas ref={this.canvas} className={classes.canvas}/>
+          <div ref={this.sizeDetector} className={classes.sizeDetector}>
+            <canvas ref={this.canvas} className={classes.canvas}/>
+          </div>
           <Dialog open={this.state.showSettings} onClose={() => this.setState({showSettings: false})} disablePortal fullWidth>
           <DialogTitle>Graph settings for {this.props.title}</DialogTitle>
             <DialogContent>
@@ -158,4 +189,4 @@ class Graph extends Component {
   }
 }
 
-export default withTheme(withStyles(styles)(Graph));
+export default withTheme(withStyles(styles)(NewGraph));
