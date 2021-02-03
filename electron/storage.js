@@ -37,14 +37,16 @@ module.exports.handleSensorData = async data => {
   // record, etc
   const timestamp = moment(data.timestamp);
   try {
-    await influxLocal.writePoints(Object.keys(data.values).map(k => (
-      {
-        measurement: k,
-        tags: {recording: recordingName, type: 'sensor'},
-        fields: {value: data.values[k]},
-        timestamp: timestamp.toDate()
-      }
-    )));
+    if(influxLocal) {
+      await influxLocal.writePoints(Object.keys(data.values).map(k => (
+        {
+          measurement: k,
+          tags: {recording: recordingName, type: 'sensor'},
+          fields: {value: data.values[k]},
+          timestamp: timestamp.toDate()
+        }
+      )));
+    }
   } catch(err) {
     console.error(err);
   }
@@ -72,14 +74,16 @@ module.exports.handleSensorData = async data => {
 
 // state of valves
 module.exports.handleValveEvent = async (name, state) => {
-  await influxLocal.writePoints([
-    {
-      measurement: name,
-      tags: {recording: recordingName, type: 'valve', event: (state?'open':'close')},
-      fields: {value: (state?1:0)},
-      timestamp: moment().toDate()
-    }
-  ]);
+  if(influxLocal) {
+    await influxLocal.writePoints([
+      {
+        measurement: name,
+        tags: {recording: recordingName, type: 'valve', event: (state?'open':'close')},
+        fields: {value: (state?1:0)},
+        timestamp: moment().toDate()
+      }
+    ]);
+  }
 }
 
 module.exports.startRecording = async name => {
