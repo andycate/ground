@@ -7,18 +7,6 @@ comms.init();
 
 let mainWindow, controlWindow;
 function createWindow () {
-  startUrls = {'graphs': '', 'control': ''};
-
-  for (var key in startUrls) {
-    // use process.env.ELECTRON_START_URL if in dev mode, path to index file otherwise
-    startUrls[key] = process.env.ELECTRON_START_URL ? process.env.ELECTRON_START_URL + '?' + key : url.format({
-      pathname: path.join(__dirname, '../index.html?' + key),
-      protocol: 'file:',
-      slashes: true,
-    });
-  }
-
-
   mainWindow = new BrowserWindow({
     show: false,
     webPreferences: {
@@ -31,7 +19,11 @@ function createWindow () {
   if(!isDev) {
     mainWindow.removeMenu();
   }
-  mainWindow.loadURL(startUrls['graphs']);
+  mainWindow.loadURL(process.env.TELEMETRY_START_URL ? process.env.TELEMETRY_START_URL : url.format({
+    pathname: path.join(__dirname, '../index.html'),
+    protocol: 'file:',
+    slashes: true,
+  }));
   mainWindow.on('closed', function () {
     mainWindow = null;
   });
@@ -43,8 +35,8 @@ function createWindow () {
   });
 
   // use process.env.ELECTRON_START_URL if in dev mode, path to index file otherwise
-  const controlStartUrl = process.env.ELECTRON_START_URL ? process.env.ELECTRON_START_URL + '?control' : url.format({
-    pathname: path.join(__dirname, '../index.html?control'),
+  const controlStartUrl = process.env.CONTROL_START_URL ? process.env.CONTROL_START_URL : url.format({
+    pathname: path.join(__dirname, '../index.html'),
     protocol: 'file:',
     slashes: true,
   });

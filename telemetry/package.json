@@ -18,7 +18,7 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2"
+    "cross-env": "^7.0.3"
   },
   "scripts": {
     "start": "cross-env BROWSER=none react-scripts start",
