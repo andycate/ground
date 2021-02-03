@@ -162,7 +162,7 @@ class App extends Component {
                   max={600}
                   defaultWindow={90}
                   interval={80}
-                  title='Tank Pressures'
+                  title='Tank Pressures and Domes'
                   addSensorListener={this.addSensorListener}
                 />
               </Grid>
@@ -196,9 +196,21 @@ class App extends Component {
                     [{
                       label: 'PRESSURANT',
                       unit: 'PSI',
-                      idx: 4,
+                      idx: 6,
                       index: 0,
                       color: '#f57c00'
+                    },{
+                      label: 'LOX DOME',
+                      unit: 'PSI',
+                      idx: 4,
+                      index: 0,
+                      color: '#2471A3'
+                    },{
+                      label: 'PROP DOME',
+                      unit: 'PSI',
+                      idx: 5,
+                      index: 0,
+                      color: '#B03A2E'
                     }]
                   }
                   max={4800}
@@ -214,14 +226,14 @@ class App extends Component {
                     [{
                       label: 'BATTERY',
                       unit: 'Volts',
-                      idx: 5,
+                      idx: 7,
                       index: 0,
                       color: '#00796b'
                     },
                     {
                       label: 'POWER',
                       unit: 'Watts',
-                      idx: 5,
+                      idx: 7,
                       index: 1,
                       color: '#fbc02d'
                     }]

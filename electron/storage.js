@@ -26,8 +26,8 @@ module.exports.initInfluxLocal = async (db) => {
     database: db,
     // schema: []
     protocol: 'https',
-    username: '',
-    password: '',
+    username: 'waterflowClient',
+    password: 'waterflowClient',
     port: 443
   });
   selectedDb = db;
