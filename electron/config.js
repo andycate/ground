@@ -9,7 +9,7 @@ const config = {
           storageName: "loxTank",
           label: "pressure",
           interpolation: {
-            type: "linear", // linear, quadratic
+            type: "none", // linear, quadratic
             unit: "PSI",
             values: [ // [x, y] pairs
               [0, -123.89876445934394],
@@ -28,7 +28,7 @@ const config = {
           storageName: "propTank",
           label: "pressure",
           interpolation: {
-            type: "linear", // linear, quadratic
+            type: "none", // linear, quadratic
             unit: "PSI",
             values: [ // [x, y] pairs
               [0, -123.89876445934394],
@@ -47,7 +47,7 @@ const config = {
           storageName: "loxInjector",
           label: "pressure",
           interpolation: {
-            type: "linear", // linear, quadratic
+            type: "none", // linear, quadratic
             unit: "PSI",
             values: [ // [x, y] pairs
               [0, -123.89876445934394],
@@ -66,7 +66,45 @@ const config = {
           storageName: "propInjector",
           label: "pressure",
           interpolation: {
-            type: "linear", // none, linear, quadratic
+            type: "none", // none, linear, quadratic
+            unit: "PSI",
+            values: [ // [x, y] pairs
+              [0, -123.89876445934394],
+              [8388607, 1131.40825] // 2^23 - 1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      name: "LOX Dome",
+      packetId: 1,
+      values: [
+        {
+          packetPosition: 5,
+          storageName: "loxDome",
+          label: "pressure",
+          interpolation: {
+            type: "none", // linear, quadratic
+            unit: "PSI",
+            values: [ // [x, y] pairs
+              [0, -123.89876445934394],
+              [8388607, 1131.40825] // 2^23 - 1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      name: "Prop Dome",
+      packetId: 1,
+      values: [
+        {
+          packetPosition: 6,
+          storageName: "propDome",
+          label: "pressure",
+          interpolation: {
+            type: "none", // linear, quadratic
             unit: "PSI",
             values: [ // [x, y] pairs
               [0, -123.89876445934394],
@@ -85,7 +123,7 @@ const config = {
           storageName: "highPressure",
           label: "pressure",
           interpolation: {
-            type: "linear", // linear, quadratic
+            type: "none", // linear, quadratic
             unit: "PSI",
             values: [
               [ 1634771.9270400004, 0 ],
