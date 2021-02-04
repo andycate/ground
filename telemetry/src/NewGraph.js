@@ -118,15 +118,21 @@ class NewGraph extends Component {
     this.canvas.current.height = height * window.devicePixelRatio;
 
     this.webglp = new WebGLPlot(this.canvas.current);
-    const numX = 1000;
+    const numX = 0;
+    const graphSecs = 90.0;
 
     const line = new WebglLine(new ColorRGBA(1, 0, 0, 1), numX);
     this.webglp.addLine(line);
 
-    line.lineSpaceX(-1, 2 / numX);
+    // line.lineSpaceX(-1, 2 / numX);
 
-    let values = new Float32Array(numX);
+    let values = [graphSecs, 0.0];
+    let yValues = [0.0];
+    let moments = [moment()];
     let currVal = 0.0;
+    let minValue = 0.0;
+    let maxValue = 0.0;
+    
 
     const renderPlot = () => {
       const noise1 = 0.1;
@@ -139,19 +145,41 @@ class NewGraph extends Component {
       // if(currVal > 1) yNoise = -Math.abs(yNoise);
       // if(currVal < -1) yNoise = Math.abs(yNoise);
       currVal += yNoise;
-      for(let i = 0; i < numX - 1; i++) {
-        values[i] = values[i+1];
+      
+      const now = moment();
+      for(let i = 0; i < moments.length; i++) {
+        if(now.diff(moments[i], 'seconds', true) > graphSecs) {
+          moments.splice(i, 1);
+          values.splice(i*2, 2);
+          yValues.splice(i, 1);
+          i--;
+        }
       }
-      values[numX-1] = currVal;
-      const minValue = Math.min.apply(null, values);
-      const maxValue = Math.max.apply(null, values);
+      const diff = now.diff(moments[moments.length-1], 'seconds', true);
+      for(let i = 0; i < values.length / 2; i++) {
+        values[i*2] = (values[i*2] - diff);
+      }
+      moments.push(now);
+      values.push(graphSecs);
+      values.push(currVal);
+      yValues.push(currVal);
+
+      const minValue = Math.min.apply(null, yValues);
+      const maxValue = Math.max.apply(null, yValues);
       line.scaleY = 2.0 / (maxValue - minValue);
       line.offsetY = -minValue * line.scaleY - 1;
-      line.shiftAdd(new Float32Array([currVal]));
-      this.animationId = requestAnimationFrame(renderPlot);
+      line.scaleX = 2.0/graphSecs;
+      line.offsetX = -1;
+      line.numPoints = values.length/2;
+      line.webglNumPoints = values.length/2;
+      line.xy = new Float32Array(values);
+      console.log(values.length);
+      // this.animationId = requestAnimationFrame(renderPlot);
       this.webglp.update();
     }
-    this.animationId = requestAnimationFrame(renderPlot);
+    window.setInterval(() => {
+      this.animationId = requestAnimationFrame(renderPlot);
+    }, 50);
 
     // this.props.sensors.forEach((v, i) => {
     //   this.props.addSensorListener(v.idx, this.makeListener(v, i));
