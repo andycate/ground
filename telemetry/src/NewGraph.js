@@ -110,80 +110,76 @@ class NewGraph extends Component {
     }
   }
   componentDidMount() {
-    console.log(window.devicePixelRatio)
     const width = this.sizeDetector.current.clientWidth;
     const height = this.sizeDetector.current.clientHeight;
-
     this.canvas.current.width = width * window.devicePixelRatio;
     this.canvas.current.height = height * window.devicePixelRatio;
 
     this.webglp = new WebGLPlot(this.canvas.current);
-    const numX = 0;
-    const graphSecs = 90.0;
 
-    const line = new WebglLine(new ColorRGBA(1, 0, 0, 1), numX);
+    const line = new WebglLine(new ColorRGBA(1, 0, 0, 1), 0);
+    line.offsetX = -1;
     this.webglp.addLine(line);
 
-    // line.lineSpaceX(-1, 2 / numX);
+    let buffer = [];
 
-    let values = [graphSecs, 0.0];
-    let yValues = [0.0];
-    let moments = [moment()];
-    let currVal = 0.0;
-    let minValue = 0.0;
-    let maxValue = 0.0;
+    let values = [];
+    let yValues = [];
+    let moments = [];
     
-
     const renderPlot = () => {
-      const noise1 = 0.1;
-      // for (let i = 0; i < line.numPoints; i+=2) {
-      //   const ySin = Math.sin(Math.PI * i * 0.001 * Math.PI * 2);
-      //   const yNoise = Math.random() - 0.5;
-      //   line.setY(i, ySin * 0.5 + yNoise * noise1);
-      // }
-      let yNoise = (Math.random() - 0.5) * 0.1;
-      // if(currVal > 1) yNoise = -Math.abs(yNoise);
-      // if(currVal < -1) yNoise = Math.abs(yNoise);
-      currVal += yNoise;
-      
+      performance.mark('rstart');
       const now = moment();
       for(let i = 0; i < moments.length; i++) {
-        if(now.diff(moments[i], 'seconds', true) > graphSecs) {
+        if(now.diff(moments[i], 'seconds', true) > this.state.window) {
           moments.splice(i, 1);
           values.splice(i*2, 2);
           yValues.splice(i, 1);
           i--;
+        } else {
+          break;
         }
       }
       const diff = now.diff(moments[moments.length-1], 'seconds', true);
       for(let i = 0; i < values.length / 2; i++) {
         values[i*2] = (values[i*2] - diff);
       }
-      moments.push(now);
-      values.push(graphSecs);
-      values.push(currVal);
-      yValues.push(currVal);
+      if(buffer.length > 0) {
+        buffer.forEach(v => {
+          moments.push(v[0]);
+          yValues.push(v[1]);
+          values.push(this.state.window - now.diff(v[0], 'seconds', true));
+          values.push(v[1]);
+        });
+        buffer = [];
+      }
 
       const minValue = Math.min.apply(null, yValues);
       const maxValue = Math.max.apply(null, yValues);
       line.scaleY = 2.0 / (maxValue - minValue);
       line.offsetY = -minValue * line.scaleY - 1;
-      line.scaleX = 2.0/graphSecs;
-      line.offsetX = -1;
+      line.scaleX = 2.0/this.state.window;
       line.numPoints = values.length/2;
       line.webglNumPoints = values.length/2;
-      line.xy = new Float32Array(values);
-      console.log(values.length);
-      // this.animationId = requestAnimationFrame(renderPlot);
+      line.xy = Float32Array.from(values);
+      this.animationId = requestAnimationFrame(renderPlot);
+      performance.mark('rend');
+
+      performance.measure('render', 'rstart', 'rend');
+      console.log(performance.getEntriesByName('render'));
+      performance.clearMarks();
+      performance.clearMeasures();
+
       this.webglp.update();
     }
-    window.setInterval(() => {
-      this.animationId = requestAnimationFrame(renderPlot);
-    }, 50);
+    this.animationId = requestAnimationFrame(renderPlot);
 
     // this.props.sensors.forEach((v, i) => {
     //   this.props.addSensorListener(v.idx, this.makeListener(v, i));
     // });
+    this.props.addSensorListener(0, (data, timestamp) => {
+      buffer.push([timestamp, data[0]]);
+    });
   }
   render() {
     const { classes } = this.props;

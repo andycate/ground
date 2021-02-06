@@ -166,7 +166,7 @@ class App extends Component {
                   addSensorListener={this.addSensorListener}
                 />
               </Grid>
-              <Grid item xs={6} className={classes.item}>
+              {/* <Grid item xs={6} className={classes.item}>
                 <NewGraph
                   sensors={
                     [{
@@ -237,7 +237,7 @@ class App extends Component {
                   title='Tank Pressures and Domes'
                   addSensorListener={this.addSensorListener}
                 />
-              </Grid>
+              </Grid> */}
               {/* <Grid item xs={6} className={classes.item}>
                 <Graph
                   sensors={
