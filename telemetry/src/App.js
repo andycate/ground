@@ -150,38 +150,16 @@ class App extends Component {
                       unit: 'PSI',
                       idx: 0,
                       index: 0,
-                      color: '#7b1fa2'
-                    },{
+                      color: [123, 35, 162]
+                    },
+                    {
                       label: 'PROP TANK',
                       unit: 'PSI',
                       idx: 1,
                       index: 0,
-                      color: '#d32f2f'
-                    }]
-                  }
-                  max={600}
-                  defaultWindow={90}
-                  interval={80}
-                  title='Tank Pressures and Domes'
-                  addSensorListener={this.addSensorListener}
-                />
-              </Grid>
-              {/* <Grid item xs={6} className={classes.item}>
-                <NewGraph
-                  sensors={
-                    [{
-                      label: 'LOX TANK',
-                      unit: 'PSI',
-                      idx: 0,
-                      index: 0,
-                      color: '#7b1fa2'
-                    },{
-                      label: 'PROP TANK',
-                      unit: 'PSI',
-                      idx: 1,
-                      index: 0,
-                      color: '#d32f2f'
-                    }]
+                      color: [211, 47, 47]
+                    }
+                  ]
                   }
                   max={600}
                   defaultWindow={90}
@@ -192,67 +170,19 @@ class App extends Component {
               </Grid>
               <Grid item xs={6} className={classes.item}>
                 <NewGraph
-                  sensors={
-                    [{
-                      label: 'LOX TANK',
-                      unit: 'PSI',
-                      idx: 0,
-                      index: 0,
-                      color: '#7b1fa2'
-                    },{
-                      label: 'PROP TANK',
-                      unit: 'PSI',
-                      idx: 1,
-                      index: 0,
-                      color: '#d32f2f'
-                    }]
-                  }
-                  max={600}
-                  defaultWindow={90}
-                  interval={80}
-                  title='Tank Pressures and Domes'
-                  addSensorListener={this.addSensorListener}
-                />
-              </Grid>
-              <Grid item xs={6} className={classes.item}>
-                <NewGraph
-                  sensors={
-                    [{
-                      label: 'LOX TANK',
-                      unit: 'PSI',
-                      idx: 0,
-                      index: 0,
-                      color: '#7b1fa2'
-                    },{
-                      label: 'PROP TANK',
-                      unit: 'PSI',
-                      idx: 1,
-                      index: 0,
-                      color: '#d32f2f'
-                    }]
-                  }
-                  max={600}
-                  defaultWindow={90}
-                  interval={80}
-                  title='Tank Pressures and Domes'
-                  addSensorListener={this.addSensorListener}
-                />
-              </Grid> */}
-              {/* <Grid item xs={6} className={classes.item}>
-                <Graph
                   sensors={
                     [{
                       label: 'LOX INJECTOR',
                       unit: 'PSI',
                       idx: 2,
                       index: 0,
-                      color: '#388e3c'
+                      color: [56, 152, 60]
                     },{
                       label: 'PROP INJECTOR',
                       unit: 'PSI',
                       idx: 3,
                       index: 0,
-                      color: '#1976d2'
+                      color: [25, 118, 210]
                     }]
                   }
                   max={600}
@@ -263,26 +193,26 @@ class App extends Component {
                 />
               </Grid>
               <Grid item xs={6} className={classes.item}>
-                <Graph
+                <NewGraph
                   sensors={
                     [{
                       label: 'PRESSURANT',
                       unit: 'PSI',
                       idx: 6,
                       index: 0,
-                      color: '#f57c00'
+                      color: [245, 124, 0]
                     },{
                       label: 'LOX DOME',
                       unit: 'PSI',
                       idx: 4,
                       index: 0,
-                      color: '#2471A3'
+                      color: [36, 113, 163]
                     },{
                       label: 'PROP DOME',
                       unit: 'PSI',
                       idx: 5,
                       index: 0,
-                      color: '#B03A2E'
+                      color: [176, 58, 46]
                     }]
                   }
                   max={4800}
@@ -293,21 +223,21 @@ class App extends Component {
                 />
               </Grid>
               <Grid item xs={6} className={classes.item}>
-                <Graph
+                <NewGraph
                   sensors={
                     [{
                       label: 'BATTERY',
                       unit: 'Volts',
                       idx: 7,
                       index: 0,
-                      color: '#00796b'
+                      color: [0, 121, 107]
                     },
                     {
                       label: 'POWER',
                       unit: 'Watts',
                       idx: 7,
                       index: 1,
-                      color: '#fbc02d'
+                      color: [251, 192, 45]
                     }]
                   }
                   max={24}
@@ -316,7 +246,7 @@ class App extends Component {
                   title='Power'
                   addSensorListener={this.addSensorListener}
                 />
-              </Grid> */}
+              </Grid>
             </Grid>
           </Container>
         </Box>

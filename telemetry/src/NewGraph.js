@@ -117,69 +117,81 @@ class NewGraph extends Component {
 
     this.webglp = new WebGLPlot(this.canvas.current);
 
-    const line = new WebglLine(new ColorRGBA(1, 0, 0, 1), 0);
-    line.offsetX = -1;
-    this.webglp.addLine(line);
+    const lines = []; // new WebglLine(new ColorRGBA(1, 0, 0, 1), 0);
+    // line.offsetX = 0.5;
+    // this.webglp.addLine(line);
 
     let buffer = [];
 
     let values = [];
     let yValues = [];
     let moments = [];
+
+    this.props.sensors.forEach((v, i) => {
+      buffer.push([]);
+      values.push([]);
+      yValues.push([]);
+      moments.push([]);
+      lines.push(new WebglLine(new ColorRGBA(...v.color.map(c => c / 256), 1), 0));
+      lines[i].offsetX = -1;
+      this.webglp.addLine(lines[i]);
+      this.props.addSensorListener(v.idx, (data, timestamp) => {
+        if(isNaN(data[v.index])) return;
+        buffer[i].push([timestamp, data[v.index]]);
+      });
+    });
+    let lastUpdate = null;
     
     const renderPlot = () => {
-      performance.mark('rstart');
       const now = moment();
-      for(let i = 0; i < moments.length; i++) {
-        if(now.diff(moments[i], 'seconds', true) > this.state.window) {
-          moments.splice(i, 1);
-          values.splice(i*2, 2);
-          yValues.splice(i, 1);
-          i--;
-        } else {
-          break;
+      for(let s = 0; s < buffer.length; s++) {
+        for(let i = 0; i < moments[s].length; i++) {
+          if(now.diff(moments[s][i], 'seconds', true) > this.state.window) {
+            moments[s].splice(i, 1);
+            values[s].splice(i*2, 2);
+            yValues[s].splice(i, 1);
+            i--;
+          } else {
+            break;
+          }
+        }
+
+        const diff = now.diff(lastUpdate || now, 'seconds', true);
+        for(let i = 0; i < values[s].length / 2; i++) {
+          values[s][i*2] = (values[s][i*2] - diff);
+        }
+        if(buffer[s].length > 0) {
+          buffer[s].forEach(v => {
+            moments[s].push(v[0]);
+            yValues[s].push(v[1]);
+            values[s].push(this.state.window - now.diff(v[0], 'seconds', true));
+            values[s].push(v[1]);
+          });
+          buffer[s] = [];
         }
       }
-      const diff = now.diff(moments[moments.length-1], 'seconds', true);
-      for(let i = 0; i < values.length / 2; i++) {
-        values[i*2] = (values[i*2] - diff);
-      }
-      if(buffer.length > 0) {
-        buffer.forEach(v => {
-          moments.push(v[0]);
-          yValues.push(v[1]);
-          values.push(this.state.window - now.diff(v[0], 'seconds', true));
-          values.push(v[1]);
-        });
-        buffer = [];
-      }
-
-      const minValue = Math.min.apply(null, yValues);
-      const maxValue = Math.max.apply(null, yValues);
-      line.scaleY = 2.0 / (maxValue - minValue);
-      line.offsetY = -minValue * line.scaleY - 1;
-      line.scaleX = 2.0/this.state.window;
-      line.numPoints = values.length/2;
-      line.webglNumPoints = values.length/2;
-      line.xy = Float32Array.from(values);
+      lastUpdate = now;
+      
+      const minValue = Math.min.apply(null, yValues.map(v => Math.min.apply(null, v)));
+      const maxValue = Math.max.apply(null, yValues.map(v => Math.max.apply(null, v)));
+      lines.forEach((l, i) => {
+        l.scaleY = 2.0 / (maxValue - minValue);
+        l.offsetY = -minValue * l.scaleY - 1 || 0;
+        l.scaleX = 2.0/this.state.window;
+        l.numPoints = values[i].length/2;
+        l.webglNumPoints = values[i].length/2;
+        l.xy = Float32Array.from(values[i]);
+      });
       this.animationId = requestAnimationFrame(renderPlot);
-      performance.mark('rend');
-
-      performance.measure('render', 'rstart', 'rend');
-      console.log(performance.getEntriesByName('render'));
-      performance.clearMarks();
-      performance.clearMeasures();
-
+      
       this.webglp.update();
     }
+    cancelAnimationFrame(this.animationId);
     this.animationId = requestAnimationFrame(renderPlot);
-
-    // this.props.sensors.forEach((v, i) => {
-    //   this.props.addSensorListener(v.idx, this.makeListener(v, i));
-    // });
-    this.props.addSensorListener(0, (data, timestamp) => {
-      buffer.push([timestamp, data[0]]);
-    });
+  }
+  componentWillUnmount() {
+    console.log('unmount');
+    cancelAnimationFrame(this.animationId);
   }
   render() {
     const { classes } = this.props;
