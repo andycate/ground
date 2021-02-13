@@ -98,7 +98,7 @@ class NewGraph extends Component {
       this.webglp.addLine(lines[i]);
       this.props.addSensorListener(v.idx, (data, timestamp) => {
         if(isNaN(data[v.index])) return;
-        this.legendRefs[i].current.innerHTML = `(${data[v.index]}`;
+        this.legendRefs[i].current.innerHTML = `(${Math.floor(data[v.index])}.${Math.round((data[v.index] * 10) % 10)}`;
         buffer[i].push([timestamp, data[v.index]]);
       });
     });
