@@ -66,7 +66,7 @@ class NewGraph extends Component {
     return (data, timestamp) => {
       const buffer = this.chart.data.datasets[i].data;
       let newValue = data[sensor.index];
-      this.legendRefs[i].current.innerHTML = `(${newValue})`;
+      this.legendRefs[i].current.innerHTML = `(${newValue}`;
       if(buffer.length > 0) {
         if(timestamp.diff(buffer[0].x, 'seconds', true) > this.state.window) {
           buffer.shift();
@@ -227,12 +227,13 @@ class NewGraph extends Component {
                   this.props.sensors.map((s, i) => (
                     <>
                       <td style={{backgroundColor: `rgb(${s.color[0]},${s.color[1]},${s.color[2]})`, width: '30px', height: '100%'}}/>
-                      <td>
+                      <td style={{fontSize: '0.75rem'}}>
                         {s.label}
                       </td>
-                      <td style={{width: '4rem'}} ref={this.legendRefs[i]}>
-                        (0.0)
+                      <td ref={this.legendRefs[i]} style={{fontSize: '0.75rem'}}>
+                        (0.0
                       </td>
+                      <td style={{width: '2.5rem', fontSize: '0.75rem'}}>{s.unit})</td>
                     </>
                   ))
                 }
