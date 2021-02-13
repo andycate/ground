@@ -62,19 +62,11 @@ class NewGraph extends Component {
     this.lastUpdate = Date.now();
   }
 
-  resizer = () => {
-    const width = this.sizeDetector.current.clientWidth;
-    const height = this.sizeDetector.current.clientHeight;
-    this.canvas.current.width = width * window.devicePixelRatio;
-    this.canvas.current.height = height * window.devicePixelRatio;
-  }
-
   componentDidMount() {
     const width = this.sizeDetector.current.clientWidth;
     const height = this.sizeDetector.current.clientHeight;
     this.canvas.current.width = width * window.devicePixelRatio;
     this.canvas.current.height = height * window.devicePixelRatio;
-    window.addEventListener('resize', this.resizer);
 
     this.webglp = new WebGLPlot(this.canvas.current);
 
