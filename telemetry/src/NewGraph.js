@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import FormGroup from '@material-ui/core/FormGroup';
 import Switch from '@material-ui/core/Switch';
@@ -23,6 +24,8 @@ const styles = theme => ({
   },
   cardContent: {
     height: '100%',
+    padding: '8px',
+    paddingBottom: '8px !important'
   },
   button: {
     float: 'right',
@@ -37,7 +40,10 @@ const styles = theme => ({
   sizeDetector: {
     position: 'relative',
     width: '100%',
-    height: '100%'
+    height: '90%'
+  },
+  legend: {
+
   }
 });
 
@@ -49,6 +55,8 @@ class NewGraph extends Component {
       showSettings: false,
       window: this.props.defaultWindow
     };
+    this.legendRefs = this.props.sensors.map(s => React.createRef());
+
     this.canvas = React.createRef();
     this.sizeDetector = React.createRef();
     this.lastUpdate = Date.now();
@@ -58,6 +66,7 @@ class NewGraph extends Component {
     return (data, timestamp) => {
       const buffer = this.chart.data.datasets[i].data;
       let newValue = data[sensor.index];
+      this.legendRefs[i].current.innerHTML = `(${newValue})`;
       if(buffer.length > 0) {
         if(timestamp.diff(buffer[0].x, 'seconds', true) > this.state.window) {
           buffer.shift();
@@ -109,11 +118,20 @@ class NewGraph extends Component {
       }
     }
   }
+
+  resizer = () => {
+    const width = this.sizeDetector.current.clientWidth;
+    const height = this.sizeDetector.current.clientHeight;
+    this.canvas.current.width = width * window.devicePixelRatio;
+    this.canvas.current.height = height * window.devicePixelRatio;
+  }
+
   componentDidMount() {
     const width = this.sizeDetector.current.clientWidth;
     const height = this.sizeDetector.current.clientHeight;
     this.canvas.current.width = width * window.devicePixelRatio;
     this.canvas.current.height = height * window.devicePixelRatio;
+    window.addEventListener('resize', this.resizer);
 
     this.webglp = new WebGLPlot(this.canvas.current);
 
@@ -191,6 +209,7 @@ class NewGraph extends Component {
   }
   componentWillUnmount() {
     console.log('unmount');
+    window.removeEventListener('resize', this.resizer);
     cancelAnimationFrame(this.animationId);
   }
   render() {
@@ -201,6 +220,25 @@ class NewGraph extends Component {
           <Button className={classes.button} size='small' disableElevation onClick={e => this.setState({showSettings: true})}>
             <SettingsIcon/>
           </Button>
+          <table className={classes.legend}>
+            <tbody>
+              <tr>
+                {
+                  this.props.sensors.map((s, i) => (
+                    <>
+                      <td style={{backgroundColor: `rgb(${s.color[0]},${s.color[1]},${s.color[2]})`, width: '30px', height: '100%'}}/>
+                      <td>
+                        {s.label}
+                      </td>
+                      <td style={{width: '4rem'}} ref={this.legendRefs[i]}>
+                        (0.0)
+                      </td>
+                    </>
+                  ))
+                }
+              </tr>
+            </tbody>
+          </table>
           <div ref={this.sizeDetector} className={classes.sizeDetector}>
             <canvas ref={this.canvas} className={classes.canvas}/>
           </div>
