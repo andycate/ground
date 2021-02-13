@@ -61,63 +61,6 @@ class NewGraph extends Component {
     this.sizeDetector = React.createRef();
     this.lastUpdate = Date.now();
   }
-  makeListener = (sensor, i) => {
-    let values = [];
-    return (data, timestamp) => {
-      const buffer = this.chart.data.datasets[i].data;
-      let newValue = data[sensor.index];
-      this.legendRefs[i].current.innerHTML = `(${newValue}`;
-      if(buffer.length > 0) {
-        if(timestamp.diff(buffer[0].x, 'seconds', true) > this.state.window) {
-          buffer.shift();
-        }
-      } else {
-        buffer.push({
-          x: timestamp,
-          y: newValue
-        });
-      }
-      // console.log(newValue);
-      if(isNaN(newValue)) {
-        return;
-      }
-      if(values.length >= 4) {
-        values = [];
-        values.push(newValue);
-        buffer.push({
-          x: timestamp,
-          y: newValue
-        });
-      } else {
-        values.push(newValue);
-        const min = Math.min(...values);
-        const max = Math.max(...values);
-        const ave = values.reduce((prev, curr) => prev + curr) / values.length;
-        // console.log(min);
-        if(ave - min > max - ave) {
-          // use min
-          buffer[buffer.length-1].y = min;
-        } else {
-          // use max
-          buffer[buffer.length-1].y = max;
-        }
-        buffer[buffer.length-1].x = timestamp;
-      }
-      this.chart.options.scales.xAxes[0].ticks.min = buffer[buffer.length-1].x.clone().subtract(this.state.window, 'seconds');
-      this.chart.options.scales.xAxes[0].ticks.max = buffer[buffer.length-1].x;
-
-      const latest = (Math.round(newValue * 10) / 10).toString().split('.');
-      if(!latest[1]) {
-        latest[1] = '0';
-      }
-      this.chart.data.datasets[i].label = `${sensor.label} (${latest[0]}.${latest[1]} ${sensor.unit})`;
-      // console.log(buffer);
-      if(Date.now() - this.lastUpdate > 100.0) {
-        this.chart.update();
-        this.lastUpdate = Date.now();
-      }
-    }
-  }
 
   resizer = () => {
     const width = this.sizeDetector.current.clientWidth;
@@ -155,6 +98,7 @@ class NewGraph extends Component {
       this.webglp.addLine(lines[i]);
       this.props.addSensorListener(v.idx, (data, timestamp) => {
         if(isNaN(data[v.index])) return;
+        this.legendRefs[i].current.innerHTML = `(${data[v.index]}`;
         buffer[i].push([timestamp, data[v.index]]);
       });
     });
@@ -206,6 +150,8 @@ class NewGraph extends Component {
     }
     cancelAnimationFrame(this.animationId);
     this.animationId = requestAnimationFrame(renderPlot);
+
+
   }
   componentWillUnmount() {
     console.log('unmount');
