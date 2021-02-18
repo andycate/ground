@@ -197,37 +197,51 @@ const config = {
       ]
     },
     {
-      name: "Fitting Tree",
+      name: "LOX Aux Heater",
       packetId: 0,
       values: [
         {
-          packetPosition: 0,
-          storageName: "fittingTreeTemperature",
-          label: "temperature",
+          packetPosition: 1,
+          storageName: "loxAuxHeater",
+          label: "loxAuxHeater",
           interpolation: {
-            type: "none", // none, linear, quadratic
-            unit: "Celcius"
+            type: "linear", // none, linear, quadratic
+            unit: "Volts",
+            values: [
+              [ 0, 0.0 ],
+              [ 255, 12.0 ]
+            ]
           }
-        },
+        }
+      ]
+    },
+    {
+      name: "LOX Gems Heater",
+      packetId: 0,
+      values: [
         {
           packetPosition: 1,
-          storageName: "fittingTreeHeater",
-          label: "heater",
+          storageName: "loxGemsHeater",
+          label: "loxGemsHeater",
           interpolation: {
-            type: "none", // none, linear, quadratic
-            unit: "Volts"
+            type: "linear", // none, linear, quadratic
+            unit: "Volts",
+            values: [
+              [ 0, 0.0 ],
+              [ 255, 24.0 ]
+            ]
           }
         }
       ]
     },
     {
       name: "Temperatures",
-      packetId:4,
+      packetId: 4,
       values: [
         {
           packetPosition: 0,
-          storageName: "cryoLoxTank",
-          label: "cryoLoxTank",
+          storageName: "cryoLoxTankTemp",
+          label: "cryoLoxTankTemp",
           interpolation: {
             type: "none", // none, linear, quadratic
             unit: "Celcius"
@@ -235,8 +249,8 @@ const config = {
         },
         {
           packetPosition: 1,
-          storageName: "cryoInj1",
-          label: "cryoInj1",
+          storageName: "cryoInj1Temp",
+          label: "cryoInj1Temp",
           interpolation: {
             type: "none", // none, linear, quadratic
             unit: "Celcius"
@@ -244,8 +258,8 @@ const config = {
         },
         {
           packetPosition: 2,
-          storageName: "cryoInj2",
-          label: "cryoInj2",
+          storageName: "loxAdapterTreeTemp",
+          label: "loxAdapterTreeTemp",
           interpolation: {
             type: "none", // none, linear, quadratic
             unit: "Celcius"
@@ -253,8 +267,8 @@ const config = {
         },
         {
           packetPosition: 3,
-          storageName: "auxTherm",
-          label: "auxTherm",
+          storageName: "loxGemsTemp",
+          label: "loxGemsTemp",
           interpolation: {
             type: "none", // none, linear, quadratic
             unit: "Celcius"
@@ -264,119 +278,6 @@ const config = {
     }
   ]
 };
-
-// const config = {
-//   sensors: [
-//     {
-//       name: "LOX Tank Pressure",
-//       packetId: 0,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "loxTank",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // linear, quadratic, none
-//             unit: "PSI"
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "Prop Tank Pressure",
-//       packetId: 1,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "propTank",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // linear, quadratic
-//             unit: "PSI"
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "LOX Injector Pressure",
-//       packetId: 2,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "loxInjector",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // linear, quadratic
-//             unit: "PSI",
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "Prop Injector Pressure",
-//       packetId: 3,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "propInjector",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // none, linear, quadratic
-//             unit: "PSI"
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "Nitrogen Pressure",
-//       packetId: 4,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "highPressure",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // linear, quadratic
-//             unit: "PSI",
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "Battery",
-//       packetId: 2,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "batteryVoltage",
-//           label: "voltage",
-//           interpolation: {
-//             type: "none",
-//             unit: "Volts"
-//           }
-//         },
-//         {
-//           packetPosition: 1,
-//           storageName: "wattage",
-//           label: "wattage",
-//           interpolation: {
-//             type: "none",
-//             unit: "Watts"
-//           }
-//         },
-//         {
-//           packetPosition: 2,
-//           storageName: "batteryAmperage",
-//           label: "current",
-//           interpolation: {
-//             type: "none",
-//             unit: "Amps"
-//           }
-//         }
-//       ]
-//     },
-//   ]
-// };
 
 const getPacketConfig = () => {
   const packets = {};
