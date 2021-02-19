@@ -81,16 +81,18 @@ class ButtonGroup extends Component {
           variant='outlined'
           className={!openClicked ? classes.closedButton : classes.closedButtonOutline}
           onClick={(e) => this.close()}
+          disabled={this.props.disabled || false}
           >
-            Close
+            {this.props.failText || "Close"}
           </Button>
           <Button
           color='primary'
           variant='outlined'
           className={openClicked ? classes.openButton : classes.openButtonOutline}
           onClick={(e) => this.open()}
+          disabled={this.props.disabled || false}
           >
-            Open
+            {this.props.successText || "Open"}
           </Button>
         </Grid>
         <br></br>
