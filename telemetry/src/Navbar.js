@@ -9,6 +9,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+// import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import GpsFixedIcon from '@material-ui/icons/GpsFixed';
@@ -81,6 +84,10 @@ class Navbar extends Component {
     return (
       <AppBar position='static' color='default'>
         <Toolbar>
+          <Tabs value={this.props.tab} onChange={(e, nv) => this.props.setTab(nv)}>
+            <Tab label="Pressures"/>
+            <Tab label="Temperatures"/>
+          </Tabs>
           <div className={classes.grow}></div>
           <TextField label='database name' value={this.state.dbName} onChange={e => this.setState({dbName: e.target.value})} disabled={this.props.selectedDb}/>
           <Button color='primary' variant='contained' disableElevation onClick={e => this.props.selectDb(this.state.dbName)} disabled={this.props.selectedDb}>

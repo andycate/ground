@@ -39,6 +39,16 @@ const styles = theme => ({
   }
 });
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <>
+      {value === index ? <>{children}</> : <></>}
+    </>
+  );
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -50,7 +60,8 @@ class App extends Component {
       ports: [],
       baud: 57600,
       portOpened: false,
-      recording: false
+      recording: false,
+      tab: 0
     };
     this.sensorListeners = [];
     this.bandwidthListeners = [];
@@ -139,6 +150,8 @@ class App extends Component {
               await comms.stopRecording();
               this.setState({recording: false});
             }}
+            tab={this.state.tab}
+            setTab={(nv) => this.setState({tab: nv})}
           />
           <Container maxWidth='xl' className={classes.container}>
             <Grid container spacing={3} className={classes.row}>
@@ -233,10 +246,10 @@ class App extends Component {
                       color: [0, 121, 107]
                     },
                     {
-                      label: 'POWER',
-                      unit: 'Watts',
+                      label: 'AMPS',
+                      unit: 'Amps',
                       idx: 7,
-                      index: 1,
+                      index: 2,
                       color: [251, 192, 45]
                     }]
                   }
@@ -244,6 +257,56 @@ class App extends Component {
                   defaultWindow={90}
                   interval={150}
                   title='Power'
+                  addSensorListener={this.addSensorListener}
+                />
+              </Grid>
+              <Grid item xs={6} className={classes.item}>
+                <NewGraph
+                  sensors={
+                    [{
+                      label: 'CRYO LOX TANK',
+                      unit: 'degC',
+                      idx: 10,
+                      index: 0,
+                      color: [0, 121, 107]
+                    },
+                    {
+                      label: 'CRYO LOX GEMS',
+                      unit: 'degC',
+                      idx: 10,
+                      index: 3,
+                      color: [251, 192, 45]
+                    }]
+                  }
+                  max={24}
+                  defaultWindow={90}
+                  interval={150}
+                  title='LOX TCS'
+                  addSensorListener={this.addSensorListener}
+                />
+              </Grid>
+              <Grid item xs={6} className={classes.item}>
+                <NewGraph
+                  sensors={
+                    [{
+                      label: 'LOX GEMS HEATER',
+                      unit: 'Volts',
+                      idx: 9,
+                      index: 0,
+                      color: [0, 121, 107]
+                    },
+                    {
+                      label: 'FITTING TREE HEATER',
+                      unit: 'Volts',
+                      idx: 8,
+                      index: 0,
+                      color: [251, 192, 45]
+                    }]
+                  }
+                  max={24}
+                  defaultWindow={90}
+                  interval={150}
+                  title='LOX TCS'
                   addSensorListener={this.addSensorListener}
                 />
               </Grid>

@@ -60,6 +60,8 @@ class NewGraph extends Component {
     this.canvas = React.createRef();
     this.sizeDetector = React.createRef();
     this.lastUpdate = Date.now();
+
+    console.log("constructing graph");
   }
 
   componentDidMount() {
