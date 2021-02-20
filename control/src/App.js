@@ -7,8 +7,10 @@ import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
 
 import ButtonGroup from './ButtonGroup';
+import TextButtonGroup from './TextButtonGroup';
 
 import comms from './comms';
 
@@ -23,6 +25,15 @@ const styles = theme => ({
     position: 'absolute',
     top: theme.spacing(8),
     paddingTop: theme.spacing(3)
+    // ,backgroundColor: theme.palette.success.main
+  },
+  containerR: {
+    flexGrow: 1,
+    width: '30%',
+    position: 'absolute',
+    top: theme.spacing(8),
+    paddingTop: theme.spacing(3),
+    left: 450
     // ,backgroundColor: theme.palette.success.main
   },
   row: {
@@ -61,8 +72,33 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.error.main
-  }
+  },
+  enableSwitch: {
+    switchBase: {
+      color: theme.palette.error.main,
+      '&$checked': {
+        color: theme.palette.success.main,
+      },
+      '&$checked + $track': {
+        backgroundColor: theme.palette.success.main,
+      },
+    },
+    checked: {},
+    track: {}
+  },
+  switchBase: {
+    color:  theme.palette.error.main,
+    "&$checked": {
+      color:  theme.palette.success.main
+    },
+    "&$checked + $track": {
+      backgroundColor:  theme.palette.success.main
+    }
+  },
+  checked: {},
+  track: {}
 });
+
 
 class App extends Component {
   constructor(props) {
@@ -75,6 +111,7 @@ class App extends Component {
       loxGems: false,
       propGems: false,
       HPS: false,
+      HPS_en: false,
       isDark: false
     }
   }
@@ -82,6 +119,12 @@ class App extends Component {
   makeSend = (id) => {
     return async (open) => {
       await comms.sendPacket(id, open ? [1] : [0]);
+    };
+  }
+
+  makeSendArg = (id) => {
+    return async (arg) => {
+      await comms.sendPacket(id, [arg]);
     };
   }
 
@@ -106,10 +149,28 @@ class App extends Component {
             <Grid container spacing={3} className={classes.row}>
               <ButtonGroup
                 text='High Pressure Solenoid'
-                width={1}
+                width={0.5}
                 send={this.makeSend(26)}
                 open={this.state.HPS}
+                disabled={!this.state.HPS_en}
               />
+              <Grid item container spacing={1} direction="column" alignItems='center' xs={6}>
+                <Grid item>
+                  <Box component="span" display="block">Pressurant Enabled</Box>
+                </Grid>
+                <Grid item>
+                  <Switch
+                   focusVisibleClassName={classes.focusVisible}
+                   disableRipple
+                   classes={{
+                     switchBase: classes.switchBase,
+                     track: classes.track,
+                     checked: classes.checked
+                   }}
+                   onChange={e => {this.setState({HPS_en: e.target.checked}); console.log(this.state)} }
+                 />
+                </Grid>
+              </Grid>
               <ButtonGroup
                 text='LOX GEMS'
                 width={0.5}
@@ -142,10 +203,47 @@ class App extends Component {
               />
               <ButtonGroup
                 text='Begin Flow'
-                width={1}
+                width={0.5}
                 send={this.makeSend(29)}
                 open={this.state.propFiveWay}
               />
+              <ButtonGroup
+                text='Begin LOX Flow'
+                width={0.5}
+                send={this.makeSend(30)}
+                open={this.state.propFiveWay}
+              />
+            </Grid>
+          </Container>
+        </Box>
+        <Box>
+          <Container maxWidth='xl' className={classes.containerR}>
+            <Grid container spacing={3} className={classes.row}>
+              <TextButtonGroup
+                text='LOX PT Heater'
+                width={0.5}
+                send={this.makeSendArg(40)}
+              />
+              <TextButtonGroup
+                text='LOX GEMS Heater'
+                width={0.5}
+                send={this.makeSendArg(41)}
+              />
+              <ButtonGroup
+                text='LOX GEMS'
+                width={0.5}
+                send={this.makeSend(22)}
+                open={this.state.loxGems}
+                successText={"Enable"}
+                failText={"Disabl"}
+              />
+              <ButtonGroup
+                text='Propane GEMS'
+                width={0.5}
+                send={this.makeSend(25)}
+                open={this.state.propGems}
+              />
+
             </Grid>
           </Container>
         </Box>
