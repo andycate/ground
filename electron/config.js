@@ -217,7 +217,7 @@ const config = {
     },
     {
       name: "LOX Gems Heater",
-      packetId: 0,
+      packetId: 6,
       values: [
         {
           packetPosition: 1,
