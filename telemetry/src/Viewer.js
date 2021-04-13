@@ -15,20 +15,23 @@ class Viewer extends Component {
   }
 
   componentDidMount() {
-    const { subscribeTo } = this.props;
-    subscribeTo('loxTankPT', this.updateLoxTankPT);
+    const { comms } = this.props;
+    console.log(comms);
+    comms.addSubscriber('loxTankPT', this.updateLoxTankPT);
   }
 
   componentWillUnmount() {
-    const { unsubscribeTo } = this.props;
-    unsubscribeTo('loxTankPT', this.updateLoxTankPT);
+    const { comms } = this.props;
+    comms.removeSubscriber('loxTankPT', this.updateLoxTankPT);
   }
 
   render() {
     const { loxTankPT } = this.state;
+    const { comms } = this.props;
     return (
       <div>
         { loxTankPT }
+        <button onClick={comms.openLox2Way}>open lox2Way</button>
       </div>
     );
   }

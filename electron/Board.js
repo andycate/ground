@@ -11,6 +11,12 @@ class Board {
     this.port.register(this.address, this);
   }
 
+  sendPacket(id, values) {
+    const p = new Packet(id, values);
+    this.port.send(this.address, p.stringify());
+    return true;
+  }
+
   /**
    * Takes in a packet and returns a state update
    * 

@@ -1,5 +1,6 @@
 const Interpolation = require('./Interpolation');
 const Board = require('./Board');
+const Packet = require('./Packet');
 
 const packets = {
   0: {
@@ -123,7 +124,44 @@ const packets = {
 class FlightV2 extends Board {
   constructor(port, address) {
     super(port, address, packets, {});
+
+    this.openLox2Way = this.openLox2Way.bind(this);
+    this.closeLox2Way = this.closeLox2Way.bind(this);
+
+    this.openLox5Way = this.openLox5Way.bind(this);
+    this.closeLox5Way = this.closeLox5Way.bind(this);
+
+    this.openProp5Way = this.openProp5Way.bind(this);
+    this.closeProp5Way = this.closeProp5Way.bind(this);
+
+    this.openLoxGems = this.openLoxGems.bind(this);
+    this.closeLoxGems = this.closeLoxGems.bind(this);
+
+    this.enableHPS = this.enableHPS.bind(this);
+    this.disableHPS = this.disableHPS.bind(this);
+    this.openHPS = this.openHPS.bind(this);
+    this.closeHPS = this.closeHPS.bind(this);
   }
+
+  openLox2Way() { return this.sendPacket(20, [1.0]); }
+  closeLox2Way() { return this.sendPacket(20, [0.0]); }
+
+  openLox5Way() { return this.sendPacket(21, [1.0]); }
+  closeLox5Way() { return this.sendPacket(21, [0.0]); }
+
+  openProp5Way() { return this.sendPacket(24, [1.0]); }
+  closeProp5Way() { return this.sendPacket(24, [0.0]); }
+
+  openLoxGems() { return this.sendPacket(22, [1.0]); }
+  closeLoxGems() { return this.sendPacket(22, [0.0]); }
+
+  openPropGems() { return this.sendPacket(25, [1.0]); }
+  closePropGems() { return this.sendPacket(25, [0.0]); }
+
+  enableHPS() { return this.sendPacket(31, [1.0]); }
+  disableHPS() { return this.sendPacket(31, [0.0]); }
+  openHPS() { return this.sendPacket(26, [1.0]); }
+  closeHPS() { return this.sendPacket(26, [0.0]); }
 }
 
 module.exports = FlightV2;

@@ -51,6 +51,16 @@ class UdpPort {
     // stupid windows won't start receiving until at least one packet sent
     this.server.send("{0|eeee}", 42069, address);
   }
+
+  /**
+   * Send data over the port to the specified address
+   * 
+   * @param {string} address 
+   * @param {Object} data 
+   */
+  send(address, data) {
+    this.server.send(data, 42069, address);
+  }
 }
 
 module.exports = UdpPort;

@@ -45,7 +45,7 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Box>
-          <Viewer subscribeTo={this.subscribeTo} unsubscribeTo={this.unsubscribeTo}/>
+          <Viewer comms={comms}/>
         </Box>
       </ThemeProvider>
     );

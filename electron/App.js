@@ -22,6 +22,8 @@ class App {
     this.linAct1 = new LinearActuator(this.port, '10.0.0.21');
     this.linAct2 = new LinearActuator(this.port, '10.0.0.22');
     this.linAct3 = new LinearActuator(this.port, '10.0.0.23');
+
+    this.setupIPC();
   }
 
   /**
