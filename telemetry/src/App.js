@@ -29,6 +29,11 @@ class App extends Component {
     comms.removeSubscriber(field, callback);
   }
 
+  componentWillUnmount() {
+    // make sure that when there's a hot reload, we disconnect comms before its connected again
+    comms.destroy();
+  }
+
   render() {
     const theme = createMuiTheme({
       palette: {

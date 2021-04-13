@@ -32,7 +32,11 @@ class Comms {
   removeSubscriber(field, callback) {
     const index = this.subscribers[field].indexOf(callback);
     if(index === -1) return;
-    this.subscribers.splice(index, 1);
+    this.subscribers[field].splice(index, 1);
+  }
+
+  destroy() {
+    this.ipc.removeListener('state-update', this.stateUpdate);
   }
 }
 

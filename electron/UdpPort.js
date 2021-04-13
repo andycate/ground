@@ -10,11 +10,11 @@ class UdpPort {
    * @param {Object} boards 
    * @param {Function} updateStateCallback
    */
-  constructor(address, port, boards, updateStateCallback) {
+  constructor(address, port, updateStateCallback) {
     this.address = address;
     this.port = port;
     this.server = dgram.createSocket('udp4');
-    this.boards = boards;
+    this.boards = {};
     this.updateStateCallback = updateStateCallback;
 
     this.server.on('error', (err) => {
@@ -38,10 +38,18 @@ class UdpPort {
     });
     
     this.server.bind(this.port, this.address);
-    // stupid windows bug, wont start receiving until a message is sent
-    for(let k of Object.keys(this.boards)) {
-      this.server.send("{0|eeee}", 42069, k);
-    }
+  }
+
+  /**
+   * Register a board to receive packets
+   * 
+   * @param {string} address 
+   * @param {Board} board 
+   */
+  register(address, board) {
+    this.boards[address] = board;
+    // stupid windows won't start receiving until at least one packet sent
+    this.server.send("{0|eeee}", 42069, address);
   }
 }
 
