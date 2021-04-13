@@ -1,4 +1,4 @@
-const state = {
+const model = {
   // lox pressures
   loxTankPT: 0.0,
   loxDomePT: 0.0,
@@ -6,7 +6,9 @@ const state = {
   loxGemsPT: 0.0,
   // lox fitting tree and gems temperature
   loxTreeTC: 0.0,
+  loxTreeHeater: 0.0,
   loxGemsTC: 0.0,
+  loxGemsHeater: 0.0,
   // lox fill TCs
   loxTankLowTC: 0.0,
   loxTankMidTC: 0.0,
@@ -17,6 +19,7 @@ const state = {
   propTankPT: 0.0,
   propDomePT: 0.0,
   propInjectorPT: 0.0,
+  propGemsPT: 0.0,
   // propane fill TCs
   propTankLowTC: 0.0,
   propTankMidTC: 0.0,
@@ -36,17 +39,15 @@ const state = {
   engine4TC: 0.0,
   engine5TC: 0.0,
   engine6TC: 0.0,
+
+  // valve states
+  lox2Way: false,
+  lox5Way: false,
+  prop5Way: false,
+  loxGems: false,
+  propGems: false,
+  HPS: false,
+  HPSEnable: false
 };
 
-const getPacketConfig = () => {
-  const packets = {};
-  config.sensors.forEach((s, i) => {
-    if(!packets[s.packetId]) {
-      packets[s.packetId] = [];
-    }
-    packets[s.packetId].push(i);
-  });
-  return packets;
-}
-
-module.exports = { config, getPacketConfig };
+module.exports = { model };

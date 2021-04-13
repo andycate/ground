@@ -1,5 +1,14 @@
+const moment = require('moment');
+
 class Packet {
-  constructor(id, values) {
+  /**
+   * 
+   * @param {moment.Moment} timestamp 
+   * @param {Number} id 
+   * @param {Array} values 
+   */
+  constructor(timestamp, id, values) {
+    this.timestamp = timestamp;
     this.id = id;
     this.values = values;
     this.length = this.values.length;
@@ -20,6 +29,7 @@ class Packet {
    * @returns parsed packet
    */
   static parsePacket(rawData) {
+    const timestamp = moment(); // TODO: Change this to come from packet
     let data = rawData.replace(/(\r\n|\n|\r)/gm, '');
     const start = data.indexOf('{');
     const end = data.indexOf('}');
@@ -33,7 +43,7 @@ class Packet {
       return null;
     }
     const [ id, ...values ] = rawValues.split(',').map(v => parseFloat(v));
-    return new Packet(id, values);
+    return new Packet(timestamp, id, values);
   }
 
   /**

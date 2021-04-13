@@ -2,11 +2,14 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
-const comms = require('./comms');
-comms.init();
 
+const App = require('./App');
+
+let backendApp = new App();
 let mainWindow, controlWindow;
 function createWindow () {
+  // backendApp = new App();
+
   mainWindow = new BrowserWindow({
     show: false,
     webPreferences: {
@@ -28,38 +31,40 @@ function createWindow () {
     mainWindow = null;
   });
   mainWindow.webContents.once('did-finish-load', () => {
-    comms.openWebCon(mainWindow.webContents);
+    // comms.openWebCon(mainWindow.webContents);
+    backendApp.addWebContents(mainWindow.webContents);
   });
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
   });
 
   // use process.env.ELECTRON_START_URL if in dev mode, path to index file otherwise
-  const controlStartUrl = process.env.CONTROL_START_URL ? process.env.CONTROL_START_URL : url.format({
-    pathname: path.join(__dirname, '../index.html'),
-    protocol: 'file:',
-    slashes: true,
-  });
-  controlWindow = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-    },
-  });
-  controlWindow.maximize();
-  if(!isDev) {
-    controlWindow.removeMenu();
-  }
-  controlWindow.loadURL(controlStartUrl);
-  controlWindow.on('closed', function () {
-    controlWindow = null;
-  });
-  controlWindow.webContents.once('did-finish-load', () => {
-    comms.openControlWebCon(controlWindow.webContents);
-  });
-  controlWindow.once('ready-to-show', () => {
-    controlWindow.show();
-  });
+  // const controlStartUrl = process.env.CONTROL_START_URL ? process.env.CONTROL_START_URL : url.format({
+  //   pathname: path.join(__dirname, '../index.html'),
+  //   protocol: 'file:',
+  //   slashes: true,
+  // });
+  // controlWindow = new BrowserWindow({
+  //   show: false,
+  //   webPreferences: {
+  //     preload: path.join(__dirname, 'preload.js'),
+  //   },
+  // });
+  // controlWindow.maximize();
+  // if(!isDev) {
+  //   controlWindow.removeMenu();
+  // }
+  // controlWindow.loadURL(controlStartUrl);
+  // controlWindow.on('closed', function () {
+  //   controlWindow = null;
+  // });
+  // controlWindow.webContents.once('did-finish-load', () => {
+  //   // comms.openControlWebCon(controlWindow.webContents);
+  //   backendApp.addWebContents(mainWindow.webContents);
+  // });
+  // controlWindow.once('ready-to-show', () => {
+  //   controlWindow.show();
+  // });
 
 }
 
