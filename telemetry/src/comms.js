@@ -1,11 +1,19 @@
 import moment from 'moment';
 
+const { ipcRenderer } = window;
+
 class Comms {
   constructor(ipc) {
+    console.log('make comm');
     this.subscribers = {};
     this.ipc = ipc;
     this.stateUpdate = this.stateUpdate.bind(this);
-    this.ipc.on('state-update', this.stateUpdate);
+
+
+    this.connectInflux = this.connectInflux.bind(this);
+    this.getDatabases = this.getDatabases.bind(this);
+    this.setDatabase = this.setDatabase.bind(this);
+
 
     this.openLox2Way = this.openLox2Way.bind(this);
     this.closeLox2Way = this.closeLox2Way.bind(this);
@@ -52,9 +60,17 @@ class Comms {
     this.subscribers[field].splice(index, 1);
   }
 
+  connect() {
+    this.ipc.on('state-update', this.stateUpdate);
+  }
+
   destroy() {
     this.ipc.removeListener('state-update', this.stateUpdate);
   }
+
+  async connectInflux(host, port, protocol, username, password) { return await this.ipc.invoke('connect-influx', host, port, protocol, username, password); }
+  async getDatabases() { return await this.ipc.invoke('get-databases'); }
+  async setDatabase(database) { return await this.ipc.invoke('set-database', database); }
 
   async openLox2Way() { return await this.ipc.invoke('open-lox2Way'); }
   async closeLox2Way() { return await this.ipc.invoke('close-lox2Way'); }
@@ -74,4 +90,4 @@ class Comms {
   async closeHPS() { return await this.ipc.invoke('close-HPS'); }
 }
 
-export default Comms;
+export default new Comms(ipcRenderer);

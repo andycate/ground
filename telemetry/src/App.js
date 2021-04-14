@@ -1,32 +1,54 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import '@fontsource/roboto';
 import { createMuiTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
-import Comms from './Comms';
+import comms from './Comms';
 import Viewer from './Viewer';
+import Graph from './Graph';
 
-const { ipcRenderer } = window;
-const comms = new Comms(ipcRenderer);
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    height: '100vh',
+  },
+  container: {
+    flexGrow: 1,
+    height: '100vh',
+    padding: theme.spacing(1)
+  },
+  row: {
+    height: '100%'
+  },
+  item: {
+    height: '33%'
+  },
+  navbarGrid: {
+    // height: theme.spacing(2)
+  }
+});
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDark: false
+      isDark: false,
+      settingsOpen: false,
     };
 
-    this.subscribeTo = this.subscribeTo.bind(this);
-    this.unsubscribeTo = this.unsubscribeTo.bind(this);
+    this.closeSettings = this.closeSettings.bind(this);
   }
 
-  subscribeTo(field, callback) {
-    comms.addSubscriber(field, callback);
+  closeSettings() {
+    this.setState({ settingsOpen: false });
   }
 
-  unsubscribeTo(field, callback) {
-    comms.removeSubscriber(field, callback);
+  componentDidMount() {
+    comms.connect();
   }
 
   componentWillUnmount() {
@@ -35,6 +57,7 @@ class App extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const theme = createMuiTheme({
       palette: {
         type: this.state.isDark ? 'dark' : 'light'
@@ -45,11 +68,132 @@ class App extends Component {
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Box>
-          <Viewer comms={comms}/>
+          {/* <Settings open={ this.state.settingsOpen } handleClose={ this.closeSettings }/> */}
+          <Container maxWidth='xl' className={classes.container}>
+            <Grid container={true} spacing={1} className={classes.row}>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT',
+                        color: [123, 35, 162],
+                        unit: 'PSI'
+                      },
+                      {
+                        name: 'propTankPT',
+                        color: [35, 123, 162],
+                        unit: 'PSI'
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT_',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT_',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT_',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT_',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT_',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT_',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+            </Grid>
+          </Container>
         </Box>
       </ThemeProvider>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+export default withStyles(styles)(App);

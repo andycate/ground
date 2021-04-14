@@ -6,8 +6,8 @@ const packets = {
 };
 
 class LinearActuator extends Board {
-  constructor(port, address) {
-    super(port, address, packets, {});
+  constructor(port, address, mapping) {
+    super(port, address, packets, mapping);
   }
 }
 

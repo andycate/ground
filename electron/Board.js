@@ -34,7 +34,11 @@ class Board {
       if(fieldDef.interpolation !== null) {
         val = fieldDef.interpolation(val);
       }
-      update[fieldDef.field] = val;
+      let mappedField = this.mapping[fieldDef.field];
+      if(mappedField === undefined) {
+        mappedField = fieldDef.field;
+      }
+      update[mappedField] = val;
     }
     return update;
   }

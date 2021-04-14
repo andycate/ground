@@ -1,9 +1,7 @@
-const moment = require('moment');
-
 class State {
   constructor(model) {
     this._state = {};
-    this.lastUpdate = moment();
+    this.lastUpdate = Date.now();
     Object.assign(this._state, model);
   }
 

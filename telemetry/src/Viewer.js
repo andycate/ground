@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import comms from './Comms';
+
 class Viewer extends Component {
   constructor(props) {
     super(props);
@@ -15,19 +17,15 @@ class Viewer extends Component {
   }
 
   componentDidMount() {
-    const { comms } = this.props;
-    console.log(comms);
     comms.addSubscriber('loxTankPT', this.updateLoxTankPT);
   }
 
   componentWillUnmount() {
-    const { comms } = this.props;
     comms.removeSubscriber('loxTankPT', this.updateLoxTankPT);
   }
 
   render() {
     const { loxTankPT } = this.state;
-    const { comms } = this.props;
     return (
       <div>
         { loxTankPT }
