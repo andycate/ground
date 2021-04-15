@@ -76,25 +76,32 @@ class App extends Component {
                   fields={
                     [
                       {
-                        name: 'loxTankPT',
+                        name: 'pressurantPT',
                         color: [123, 35, 162],
                         unit: 'PSI'
-                      },
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxTankPT',
+                        color: [123, 35, 162]
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
                       {
                         name: 'propTankPT',
-                        color: [35, 123, 162],
-                        unit: 'PSI'
-                      }
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'loxTankPT_',
                         color: [123, 35, 162]
                       }
                     ]
@@ -102,19 +109,7 @@ class App extends Component {
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'loxTankPT_',
-                        color: [123, 35, 162]
-                      }
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
+                {/* <Graph
                   fields={
                     [
                       {
@@ -123,14 +118,14 @@ class App extends Component {
                       }
                     ]
                   }
-                />
+                /> */}
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph
                   fields={
                     [
                       {
-                        name: 'loxTankPT_',
+                        name: 'loxInjectorPT',
                         color: [123, 35, 162]
                       }
                     ]
@@ -142,7 +137,7 @@ class App extends Component {
                   fields={
                     [
                       {
-                        name: 'loxTankPT_',
+                        name: 'propInjectorPT',
                         color: [123, 35, 162]
                       }
                     ]
@@ -150,7 +145,7 @@ class App extends Component {
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                <Graph
+                {/* <Graph
                   fields={
                     [
                       {
@@ -159,14 +154,22 @@ class App extends Component {
                       }
                     ]
                   }
-                />
+                /> */}
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph
                   fields={
                     [
                       {
-                        name: 'loxTankPT_',
+                        name: 'loxTankLowTC',
+                        color: [123, 35, 162]
+                      },
+                      {
+                        name: 'loxTankMidTC',
+                        color: [123, 35, 162]
+                      },
+                      {
+                        name: 'loxTankHighTC',
                         color: [123, 35, 162]
                       }
                     ]
@@ -178,7 +181,15 @@ class App extends Component {
                   fields={
                     [
                       {
-                        name: 'loxTankPT_',
+                        name: 'propTankLowTC',
+                        color: [123, 35, 162]
+                      },
+                      {
+                        name: 'propTankMidTC',
+                        color: [123, 35, 162]
+                      },
+                      {
+                        name: 'propTankHighTC',
                         color: [123, 35, 162]
                       }
                     ]

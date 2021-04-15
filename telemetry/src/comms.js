@@ -4,7 +4,6 @@ const { ipcRenderer } = window;
 
 class Comms {
   constructor(ipc) {
-    console.log('make comm');
     this.subscribers = {};
     this.ipc = ipc;
     this.stateUpdate = this.stateUpdate.bind(this);

@@ -1,6 +1,6 @@
 const { ipcMain } = require('electron');
 
-const { model } = require('../shared/config');
+const { model } = require('./config');
 
 const State = require('./State');
 const UdpPort = require('./UdpPort');
