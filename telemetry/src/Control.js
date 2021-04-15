@@ -4,8 +4,11 @@ import '@fontsource/roboto';
 import { createMuiTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 
 import comms from './api/Comms';
+import Graph from './components/Graph';
 
 const styles = theme => ({
   root: {
@@ -14,7 +17,10 @@ const styles = theme => ({
   },
   container: {
     flexGrow: 1,
-    height: '100vh',
+    position: 'absolute',
+    top: theme.spacing(6),
+    // height: '100vh',
+    bottom: '0px',
     padding: theme.spacing(1)
   },
   row: {
@@ -33,14 +39,14 @@ class Control extends Component {
     super(props);
     this.state = {
       isDark: false,
-      settingsOpen: false,
+      showSettings: false,
     };
 
-    this.closeSettings = this.closeSettings.bind(this);
+    this.setLightDark = this.setLightDark.bind(this);
   }
 
-  closeSettings() {
-    this.setState({ settingsOpen: false });
+  setLightDark(isDark) {
+    this.setState({ isDark });
   }
 
   componentDidMount() {
@@ -64,6 +70,23 @@ class Control extends Component {
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Box>
+          <Container maxWidth='xl' className={classes.container}>
+            <Grid container={true} spacing={1} className={classes.row}>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'pressurantPT',
+                        color: [123, 35, 162],
+                        unit: 'PSI'
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+            </Grid>
+          </Container>
         </Box>
       </ThemeProvider>
     );
