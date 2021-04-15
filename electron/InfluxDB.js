@@ -1,5 +1,7 @@
 const Influx = require('influx');
 
+const BATCH_SIZE = 100;
+
 class InfluxDB {
   constructor() {
     this.influx = null;
@@ -8,6 +10,7 @@ class InfluxDB {
       recording: null,
       procedureStep: null,
     };
+    this.pointsBuffer = [];
 
     this.connect = this.connect.bind(this);
     this.getDatabaseNames = this.getDatabaseNames.bind(this);
@@ -26,6 +29,8 @@ class InfluxDB {
       protocol,
       username,
       password,
+      requestTimeout: 20000,
+      failoverTimeout: 40000,
     });
   }
 
@@ -56,16 +61,21 @@ class InfluxDB {
   async handleStateUpdate(timestamp, update) {
     if(this.influx === null) return;
     if(this.database === null) return;
-    const points = [];
     for(let k of Object.keys(update)) {
-      points.push({
+      this.pointsBuffer.push({
         measurement: k,
         tags: this.tags,
         fields: { value: update[k] },
         timestamp: timestamp
       });
     }
-    return await this.influx.writePoints(points, { database: this.database, precision: 'ms' });
+    if(this.pointsBuffer.length > BATCH_SIZE) {
+      const buffer = this.pointsBuffer;
+      this.pointsBuffer = [];
+      await this.influx.writePoints(buffer, { database: this.database, precision: 'ms' });
+      return true;
+    }
+    return false;
   }
 }
 

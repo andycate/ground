@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 
 import comms from './api/Comms';
 import Graph from './components/Graph';
+import Navbar from './components/Navbar';
+import Settings from './components/Settings';
 
 const styles = theme => ({
   root: {
@@ -17,7 +19,10 @@ const styles = theme => ({
   },
   container: {
     flexGrow: 1,
-    height: '100vh',
+    position: 'absolute',
+    top: theme.spacing(6),
+    // height: '100vh',
+    bottom: '0px',
     padding: theme.spacing(1)
   },
   row: {
@@ -36,14 +41,24 @@ class Main extends Component {
     super(props);
     this.state = {
       isDark: false,
-      settingsOpen: false,
+      showSettings: false,
     };
 
+    this.changeLightDark = this.changeLightDark.bind(this);
+    this.openSettings = this.openSettings.bind(this);
     this.closeSettings = this.closeSettings.bind(this);
   }
 
+  changeLightDark() {
+    this.setState({ isDark: !this.state.isDark });
+  }
+
+  openSettings() {
+    this.setState({ showSettings: true });
+  }
+
   closeSettings() {
-    this.setState({ settingsOpen: false });
+    this.setState({ showSettings: false });
   }
 
   componentDidMount() {
@@ -67,7 +82,11 @@ class Main extends Component {
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Box>
-          {/* <Settings open={ this.state.settingsOpen } handleClose={ this.closeSettings }/> */}
+          <Settings open={this.state.showSettings} closeSettings={this.closeSettings}/>
+          <Navbar
+            changeLightDark={this.changeLightDark}
+            openSettings={this.openSettings}
+          />
           <Container maxWidth='xl' className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
               <Grid item={1} xs={4} className={classes.item}>
