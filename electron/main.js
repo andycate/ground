@@ -5,46 +5,27 @@ const url = require('url');
 
 const App = require('./App');
 
-const isMain = (process.env.VARIANT === 'main');
+const isMainDev = (process.env.VARIANT === 'main');
 
 let backendApp = new App();
-let window1, window2;
-function createWindow () {
+let selector, window1, window2;
+function createWindow (isMain) {
   let url1, url2;
   if(isMain) {
     // main windows
-    url1 = (isDev ? 'http://127.0.0.1:3000#/main' : url.format({
-      pathname: path.join(__dirname, '../index.html'),
-      hash: '/main',
-      protocol: 'file:',
-      slashes: true,
-    }));
-    url2 = (isDev ? 'http://127.0.0.1:3000#/control' : url.format({
-      pathname: path.join(__dirname, '../index.html'),
-      hash: '/control',
-      protocol: 'file:',
-      slashes: true,
-    }));
+    url1 = (isDev ? 'http://127.0.0.1:3000#/main' : `file://${path.join(__dirname, '../index.html#main')}`);
+    url2 = (isDev ? 'http://127.0.0.1:3000#/control' : `file://${path.join(__dirname, '../index.html#control')}`);
   } else {
     // aux windows
-    url1 = (isDev ? 'http://127.0.0.1:3000#/aux1' : url.format({
-      pathname: path.join(__dirname, '../index.html'),
-      hash: '/aux1',
-      protocol: 'file:',
-      slashes: true,
-    }));
-    url2 = (isDev ? 'http://127.0.0.1:3000#/aux2' : url.format({
-      pathname: path.join(__dirname, '../index.html'),
-      hash: '/aux2',
-      protocol: 'file:',
-      slashes: true,
-    }));
+    url1 = (isDev ? 'http://127.0.0.1:3000#/aux1' : `file://${path.join(__dirname, '../index.html#aux1')}`);
+    url2 = (isDev ? 'http://127.0.0.1:3000#/aux2' : `file://${path.join(__dirname, '../index.html#aux2')}`);
   }
 
   window1 = new BrowserWindow({
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      devTools: isDev,
     },
   });
   window1.maximize();
@@ -66,6 +47,7 @@ function createWindow () {
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      devTools: isDev,
     },
   });
   window2.maximize();
@@ -84,21 +66,59 @@ function createWindow () {
   });
 }
 
+function createSelectorWindow() {
+  let selectorUrl = (isDev ? 'http://127.0.0.1:3000#/selector' : `file://${path.join(__dirname, '../index.html#selector')}`);
+  selector = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      devTools: isDev,
+    },
+  });
+  selector.setSize(200, 100);
+  selector.center();
+  selector.setTitle('Selector');
+  // selector.maximize();
+  if(!isDev) {
+    selector.removeMenu();
+  }
+  selector.loadURL(selectorUrl);
+  selector.on('closed', function () {
+    selector = null;
+  });
+  // selector.webContents.once('did-finish-load', () => {
+  //   backendApp.addWebContents(selector.webContents);
+  // });
+  selector.once('ready-to-show', () => {
+    selector.show();
+  });
+
+  ipcMain.handleOnce('open-main-windows', (e) => {
+    selector.close();
+    createWindow(true);
+  });
+  ipcMain.handleOnce('open-aux-windows', (e) => {
+    selector.close();
+    createWindow(false);
+  });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs
-app.on('ready', createWindow);
+app.on('ready', () => {
+  // createSelectorWindow();
+  if(isDev) {
+    createWindow(isMainDev);
+  } else {
+    createSelectorWindow();
+  }
+});
 
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
     app.quit();
-  }
-});
-
-app.on('activate', function () {
-  if (window1 === null) {
-    createWindow();
   }
 });
 

@@ -8,6 +8,8 @@ class Comms {
     this.ipc = ipc;
     this.stateUpdate = this.stateUpdate.bind(this);
 
+    this.openMainWindows = this.openMainWindows.bind(this);
+    this.openAuxWindows = this.openAuxWindows.bind(this);
 
     this.connectInflux = this.connectInflux.bind(this);
     this.getDatabases = this.getDatabases.bind(this);
@@ -66,6 +68,9 @@ class Comms {
   destroy() {
     this.ipc.removeListener('state-update', this.stateUpdate);
   }
+
+  async openMainWindows() { return await this.ipc.invoke('open-main-windows'); }
+  async openAuxWindows() { return await this.ipc.invoke('open-aux-windows'); }
 
   async connectInflux(host, port, protocol, username, password) { return await this.ipc.invoke('connect-influx', host, port, protocol, username, password); }
   async getDatabases() { return await this.ipc.invoke('get-databases'); }

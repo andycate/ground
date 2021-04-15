@@ -28,7 +28,7 @@ const styles = theme => ({
   }
 });
 
-class Control extends Component {
+class Aux2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,7 +70,7 @@ class Control extends Component {
   }
 }
 
-Control.propTypes = {
+Aux2.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withStyles(styles)(Control);
+export default withStyles(styles)(Aux2);
