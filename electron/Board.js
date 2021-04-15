@@ -1,14 +1,28 @@
 const Packet = require('./Packet');
 
 class Board {
-  constructor(port, address, packets, mapping) {
+  constructor(port, address, packets, mapping, onConnect, onDisconnect, onRate) {
     this.isConnected = false;
     this.watchdog = null;
     this.port = port;
     this.address = address;
     this.packets = packets;
     this.mapping = mapping;
+    this.onConnect = onConnect;
+    this.onDisconnect = onDisconnect;
+    this.onRate = onRate;
     this.port.register(this.address, this);
+
+    this.bytesRecv = 0;
+    this.setupDataRateMonitor();
+  }
+
+  setupDataRateMonitor() {
+    setInterval(() => {
+      const kbps = this.bytesRecv * 8 / 1000;
+      this.bytesRecv = 0;
+      this.onRate(kbps);
+    }, 1000);
   }
 
   sendPacket(id, values) {
@@ -22,8 +36,9 @@ class Board {
    * 
    * @param {Packet} packet 
    */
-   processPacket(packet) {
+  processPacket(packet) {
     this.resetWatchdog();
+    this.bytesRecv += packet.length;
     const def = this.packets[packet.id];
     if(def === undefined) return;
     const update = {};
@@ -44,10 +59,14 @@ class Board {
   }
 
   resetWatchdog() {
+    if(!this.isConnected) {
+      this.onConnect();
+    }
     this.isConnected = true;
     clearTimeout(this.watchdog);
     this.watchdog = setTimeout(() => {
       this.isConnected = false;
+      this.onDisconnect();
     }, 1000);
   }
 }

@@ -164,7 +164,7 @@ class Settings extends Component {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={ closeSettings } color="primary" variant='contained'>
+          <Button onClick={ closeSettings } color="primary">
             Close
           </Button>
         </DialogActions>

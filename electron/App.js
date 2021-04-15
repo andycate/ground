@@ -17,13 +17,37 @@ class App {
 
     // comms
     this.updateState = this.updateState.bind(this);
-    this.port = new UdpPort('10.0.0.69', 42069, this.updateState);
+    this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
 
-    this.flightComputer = new FlightV2(this.port, '10.0.0.42');
-    this.daq1 = new DAQ(this.port, '10.0.0.11', {});
-    this.linAct1 = new LinearActuator(this.port, '10.0.0.21', {});
-    this.linAct2 = new LinearActuator(this.port, '10.0.0.22', {});
-    this.linAct3 = new LinearActuator(this.port, '10.0.0.23', {});
+    this.flightComputer = new FlightV2(this.port,
+                                       '10.0.0.42',
+                                       () => this.updateState(Date.now(), { flightConnected: true }),
+                                       () => this.updateState(Date.now(), { flightConnected: false }),
+                                       (rate) => this.updateState(Date.now(), { flightKbps: rate }));
+    this.daq1 = new DAQ(this.port,
+                        '10.0.0.11',
+                        {},
+                        () => this.updateState(Date.now(), { daq1Connected: true }),
+                        () => this.updateState(Date.now(), { daq1Connected: false }),
+                        (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
+    this.linAct1 = new LinearActuator(this.port,
+                                      '10.0.0.21',
+                                      {},
+                                      () => this.updateState(Date.now(), { linAct1Connected: true }),
+                                      () => this.updateState(Date.now(), { linAct1Connected: false }),
+                                      (rate) => this.updateState(Date.now(), { linAct1Kbps: rate }));
+    this.linAct2 = new LinearActuator(this.port,
+                                      '10.0.0.22',
+                                      {},
+                                      () => this.updateState(Date.now(), { linAct2Connected: true }),
+                                      () => this.updateState(Date.now(), { linAct2Connected: false }),
+                                      (rate) => this.updateState(Date.now(), { linAct2Kbps: rate }));
+    this.linAct3 = new LinearActuator(this.port,
+                                      '10.0.0.23',
+                                      {},
+                                      () => this.updateState(Date.now(), { linAct3Connected: true }),
+                                      () => this.updateState(Date.now(), { linAct3Connected: false }),
+                                      (rate) => this.updateState(Date.now(), { linAct3Kbps: rate }));
 
     this.setupIPC();
   }
@@ -72,6 +96,12 @@ class App {
     ipcMain.handle('get-databases', this.influxDB.getDatabaseNames);
     ipcMain.handle('set-database', (e, database) => this.influxDB.setDatabase(database));
 
+
+    ipcMain.handle('flight-connected', () => this.flightComputer.isConnected);
+    ipcMain.handle('daq1-connected', () => this.daq1.isConnected);
+    ipcMain.handle('linact1-connected', () => this.linAct1.isConnected);
+    ipcMain.handle('linact2-connected', () => this.linAct2.isConnected);
+    ipcMain.handle('linact3-connected', () => this.linAct3.isConnected);
 
     ipcMain.handle('open-lox2Way', this.flightComputer.openLox2Way);
     ipcMain.handle('close-lox2Way', this.flightComputer.closeLox2Way);

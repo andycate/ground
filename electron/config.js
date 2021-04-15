@@ -47,7 +47,20 @@ const model = {
   loxGems: false,
   propGems: false,
   HPS: false,
-  HPSEnable: false
+  HPSEnable: false,
+
+  // connection stats
+  flightConnected: false,
+  daq1Connected: false,
+  linAct1Connected: false,
+  linAct2Connected: false,
+  linAct3Connected: false,
+
+  flightKbps: 0,
+  daq1Kbps: 0,
+  linAct1Kbps: 0,
+  linAct2Kbps: 0,
+  linAct3Kbps: 0,
 };
 
 module.exports = { model };
