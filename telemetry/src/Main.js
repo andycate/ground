@@ -7,9 +7,8 @@ import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import comms from './Comms';
-import Viewer from './Viewer';
-import Graph from './Graph';
+import comms from './api/Comms';
+import Graph from './components/Graph';
 
 const styles = theme => ({
   root: {
@@ -32,7 +31,7 @@ const styles = theme => ({
   }
 });
 
-class App extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -204,7 +203,7 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
+Main.propTypes = {
   classes: PropTypes.object.isRequired
 };
-export default withStyles(styles)(App);
+export default withStyles(styles)(Main);

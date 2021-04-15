@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import comms from './Comms';
+import comms from '../api/Comms';
 
 class Viewer extends Component {
   constructor(props) {

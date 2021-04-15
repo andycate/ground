@@ -5,67 +5,83 @@ const url = require('url');
 
 const App = require('./App');
 
-let backendApp = new App();
-let mainWindow, controlWindow;
-function createWindow () {
-  // backendApp = new App();
+const isMain = (process.env.VARIANT === 'main');
 
-  mainWindow = new BrowserWindow({
+let backendApp = new App();
+let window1, window2;
+function createWindow () {
+  let url1, url2;
+  if(isMain) {
+    // main windows
+    url1 = (isDev ? 'http://127.0.0.1:3000#/main' : url.format({
+      pathname: path.join(__dirname, '../index.html'),
+      hash: '/main',
+      protocol: 'file:',
+      slashes: true,
+    }));
+    url2 = (isDev ? 'http://127.0.0.1:3000#/control' : url.format({
+      pathname: path.join(__dirname, '../index.html'),
+      hash: '/control',
+      protocol: 'file:',
+      slashes: true,
+    }));
+  } else {
+    // aux windows
+    url1 = (isDev ? 'http://127.0.0.1:3000#/aux1' : url.format({
+      pathname: path.join(__dirname, '../index.html'),
+      hash: '/aux1',
+      protocol: 'file:',
+      slashes: true,
+    }));
+    url2 = (isDev ? 'http://127.0.0.1:3000#/aux2' : url.format({
+      pathname: path.join(__dirname, '../index.html'),
+      hash: '/aux2',
+      protocol: 'file:',
+      slashes: true,
+    }));
+  }
+
+  window1 = new BrowserWindow({
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      // worldSafeExecuteJavaScript: true,
-      // contextIsolation: true
     },
   });
-  mainWindow.maximize();
+  window1.maximize();
   if(!isDev) {
-    mainWindow.removeMenu();
+    window1.removeMenu();
   }
-  mainWindow.loadURL(process.env.TELEMETRY_START_URL ? process.env.TELEMETRY_START_URL : url.format({
-    pathname: path.join(__dirname, '../index.html'),
-    protocol: 'file:',
-    slashes: true,
-  }));
-  mainWindow.on('closed', function () {
-    mainWindow = null;
+  window1.loadURL(url1);
+  window1.on('closed', function () {
+    window1 = null;
   });
-  mainWindow.webContents.once('did-finish-load', () => {
-    // comms.openWebCon(mainWindow.webContents);
-    backendApp.addWebContents(mainWindow.webContents);
+  window1.webContents.once('did-finish-load', () => {
+    backendApp.addWebContents(window1.webContents);
   });
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
+  window1.once('ready-to-show', () => {
+    window1.show();
   });
 
-  // use process.env.ELECTRON_START_URL if in dev mode, path to index file otherwise
-  // const controlStartUrl = process.env.CONTROL_START_URL ? process.env.CONTROL_START_URL : url.format({
-  //   pathname: path.join(__dirname, '../index.html'),
-  //   protocol: 'file:',
-  //   slashes: true,
-  // });
-  // controlWindow = new BrowserWindow({
-  //   show: false,
-  //   webPreferences: {
-  //     preload: path.join(__dirname, 'preload.js'),
-  //   },
-  // });
-  // controlWindow.maximize();
-  // if(!isDev) {
-  //   controlWindow.removeMenu();
-  // }
-  // controlWindow.loadURL(controlStartUrl);
-  // controlWindow.on('closed', function () {
-  //   controlWindow = null;
-  // });
-  // controlWindow.webContents.once('did-finish-load', () => {
-  //   // comms.openControlWebCon(controlWindow.webContents);
-  //   backendApp.addWebContents(mainWindow.webContents);
-  // });
-  // controlWindow.once('ready-to-show', () => {
-  //   controlWindow.show();
-  // });
-
+  window2 = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+    },
+  });
+  window2.maximize();
+  if(!isDev) {
+    window2.removeMenu();
+  }
+  window2.loadURL(url2);
+  window2.on('closed', function () {
+    window2 = null;
+  });
+  window2.webContents.once('did-finish-load', () => {
+    backendApp.addWebContents(window2.webContents);
+  });
+  window2.once('ready-to-show', () => {
+    window2.show();
+  });
 }
 
 // This method will be called when Electron has finished
@@ -81,7 +97,7 @@ app.on('window-all-closed', function () {
 });
 
 app.on('activate', function () {
-  if (mainWindow === null) {
+  if (window1 === null) {
     createWindow();
   }
 });

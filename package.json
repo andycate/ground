@@ -12,7 +12,8 @@
     "serialport": "^9.0.1"
   },
   "scripts": {
-    "start-electron": "cross-env TELEMETRY_START_URL=http://localhost:3000 CONTROL_START_URL=http://localhost:3001 electron .",
+    "start-main": "cross-env VARIANT=main electron .",
+    "start-aux": "cross-env VARIANT=aux electron .",
     "build-electron": "mkdir build/src && cp -r electron/. build/electron && cp -r src/shared/. build/src/shared",
     "package": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish never",
     "test": "mocha"

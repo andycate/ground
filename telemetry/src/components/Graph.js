@@ -4,7 +4,7 @@ import { WebglPlot, WebglLine, ColorRGBA } from 'webgl-plot';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
 
-import comms from './Comms';
+import comms from '../api/Comms';
 
 const styles = theme => ({
   root: {
