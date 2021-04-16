@@ -145,7 +145,24 @@ class Control extends Component {
                 </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
-                
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openPurgeFlowRBV}
+                      close={comms.closePurgeFlowRBV}
+                      field=''
+                      text='Purge Flow RBV'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openPurgeRBV}
+                      close={comms.closePurgeRBV}
+                      field=''
+                      text='Purge RBV'
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
                 
