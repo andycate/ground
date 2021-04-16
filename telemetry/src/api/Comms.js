@@ -108,6 +108,7 @@ class Comms {
 
   destroy() {
     this.ipc.removeListener('state-update', this.stateUpdate);
+    this.ipc.removeListener('set-darkmode', this.darkmodeUpdate);
   }
 
   async openMainWindows() { return await this.ipc.invoke('open-main-windows'); }

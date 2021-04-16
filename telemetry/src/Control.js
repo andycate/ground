@@ -11,6 +11,8 @@ import comms from './api/Comms';
 import ButtonGroup from './components/ButtonGroup';
 import ButtonGroupFlow from './components/ButtonGroupFlow';
 import ButtonGroupRBV from './components/ButtonGroupRBV';
+import ButtonGroupRBVTimed from './components/ButtonGroupRBVTimed';
+import ButtonGroupRQD from './components/ButtonGroupRQD';
 
 const styles = theme => ({
   root: {
@@ -191,13 +193,96 @@ class Control extends Component {
                       open={() => console.log('change me')}
                       close={() => console.log('change me')}
                       field='purgePrechillVentRBVstate'
-                      text='Prechill Flow RBV'
+                      text='Purge Prechill Vent RBV'
                     />
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
-                
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='LOxVentRBVstate'
+                      text='LOX Vent RBV'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='LOxFlowRBVstate'
+                      text='LOX Flow RBV'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='LOxTankVentRBVstate'
+                      text='LOX Tank Vent RBV'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRQD
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='_changeme_'
+                      text='LOX RQD'
+                    />
+                  </Grid>
+                </Grid>
+
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='propaneVentRBVstate'
+                      text='Prop Vent RBV'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='propaneFlowRBVstate'
+                      text='Prop Flow RBV'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <ButtonGroupRQD
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='_changeme_'
+                      text='Prop RQD'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={8}>
+                    <ButtonGroupRBVTimed
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      time={(timeMs) => console.log('change me ' + timeMs)}
+                      field='_changeme_'
+                      text='N2 Flow RBV'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={4}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='pressurantVentRBVstate'
+                      text='N2 Vent RBV'
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
                 
