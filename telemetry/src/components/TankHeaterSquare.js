@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
-import { Card, CardContent, Grid } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Grid, Typography } from '@material-ui/core';
 
-import Field from './Field';
+import FieldHeater from './FieldHeater';
 
 const styles = theme => ({
   root: {
@@ -18,12 +18,12 @@ const styles = theme => ({
     height: '100%'
   },
   item: {
-    height: '50%',
+    height: '33%',
     textAlign: 'center'
   }
 });
 
-class SixValueSquare extends Component {
+class TankHeaterSquare extends Component {
   constructor(props) {
     super(props);
   }
@@ -34,47 +34,46 @@ class SixValueSquare extends Component {
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
           <Grid container spacing={1} className={classes.container}>
-            <Grid item xs={4} className={classes.item}>
-              <Field
+            <Grid item xs={12}>
+              <Typography align='center' variant='h5'>
+                Tank Heaters
+              </Typography>
+            </Grid>
+            <Grid item xs={6} className={classes.item}>
+              <FieldHeater
                 name={field1.name}
                 field={field1.field}
-                unit={field1.unit}
               />
             </Grid>
-            <Grid item xs={4} className={classes.item}>
-              <Field
+            <Grid item xs={6} className={classes.item}>
+              <FieldHeater
                 name={field2.name}
                 field={field2.field}
-                unit={field2.unit}
               />
             </Grid>
-            <Grid item xs={4} className={classes.item}>
-              <Field
+            <Grid item xs={6} className={classes.item}>
+              <FieldHeater
                 name={field3.name}
                 field={field3.field}
-                unit={field3.unit}
               />
             </Grid>
 
-            <Grid item xs={4} className={classes.item}>
-              <Field
+            <Grid item xs={6} className={classes.item}>
+              <FieldHeater
                 name={field4.name}
                 field={field4.field}
-                unit={field4.unit}
               />
             </Grid>
-            <Grid item xs={4} className={classes.item}>
-              <Field
+            <Grid item xs={6} className={classes.item}>
+              <FieldHeater
                 name={field5.name}
                 field={field5.field}
-                unit={field5.unit}
               />
             </Grid>
-            <Grid item xs={4} className={classes.item}>
-              <Field
+            <Grid item xs={6} className={classes.item}>
+              <FieldHeater
                 name={field6.name}
                 field={field6.field}
-                unit={field6.unit}
               />
             </Grid>
           </Grid>
@@ -84,4 +83,4 @@ class SixValueSquare extends Component {
   }
 }
 
-export default withTheme(withStyles(styles)(SixValueSquare));
+export default withTheme(withStyles(styles)(TankHeaterSquare));

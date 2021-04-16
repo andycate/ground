@@ -12,6 +12,7 @@ import Graph from './components/Graph';
 import Navbar from './components/Navbar';
 import Settings from './components/Settings';
 import SixValueSquare from './components/SixValueSquare';
+import TankHeaterSquare from './components/TankHeaterSquare';
 
 const styles = theme => ({
   root: {
@@ -110,7 +111,8 @@ class Main extends Component {
                     [
                       {
                         name: 'loxTankPT',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       }
                     ]
                   }
@@ -122,7 +124,8 @@ class Main extends Component {
                     [
                       {
                         name: 'propTankPT',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       }
                     ]
                   }
@@ -168,7 +171,8 @@ class Main extends Component {
                     [
                       {
                         name: 'loxInjectorPT',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       }
                     ]
                   }
@@ -180,23 +184,40 @@ class Main extends Component {
                     [
                       {
                         name: 'propInjectorPT',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       }
                     ]
                   }
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                {/* <Graph
-                  fields={
-                    [
-                      {
-                        name: 'loxTankPT',
-                        color: [123, 35, 162]
-                      }
-                    ]
-                  }
-                /> */}
+                <TankHeaterSquare
+                  field1={{
+                    name: 'LOx Top',
+                    field: 'loxTankHighTC',
+                  }}
+                  field2={{
+                    name: 'LOx Middle',
+                    field: 'loxTankMidTC',
+                  }}
+                  field3={{
+                    name: 'LOx Bottom',
+                    field: 'loxTankLowTC',
+                  }}
+                  field4={{
+                    name: 'Prop Top',
+                    field: 'propTankHighTC',
+                  }}
+                  field5={{
+                    name: 'Prop Middle',
+                    field: 'propTankMidTC',
+                  }}
+                  field6={{
+                    name: 'Prop Bottom',
+                    field: 'propTankLowTC',
+                  }}
+                />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph
@@ -204,15 +225,18 @@ class Main extends Component {
                     [
                       {
                         name: 'loxTankLowTC',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       },
                       {
                         name: 'loxTankMidTC',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       },
                       {
                         name: 'loxTankHighTC',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       }
                     ]
                   }
@@ -224,15 +248,18 @@ class Main extends Component {
                     [
                       {
                         name: 'propTankLowTC',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       },
                       {
                         name: 'propTankMidTC',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       },
                       {
                         name: 'propTankHighTC',
-                        color: [123, 35, 162]
+                        color: [123, 35, 162],
+                        unit: 'PSI'
                       }
                     ]
                   }
