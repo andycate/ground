@@ -15,6 +15,7 @@ import ButtonGroupRBVTimed from './components/ButtonGroupRBVTimed';
 import ButtonGroupRQD from './components/ButtonGroupRQD';
 import ButtonGroupHeater from './components/ButtonGroupHeater';
 import BigButton from './components/BigButton';
+import Procedures from './components/Procedures';
 
 const styles = theme => ({
   root: {
@@ -28,7 +29,8 @@ const styles = theme => ({
   },
   row: {
     // height: '100%'
-    borderBottom: '0.5px solid black'
+    borderBottom: '0.5px solid',
+    borderColor: theme.palette.text.primary
   },
   item: {
     height: '100%'
@@ -310,7 +312,7 @@ class Control extends Component {
               </Grid>
               {/* START OF PROCEDURE COLUMN */}
               <Grid item={1} xs={3} className={classes.item}>
-                
+                {/* <Procedures /> */}
               </Grid>
             </Grid>
             <Grid container={true} spacing={1}>

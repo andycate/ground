@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
 import { withStyles, withTheme } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import Collapse from '@material-ui/core/Collapse';
+
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+
+
 
 import comms from '../api/Comms';
 
@@ -279,12 +291,68 @@ const procedures = [
 ];
 
 const styles = theme => ({
-  
+  root: {
+    marginLeft: '1rem',
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 });
 
 class Procedures extends Component {
+  constructor(props) {
+    super(props);
+
+    this.generateProcList = this.generateProcList.bind(this);
+  }
+
+  generateProcList(list, classes) {
+    return list.map(i => {
+      if(i.sub !== undefined) {
+        // recurse
+        return (
+          <>
+            <ListItem button>
+              <ListItemIcon>
+                <ExpandMore />
+              </ListItemIcon>
+              <ListItemText primary={i.desc} />
+            </ListItem>
+            <Collapse in={true} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding className={classes.nested}>
+                {this.generateProcList(i.sub, classes)}
+              </List>
+            </Collapse>
+          </>
+        );
+      } else {
+        return (
+          <ListItem key={i.id} button>
+            <ListItemIcon>
+              <RadioButtonUncheckedIcon />
+            </ListItemIcon>
+            <ListItemText primary={i.desc} />
+          </ListItem>
+        );
+      }
+    });
+  }
+
   render() {
-    return (<div/>);
+    const { classes } = this.props;
+
+    const procedureList = this.generateProcList(procedures, classes);
+
+    return (
+      <List className={classes.root} component='nav' subheader={
+        <ListSubheader component="div">
+          Procedures
+        </ListSubheader>
+      }>
+        {procedureList}
+      </List>
+    );
   }
 }
 

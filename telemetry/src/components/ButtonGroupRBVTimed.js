@@ -129,7 +129,7 @@ class ButtonGroupRBVTimed extends Component {
         <Grid item xs={3}>
           <Button
             color='primary'
-            variant='outlined'
+            variant='contained'
             onClick={this.setTime}
             disabled={this.props.disabled || false}
           >

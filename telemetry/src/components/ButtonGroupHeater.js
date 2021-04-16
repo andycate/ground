@@ -96,7 +96,7 @@ class ButtonGroupHeater extends Component {
         <Grid item xs={6}>
           <Button
             color='primary'
-            variant='outlined'
+            variant='contained'
             onClick={this.setDuty}
             disabled={this.props.disabled || false}
           >
