@@ -31,76 +31,76 @@ class Navbar extends Component {
     this.state = {
       flightConnected: false,
       daq1Connected: false,
-      linAct1Connected: false,
-      linAct2Connected: false,
-      linAct3Connected: false,
+      actCtrlr1Connected: false,
+      actCtrlr2Connected: false,
+      actCtrlr3Connected: false,
 
       flightKbps: 0,
       daq1Kbps: 0,
-      linAct1Kbps: 0,
-      linAct2Kbps: 0,
-      linAct3Kbps: 0,
+      actCtrlr1Kbps: 0,
+      actCtrlr2Kbps: 0,
+      actCtrlr3Kbps: 0,
     };
 
     this.updateFlightConnected = this.updateFlightConnected.bind(this);
     this.updateDaq1Connected = this.updateDaq1Connected.bind(this);
-    this.updateLinAct1Connected = this.updateLinAct1Connected.bind(this);
-    this.updateLinAct2Connected = this.updateLinAct2Connected.bind(this);
-    this.updateLinAct3Connected = this.updateLinAct3Connected.bind(this);
+    this.updateActCtrlr1Connected = this.updateActCtrlr1Connected.bind(this);
+    this.updateActCtrlr2Connected = this.updateActCtrlr2Connected.bind(this);
+    this.updateActCtrlr3Connected = this.updateActCtrlr3Connected.bind(this);
 
     this.updateFlightKbps = this.updateFlightKbps.bind(this);
     this.updateDaq1Kbps = this.updateDaq1Kbps.bind(this);
-    this.updateLinAct1Kbps = this.updateLinAct1Kbps.bind(this);
-    this.updateLinAct2Kbps = this.updateLinAct2Kbps.bind(this);
-    this.updateLinAct3Kbps = this.updateLinAct3Kbps.bind(this);
+    this.updateActCtrlr1Kbps = this.updateActCtrlr1Kbps.bind(this);
+    this.updateActCtrlr2Kbps = this.updateActCtrlr2Kbps.bind(this);
+    this.updateActCtrlr3Kbps = this.updateActCtrlr3Kbps.bind(this);
   }
 
   updateFlightConnected(timestamp, value) { this.setState({ flightConnected: value }); }
   updateDaq1Connected(timestamp, value) { this.setState({ daq1Connected: value }); }
-  updateLinAct1Connected(timestamp, value) { this.setState({ linAct1Connected: value }); }
-  updateLinAct2Connected(timestamp, value) { this.setState({ linAct2Connected: value }); }
-  updateLinAct3Connected(timestamp, value) { this.setState({ linAct3Connected: value }); }
+  updateActCtrlr1Connected(timestamp, value) { this.setState({ actCtrlr1Connected: value }); }
+  updateActCtrlr2Connected(timestamp, value) { this.setState({ actCtrlr2Connected: value }); }
+  updateActCtrlr3Connected(timestamp, value) { this.setState({ actCtrlr3Connected: value }); }
 
   updateFlightKbps(timestamp, value) { this.setState({ flightKbps: value }); }
   updateDaq1Kbps(timestamp, value) { this.setState({ daq1Kbps: value }); }
-  updateLinAct1Kbps(timestamp, value) { this.setState({ linAct1Kbps: value }); }
-  updateLinAct2Kbps(timestamp, value) { this.setState({ linAct2Kbps: value }); }
-  updateLinAct3Kbps(timestamp, value) { this.setState({ linAct3Kbps: value }); }
+  updateActCtrlr1Kbps(timestamp, value) { this.setState({ actCtrlr1Kbps: value }); }
+  updateActCtrlr2Kbps(timestamp, value) { this.setState({ actCtrlr2Kbps: value }); }
+  updateActCtrlr3Kbps(timestamp, value) { this.setState({ actCtrlr3Kbps: value }); }
 
   async componentDidMount() {
     comms.addSubscriber('flightConnected', this.updateFlightConnected);
     comms.addSubscriber('daq1Connected', this.updateDaq1Connected);
-    comms.addSubscriber('linAct1Connected', this.updateLinAct1Connected);
-    comms.addSubscriber('linAct2Connected', this.updateLinAct2Connected);
-    comms.addSubscriber('linAct3Connected', this.updateLinAct3Connected);
+    comms.addSubscriber('actCtrlr1Connected', this.updateActCtrlr1Connected);
+    comms.addSubscriber('actCtrlr2Connected', this.updateActCtrlr2Connected);
+    comms.addSubscriber('actCtrlr3Connected', this.updateActCtrlr3Connected);
 
     comms.addSubscriber('flightKbps', this.updateFlightKbps);
     comms.addSubscriber('daq1Kbps', this.updateDaq1Kbps);
-    comms.addSubscriber('linAct1Kbps', this.updateLinAct1Kbps);
-    comms.addSubscriber('linAct2Kbps', this.updateLinAct2Kbps);
-    comms.addSubscriber('linAct3Kbps', this.updateLinAct3Kbps);
+    comms.addSubscriber('actCtrlr1Kbps', this.updateActCtrlr1Kbps);
+    comms.addSubscriber('actCtrlr2Kbps', this.updateActCtrlr2Kbps);
+    comms.addSubscriber('actCtrlr3Kbps', this.updateActCtrlr3Kbps);
 
     this.setState({
       flightConnected: await comms.getFlightConnected(),
       daq1Connected: await comms.getDaq1Connected(),
-      linAct1Connected: await comms.getLinAct1Connected(),
-      linAct2Connected: await comms.getLinAct2Connected(),
-      linAct3Connected: await comms.getLinAct3Connected(),
+      actCtrlr1Connected: await comms.getActCtrlr1Connected(),
+      actCtrlr2Connected: await comms.getActCtrlr2Connected(),
+      actCtrlr3Connected: await comms.getActCtrlr3Connected(),
     });
   }
 
   componentWillUnmount() {
     comms.removeSubscriber('flightConnected', this.updateFlightConnected);
     comms.removeSubscriber('daq1Connected', this.updateDaq1Connected);
-    comms.removeSubscriber('linAct1Connected', this.updateLinAct1Connected);
-    comms.removeSubscriber('linAct2Connected', this.updateLinAct2Connected);
-    comms.removeSubscriber('linAct3Connected', this.updateLinAct3Connected);
+    comms.removeSubscriber('actCtrlr1Connected', this.updateActCtrlr1Connected);
+    comms.removeSubscriber('actCtrlr2Connected', this.updateActCtrlr2Connected);
+    comms.removeSubscriber('actCtrlr3Connected', this.updateActCtrlr3Connected);
 
     comms.removeSubscriber('flightKbps', this.updateFlightKbps);
     comms.removeSubscriber('daq1Kbps', this.updateDaq1Kbps);
-    comms.removeSubscriber('linAct1Kbps', this.updateLinAct1Kbps);
-    comms.removeSubscriber('linAct2Kbps', this.updateLinAct2Kbps);
-    comms.removeSubscriber('linAct3Kbps', this.updateLinAct3Kbps);
+    comms.removeSubscriber('actCtrlr1Kbps', this.updateActCtrlr1Kbps);
+    comms.removeSubscriber('actCtrlr2Kbps', this.updateActCtrlr2Kbps);
+    comms.removeSubscriber('actCtrlr3Kbps', this.updateActCtrlr3Kbps);
   }
 
   render() {
@@ -110,14 +110,14 @@ class Navbar extends Component {
     
     const { flightConnected,
             daq1Connected,
-            linAct1Connected,
-            linAct2Connected,
-            linAct3Connected,
+            actCtrlr1Connected,
+            actCtrlr2Connected,
+            actCtrlr3Connected,
             flightKbps,
             daq1Kbps,
-            linAct1Kbps,
-            linAct2Kbps,
-            linAct3Kbps } = this.state;
+            actCtrlr1Kbps,
+            actCtrlr2Kbps,
+            actCtrlr3Kbps } = this.state;
 
     return (
       <AppBar position="static" color="default" elevation={0} className={classes.bar}>
@@ -125,9 +125,9 @@ class Navbar extends Component {
           <div className={classes.spacer}/>
           <Button className={flightConnected ? classes.connectedButton : classes.disconnectedButton}>Flight - {flightKbps} kbps</Button>
           <Button className={daq1Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ1 - {daq1Kbps} kbps</Button>
-          <Button className={linAct1Connected ? classes.connectedButton : classes.disconnectedButton}>LinAct1 - {linAct1Kbps} kbps</Button>
-          <Button className={linAct2Connected ? classes.connectedButton : classes.disconnectedButton}>LinAct2 - {linAct2Kbps} kbps</Button>
-          <Button className={linAct3Connected ? classes.connectedButton : classes.disconnectedButton}>LinAct3 - {linAct3Kbps} kbps</Button>
+          <Button className={actCtrlr1Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr1 - {actCtrlr1Kbps} kbps</Button>
+          <Button className={actCtrlr2Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr2 - {actCtrlr2Kbps} kbps</Button>
+          <Button className={actCtrlr3Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr3 - {actCtrlr3Kbps} kbps</Button>
           <Tooltip title='Toggle light/dark theme'>
             <IconButton
               color="inherit"

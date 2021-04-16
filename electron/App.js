@@ -31,24 +31,24 @@ class App {
                         () => this.updateState(Date.now(), { daq1Connected: true }),
                         () => this.updateState(Date.now(), { daq1Connected: false }),
                         (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
-    this.linAct1 = new LinearActuator(this.port,
+    this.actCtrlr1 = new LinearActuator(this.port,
                                       '10.0.0.21',
                                       {},
-                                      () => this.updateState(Date.now(), { linAct1Connected: true }),
-                                      () => this.updateState(Date.now(), { linAct1Connected: false }),
-                                      (rate) => this.updateState(Date.now(), { linAct1Kbps: rate }));
-    this.linAct2 = new LinearActuator(this.port,
+                                      () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
+                                      () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
+                                      (rate) => this.updateState(Date.now(), { actCtrlr1Kbps: rate }));
+    this.actCtrlr2 = new LinearActuator(this.port,
                                       '10.0.0.22',
                                       {},
-                                      () => this.updateState(Date.now(), { linAct2Connected: true }),
-                                      () => this.updateState(Date.now(), { linAct2Connected: false }),
-                                      (rate) => this.updateState(Date.now(), { linAct2Kbps: rate }));
-    this.linAct3 = new LinearActuator(this.port,
+                                      () => this.updateState(Date.now(), { actCtrlr2Connected: true }),
+                                      () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
+                                      (rate) => this.updateState(Date.now(), { actCtrlr2Kbps: rate }));
+    this.actCtrlr3 = new LinearActuator(this.port,
                                       '10.0.0.23',
                                       {},
-                                      () => this.updateState(Date.now(), { linAct3Connected: true }),
-                                      () => this.updateState(Date.now(), { linAct3Connected: false }),
-                                      (rate) => this.updateState(Date.now(), { linAct3Kbps: rate }));
+                                      () => this.updateState(Date.now(), { actCtrlr3Connected: true }),
+                                      () => this.updateState(Date.now(), { actCtrlr3Connected: false }),
+                                      (rate) => this.updateState(Date.now(), { actCtrlr3Kbps: rate }));
 
     this.abort = this.abort.bind(this);
 
@@ -113,9 +113,9 @@ class App {
 
     ipcMain.handle('flight-connected', () => this.flightComputer.isConnected);
     ipcMain.handle('daq1-connected', () => this.daq1.isConnected);
-    ipcMain.handle('linact1-connected', () => this.linAct1.isConnected);
-    ipcMain.handle('linact2-connected', () => this.linAct2.isConnected);
-    ipcMain.handle('linact3-connected', () => this.linAct3.isConnected);
+    ipcMain.handle('actctrlr1-connected', () => this.actCtrlr1.isConnected);
+    ipcMain.handle('actctrlr2-connected', () => this.actCtrlr2.isConnected);
+    ipcMain.handle('actctrlr3-connected', () => this.actCtrlr3.isConnected);
 
     ipcMain.handle('open-lox2Way', this.flightComputer.openLox2Way);
     ipcMain.handle('close-lox2Way', this.flightComputer.closeLox2Way);
