@@ -19,8 +19,8 @@ class Board {
 
   /**
    * Takes in a packet and returns a state update
-   * 
-   * @param {Packet} packet 
+   *
+   * @param {Packet} packet
    */
    processPacket(packet) {
     this.resetWatchdog();
@@ -38,7 +38,11 @@ class Board {
       if(mappedField === undefined) {
         mappedField = fieldDef.field;
       }
-      update[mappedField] = val;
+      else if (mappedField === null) {
+        continue;
+      } else {
+        update[mappedField] = val;
+      }
     }
     return update;
   }
