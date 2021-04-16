@@ -15,6 +15,7 @@ class Comms {
     this.getDatabases = this.getDatabases.bind(this);
     this.setDatabase = this.setDatabase.bind(this);
 
+    //----------Flight Computer----------
 
     this.openLox2Way = this.openLox2Way.bind(this);
     this.closeLox2Way = this.closeLox2Way.bind(this);
@@ -32,6 +33,93 @@ class Comms {
     this.disableHPS = this.disableHPS.bind(this);
     this.openHPS = this.openHPS.bind(this);
     this.closeHPS = this.closeHPS.bind(this);
+
+    //---------------DAQ 1---------------
+
+    //---------------DAQ 2---------------
+
+    //-------Actuator Controller 1-------
+
+    this.setPropTankTopHeater = this.setPropTankTopHeater.bind(this);
+
+    this.setPropTankMidHeater = this.setPropTankMidHeater.bind(this);
+
+    this.openPressurantVentRBV = this.openPressurantVentRBV.bind(this);
+    this.closePressurantVentRBV = this.closePressurantVentRBV.bind(this);
+    this.timePressurantVentRBV = this.timePressurantVentRBV.bind(this);
+
+    this.openPressurantFlowRBV = this.openPressurantFlowRBV.bind(this);
+    this.closePressurantFlowRBV = this.closePressurantFlowRBV.bind(this);
+    this.timePressurantFlowRBV = this.timePressurantFlowRBV.bind(this);
+
+    this.openLOxVentRBV = this.openLOxVentRBV.bind(this);
+    this.closeLOxVentRBV = this.closeLOxVentRBV.bind(this);
+    this.timeLOxVentRBV = this.timeLOxVentRBV.bind(this);
+
+    this.openLOxTankVentRBV = this.openLOxTankVentRBV.bind(this);
+    this.closeLOxTankVentRBV = this.closeLOxTankVentRBV.bind(this);
+    this.timeLOxTankVentRBV = this.timeLOxTankVentRBV.bind(this);
+
+    this.openLOxFlowRBV = this.openLOxFlowRBV.bind(this);
+    this.closeLOxFlowRBV = this.closeLOxFlowRBV.bind(this);
+    this.timeLOxFlowRBV = this.timeLOxFlowRBV.bind(this);
+
+    //-------Actuator Controller 2-------
+
+    this.setPropTankBottomHeater = this.setPropTankBottomHeater.bind(this);
+
+    this.setLOxTankTopHeater = this.setLOxTankTopHeater.bind(this);
+
+    this.openLOxRQD1 = this.openLOxRQD1.bind(this);
+    this.closeLOxRQD1 = this.closeLOxRQD1.bind(this);
+    this.timeLOxRQD1 = this.timeLOxRQD1.bind(this);
+
+    this.openLOxRQD2 = this.openLOxRQD2.bind(this);
+    this.closeLOxRQD2 = this.closeLOxRQD2.bind(this);
+    this.timeLOxRQD2 = this.timeLOxRQD2.bind(this);
+
+    this.openPropaneVentRBV = this.openPropaneVentRBV.bind(this);
+    this.closePropaneVentRBV = this.closePropaneVentRBV.bind(this);
+    this.timePropaneVentRBV = this.timePropaneVentRBV.bind(this);
+
+    this.openPropaneFlowRBV = this.openPropaneFlowRBV.bind(this);
+    this.closePropaneFlowRBV = this.closePropaneFlowRBV.bind(this);
+    this.timePropaneFlowRBV = this.timePropaneFlowRBV.bind(this);
+
+    this.openPropaneRQD1 = this.openPropaneRQD1.bind(this);
+    this.closePropaneRQD1 = this.closePropaneRQD1.bind(this);
+    this.timePropaneRQD1 = this.timePropaneRQD1.bind(this);
+
+    this.openPropaneRQD2 = this.openPropaneRQD2.bind(this);
+    this.closePropaneRQD2 = this.closePropaneRQD2.bind(this);
+    this.timePropaneRQD2 = this.timePropaneRQD2.bind(this);
+
+    //-------Actuator Controller 3-------
+
+    this.setLOxTankMidHeater = this.setLOxTankMidHeater.bind(this);
+
+    this.setLOxTankBottomHeater = this.setLOxTankBottomHeater.bind(this);
+
+    this.openLOxPrechillRBV = this.openLOxPrechillRBV.bind(this);
+    this.closeLOxPrechillRBV = this.closeLOxPrechillRBV.bind(this);
+    this.timeLOxPrechillRBV = this.timeLOxPrechillRBV.bind(this);
+
+    this.openPurgePrechillVentRBV = this.openPurgePrechillVentRBV.bind(this);
+    this.closePurgePrechillVentRBV = this.closePurgePrechillVentRBV.bind(this);
+    this.timePurgePrechillVentRBV = this.timePurgePrechillVentRBV.bind(this);
+
+    this.openPrechillFlowRBV = this.openPrechillFlowRBV.bind(this);
+    this.closePrechillFlowRBV = this.closePrechillFlowRBV.bind(this);
+    this.timePrechillFlowRBV = this.timePrechillFlowRBV.bind(this);
+
+    this.openPropanePrechillRBV = this.openPropanePrechillRBV.bind(this);
+    this.closePropanePrechillRBV = this.closePropanePrechillRBV.bind(this);
+    this.timePropanePrechillRBV = this.timePropanePrechillRBV.bind(this);
+
+    this.openPurgeFlowRBV = this.openPurgeFlowRBV.bind(this);
+    this.closePurgeFlowRBV = this.closePurgeFlowRBV.bind(this);
+    this.timePurgeFlowRBV = this.timePurgeFlowRBV.bind(this);
+
   }
 
   stateUpdate(event, payload) {
@@ -69,6 +157,8 @@ class Comms {
     this.ipc.removeListener('state-update', this.stateUpdate);
   }
 
+  //----------Flight Computer----------
+
   async openMainWindows() { return await this.ipc.invoke('open-main-windows'); }
   async openAuxWindows() { return await this.ipc.invoke('open-aux-windows'); }
 
@@ -92,6 +182,93 @@ class Comms {
   async disableHPS() { return await this.ipc.invoke('disable-HPS'); }
   async openHPS() { return await this.ipc.invoke('open-HPS'); }
   async closeHPS() { return await this.ipc.invoke('close-HPS'); }
+
+  //---------------DAQ 1---------------
+
+  //---------------DAQ 2---------------
+
+  //-------Actuator Controller 1-------
+
+  async setPropTankTopHeater(val) {return await this.ipc.invoke('set-propTankTopHeater', val); }
+
+  async setPropTankMidHeater(val) {return await this.ipc.invoke('set-propTankMidHeater', val); }
+
+  async openPressurantVentRBV() {return await this.ipc.invoke('open-pressurantVentRBV'); }
+  async closePressurantVentRBV() {return await this.ipc.invoke('close-pressurantVentRBV'); }
+  async timePressurantVentRBV(val) {return await this.ipc.invoke('time-pressurantVentRBV', val); }
+
+  async openPressurantFlowRBV() {return await this.ipc.invoke('open-pressurantFlowRBV'); }
+  async closePressurantFlowRBV() {return await this.ipc.invoke('close-pressurantFlowRBV'); }
+  async timePressurantFlowRBV(val) {return await this.ipc.invoke('time-pressurantFlowRBV', val); }
+
+  async openLOxVentRBV() {return await this.ipc.invoke('open-LOxVentRBV'); }
+  async closeLOxVentRBV() {return await this.ipc.invoke('close-LOxVentRBV'); }
+  async timeLOxVentRBV(val) {return await this.ipc.invoke('time-LOxVentRBV', val); }
+
+  async openLOxTankVentRBV() {return await this.ipc.invoke('open-LOxTankVentRBV'); }
+  async closeLOxTankVentRBV() {return await this.ipc.invoke('close-LOxTankVentRBV'); }
+  async timeLOxTankVentRBV(val) {return await this.ipc.invoke('time-LOxTankVentRBV', val); }
+
+  async openLOxFlowRBV() {return await this.ipc.invoke('open-LOxFlowRBV'); }
+  async closeLOxFlowRBV() {return await this.ipc.invoke('close-LOxFlowRBV'); }
+  async timeLOxFlowRBV(val) {return await this.ipc.invoke('time-LOxFlowRBV', val); }
+
+  //-------Actuator Controller 2-------
+
+  async setPropTankBottomHeater(val) {return await this.ipc.invoke('set-propTankBottomHeater', val); }
+
+  async setLOxTankTopHeater(val) {return await this.ipc.invoke('set-LOxTankTopHeater', val); }
+
+  async openLOxRQD1() {return await this.ipc.invoke('open-LOxRQD1'); }
+  async closeLOxRQD1() {return await this.ipc.invoke('close-LOxRQD1'); }
+  async timeLOxRQD1(val) {return await this.ipc.invoke('time-LOxRQD1', val); }
+
+  async openLOxRQD2() {return await this.ipc.invoke('open-LOxRQD2'); }
+  async closeLOxRQD2() {return await this.ipc.invoke('close-LOxRQD2'); }
+  async timeLOxRQD2(val) {return await this.ipc.invoke('time-LOxRQD2', val); }
+
+  async openPropaneVentRBV() {return await this.ipc.invoke('open-propaneVentRBV'); }
+  async closePropaneVentRBV() {return await this.ipc.invoke('close-propaneVentRBV'); }
+  async timePropaneVentRBV(val) {return await this.ipc.invoke('time-propaneVentRBV', val); }
+
+  async openPropaneFlowRBV() {return await this.ipc.invoke('open-propaneFlowRBV'); }
+  async closePropaneFlowRBV() {return await this.ipc.invoke('close-propaneFlowRBV'); }
+  async timePropaneFlowRBV(val) {return await this.ipc.invoke('time-propaneFlowRBV', val); }
+
+  async openPropaneRQD1() {return await this.ipc.invoke('open-propaneRQD1'); }
+  async closePropaneRQD1() {return await this.ipc.invoke('close-propaneRQD1'); }
+  async timePropaneRQD1(val) {return await this.ipc.invoke('time-propaneRQD1', val); }
+
+  async openPropaneRQD2() {return await this.ipc.invoke('open-propaneRQD2'); }
+  async closePropaneRQD2() {return await this.ipc.invoke('close-propaneRQD2'); }
+  async timePropaneRQD2(val) {return await this.ipc.invoke('time-propaneRQD2', val); }
+
+  //-------Actuator Controller 3-------
+
+  async setLOxTankMidHeater(val) {return await this.ipc.invoke('set-LOxTankMidHeater', val); }
+
+  async setLOxTankBottomHeater(val) {return await this.ipc.invoke('set-LOxTankBottomHeater', val); }
+
+  async openLOxPrechillRBV() {return await this.ipc.invoke('open-LOxPrechillRBV'); }
+  async closeLOxPrechillRBV() {return await this.ipc.invoke('close-LOxPrechillRBV'); }
+  async timeLOxPrechillRBV(val) {return await this.ipc.invoke('time-LOxPrechillRBV', val); }
+
+  async openPurgePrechillVentRBV() {return await this.ipc.invoke('open-purgePrechillVentRBV'); }
+  async closePurgePrechillVentRBV() {return await this.ipc.invoke('close-purgePrechillVentRBV'); }
+  async timePurgePrechillVentRBV(val) {return await this.ipc.invoke('time-purgePrechillVentRBV', val); }
+
+  async openPrechillFlowRBV() {return await this.ipc.invoke('open-prechillFlowRBV'); }
+  async closePrechillFlowRBV() {return await this.ipc.invoke('close-prechillFlowRBV'); }
+  async timePrechillFlowRBV(val) {return await this.ipc.invoke('time-prechillFlowRBV', val); }
+
+  async openPropanePrechillRBV() {return await this.ipc.invoke('open-propanePrechillRBV'); }
+  async closePropanePrechillRBV() {return await this.ipc.invoke('close-propanePrechillRBV'); }
+  async timePropanePrechillRBV(val) {return await this.ipc.invoke('time-propanePrechillRBV', val); }
+
+  async openPurgeFlowRBV() {return await this.ipc.invoke('open-purgeFlowRBV'); }
+  async closePurgeFlowRBV() {return await this.ipc.invoke('close-purgeFlowRBV'); }
+  async timePurgeFlowRBV(val) {return await this.ipc.invoke('time-purgeFlowRBV', val); }
+
 }
 
 export default new Comms(ipcRenderer);
