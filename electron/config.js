@@ -8,40 +8,33 @@ const model = {
   loxInjectorPT: 0.0,
   loxGemsPT: 0.0,
   // lox fitting tree and gems temperature
-  loxTreeTC: 0.0,
+  loxTreeTemp: 0.0,
   loxTreeHeater: 0.0,
-  loxGemsTC: 0.0,
+  loxGemsTemp: 0.0,
   loxGemsHeater: 0.0,
   // lox fill TCs
-  loxTankLowTC: 0.0,
   loxTankMidTC: 0.0,
-  loxTankHighTC: 0.0,
-  // propane injector PT TC
-  propInjectorTC: 0.0,
+  loxTankTopTC: 0.0,
+  // lox injector PT temp
+  loxInjectorTemp: 0,0,
+
   // propane pressures
   propTankPT: 0.0,
   propDomePT: 0.0,
   propInjectorPT: 0.0,
   propGemsPT: 0.0,
   // propane fill TCs
-  propTankLowTC: 0.0,
   propTankMidTC: 0.0,
-  propTankHighTC: 0.0,
+  propTankTopTC: 0.0,
   // propane injector PT TC
   propInjectorTC: 0.0,
+
   // pressurant pressure
   pressurantPT: 0.0,
   // flight board power stats
   flightVoltage: 0.0,
   flightPower: 0.0,
   flightCurrent: 0.0,
-  // engine temperatures
-  engine1TC: 0.0,
-  engine2TC: 0.0,
-  engine3TC: 0.0,
-  engine4TC: 0.0,
-  engine5TC: 0.0,
-  engine6TC: 0.0,
 
   // valve states
   lox2Way: false,
@@ -52,11 +45,31 @@ const model = {
   HPS: false,
   HPSEnable: false,
 
-
-
   //---------------DAQ 1---------------
 
+  propGemsPT: 0.0,
+  daq1Voltage: 0.0,
+  daq1Power: 0.0,
+  daq1CurrentDraw: 0.0,
+  thrust1: 0.0,
+  thrust2: 0.0,
+  totalThrust: 0.0,
+  LOxTankBottomTC: 0.0,
+  propTankBottomTC: 0.0,
+  EngineTC1: 0.0,
+  EngineTC2: 0.0,
+  daq1_5v_aVoltage: 0.0,
+  daq1_5v_aCurrent: 0.0,
+  daq1_5vVoltage: 0.0,
+  daq1_5vCurrent: 0.0,
+  pressurantTemp: 0.0,
+
   //---------------DAQ 2---------------
+
+  engineTC3: 0.0,
+  engineTC4: 0.0,
+  engineTC5: 0.0,
+  engineTC6: 0.0,
 
   //-------Actuator Controller 1-------
 
