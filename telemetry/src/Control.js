@@ -13,6 +13,7 @@ import ButtonGroupFlow from './components/ButtonGroupFlow';
 import ButtonGroupRBV from './components/ButtonGroupRBV';
 import ButtonGroupRBVTimed from './components/ButtonGroupRBVTimed';
 import ButtonGroupRQD from './components/ButtonGroupRQD';
+import ButtonGroupHeater from './components/ButtonGroupHeater';
 import BigButton from './components/BigButton';
 
 const styles = theme => ({
@@ -27,6 +28,7 @@ const styles = theme => ({
   },
   row: {
     // height: '100%'
+    borderBottom: '0.5px solid black'
   },
   item: {
     height: '100%'
@@ -311,8 +313,95 @@ class Control extends Component {
                 
               </Grid>
             </Grid>
-            <Grid container={true} spacing={1} className={classes.row}>
-              
+            <Grid container={true} spacing={1}>
+              <Grid item={1} xs={3} className={classes.item}>
+                <Grid container spacing={1} direction='column'>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='LOx Tank Top Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='LOx Tank Middle Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='LOx Tank Bottom Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item={1} xs={3} className={classes.item}>
+                <Grid container spacing={1} direction='column'>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='Propane Tank Top Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='Propane Tank Middle Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='Propane Tank Bottom Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item={1} xs={3} className={classes.item}>
+                <Grid container spacing={1} direction='column'>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='LOx PT Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='LOx GEMs Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='LOx Injector PT Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item={1} xs={3} className={classes.item}>
+                <Grid container spacing={1} direction='column'>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='Propane PT Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='Propane GEMs Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroupHeater
+                      text='Propane Injector PT Heater'
+                      sendDuty={(duty) => console.log('change me ' + duty)}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
           </Container>
         </Box>
