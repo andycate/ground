@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 
 import comms from './api/Comms';
 import ButtonGroup from './components/ButtonGroup';
+import ButtonGroupFlow from './components/ButtonGroupFlow';
+import ButtonGroupRBV from './components/ButtonGroupRBV';
 
 const styles = theme => ({
   root: {
@@ -36,19 +38,21 @@ class Control extends Component {
       showSettings: false,
     };
 
-    this.setLightDark = this.setLightDark.bind(this);
+    this.handleDarkMode = this.handleDarkMode.bind(this);
   }
 
-  setLightDark(isDark) {
+  handleDarkMode(isDark) {
     this.setState({ isDark });
   }
 
   componentDidMount() {
     comms.connect();
+    comms.addDarkModeListener(this.handleDarkMode);
   }
 
   componentWillUnmount() {
     // make sure that when there's a hot reload, we disconnect comms before its connected again
+    comms.removeDarkModeListener(this.handleDarkMode);
     comms.destroy();
   }
 
@@ -135,10 +139,10 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
-                    <ButtonGroup
+                    <ButtonGroupFlow
                       open={comms.beginFlow}
                       close={comms.abort}
-                      field='_' // change this?
+                      field='flowState' // change this?
                       text='Begin Flow'
                     />
                   </Grid>
@@ -147,19 +151,47 @@ class Control extends Component {
               <Grid item={1} xs={3} className={classes.item}>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroup
-                      open={comms.openPurgeFlowRBV}
-                      close={comms.closePurgeFlowRBV}
-                      field=''
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='purgeFlowRBVstate'
                       text='Purge Flow RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroup
-                      open={comms.openPurgeRBV}
-                      close={comms.closePurgeRBV}
-                      field=''
-                      text='Purge RBV'
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='LOxPrechillRBVstate'
+                      text='LOx Prechill RBV'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='prechillFlowRBVstate'
+                      text='Prechill Flow RBV'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='propanePrechillRBVstate'
+                      text='Propane Prechill RBV'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='purgePrechillVentRBVstate'
+                      text='Prechill Flow RBV'
                     />
                   </Grid>
                 </Grid>

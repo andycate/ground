@@ -5,8 +5,10 @@ const { ipcRenderer } = window;
 class Comms {
   constructor(ipc) {
     this.subscribers = {};
+    this.darkmodeListeners = [];
     this.ipc = ipc;
     this.stateUpdate = this.stateUpdate.bind(this);
+    this.darkmodeUpdate = this.darkmodeUpdate.bind(this);
 
     this.openMainWindows = this.openMainWindows.bind(this);
     this.openAuxWindows = this.openAuxWindows.bind(this);
@@ -14,6 +16,7 @@ class Comms {
     this.connectInflux = this.connectInflux.bind(this);
     this.getDatabases = this.getDatabases.bind(this);
     this.setDatabase = this.setDatabase.bind(this);
+    this.setDarkMode = this.setDarkMode.bind(this);
 
 
     this.getFlightConnected = this.getFlightConnected.bind(this);
@@ -41,6 +44,16 @@ class Comms {
     this.disableHPS = this.disableHPS.bind(this);
     this.openHPS = this.openHPS.bind(this);
     this.closeHPS = this.closeHPS.bind(this);
+
+    this.beginFlow = this.beginFlow.bind(this);
+    this.abort = this.abort.bind(this);
+
+    // GSE
+    this.openPurgeFlowRBV = this.openPurgeFlowRBV.bind(this);
+    this.closePurgeFlowRBV = this.closePurgeFlowRBV.bind(this);
+
+    this.openPurgeRBV = this.openPurgeRBV.bind(this);
+    this.closePurgeRBV = this.closePurgeRBV.bind(this);
   }
 
   stateUpdate(event, payload) {
@@ -61,7 +74,9 @@ class Comms {
     if(this.subscribers[field] === undefined) {
       this.subscribers[field] = [];
     }
-    this.subscribers[field].push(callback);
+    if(this.subscribers[field].indexOf(callback) === -1) {
+      this.subscribers[field].push(callback);
+    }
   }
 
   removeSubscriber(field, callback) {
@@ -70,8 +85,25 @@ class Comms {
     this.subscribers[field].splice(index, 1);
   }
 
+  addDarkModeListener(listener) {
+    this.darkmodeListeners.push(listener);
+  }
+
+  darkmodeUpdate(event, isDark) {
+    for(let l of this.darkmodeListeners) {
+      l(isDark);
+    }
+  }
+
+  removeDarkModeListener(listener) {
+    const index = this.darkmodeListeners.indexOf(listener);
+    if(index === -1) return;
+    this.darkmodeListeners.splice(index, 1);
+  }
+
   connect() {
     this.ipc.on('state-update', this.stateUpdate);
+    this.ipc.on('set-darkmode', this.darkmodeUpdate);
   }
 
   destroy() {
@@ -84,6 +116,7 @@ class Comms {
   async connectInflux(host, port, protocol, username, password) { return await this.ipc.invoke('connect-influx', host, port, protocol, username, password); }
   async getDatabases() { return await this.ipc.invoke('get-databases'); }
   async setDatabase(database) { return await this.ipc.invoke('set-database', database); }
+  async setDarkMode(isDark) { return await this.ipc.invoke('set-darkmode', isDark); }
 
   async getFlightConnected() { return await this.ipc.invoke('flight-connected'); }
   async getDaq1Connected() { return await this.ipc.invoke('daq1-connected'); }
@@ -113,6 +146,13 @@ class Comms {
 
   async beginFlow() { return await this.ipc.invoke('begin-flow'); }
   async abort() { return await this.ipc.invoke('abort'); }
+
+  // GSE
+  async openPurgeFlowRBV() { return await this.ipc.invoke('open-purgeFlowRBV'); }
+  async closePurgeFlowRBV() { return await this.ipc.invoke('close-purgeFlowRBV'); }
+  
+  async openPurgeRBV() { return await this.ipc.invoke('open-purgeRBV'); }
+  async closePurgeRBV() { return await this.ipc.invoke('close-purgeRBV'); }
 }
 
 export default new Comms(ipcRenderer);

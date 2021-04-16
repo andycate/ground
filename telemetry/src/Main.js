@@ -50,6 +50,7 @@ class Main extends Component {
   }
 
   changeLightDark() {
+    comms.setDarkMode(!this.state.isDark);
     this.setState({ isDark: !this.state.isDark });
   }
 

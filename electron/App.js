@@ -17,6 +17,7 @@ class App {
 
     // comms
     this.updateState = this.updateState.bind(this);
+    this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
     this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
 
     this.flightComputer = new FlightV2(this.port,
@@ -80,6 +81,12 @@ class App {
     }
   }
 
+  sendDarkModeUpdate(isDark) {
+    for(let wc of this.webContents) {
+      wc.send('set-darkmode', isDark);
+    }
+  }
+
   /**
    * When a window is created, register it's webContents object so we can send
    * state updates to that window
@@ -101,6 +108,7 @@ class App {
     ipcMain.handle('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password));
     ipcMain.handle('get-databases', this.influxDB.getDatabaseNames);
     ipcMain.handle('set-database', (e, database) => this.influxDB.setDatabase(database));
+    ipcMain.handle('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark));
 
 
     ipcMain.handle('flight-connected', () => this.flightComputer.isConnected);
