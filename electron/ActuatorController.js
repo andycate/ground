@@ -160,9 +160,9 @@ class ActuatorController extends Board {
     this.close24vCh0 = this.close24vCh0.bind(this);
     this.setHeater24vCh0 = this.setHeater24vCh0.bind(this);
 
-    this.open24vCh0 = this.open24vCh0.bind(this);
-    this.close24vCh0 = this.close24vCh0.bind(this);
-    this.setHeater24vCh0 = this.setHeater24vCh0.bind(this);
+    this.open24vCh0 = this.open24vCh1.bind(this);
+    this.close24vCh0 = this.close24vCh1.bind(this);
+    this.setHeater24vCh0 = this.setHeater24vCh1.bind(this);
 
     this.openActCh0 = this.openActCh0.bind(this);
     this.closeActCh0 = this.closeActCh0.bind(this);
@@ -199,17 +199,17 @@ class ActuatorController extends Board {
   close12vCh0() { return this.sendPacket(10, [0]); }
   setHeater12vCh0(heaterVal) { return this.sendPacket(10, [heaterVal]); }
 
-  open12vCh1() { return this.sendPacket(10, [1]); }
-  close12vCh1() { return this.sendPacket(10, [0]); }
-  setHeater12vCh1(heaterVal) { return this.sendPacket(10, [heaterVal]); }
+  open12vCh1() { return this.sendPacket(11, [1]); }
+  close12vCh1() { return this.sendPacket(11, [0]); }
+  setHeater12vCh1(heaterVal) { return this.sendPacket(11, [heaterVal]); }
 
-  open24vCh0() { return this.sendPacket(10, [1]); }
-  close24vCh0() { return this.sendPacket(10, [0]); }
-  setHeater24vCh0(heaterVal) { return this.sendPacket(10, [heaterVal]); }
+  open24vCh0() { return this.sendPacket(12, [1]); }
+  close24vCh0() { return this.sendPacket(12, [0]); }
+  setHeater24vCh0(heaterVal) { return this.sendPacket(12, [heaterVal]); }
 
-  open24vCh0() { return this.sendPacket(10, [1]); }
-  close24vCh0() { return this.sendPacket(10, [0]); }
-  setHeater24vCh0(heaterVal) { return this.sendPacket(10, [heaterVal]); }
+  open24vCh1() { return this.sendPacket(13, [1]); }
+  close24vCh1() { return this.sendPacket(13, [0]); }
+  setHeater24vCh1(heaterVal) { return this.sendPacket(13, [heaterVal]); }
 
   openActCh0() { return this.sendPacket(14, [2]); }
   closeActCh0() { return this.sendPacket(14, [1]); }
