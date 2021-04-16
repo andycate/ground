@@ -43,18 +43,21 @@ class TankHeaterSquare extends Component {
               <FieldHeater
                 name={field1.name}
                 field={field1.field}
+                decimals={field1.decimals}
               />
             </Grid>
             <Grid item xs={6} className={classes.item}>
               <FieldHeater
                 name={field2.name}
                 field={field2.field}
+                decimals={field2.decimals}
               />
             </Grid>
             <Grid item xs={6} className={classes.item}>
               <FieldHeater
                 name={field3.name}
                 field={field3.field}
+                decimals={field3.decimals}
               />
             </Grid>
 
@@ -62,18 +65,21 @@ class TankHeaterSquare extends Component {
               <FieldHeater
                 name={field4.name}
                 field={field4.field}
+                decimals={field4.decimals}
               />
             </Grid>
             <Grid item xs={6} className={classes.item}>
               <FieldHeater
                 name={field5.name}
                 field={field5.field}
+                decimals={field5.decimals}
               />
             </Grid>
             <Grid item xs={6} className={classes.item}>
               <FieldHeater
                 name={field6.name}
                 field={field6.field}
+                decimals={field6.decimals}
               />
             </Grid>
           </Grid>

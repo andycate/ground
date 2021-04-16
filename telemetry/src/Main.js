@@ -196,26 +196,32 @@ class Main extends Component {
                   field1={{
                     name: 'LOx Top',
                     field: 'loxTankHighTC',
+                    decimals: 2
                   }}
                   field2={{
                     name: 'LOx Middle',
                     field: 'loxTankMidTC',
+                    decimals: 2
                   }}
                   field3={{
                     name: 'LOx Bottom',
                     field: 'loxTankLowTC',
+                    decimals: 2
                   }}
                   field4={{
                     name: 'Prop Top',
                     field: 'propTankHighTC',
+                    decimals: 2
                   }}
                   field5={{
                     name: 'Prop Middle',
                     field: 'propTankMidTC',
+                    decimals: 2
                   }}
                   field6={{
                     name: 'Prop Bottom',
                     field: 'propTankLowTC',
+                    decimals: 2
                   }}
                 />
               </Grid>

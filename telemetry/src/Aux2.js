@@ -18,14 +18,13 @@ const styles = theme => ({
     padding: theme.spacing(1)
   },
   row: {
-    height: '100%'
+    // height: '100%'
+    borderBottom: '0.5px solid',
+    borderColor: theme.palette.text.primary
   },
   item: {
-    height: '33%'
+    height: '100%'
   },
-  navbarGrid: {
-    // height: theme.spacing(2)
-  }
 });
 
 class Aux2 extends Component {
@@ -33,22 +32,23 @@ class Aux2 extends Component {
     super(props);
     this.state = {
       isDark: false,
-      settingsOpen: false,
     };
 
-    this.closeSettings = this.closeSettings.bind(this);
+    this.handleDarkMode = this.handleDarkMode.bind(this);
   }
 
-  closeSettings() {
-    this.setState({ settingsOpen: false });
+  handleDarkMode(isDark) {
+    this.setState({ isDark });
   }
 
   componentDidMount() {
     comms.connect();
+    comms.addDarkModeListener(this.handleDarkMode);
   }
 
   componentWillUnmount() {
     // make sure that when there's a hot reload, we disconnect comms before its connected again
+    comms.removeDarkModeListener(this.handleDarkMode);
     comms.destroy();
   }
 

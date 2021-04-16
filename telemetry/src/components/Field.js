@@ -21,15 +21,16 @@ const styles = theme => ({
 class Field extends Component {
   constructor(props) {
     super(props);
+    this.decimals = (this.props.decimals !== undefined ? this.props.decimals : 0);
     this.state = {
-      value: '0'
+      value: (0).toFixed(this.decimals)
     };
 
     this.handleValueUpdate = this.handleValueUpdate.bind(this);
   }
 
   handleValueUpdate(timestamp, value) {
-    this.setState({value: value.toFixed(0)});
+    this.setState({value: value.toFixed(this.decimals)});
   }
 
   componentDidMount() {

@@ -39,6 +39,7 @@ class SixValueSquare extends Component {
                 name={field1.name}
                 field={field1.field}
                 unit={field1.unit}
+                decimals={field1.decimals}
               />
             </Grid>
             <Grid item xs={4} className={classes.item}>
@@ -46,6 +47,7 @@ class SixValueSquare extends Component {
                 name={field2.name}
                 field={field2.field}
                 unit={field2.unit}
+                decimals={field2.decimals}
               />
             </Grid>
             <Grid item xs={4} className={classes.item}>
@@ -53,6 +55,7 @@ class SixValueSquare extends Component {
                 name={field3.name}
                 field={field3.field}
                 unit={field3.unit}
+                decimals={field3.decimals}
               />
             </Grid>
 
@@ -61,6 +64,7 @@ class SixValueSquare extends Component {
                 name={field4.name}
                 field={field4.field}
                 unit={field4.unit}
+                decimals={field4.decimals}
               />
             </Grid>
             <Grid item xs={4} className={classes.item}>
@@ -68,6 +72,7 @@ class SixValueSquare extends Component {
                 name={field5.name}
                 field={field5.field}
                 unit={field5.unit}
+                decimals={field5.decimals}
               />
             </Grid>
             <Grid item xs={4} className={classes.item}>
@@ -75,6 +80,7 @@ class SixValueSquare extends Component {
                 name={field6.name}
                 field={field6.field}
                 unit={field6.unit}
+                decimals={field6.decimals}
               />
             </Grid>
           </Grid>

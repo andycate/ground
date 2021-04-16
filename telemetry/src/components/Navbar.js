@@ -128,6 +128,7 @@ class Navbar extends Component {
           <Button className={actCtrlr1Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr1 - {actCtrlr1Kbps} kbps</Button>
           <Button className={actCtrlr2Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr2 - {actCtrlr2Kbps} kbps</Button>
           <Button className={actCtrlr3Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr3 - {actCtrlr3Kbps} kbps</Button>
+          <div className={classes.spacer}/>
           <Tooltip title='Toggle light/dark theme'>
             <IconButton
               color="inherit"
