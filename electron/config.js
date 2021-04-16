@@ -49,6 +49,10 @@ const model = {
   HPS: false,
   HPSEnable: false,
 
+  // status
+  flowType: 0,
+  flowState: 0, // WTF is this
+
   // connection stats
   flightConnected: false,
   daq1Connected: false,

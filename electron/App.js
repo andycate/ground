@@ -49,6 +49,8 @@ class App {
                                       () => this.updateState(Date.now(), { linAct3Connected: false }),
                                       (rate) => this.updateState(Date.now(), { linAct3Kbps: rate }));
 
+    this.abort = this.abort.bind(this);
+
     this.setupIPC();
   }
 
@@ -88,6 +90,10 @@ class App {
     this.webContents.push(webContents);
   }
 
+  abort() {
+    this.flightComputer.abort();
+  }
+
   /**
    * Sets up all the IPC commands that the windows have access to
    */
@@ -122,6 +128,9 @@ class App {
     ipcMain.handle('disable-HPS', this.flightComputer.disableHPS);
     ipcMain.handle('open-HPS', this.flightComputer.openHPS);
     ipcMain.handle('close-HPS', this.flightComputer.closeHPS);
+
+    ipcMain.handle('begin-flow', this.flightComputer.beginFlow);
+    ipcMain.handle('abort', this.abort);
   }
 }
 

@@ -34,6 +34,9 @@ class Comms {
     this.openLoxGems = this.openLoxGems.bind(this);
     this.closeLoxGems = this.closeLoxGems.bind(this);
 
+    this.openPropGems = this.openPropGems.bind(this);
+    this.closePropGems = this.closePropGems.bind(this);
+
     this.enableHPS = this.enableHPS.bind(this);
     this.disableHPS = this.disableHPS.bind(this);
     this.openHPS = this.openHPS.bind(this);
@@ -100,10 +103,16 @@ class Comms {
   async openLoxGems() { return await this.ipc.invoke('open-loxGems'); }
   async closeLoxGems() { return await this.ipc.invoke('close-loxGems'); }
 
+  async openPropGems() { return await this.ipc.invoke('open-propGems'); }
+  async closePropGems() { return await this.ipc.invoke('close-propGems'); }
+
   async enableHPS() { return await this.ipc.invoke('enable-HPS'); }
   async disableHPS() { return await this.ipc.invoke('disable-HPS'); }
   async openHPS() { return await this.ipc.invoke('open-HPS'); }
   async closeHPS() { return await this.ipc.invoke('close-HPS'); }
+
+  async beginFlow() { return await this.ipc.invoke('begin-flow'); }
+  async abort() { return await this.ipc.invoke('abort'); }
 }
 
 export default new Comms(ipcRenderer);

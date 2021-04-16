@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import comms from './api/Comms';
-import Graph from './components/Graph';
+import ButtonGroup from './components/ButtonGroup';
 
 const styles = theme => ({
   root: {
@@ -17,21 +17,15 @@ const styles = theme => ({
   },
   container: {
     flexGrow: 1,
-    position: 'absolute',
-    top: theme.spacing(6),
-    // height: '100vh',
-    bottom: '0px',
+    height: '100vh',
     padding: theme.spacing(1)
   },
   row: {
     height: '100%'
   },
   item: {
-    height: '33%'
+    height: '100%'
   },
-  navbarGrid: {
-    // height: theme.spacing(2)
-  }
 });
 
 class Control extends Component {
@@ -72,18 +66,92 @@ class Control extends Component {
         <Box>
           <Container maxWidth='xl' className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'pressurantPT',
-                        color: [123, 35, 162],
-                        unit: 'PSI'
-                      }
-                    ]
-                  }
-                />
+              <Grid item={1} xs={3} className={classes.item}>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openHPS}
+                      close={comms.closeHPS}
+                      field='HPS'
+                      text='Pressurant'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.enableHPS}
+                      close={comms.disableHPS}
+                      field='HPSEnable'
+                      text='Pressurant Enable'
+                      successText='Enab'
+                      failText='Dsabl'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openLoxGems}
+                      close={comms.closeLoxGems}
+                      field='loxGems'
+                      text='LOX GEMS'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openPropGems}
+                      close={comms.closePropGems}
+                      field='propGems'
+                      text='Prop GEMS'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <ButtonGroup
+                      open={comms.openLox2Way}
+                      close={comms.closeLox2Way}
+                      field='lox2Way'
+                      text='Arm Main Valves'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openLox5Way}
+                      close={comms.closeLox5Way}
+                      field='lox5Way'
+                      text='LOX 5 Way'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openProp5Way}
+                      close={comms.closeProp5Way}
+                      field='prop5Way'
+                      text='Prop 5 Way'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <ButtonGroup
+                      open={comms.beginFlow}
+                      close={comms.abort}
+                      field='_' // change this?
+                      text='Begin Flow'
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item={1} xs={3} className={classes.item}>
+                
+              </Grid>
+              <Grid item={1} xs={3} className={classes.item}>
+                
+              </Grid>
+              <Grid item={1} xs={3} className={classes.item}>
+                
               </Grid>
             </Grid>
           </Container>
