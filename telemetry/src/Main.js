@@ -11,6 +11,7 @@ import comms from './api/Comms';
 import Graph from './components/Graph';
 import Navbar from './components/Navbar';
 import Settings from './components/Settings';
+import SixValueSquare from './components/SixValueSquare';
 
 const styles = theme => ({
   root: {
@@ -128,16 +129,38 @@ class Main extends Component {
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                {/* <Graph
-                  fields={
-                    [
-                      {
-                        name: 'loxTankPT',
-                        color: [123, 35, 162]
-                      }
-                    ]
-                  }
-                /> */}
+                <SixValueSquare
+                  field1={{
+                    name: 'LOx DOME',
+                    field: 'loxDomePT',
+                    unit: 'PSI'
+                  }}
+                  field2={{
+                    name: 'Prop DOME',
+                    field: 'propDomePT',
+                    unit: 'PSI'
+                  }}
+                  field3={{
+                    name: '<UNNAMED>',
+                    field: '_changeme_',
+                    unit: 'PSI'
+                  }}
+                  field4={{
+                    name: 'LOx GEMS',
+                    field: 'loxGemsPT',
+                    unit: 'PSI'
+                  }}
+                  field5={{
+                    name: 'Prop GEMS',
+                    field: 'propGemsPT',
+                    unit: 'PSI'
+                  }}
+                  field6={{
+                    name: '<UNNAMED>',
+                    field: '_changeme_',
+                    unit: 'PSI'
+                  }}
+                />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph
