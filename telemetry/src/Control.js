@@ -13,6 +13,7 @@ import ButtonGroupFlow from './components/ButtonGroupFlow';
 import ButtonGroupRBV from './components/ButtonGroupRBV';
 import ButtonGroupRBVTimed from './components/ButtonGroupRBVTimed';
 import ButtonGroupRQD from './components/ButtonGroupRQD';
+import BigButton from './components/BigButton';
 
 const styles = theme => ({
   root: {
@@ -25,7 +26,7 @@ const styles = theme => ({
     padding: theme.spacing(1)
   },
   row: {
-    height: '100%'
+    // height: '100%'
   },
   item: {
     height: '100%'
@@ -72,6 +73,7 @@ class Control extends Component {
         <Box>
           <Container maxWidth='xl' className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
+              {/* START OF FIRST BUTTON COLUMN */}
               <Grid item={1} xs={3} className={classes.item}>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
@@ -150,6 +152,7 @@ class Control extends Component {
                   </Grid>
                 </Grid>
               </Grid>
+              {/* START OF SECOND BUTTON COLUMN */}
               <Grid item={1} xs={3} className={classes.item}>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
@@ -197,8 +200,46 @@ class Control extends Component {
                     />
                   </Grid>
                 </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <BigButton
+                      onClick={comms.abort}
+                      text='Abort'
+                      isRed
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <BigButton
+                      color='palette.error.text'
+                      onClick={comms.hold}
+                      text='Hold'
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
+              {/* START OF THIRD BUTTON COLUMN */}
               <Grid item={1} xs={3} className={classes.item}>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={8}>
+                    <ButtonGroupRBVTimed
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      time={(timeMs) => console.log('change me ' + timeMs)}
+                      field='_changeme_'
+                      text='N2 Flow RBV'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={4}>
+                    <ButtonGroupRBV
+                      open={() => console.log('change me')}
+                      close={() => console.log('change me')}
+                      field='pressurantVentRBVstate'
+                      text='N2 Vent RBV'
+                    />
+                  </Grid>
+                </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
@@ -264,29 +305,14 @@ class Control extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={8}>
-                    <ButtonGroupRBVTimed
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
-                      time={(timeMs) => console.log('change me ' + timeMs)}
-                      field='_changeme_'
-                      text='N2 Flow RBV'
-                    />
-                  </Grid>
-                  <Grid item={1} xs={4}>
-                    <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
-                      field='pressurantVentRBVstate'
-                      text='N2 Vent RBV'
-                    />
-                  </Grid>
-                </Grid>
               </Grid>
+              {/* START OF PROCEDURE COLUMN */}
               <Grid item={1} xs={3} className={classes.item}>
                 
               </Grid>
+            </Grid>
+            <Grid container={true} spacing={1} className={classes.row}>
+              
             </Grid>
           </Container>
         </Box>
