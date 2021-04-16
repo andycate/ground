@@ -1,354 +1,153 @@
-const config = {
-  sensors: [
-    {
-      name: "LOX Tank Pressure",
-      packetId: 1,
-      values: [
-        {
-          packetPosition: 0,
-          storageName: "loxTank",
-          label: "pressure",
-          interpolation: {
-            type: "linear", // linear, quadratic
-            unit: "PSI",
-            values: [ // [x, y] pairs
-              [0, -123.89876445934394],
-              [8388607, 1131.40825] // 2^23 - 1
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: "Prop Tank Pressure",
-      packetId: 1,
-      values: [
-        {
-          packetPosition: 1,
-          storageName: "propTank",
-          label: "pressure",
-          interpolation: {
-            type: "linear", // linear, quadratic
-            unit: "PSI",
-            values: [ // [x, y] pairs
-              [0, -123.89876445934394],
-              [8388607, 1131.40825] // 2^23 - 1
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: "LOX Injector Pressure",
-      packetId: 1,
-      values: [
-        {
-          packetPosition: 2,
-          storageName: "loxInjector",
-          label: "pressure",
-          interpolation: {
-            type: "linear", // linear, quadratic
-            unit: "PSI",
-            values: [ // [x, y] pairs
-              [0, -123.89876445934394],
-              [8388607, 1131.40825] // 2^23 - 1
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: "Prop Injector Pressure",
-      packetId: 1,
-      values: [
-        {
-          packetPosition: 3,
-          storageName: "propInjector",
-          label: "pressure",
-          interpolation: {
-            type: "linear", // none, linear, quadratic
-            unit: "PSI",
-            values: [ // [x, y] pairs
-              [0, -123.89876445934394],
-              [8388607, 1131.40825] // 2^23 - 1
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: "Nitrogen Pressure",
-      packetId: 1,
-      values: [
-        {
-          packetPosition: 4,
-          storageName: "highPressure",
-          label: "pressure",
-          interpolation: {
-            type: "linear", // linear, quadratic
-            unit: "PSI",
-            values: [
-              [ 1634771.9270400004, 0 ],
-              [ 1771674.0096000005, 150 ],
-              [ 2544768.12288, 700 ],
-              [ 2601139.56864, 730 ],
-              [ 2681670.205440001, 805 ],
-              [ 2802466.1606400004, 890 ],
-              [ 2931315.1795200002, 990 ],
-              [ 3076270.325760001, 1100 ],
-              [ 3189013.217280001, 1200 ],
-              [ 3414499.0003200006, 1351 ],
-              [ 3543348.019200001, 1450 ],
-              [ 3704409.292800001, 1580 ],
-              [ 3946001.203200001, 1760 ],
-              [ 4155380.858880001, 1930 ],
-              [ 4380866.641920001, 2100 ],
-              [ 4509715.660800001, 2180 ],
-              [ 4751307.571200002, 2400 ],
-              [ 4976793.35424, 2550 ],
-              [ 5202279.13728, 2700 ],
-              [ 5411658.792960001, 2870 ],
-              [ 5621038.448640001, 3020 ],
-              [ 5846524.231680001, 3190 ],
-              [ 6015638.568960002, 3333 ],
-              [ 6128381.460480002, 3426 ],
-              [ 6394132.561920001, 3620 ],
-              [ 6474663.198720002, 3700 ],
-              [ 6667936.727040001, 3850 ],
-              [ 6893422.510080002, 4000 ],
-              [ 6990059.274240003, 4080 ],
-              [ 7135014.420480002, 4186 ],
-              [ 7183332.80256, 4221 ],
-              [ 7392712.4582400005, 4365 ]
-            ]
-          }
-        }
-      ]
-    },
-    {
-      name: "Battery",
-      packetId: 2,
-      values: [
-        {
-          packetPosition: 0,
-          storageName: "batteryVoltage",
-          label: "voltage",
-          interpolation: {
-            type: "none",
-            unit: "Volts"
-          }
-        },
-        {
-          packetPosition: 1,
-          storageName: "wattage",
-          label: "wattage",
-          interpolation: {
-            type: "none",
-            unit: "Watts"
-          }
-        },
-        {
-          packetPosition: 2,
-          storageName: "batteryAmperage",
-          label: "current",
-          interpolation: {
-            type: "none",
-            unit: "Amps"
-          }
-        }
-      ]
-    },
-    {
-      name: "Fitting Tree",
-      packetId: 0,
-      values: [
-        {
-          packetPosition: 0,
-          storageName: "fittingTreeTemperature",
-          label: "temperature",
-          interpolation: {
-            type: "none", // none, linear, quadratic
-            unit: "Celcius"
-          }
-        },
-        {
-          packetPosition: 1,
-          storageName: "fittingTreeHeater",
-          label: "heater",
-          interpolation: {
-            type: "none", // none, linear, quadratic
-            unit: "Volts"
-          }
-        }
-      ]
-    },
-    {
-      name: "Temperatures",
-      packetId:4,
-      values: [
-        {
-          packetPosition: 0,
-          storageName: "cryoLoxTank",
-          label: "cryoLoxTank",
-          interpolation: {
-            type: "none", // none, linear, quadratic
-            unit: "Celcius"
-          }
-        },
-        {
-          packetPosition: 1,
-          storageName: "cryoInj1",
-          label: "cryoInj1",
-          interpolation: {
-            type: "none", // none, linear, quadratic
-            unit: "Celcius"
-          }
-        },
-        {
-          packetPosition: 2,
-          storageName: "cryoInj2",
-          label: "cryoInj2",
-          interpolation: {
-            type: "none", // none, linear, quadratic
-            unit: "Celcius"
-          }
-        },
-        {
-          packetPosition: 3,
-          storageName: "auxTherm",
-          label: "auxTherm",
-          interpolation: {
-            type: "none", // none, linear, quadratic
-            unit: "Celcius"
-          }
-        }
-      ]
-    }
-  ]
+const model = {
+
+  //----------Flight Computer----------
+
+  // lox pressures
+  loxTankPT: 0.0,
+  loxDomePT: 0.0,
+  loxInjectorPT: 0.0,
+  loxGemsPT: 0.0,
+  // lox fitting tree and gems temperature
+  loxTreeTemp: 0.0,
+  loxTreeHeater: 0.0,
+  loxGemsTemp: 0.0,
+  loxGemsHeater: 0.0,
+  // lox fill TCs
+  loxTankMidTC: 0.0,
+  loxTankTopTC: 0.0,
+  // lox injector PT temp
+  loxInjectorTemp: 0,0,
+
+  // propane pressures
+  propTankPT: 0.0,
+  propDomePT: 0.0,
+  propInjectorPT: 0.0,
+  propGemsPT: 0.0,
+  // propane fill TCs
+  propTankMidTC: 0.0,
+  propTankTopTC: 0.0,
+  // propane injector PT TC
+  propInjectorTC: 0.0,
+
+  // pressurant pressure
+  pressurantPT: 0.0,
+  // flight board power stats
+  flightVoltage: 0.0,
+  flightPower: 0.0,
+  flightCurrent: 0.0,
+
+  // valve states
+  lox2Way: false,
+  lox5Way: false,
+  prop5Way: false,
+  loxGems: false,
+  propGems: false,
+  HPS: false,
+  HPSEnable: false,
+
+  //---------------DAQ 1---------------
+
+  propGemsPT: 0.0,
+  daq1Voltage: 0.0,
+  daq1Power: 0.0,
+  daq1CurrentDraw: 0.0,
+  thrust1: 0.0,
+  thrust2: 0.0,
+  totalThrust: 0.0,
+  LOxTankBottomTC: 0.0,
+  propTankBottomTC: 0.0,
+  EngineTC1: 0.0,
+  EngineTC2: 0.0,
+  daq1_5v_aVoltage: 0.0,
+  daq1_5v_aCurrent: 0.0,
+  daq1_5vVoltage: 0.0,
+  daq1_5vCurrent: 0.0,
+  pressurantTemp: 0.0,
+
+  //---------------DAQ 2---------------
+
+  engineTC3: 0.0,
+  engineTC4: 0.0,
+  engineTC5: 0.0,
+  engineTC6: 0.0,
+
+  //-------Actuator Controller 1-------
+
+  propTankTopHeaterCurrent: 0.0,
+  propTankMidHeaterCurrent: 0.0,
+  propTankTopHeaterVal: 0.0,
+  propTankMidHeaterVal: 0.0,
+  ac1Voltage: 0.0,
+  ac1Power: 0.0,
+  ac1CurrentDraw: 0.0,
+  pressurantVentRBVcurrent: 0.0,
+  pressurantFlowRBVcurrent: 0.0,
+  LOxVentRBVcurrent: 0.0,
+  LOxTankVentRBVcurrent: 0.0,
+  LOxFlowRBVcurrent: 0.0,
+  pressurantVentRBVchState: 0.0,
+  pressurantFlowRBVchState: 0.0,
+  LOxVentRBVchState: 0.0,
+  LOxTankVentRBVchState: 0.0,
+  LOxFlowRBVchState: 0.0,
+  pressurantVentRBVstate: false,
+  pressurantFlowRBVstate: false,
+  LOxVentRBVstate: false,
+  LOxTankVentRBVstate: false,
+  LOxFlowRBVstate: false,
+
+  //-------Actuator Controller 2-------
+
+  propTankBottomHeaterCurrent: 0.0,
+  LOxTankTopHeaterCurrent: 0.0,
+  propTankBottomHeaterVal: 0.0,
+  LOxTankTopHeaterVal: 0.0,
+  ac2Voltage: 0.0,
+  ac2Power: 0.0,
+  ac2CurrentDraw: 0.0,
+  LOxRQD1current: 0.0,
+  LOxRQD2current: 0.0,
+  propaneVentRBVcurrent: 0.0,
+  propaneFlowRBVcurrent: 0.0,
+  propaneRQD1current: 0.0,
+  propaneRQD2current: 0.0,
+  LOxRQD1chState: 0.0,
+  LOxRQD2chState: 0.0,
+  propaneVentRBVchState: 0.0,
+  propaneFlowRBVchState: 0.0,
+  propaneRQD1chState: 0.0,
+  propaneRQD2chState: 0.0,
+  LOxRQD1state: false,
+  LOxRQD2state: false,
+  propaneVentRBVstate: false,
+  propaneFlowRBVstate: false,
+  propaneRQD1state: false,
+  propaneRQD2state: false,
+
+  //-------Actuator Controller 3-------
+
+  LOxTankMidHeaterCurrent: 0.0,
+  LOxTankBottomHeaterCurrent: 0.0,
+  LOxTankMidHeaterVal: 0.0,
+  LOxTankBottomHeaterVal: 0.0,
+  ac3Voltage: 0.0,
+  ac3Power: 0.0,
+  ac3CurrentDraw: 0.0,
+  LOxPrechillRBVcurrent: 0.0,
+  purgePrechillVentRBVcurrent: 0.0,
+  prechillFlowRBVcurrent: 0.0,
+  propanePrechillRBVcurrent: 0.0,
+  purgeFlowRBVcurrent: 0.0,
+  LOxPrechillRBVchState: 0.0,
+  purgePrechillVentRBVchState: 0.0,
+  prechillFlowRBVchState: 0.0,
+  propanePrechillRBVchState: 0.0,
+  purgeFlowRBVchState: 0.0,
+  LOxPrechillRBVstate: false,
+  purgePrechillVentRBVstate: false,
+  prechillFlowRBVstate: false,
+  propanePrechillRBVstate: false,
+  purgeFlowRBVstate: false
 };
 
-// const config = {
-//   sensors: [
-//     {
-//       name: "LOX Tank Pressure",
-//       packetId: 0,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "loxTank",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // linear, quadratic, none
-//             unit: "PSI"
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "Prop Tank Pressure",
-//       packetId: 1,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "propTank",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // linear, quadratic
-//             unit: "PSI"
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "LOX Injector Pressure",
-//       packetId: 2,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "loxInjector",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // linear, quadratic
-//             unit: "PSI",
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "Prop Injector Pressure",
-//       packetId: 3,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "propInjector",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // none, linear, quadratic
-//             unit: "PSI"
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "Nitrogen Pressure",
-//       packetId: 4,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "highPressure",
-//           label: "pressure",
-//           interpolation: {
-//             type: "none", // linear, quadratic
-//             unit: "PSI",
-//           }
-//         }
-//       ]
-//     },
-//     {
-//       name: "Battery",
-//       packetId: 2,
-//       values: [
-//         {
-//           packetPosition: 0,
-//           storageName: "batteryVoltage",
-//           label: "voltage",
-//           interpolation: {
-//             type: "none",
-//             unit: "Volts"
-//           }
-//         },
-//         {
-//           packetPosition: 1,
-//           storageName: "wattage",
-//           label: "wattage",
-//           interpolation: {
-//             type: "none",
-//             unit: "Watts"
-//           }
-//         },
-//         {
-//           packetPosition: 2,
-//           storageName: "batteryAmperage",
-//           label: "current",
-//           interpolation: {
-//             type: "none",
-//             unit: "Amps"
-//           }
-//         }
-//       ]
-//     },
-//   ]
-// };
-
-const getPacketConfig = () => {
-  const packets = {};
-  config.sensors.forEach((s, i) => {
-    if(!packets[s.packetId]) {
-      packets[s.packetId] = [];
-    }
-    packets[s.packetId].push(i);
-  });
-  return packets;
-}
-
-module.exports = { config, getPacketConfig };
+module.exports = { model };
