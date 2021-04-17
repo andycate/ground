@@ -7,6 +7,7 @@ const model = {
   loxDomePT: 0.0,
   loxInjectorPT: 0.0,
   loxGemsPT: 0.0,
+  loxGemsCurrent: 0.0,
   // lox fitting tree and gems temperature
   loxTreeTemp: 0.0,
   loxTreeHeater: 0.0,
@@ -24,6 +25,7 @@ const model = {
   propDomePT: 0.0,
   propInjectorPT: 0.0,
   propGemsPT: 0.0,
+  propGemsCurrent: 0.0,
   // TODO: lox fitting tree and gems temperature
   propTreeTemp: 0.0,
   propTreeHeater: 0.0,
@@ -38,8 +40,11 @@ const model = {
 
   // pressurant pressure
   pressurantPT: 0.0,
+  HPSCurrent: 0.0,
   // flight board power stats
   flightVoltage: 0.0,
+  flight12vVoltage: 0.0,
+  flight8vVoltage: 0.0,
   flightPower: 0.0,
   flightCurrent: 0.0,
   
@@ -49,8 +54,11 @@ const model = {
 
   // valve states
   lox2Way: false,
+  lox2WayCurrent: 0.0,
   lox5Way: false,
+  lox5WayCurrent: 0.0,
   prop5Way: false,
+  prop5WayCurrent: 0.0,
   loxGems: false,
   propGems: false,
   HPS: false,
@@ -104,6 +112,7 @@ const model = {
   ac1Voltage: 0.0,
   ac1Power: 0.0,
   ac1CurrentDraw: 0.0,
+  ac1_12vVoltage: 0.0,
   // actuator currents
   pressurantVentRBVcurrent: 0.0,
   pressurantFlowRBVcurrent: 0.0,
@@ -138,6 +147,7 @@ const model = {
   ac2Voltage: 0.0,
   ac2Power: 0.0,
   ac2CurrentDraw: 0.0,
+  ac2_12vVoltage: 0.0,
 
   LOxRQD1current: 0.0,
   LOxRQD2current: 0.0,
@@ -174,6 +184,7 @@ const model = {
   ac3Voltage: 0.0,
   ac3Power: 0.0,
   ac3CurrentDraw: 0.0,
+  ac3_12vVoltage: 0.0,
 
   LOxPrechillRBVcurrent: 0.0,
   purgePrechillVentRBVcurrent: 0.0,

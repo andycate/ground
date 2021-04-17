@@ -18,16 +18,22 @@ const styles = theme => ({
   container: {
     flexGrow: 1,
     height: '100vh',
-    padding: theme.spacing(1)
   },
   row: {
-    // height: '100%'
-    borderBottom: '0.5px solid',
-    borderColor: theme.palette.text.primary
+    height: '100%',
   },
   item: {
+    height: '33%'
+  },
+  itemBig: {
+    height: '67%'
+  },
+  twoThirds: {
     height: '100%'
   },
+  oneThird: {
+    height: '100%'
+  }
 });
 
 class Aux2 extends Component {
@@ -69,7 +75,232 @@ class Aux2 extends Component {
         <Box>
           <Container maxWidth='xl' className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
-              
+              <Grid item xs={8}>
+                <Grid container={true} spacing={1} className={classes.twoThirds}>
+                  <Grid item xs={6} className={classes.item}>
+                    <SixValueSquare
+                      field1={{
+                        name: 'HPS',
+                        field: 'HPSCurrent',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field2={{
+                        name: 'LOx GEMS',
+                        field: 'loxGemsCurrent',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field3={{
+                        name: 'Prop GEMS',
+                        field: 'propGemsCurrent',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field4={{
+                        name: 'ARM',
+                        field: 'lox2WayCurrent',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field5={{
+                        name: 'LOx Main',
+                        field: 'lox5WayCurrent',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field6={{
+                        name: 'Prop Main',
+                        field: 'prop5WayCurrent',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6} className={classes.item}>
+                    <SixValueSquare
+                      field1={{
+                        name: 'FC 12V',
+                        field: 'flight12vVoltage',
+                        unit: 'V',
+                        decimals: 1
+                      }}
+                      field2={{
+                        name: 'FC 8V',
+                        field: 'flight8vVoltage',
+                        unit: 'V',
+                        decimals: 1
+                      }}
+                      field3={{
+                        name: '_changeme_',
+                        field: '_changeme_',
+                        unit: 'V',
+                        decimals: 1
+                      }}
+                      field4={{
+                        name: 'AC1 12V',
+                        field: 'ac1_12vVoltage',
+                        unit: 'V',
+                        decimals: 1
+                      }}
+                      field5={{
+                        name: 'AC2 12V',
+                        field: 'ac2_12vVoltage',
+                        unit: 'V',
+                        decimals: 1
+                      }}
+                      field6={{
+                        name: 'AC3 12V',
+                        field: 'ac3_12vVoltage',
+                        unit: 'V',
+                        decimals: 1
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} className={classes.itemBig}>
+                    <Graph
+                      fields={
+                        [
+                          {
+                            name: 'thrust1', // prop PT temp
+                            color: [123, 35, 162],
+                            unit: 'Lbs'
+                          },
+                          {
+                            name: 'thrust2', // prop PT temp
+                            color: [123, 35, 162],
+                            unit: 'Lbs'
+                          },
+                        ]
+                      }
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item xs={4}>
+                <Grid container={true} spacing={1} className={classes.oneThird}>
+                  <Grid item xs={12} className={classes.item}>
+                    <SixValueSquare
+                      field1={{
+                        name: 'N2 Vent',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field2={{
+                        name: 'Prop Vent',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field3={{
+                        name: 'Prop RQD-1',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field4={{
+                        name: 'N2 Flow',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field5={{
+                        name: 'Prop Flow',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field6={{
+                        name: 'Prop RQD-2',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} className={classes.item}>
+                    <SixValueSquare
+                      field1={{
+                        name: 'LOx Tank Vent',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field2={{
+                        name: 'LOx Vent',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field3={{
+                        name: 'LOx RQD-1',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field4={{
+                        name: '_changeme_',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field5={{
+                        name: 'LOx Flow',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field6={{
+                        name: 'LOx RQD-2',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} className={classes.item}>
+                    <SixValueSquare
+                      field1={{
+                        name: 'Purge/Pre-chill Vent',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field2={{
+                        name: 'Purge Flow',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field3={{
+                        name: 'Pre-Chill Flow',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field4={{
+                        name: '_changeme_',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field5={{
+                        name: 'Purge',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                      field6={{
+                        name: 'Pre-Chill',
+                        field: '_changeme_',
+                        unit: 'A',
+                        decimals: 1
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
           </Container>
         </Box>
