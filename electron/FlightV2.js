@@ -89,6 +89,16 @@ const packets = {
       interpolation: null
     },
   },
+  17: {
+    0: {
+      field: 'loxExpectedStatic',
+      interpolation: null
+    },
+    1: {
+      field: 'propExpectedStatic',
+      interpolation: null
+    },
+  },
   18: {
     0: {
       field: 'flowType',
