@@ -19,7 +19,11 @@ class App {
     this.updateState = this.updateState.bind(this);
     this.port = new UdpPort('10.0.0.69', 42069, this.updateState);
 
-    this.flightComputer = new FlightV2(this.port, '10.0.0.42');
+    this.flightComputer = new FlightV2(this.port,
+                                       '10.0.0.42',
+                                       () => this.updateState(Date.now(), { flightConnected: true }),
+                                       () => this.updateState(Date.now(), { flightConnected: false }),
+                                       (rate) => this.updateState(Date.now(), { flightKbps: rate }));
     this.daq1 = new DAQ(this.port, '10.0.0.11', {
       pressureVal0: 'propGemsPT',
       voltage: 'daq1Voltage',
