@@ -201,7 +201,7 @@ class Aux2 extends Component {
                       }}
                       field4={{
                         name: 'N2 Flow',
-                        field: '_changeme_',
+                        field: 'pressurantFlowRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}

@@ -147,8 +147,8 @@ class FlightV2 extends Board {
     this.openLoxGems = this.openLoxGems.bind(this);
     this.closeLoxGems = this.closeLoxGems.bind(this);
 
-    this.openPropGems = this.openLoxGems.bind(this);
-    this.closePropGems = this.closeLoxGems.bind(this);
+    this.openPropGems = this.openPropGems.bind(this);
+    this.closePropGems = this.openPropGems.bind(this);
 
     this.enableHPS = this.enableHPS.bind(this);
     this.disableHPS = this.disableHPS.bind(this);

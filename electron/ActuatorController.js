@@ -160,9 +160,9 @@ class ActuatorController extends Board {
     this.close24vCh0 = this.close24vCh0.bind(this);
     this.setHeater24vCh0 = this.setHeater24vCh0.bind(this);
 
-    this.open24vCh0 = this.open24vCh1.bind(this);
-    this.close24vCh0 = this.close24vCh1.bind(this);
-    this.setHeater24vCh0 = this.setHeater24vCh1.bind(this);
+    this.open24vCh1 = this.open24vCh1.bind(this);
+    this.close24vCh1 = this.close24vCh1.bind(this);
+    this.setHeater24vCh1 = this.setHeater24vCh1.bind(this);
 
     this.openActCh0 = this.openActCh0.bind(this);
     this.closeActCh0 = this.closeActCh0.bind(this);
