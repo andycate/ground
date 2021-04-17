@@ -59,7 +59,7 @@ const packets = {
       field: 'analogTemp0',
       interpolation: null
     }
-  }
+  },
   6: {
     0: {
       field: '5v_aVoltage',
