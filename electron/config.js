@@ -17,17 +17,24 @@ const model = {
   loxTankTopTC: 0.0,
   // lox injector PT temp
   loxInjectorTemp: 0,
+  loxInjectorHeater: 0.0,
 
   // propane pressures
   propTankPT: 0.0,
   propDomePT: 0.0,
   propInjectorPT: 0.0,
   propGemsPT: 0.0,
+  // TODO: lox fitting tree and gems temperature
+  propTreeTemp: 0.0,
+  propTreeHeater: 0.0,
+  propGemsTemp: 0.0,
+  propGemsHeater: 0.0,
   // propane fill TCs
   propTankMidTC: 0.0,
   propTankTopTC: 0.0,
   // propane injector PT TC
-  propInjectorTC: 0.0,
+  propInjectorTemp: 0.0,
+  propInjectorHeater: 0.0,
 
   // pressurant pressure
   pressurantPT: 0.0,
@@ -65,8 +72,8 @@ const model = {
   totalThrust: 0.0,
   LOxTankBottomTC: 0.0,
   propTankBottomTC: 0.0,
-  EngineTC1: 0.0,
-  EngineTC2: 0.0,
+  engineTC1: 0.0,
+  engineTC2: 0.0,
   daq1_5v_aVoltage: 0.0,
   daq1_5v_aCurrent: 0.0,
   daq1_5vVoltage: 0.0,
