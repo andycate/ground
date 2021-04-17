@@ -259,6 +259,9 @@ class App {
     ipcMain.handle('hold', this.hold);
 
 
+    ipcMain.handle('set-loxPTHeater', (e, val) => this.flightComputer.setLoxPTHeater(val));
+
+
     // DAQ 1
 
     // DAQ 2

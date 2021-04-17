@@ -50,6 +50,9 @@ class Comms {
     this.abort = this.abort.bind(this);
     this.hold = this.hold.bind(this);
 
+
+    this.setLoxPTHeater = this.setLoxPTHeater.bind(this);
+
     //---------------DAQ 1---------------
 
     //---------------DAQ 2---------------
@@ -232,6 +235,8 @@ class Comms {
   async beginFlow() { return await this.ipc.invoke('begin-flow'); }
   async abort() { return await this.ipc.invoke('abort'); }
   async hold() { return await this.ipc.invoke('hold'); }
+
+  async setLoxPTHeater(val) { return await this.ipc.invoke('set-loxPTHeater', val); }
 
   //---------------DAQ 1---------------
 

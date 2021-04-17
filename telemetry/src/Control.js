@@ -365,7 +365,7 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOx PT Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setLoxPTHeater}
                     />
                   </Grid>
                   <Grid item>
