@@ -17,6 +17,12 @@ class Comms {
 
     //----------Flight Computer----------
 
+    this.getFlightConnected = this.getFlightConnected.bind(this);
+    this.getDaq1Connected = this.getDaq1Connected.bind(this);
+    this.getLinAct1Connected = this.getLinAct1Connected.bind(this);
+    this.getLinAct2Connected = this.getLinAct2Connected.bind(this);
+    this.getLinAct3Connected = this.getLinAct3Connected.bind(this);
+
     this.openLox2Way = this.openLox2Way.bind(this);
     this.closeLox2Way = this.closeLox2Way.bind(this);
 
@@ -165,6 +171,12 @@ class Comms {
   async connectInflux(host, port, protocol, username, password) { return await this.ipc.invoke('connect-influx', host, port, protocol, username, password); }
   async getDatabases() { return await this.ipc.invoke('get-databases'); }
   async setDatabase(database) { return await this.ipc.invoke('set-database', database); }
+
+  async getFlightConnected() { return await this.ipc.invoke('flight-connected'); }
+  async getDaq1Connected() { return await this.ipc.invoke('daq1-connected'); }
+  async getLinAct1Connected() { return await this.ipc.invoke('linact1-connected'); }
+  async getLinAct2Connected() { return await this.ipc.invoke('linact2-connected'); }
+  async getLinAct3Connected() { return await this.ipc.invoke('linact3-connected'); }
 
   async openLox2Way() { return await this.ipc.invoke('open-lox2Way'); }
   async closeLox2Way() { return await this.ipc.invoke('close-lox2Way'); }

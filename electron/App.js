@@ -37,7 +37,11 @@ class App {
       _5vVoltage: 'daq1_5vVoltage',
       _5vCurrent: 'daq1_5vCurrent',
       analogTemp0:'pressurantTemp'
-    });
+    },
+    () => this.updateState(Date.now(), { daq1Connected: true }),
+    () => this.updateState(Date.now(), { daq1Connected: false }),
+    (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
+
     this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
       ch12v0Current: null,
       ch12v1Current: null,
@@ -71,7 +75,10 @@ class App {
       act4State: 'LOxFlowRBVstate',
       act5State: null,
       act6State: null
-    });
+    },
+    () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
+    () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
+    (rate) => this.updateState(Date.now(), { actCtrlr1Kbps: rate }));
     this.actCtrlr2 = new ActuatorController(this.port, '10.0.0.22', {
       ch12v0Current: null,
       ch12v1Current: null,
@@ -105,7 +112,11 @@ class App {
       act4State: 'propaneRQD1state',
       act5State: 'propaneRQD2state',
       act6State: null
-    });
+    },
+    () => this.updateState(Date.now(), { actCtrlr2Connected: true }),
+    () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
+    (rate) => this.updateState(Date.now(), { actCtrlr2Kbps: rate }));
+
     this.actCtrlr3 = new ActuatorController(this.port, '10.0.0.23', {
       ch12v0Current: null,
       ch12v1Current: null,
@@ -139,7 +150,10 @@ class App {
       act4State: 'purgeFlowRBVstate',
       act5State: null,
       act6State: null
-    });
+    },
+    () => this.updateState(Date.now(), { actCtrlr3Connected: true }),
+    () => this.updateState(Date.now(), { actCtrlr3Connected: false }),
+    (rate) => this.updateState(Date.now(), { actCtrlr3Kbps: rate }));
 
     this.setupIPC();
   }
@@ -189,6 +203,12 @@ class App {
     ipcMain.handle('set-database', (e, database) => this.influxDB.setDatabase(database));
 
     // Flight Computer
+
+    ipcMain.handle('flight-connected', () => this.flightComputer.isConnected);
+    ipcMain.handle('daq1-connected', () => this.daq1.isConnected);
+    ipcMain.handle('linact1-connected', () => this.linAct1.isConnected);
+    ipcMain.handle('linact2-connected', () => this.linAct2.isConnected);
+    ipcMain.handle('linact3-connected', () => this.linAct3.isConnected);
 
     ipcMain.handle('open-lox2Way', this.flightComputer.openLox2Way);
     ipcMain.handle('close-lox2Way', this.flightComputer.closeLox2Way);

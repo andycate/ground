@@ -122,8 +122,8 @@ const packets = {
 };
 
 class FlightV2 extends Board {
-  constructor(port, address) {
-    super(port, address, packets, {});
+  constructor(port, address, onConnect, onDisconnect, onRate) {
+    super(port, address, packets, {}, onConnect, onDisconnect, onRate);
 
     this.openLox2Way = this.openLox2Way.bind(this);
     this.closeLox2Way = this.closeLox2Way.bind(this);

@@ -145,8 +145,8 @@ const packets = {
 };
 
 class ActuatorController extends Board {
-  constructor(port, address, mapping) {
-    super(port, address, packets, mapping);
+  constructor(port, address, mapping, onConnect, onDisconnect, onRate) {
+    super(port, address, packets, mapping, onConnect, onDisconnect, onRate);
 
     this.open12vCh0 = this.open12vCh0.bind(this);
     this.close12vCh0 = this.close12vCh0.bind(this);

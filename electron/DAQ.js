@@ -81,8 +81,8 @@ const packets = {
 };
 
 class DAQ extends Board {
-  constructor(port, address, mapping) {
-    super(port, address, packets, mapping);
+  constructor(port, address, mapping, onConnect, onDisconnect, onRate) {
+    super(port, address, packets, mapping, onConnect, onDisconnect, onRate);
   }
 }
 
