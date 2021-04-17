@@ -16,7 +16,7 @@ const model = {
   loxTankMidTC: 0.0,
   loxTankTopTC: 0.0,
   // lox injector PT temp
-  loxInjectorTemp: 0,0,
+  loxInjectorTemp: 0,
 
   // propane pressures
   propTankPT: 0.0,
