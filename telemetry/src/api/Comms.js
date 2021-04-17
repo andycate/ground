@@ -48,6 +48,7 @@ class Comms {
 
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
+    this.hold = this.hold.bind(this);
 
     //---------------DAQ 1---------------
 
@@ -230,6 +231,7 @@ class Comms {
 
   async beginFlow() { return await this.ipc.invoke('begin-flow'); }
   async abort() { return await this.ipc.invoke('abort'); }
+  async hold() { return await this.ipc.invoke('hold'); }
 
   //---------------DAQ 1---------------
 
