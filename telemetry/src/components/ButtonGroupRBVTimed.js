@@ -64,7 +64,7 @@ class ButtonGroupRBVTimed extends Component {
   }
 
   handleTimeFieldChange(e) {
-    this.setState({timeField: parseInt(e.target.value)});
+    this.setState({timeField: parseFloat(e.target.value)});
   }
 
   setOpen() {
