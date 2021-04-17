@@ -20,7 +20,24 @@ class App {
     this.port = new UdpPort('10.0.0.69', 42069, this.updateState);
 
     this.flightComputer = new FlightV2(this.port, '10.0.0.42');
-    this.daq1 = new DAQ(this.port, '10.0.0.11', {});
+    this.daq1 = new DAQ(this.port, '10.0.0.11', {
+      pressureVal0: 'propGemsPT',
+      voltage: 'daq1Voltage',
+      power: 'daq1Power',
+      currentDraw: 'daq1CurrentDraw',
+      lc0: 'thrust1',
+      lc1: 'thrust2',
+      lcSum: 'totalThrust',
+      tcVal0: 'LOxTankBottomTC',
+      tcVal1: 'propTankBottomTC',
+      tcVal2: 'EngineTC1',
+      tcVal3: 'EngineTC2',
+      _5v_aVoltage: 'daq1_5v_aVoltage',
+      _5v_aCurrent: 'daq1_5v_aCurrent',
+      _5vVoltage: 'daq1_5vVoltage',
+      _5vCurrent: 'daq1_5vCurrent',
+      analogTemp0:'pressurantTemp'
+    });
     this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
       ch12v0Current: null,
       ch12v1Current: null,

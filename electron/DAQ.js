@@ -4,49 +4,21 @@ const Board = require('./Board');
 const packets = {
   1: {
     0: {
-      field: 'adcVal0',
-      interpolation: null
-    },
-    1: {
-      field: 'adcVal1',
-      interpolation: null
-    },
-    2: {
-      field: 'adcVal2',
-      interpolation: null
-    },
-    3: {
-      field: 'adcVal3',
-      interpolation: null
-    },
-    4: {
-      field: 'adcVal4',
-      interpolation: null
-    },
-    5: {
-      field: 'adcVal5',
-      interpolation: null
-    },
-    6: {
-      field: 'adcVal6',
-      interpolation: null
-    },
-    7: {
-      field: 'adcVal7',
+      field: 'pressureVal0',
       interpolation: null
     }
   },
   2: {
     0: {
-      field: 'daqVoltage',
+      field: 'voltage',
       interpolation: null
     },
     1: {
-      field: 'daqPower',
+      field: 'power',
       interpolation: null
     },
     2: {
-      field: 'daqCurrentDraw',
+      field: 'currentDraw',
       interpolation: null
     }
   },
@@ -83,6 +55,12 @@ const packets = {
     }
   },
   5: {
+    0: {
+      field: 'analogTemp0',
+      interpolation: null
+    }
+  }
+  6: {
     0: {
       field: '5v_aVoltage',
       interpolation: null
