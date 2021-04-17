@@ -260,6 +260,12 @@ class App {
 
 
     ipcMain.handle('set-loxPTHeater', (e, val) => this.flightComputer.setLoxPTHeater(val));
+    ipcMain.handle('set-loxGemsHeater', (e, val) => this.flightComputer.setLoxGemsHeater(val));
+    ipcMain.handle('set-loxInjectorHeater', (e, val) => this.flightComputer.setLoxInjectorHeater(val));
+
+    ipcMain.handle('set-propPTHeater', (e, val) => this.flightComputer.setPropanePTHeater(val));
+    ipcMain.handle('set-propGemsHeater', (e, val) => this.flightComputer.setPropaneGemsHeater(val));
+    ipcMain.handle('set-propInjectorHeater', (e, val) => this.flightComputer.setPropaneInjectorHeater(val));
 
 
     // DAQ 1

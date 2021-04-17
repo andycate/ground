@@ -52,6 +52,12 @@ class Comms {
 
 
     this.setLoxPTHeater = this.setLoxPTHeater.bind(this);
+    this.setLoxGemsHeater = this.setLoxGemsHeater.bind(this);
+    this.setLoxInjectorHeater = this.setLoxInjectorHeater.bind(this);
+
+    this.setPropPTHeater = this.setPropPTHeater.bind(this);
+    this.setPropGemsHeater = this.setPropGemsHeater.bind(this);
+    this.setPropInjectorHeater = this.setPropInjectorHeater.bind(this);
 
     //---------------DAQ 1---------------
 
@@ -237,6 +243,12 @@ class Comms {
   async hold() { return await this.ipc.invoke('hold'); }
 
   async setLoxPTHeater(val) { return await this.ipc.invoke('set-loxPTHeater', val); }
+  async setLoxGemsHeater(val) { return await this.ipc.invoke('set-loxGemsHeater', val); }
+  async setLoxInjectorHeater(val) { return await this.ipc.invoke('set-loxInjectorHeater', val); }
+
+  async setPropPTHeater(val) { return await this.ipc.invoke('set-propPTHeater', val); }
+  async setPropGemsHeater(val) { return await this.ipc.invoke('set-propGemsHeater', val); }
+  async setPropInjectorHeater(val) { return await this.ipc.invoke('set-propInjectorHeater', val); }
 
   //---------------DAQ 1---------------
 
