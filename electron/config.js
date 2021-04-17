@@ -106,11 +106,11 @@ const model = {
   LOxTankVentRBVchState: 0.0,
   LOxFlowRBVchState: 0.0,
   // actuator states
-  pressurantVentRBVstate: false,
-  pressurantFlowRBVstate: false,
-  LOxVentRBVstate: false,
-  LOxTankVentRBVstate: false,
-  LOxFlowRBVstate: false,
+  pressurantVentRBVstate: 0.0,
+  pressurantFlowRBVstate: 0.0,
+  LOxVentRBVstate: 0.0,
+  LOxTankVentRBVstate: 0.0,
+  LOxFlowRBVstate: 0.0,
   // connection stats
   actCtrlr1Connected: false,
   actCtrlr1Kbps: 0,
@@ -142,12 +142,12 @@ const model = {
   propaneRQD1chState: 0.0,
   propaneRQD2chState: 0.0,
 
-  LOxRQD1state: false,
-  LOxRQD2state: false,
-  propaneVentRBVstate: false,
-  propaneFlowRBVstate: false,
-  propaneRQD1state: false,
-  propaneRQD2state: false,
+  LOxRQD1state: 0.0,
+  LOxRQD2state: 0.0,
+  propaneVentRBVstate: 0.0,
+  propaneFlowRBVstate: 0.0,
+  propaneRQD1state: 0.0,
+  propaneRQD2state: 0.0,
 
   actCtrlr2Connected: false,
   actCtrlr2Kbps: 0,
@@ -176,11 +176,11 @@ const model = {
   propanePrechillRBVchState: 0.0,
   purgeFlowRBVchState: 0.0,
 
-  LOxPrechillRBVstate: false,
-  purgePrechillVentRBVstate: false,
-  prechillFlowRBVstate: false,
-  propanePrechillRBVstate: false,
-  purgeFlowRBVstate: false,
+  LOxPrechillRBVstate: 0.0,
+  purgePrechillVentRBVstate: 0.0,
+  prechillFlowRBVstate: 0.0,
+  propanePrechillRBVstate: 0.0,
+  purgeFlowRBVstate: 0.0,
 
   actCtrlr3Connected: false,
   actCtrlr3Kbps: 0

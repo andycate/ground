@@ -23,19 +23,19 @@ const packets = {
   1: {
     0: {
       field: 'ch12v0State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     1: {
       field: 'ch12v1State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     2: {
       field: 'ch24v0State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     3: {
       field: 'ch24v1State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     }
   },
   2: {
@@ -85,61 +85,61 @@ const packets = {
   4: {
     0: {
       field: 'ch0State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     1: {
       field: 'ch1State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     2: {
       field: 'ch2State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     3: {
       field: 'ch3State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     4: {
       field: 'ch4State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     5: {
       field: 'ch5State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     6: {
       field: 'ch6State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     }
   },
   5: {
     0: {
       field: 'act0State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     1: {
       field: 'act1State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     2: {
       field: 'act2State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     3: {
       field: 'act3State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     4: {
       field: 'act4State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     5: {
       field: 'act5State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     6: {
       field: 'act6State',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     }
   }
 };
