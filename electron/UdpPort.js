@@ -60,6 +60,7 @@ class UdpPort {
    * @param {Object} data 
    */
   send(address, data) {
+    console.log(data);
     this.server.send(data, 42069, address);
   }
 }
