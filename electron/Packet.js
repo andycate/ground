@@ -1,9 +1,9 @@
 class Packet {
   /**
-   * 
-   * @param {Number} id 
-   * @param {Array} values 
-   * @param {number} timestamp 
+   *
+   * @param {Number} id
+   * @param {Array} values
+   * @param {number} timestamp
    */
   constructor(id, values, timestamp=null) {
     if(timestamp === null) {
@@ -22,12 +22,14 @@ class Packet {
    */
   stringify() {
     const data = [this.id].concat(this.values.map(v => v.toFixed(2))).toString();
-    return `{${data}|${Packet.fletcher16(Buffer.from(data, 'binary')).toString(16)}}`;
+    const pack = `{${data}|${Packet.fletcher16(Buffer.from(data, 'binary')).toString(16)}}`;
+    // console.log(pack);
+    return pack;
   }
 
   /**
    * Parses stringified packet into object
-   * @param {String} rawData 
+   * @param {String} rawData
    * @returns parsed packet
    */
   static parsePacket(rawData) {
@@ -50,7 +52,7 @@ class Packet {
 
   /**
    * Calculates the fletcher16 checksum for some data.
-   * 
+   *
    * See https://en.wikipedia.org/wiki/Fletcher%27s_checksum
    * @param {Buffer} data the data to checksum
    * @returns integer checksum

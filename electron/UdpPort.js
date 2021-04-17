@@ -4,10 +4,10 @@ const Packet = require('./Packet');
 
 class UdpPort {
   /**
-   * 
-   * @param {String} address 
-   * @param {Number} port 
-   * @param {Object} boards 
+   *
+   * @param {String} address
+   * @param {Number} port
+   * @param {Object} boards
    * @param {Function} updateStateCallback
    */
   constructor(address, port, updateStateCallback) {
@@ -21,7 +21,7 @@ class UdpPort {
       console.log(`${this.address}:${this.port} server error:\n${err.stack}`);
       this.server.close();
     });
-    
+
     this.server.on('message', (msg, rinfo) => {
       const b = this.boards[rinfo.address];
       if(b === undefined) return;
@@ -32,20 +32,20 @@ class UdpPort {
         this.updateStateCallback(pkt.timestamp, update);
       }
     });
-    
+
     this.server.on('listening', () => {
       const address = this.server.address();
       console.log(`server listening ${address.address}:${address.port}`);
     });
-    
+
     this.server.bind(this.port, this.address);
   }
 
   /**
    * Register a board to receive packets
-   * 
-   * @param {string} address 
-   * @param {Board} board 
+   *
+   * @param {string} address
+   * @param {Board} board
    */
   register(address, board) {
     this.boards[address] = board;
@@ -55,11 +55,12 @@ class UdpPort {
 
   /**
    * Send data over the port to the specified address
-   * 
-   * @param {string} address 
-   * @param {Object} data 
+   *
+   * @param {string} address
+   * @param {Object} data
    */
   send(address, data) {
+    console.log(address + ": " + data);
     this.server.send(data, 42069, address);
   }
 }

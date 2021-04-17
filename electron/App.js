@@ -266,85 +266,85 @@ class App {
 
     // Actuator Controller 1
 
-    ipcMain.handle('set-propTankTopHeater', (val) => this.actCtrlr1.setHeater24vCh0(val));
+    ipcMain.handle('set-propTankTopHeater', (e, val) => this.actCtrlr1.setHeater24vCh0(val));
 
-    ipcMain.handle('set-propTankMidHeater', (val) => this.actCtrlr1.setHeater24vCh1(val));
+    ipcMain.handle('set-propTankMidHeater', (e, val) => this.actCtrlr1.setHeater24vCh1(val));
 
     ipcMain.handle('open-pressurantVentRBV', this.actCtrlr1.openActCh0);
     ipcMain.handle('close-pressurantVentRBV', this.actCtrlr1.closeActCh0);
-    ipcMain.handle('time-pressurantVentRBV', (val) => this.actCtrlr1.actCh0ms(val));
+    ipcMain.handle('time-pressurantVentRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
 
     ipcMain.handle('open-pressurantFlowRBV', this.actCtrlr1.openActCh1);
     ipcMain.handle('close-pressurantFlowRBV', this.actCtrlr1.closeActCh1);
-    ipcMain.handle('time-pressurantFlowRBV', (val) => this.actCtrlr1.actCh1ms(val));
+    ipcMain.handle('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
     ipcMain.handle('open-LOxVentRBV', this.actCtrlr1.openActCh2);
     ipcMain.handle('close-LOxVentRBV', this.actCtrlr1.closeActCh2);
-    ipcMain.handle('time-LOxVentRBV', (val) => this.actCtrlr1.actCh2ms(val));
+    ipcMain.handle('time-LOxVentRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
 
     ipcMain.handle('open-LOxTankVentRBV', this.actCtrlr1.openActCh3);
     ipcMain.handle('close-LOxTankVentRBV', this.actCtrlr1.closeActCh3);
-    ipcMain.handle('time-LOxTankVentRBV', (val) => this.actCtrlr1.actCh3ms(val));
+    ipcMain.handle('time-LOxTankVentRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
 
     ipcMain.handle('open-LOxFlowRBV', this.actCtrlr1.openActCh4);
     ipcMain.handle('close-LOxFlowRBV', this.actCtrlr1.closeActCh4);
-    ipcMain.handle('time-LOxFlowRBV', (val) => this.actCtrlr1.actCh4ms(val));
+    ipcMain.handle('time-LOxFlowRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
 
     // Actuator Controller 2
 
-    ipcMain.handle('set-propTankBottomHeater', (val) => this.actCtrlr2.setHeater24vCh0(val));
+    ipcMain.handle('set-propTankBottomHeater', (e, val) => this.actCtrlr2.setHeater24vCh0(val));
 
-    ipcMain.handle('set-LOxTankTopHeater', (val) => this.actCtrlr2.setHeater24vCh1(val));
+    ipcMain.handle('set-LOxTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
 
     ipcMain.handle('open-LOxRQD1', this.actCtrlr2.openActCh0);
     ipcMain.handle('close-LOxRQD1', this.actCtrlr2.closeActCh0);
-    ipcMain.handle('time-LOxRQD1', (val) => this.actCtrlr2.actCh0ms(val));
+    ipcMain.handle('time-LOxRQD1', (e, val) => this.actCtrlr2.actCh0ms(val));
 
     ipcMain.handle('open-LOxRQD2', this.actCtrlr2.openActCh1);
     ipcMain.handle('close-LOxRQD2', this.actCtrlr2.closeActCh1);
-    ipcMain.handle('time-LOxRQD2', (val) => this.actCtrlr2.actCh1ms(val));
+    ipcMain.handle('time-LOxRQD2', (e, val) => this.actCtrlr2.actCh1ms(val));
 
     ipcMain.handle('open-propaneVentRBV', this.actCtrlr2.openActCh2);
     ipcMain.handle('close-propaneVentRBV', this.actCtrlr2.closeActCh2);
-    ipcMain.handle('time-propaneVentRBV', (val) => this.actCtrlr2.actCh2ms(val));
+    ipcMain.handle('time-propaneVentRBV', (e, val) => this.actCtrlr2.actCh2ms(val));
 
     ipcMain.handle('open-propaneFlowRBV', this.actCtrlr2.openActCh3);
     ipcMain.handle('close-propaneFlowRBV', this.actCtrlr2.closeActCh3);
-    ipcMain.handle('time-propaneFlowRBV', (val) => this.actCtrlr2.actCh3ms(val));
+    ipcMain.handle('time-propaneFlowRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
 
     ipcMain.handle('open-propaneRQD1', this.actCtrlr2.openActCh4);
     ipcMain.handle('close-propaneRQD1', this.actCtrlr2.closeActCh4);
-    ipcMain.handle('time-propaneRQD1', (val) => this.actCtrlr2.actCh4ms(val));
+    ipcMain.handle('time-propaneRQD1', (e, val) => this.actCtrlr2.actCh4ms(val));
 
     ipcMain.handle('open-propaneRQD2', this.actCtrlr2.openActCh5);
     ipcMain.handle('close-propaneRQD2', this.actCtrlr2.closeActCh5);
-    ipcMain.handle('time-propaneRQD2', (val) => this.actCtrlr2.actCh5ms(val));
+    ipcMain.handle('time-propaneRQD2', (e, val) => this.actCtrlr2.actCh5ms(val));
 
     // Actuator Controller 3
 
-    ipcMain.handle('set-LOxTankMidHeater', (val) => this.actCtrlr3.setHeater24vCh0(val));
+    ipcMain.handle('set-LOxTankMidHeater', (e, val) => this.actCtrlr3.setHeater24vCh0(val));
 
-    ipcMain.handle('set-LOxTankBottomHeater', (val) => this.actCtrlr3.setHeater24vCh1(val));
+    ipcMain.handle('set-LOxTankBottomHeater', (e, val) => this.actCtrlr3.setHeater24vCh1(val));
 
     ipcMain.handle('open-LOxPrechillRBV', this.actCtrlr3.openActCh0);
     ipcMain.handle('close-LOxPrechillRBV', this.actCtrlr3.closeActCh0);
-    ipcMain.handle('time-LOxPrechillRBV', (val) => this.actCtrlr3.actCh0ms(val));
+    ipcMain.handle('time-LOxPrechillRBV', (e, val) => this.actCtrlr3.actCh0ms(val));
 
     ipcMain.handle('open-purgePrechillVentRBV', this.actCtrlr3.openActCh1);
     ipcMain.handle('close-purgePrechillVentRBV', this.actCtrlr3.closeActCh1);
-    ipcMain.handle('time-purgePrechillVentRBV', (val) => this.actCtrlr3.actCh1ms(val));
+    ipcMain.handle('time-purgePrechillVentRBV', (e, val) => this.actCtrlr3.actCh1ms(val));
 
     ipcMain.handle('open-prechillFlowRBV', this.actCtrlr3.openActCh2);
     ipcMain.handle('close-prechillFlowRBV', this.actCtrlr3.closeActCh2);
-    ipcMain.handle('time-prechillFlowRBV', (val) => this.actCtrlr3.actCh2ms(val));
+    ipcMain.handle('time-prechillFlowRBV', (e, val) => this.actCtrlr3.actCh2ms(val));
 
     ipcMain.handle('open-propanePrechillRBV', this.actCtrlr3.openActCh3);
     ipcMain.handle('close-propanePrechillRBV', this.actCtrlr3.closeActCh3);
-    ipcMain.handle('time-propanePrechillRBV', (val) => this.actCtrlr3.actCh3ms(val));
+    ipcMain.handle('time-propanePrechillRBV', (e, val) => this.actCtrlr3.actCh3ms(val));
 
     ipcMain.handle('open-purgeFlowRBV', this.actCtrlr3.openActCh4);
     ipcMain.handle('close-purgeFlowRBV', this.actCtrlr3.closeActCh4);
-    ipcMain.handle('time-purgeFlowRBV', (val) => this.actCtrlr3.actCh4ms(val));
+    ipcMain.handle('time-purgeFlowRBV', (e, val) => this.actCtrlr3.actCh4ms(val));
 
   }
 }
