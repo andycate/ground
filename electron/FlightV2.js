@@ -158,7 +158,7 @@ class FlightV2 extends Board {
     this.closeLoxGems = this.closeLoxGems.bind(this);
 
     this.openPropGems = this.openPropGems.bind(this);
-    this.closePropGems = this.openPropGems.bind(this);
+    this.closePropGems = this.closePropGems.bind(this);
 
     this.enableHPS = this.enableHPS.bind(this);
     this.disableHPS = this.disableHPS.bind(this);
@@ -189,7 +189,7 @@ class FlightV2 extends Board {
   openHPS() { return this.sendPacket(26, [1.0]); }
   closeHPS() { return this.sendPacket(26, [0.0]); }
 
-  beginFlow() { return this.sendPacket(32, [1.0]); }
+  beginFlow() { return this.sendPacket(32, [1.0]); } // 29 is old waterflow
   abort() { return this.sendPacket(33, [1.0]); }
 }
 
