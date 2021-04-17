@@ -28,6 +28,7 @@ class UdpPort {
       const pkt = Packet.parsePacket(msg.toString());
       if(pkt) {
         const update = b.processPacket(pkt);
+        if(update === undefined) return;
         this.updateStateCallback(pkt.timestamp, update);
       }
     });

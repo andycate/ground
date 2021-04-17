@@ -55,9 +55,8 @@ class Board {
       }
       else if (mappedField === null) {
         continue;
-      } else {
-        update[mappedField] = val;
       }
+      update[mappedField] = val;
     }
     return update;
   }

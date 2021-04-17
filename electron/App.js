@@ -172,6 +172,7 @@ class App {
    * @param {Object} update
    */
   updateState(timestamp, update) {
+    // console.log(update);
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
     this.influxDB.handleStateUpdate(timestamp, update);
