@@ -95,32 +95,38 @@ class Aux1 extends Component {
                   field1={{
                     name: 'FC',
                     field: 'flightVoltage',
-                    unit: 'V'
+                    unit: 'V',
+                    decimals: 1
                   }}
                   field2={{
                     name: 'AC 1',
                     field: 'ac1Voltage',
-                    unit: 'V'
+                    unit: 'V',
+                    decimals: 1
                   }}
                   field3={{
                     name: 'AC 2',
                     field: 'ac2Voltage',
-                    unit: 'V'
+                    unit: 'V',
+                    decimals: 1
                   }}
                   field4={{
                     name: 'DAQ 1',
                     field: 'daq1Voltage',
-                    unit: 'V'
+                    unit: 'V',
+                    decimals: 1
                   }}
                   field5={{
                     name: 'DAQ 2',
                     field: 'daq2Voltage',
-                    unit: 'V'
+                    unit: 'V',
+                    decimals: 1
                   }}
                   field6={{
                     name: 'AC 3',
                     field: 'ac3Voltage',
-                    unit: 'V'
+                    unit: 'V',
+                    decimals: 1
                   }}
                 />
               </Grid>
@@ -165,32 +171,38 @@ class Aux1 extends Component {
                   field1={{
                     name: 'FC',
                     field: 'flightCurrent',
-                    unit: 'A'
+                    unit: 'A',
+                    decimals: 1
                   }}
                   field2={{
                     name: 'AC 1',
                     field: 'ac1CurrentDraw',
-                    unit: 'A'
+                    unit: 'A',
+                    decimals: 1
                   }}
                   field3={{
                     name: 'AC 2',
                     field: 'ac2CurrentDraw',
-                    unit: 'A'
+                    unit: 'A',
+                    decimals: 1
                   }}
                   field4={{
                     name: 'DAQ 1',
                     field: 'daq1CurrentDraw',
-                    unit: 'A'
+                    unit: 'A',
+                    decimals: 1
                   }}
                   field5={{
                     name: 'DAQ 2',
                     field: 'daq2CurrentDraw',
-                    unit: 'A'
+                    unit: 'A',
+                    decimals: 1
                   }}
                   field6={{
                     name: 'AC 3',
                     field: 'ac3CurrentDraw',
-                    unit: 'A'
+                    unit: 'A',
+                    decimals: 1
                   }}
                 />
               </Grid>
