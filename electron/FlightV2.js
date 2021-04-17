@@ -5,7 +5,7 @@ const Packet = require('./Packet');
 const packets = {
   0: {
     0: {
-      field: 'loxTreeTC',
+      field: 'loxTreeTemp',
       interpolation: null
     },
     1: {
@@ -63,25 +63,25 @@ const packets = {
   },
   4: {
     0: {
-      field: 'loxTankLowTC',
-      interpolation: null
-    },
-    1: {
       field: 'loxTankMidTC',
       interpolation: null
     },
+    1: {
+      field: 'loxTankTopTC',
+      interpolation: null
+    },
     3: {
-      field: 'propTankLowTC',
+      field: 'propTankMidTC',
       interpolation: null
     },
     4: {
-      field: 'propTankMidTC',
+      field: 'propTankTopTC',
       interpolation: null
     },
   },
   6: {
     0: {
-      field: 'loxGemsTC',
+      field: 'loxGemsTemp',
       interpolation: null
     },
     1: {
