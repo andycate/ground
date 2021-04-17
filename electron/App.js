@@ -160,6 +160,9 @@ class App {
     () => this.updateState(Date.now(), { actCtrlr3Connected: false }),
     (rate) => this.updateState(Date.now(), { actCtrlr3Kbps: rate }));
 
+    this.abort = this.abort.bind(this);
+    this.hold = this.hold.bind(this);
+
     this.setupIPC();
   }
 
@@ -209,6 +212,10 @@ class App {
     this.flightComputer.abort();
   }
 
+  hold() {
+    // TODO: implement hold
+  }
+
   /**
    * Sets up all the IPC commands that the windows have access to
    */
@@ -248,6 +255,7 @@ class App {
 
     ipcMain.handle('begin-flow', this.flightComputer.beginFlow);
     ipcMain.handle('abort', this.abort);
+    ipcMain.handle('hold', this.hold);
 
 
     // DAQ 1

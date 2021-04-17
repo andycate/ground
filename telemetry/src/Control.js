@@ -161,16 +161,16 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openPurgeFlowRBV}
+                      close={comms.closePurgeFlowRBV}
                       field='purgeFlowRBVstate'
                       text='Purge Flow RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openLOxPrechillRBV}
+                      close={comms.closeLOxPrechillRBV}
                       field='LOxPrechillRBVstate'
                       text='LOx Prechill RBV'
                     />
@@ -179,16 +179,16 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openPrechillFlowRBV}
+                      close={comms.closePrechillFlowRBV}
                       field='prechillFlowRBVstate'
                       text='Prechill Flow RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openPropanePrechillRBV}
+                      close={comms.closePropanePrechillRBV}
                       field='propanePrechillRBVstate'
                       text='Propane Prechill RBV'
                     />
@@ -197,8 +197,8 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openPurgePrechillVentRBV}
+                      close={comms.closePurgePrechillVentRBV}
                       field='purgePrechillVentRBVstate'
                       text='Purge Prechill Vent RBV'
                     />
@@ -228,17 +228,17 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={8}>
                     <ButtonGroupRBVTimed
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
-                      time={(timeMs) => console.log('change me ' + timeMs)}
-                      field='_changeme_'
+                      open={comms.openPressurantFlowRBV}
+                      close={comms.closePressurantFlowRBV}
+                      time={comms.timePressurantFlowRBV}
+                      field='pressurantFlowRBVstate'
                       text='N2 Flow RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={4}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openPressurantVentRBV}
+                      close={comms.closePressurantVentRBV}
                       field='pressurantVentRBVstate'
                       text='N2 Vent RBV'
                     />
@@ -247,16 +247,16 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openLOxVentRBV}
+                      close={comms.closeLOxVentRBV}
                       field='LOxVentRBVstate'
                       text='LOX Vent RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openLOxFlowRBV}
+                      close={comms.closeLOxFlowRBV}
                       field='LOxFlowRBVstate'
                       text='LOX Flow RBV'
                     />
@@ -265,8 +265,8 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openLOxTankVentRBV}
+                      close={comms.closeLOxTankVentRBV}
                       field='LOxTankVentRBVstate'
                       text='LOX Tank Vent RBV'
                     />
@@ -284,16 +284,16 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openPropaneVentRBV}
+                      close={comms.closePropaneVentRBV}
                       field='propaneVentRBVstate'
                       text='Prop Vent RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
+                      open={comms.openPropaneFlowRBV}
+                      close={comms.closePropaneFlowRBV}
                       field='propaneFlowRBVstate'
                       text='Prop Flow RBV'
                     />
@@ -321,19 +321,19 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOx Tank Top Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setLOxTankTopHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOx Tank Middle Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setLOxTankMidHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOx Tank Bottom Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setLOxTankBottomHeater}
                     />
                   </Grid>
                 </Grid>
@@ -343,19 +343,19 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeater
                       text='Propane Tank Top Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setPropTankTopHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='Propane Tank Middle Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setPropTankMidHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='Propane Tank Bottom Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setPropTankBottomHeater}
                     />
                   </Grid>
                 </Grid>
