@@ -19,6 +19,8 @@ const model = {
   // lox injector PT temp
   loxInjectorTemp: 0,
   loxInjectorHeater: 0.0,
+  // expected static pressure
+  loxExpectedStatic: 0,
 
   // propane pressures
   propTankPT: 0.0,
@@ -37,6 +39,8 @@ const model = {
   // propane injector PT TC
   propInjectorTemp: 0.0,
   propInjectorHeater: 0.0,
+  // expected static pressure
+  propExpectedStatic: 0,
 
   // pressurant pressure
   pressurantPT: 0.0,
