@@ -154,12 +154,12 @@ class Aux1 extends Component {
                     [
                       {
                         name: 'propTreeTemp', // prop PT temp
-                        color: [123, 35, 162],
+                        color: [0, 126, 254],
                         unit: 'degC'
                       },
                       {
                         name: 'propGemsTemp', // prop gems temp
-                        color: [123, 35, 162],
+                        color: [0, 187, 0],
                         unit: 'degC'
                       },
                     ]
@@ -212,12 +212,12 @@ class Aux1 extends Component {
                     [
                       {
                         name: 'loxInjectorTemp', // lox injector PT temp
-                        color: [123, 35, 162],
+                        color: [0, 126, 254],
                         unit: 'degC'
                       },
                       {
                         name: 'propInjectorTemp', // prop injector PT temp
-                        color: [123, 35, 162],
+                        color: [221, 0, 0],
                         unit: 'degC'
                       },
                     ]
@@ -275,12 +275,12 @@ class Aux1 extends Component {
                       },
                       {
                         name: 'engineTC2', // engine temp 2
-                        color: [123, 35, 162],
+                        color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
                         name: 'engineTC3', // engine temp 3
-                        color: [123, 35, 162],
+                        color: [0, 127, 254],
                         unit: 'degC'
                       },
                     ]
@@ -298,12 +298,12 @@ class Aux1 extends Component {
                       },
                       {
                         name: 'engineTC5', // engine temp 5
-                        color: [123, 35, 162],
+                        color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
                         name: 'engineTC6', // engine temp 6
-                        color: [123, 35, 162],
+                        color: [0, 127, 254],
                         unit: 'degC'
                       },
                     ]

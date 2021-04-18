@@ -179,7 +179,7 @@ class FlightV2 extends Board {
   openHPS() { return this.sendPacket(26, [1.0]); }
   closeHPS() { return this.sendPacket(26, [0.0]); }
 
-  beginFlow() { return this.sendPacket(32, [1.0]); }
+  beginFlow() { return this.sendPacket(29, [1.0]); }
   abort() { return this.sendPacket(33, [1.0]); }
 }
 
