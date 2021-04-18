@@ -146,12 +146,20 @@ class Control extends Component {
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={12}>
+                  <Grid item={1} xs={6}>
                     <ButtonGroupFlow
                       open={comms.beginFlow}
                       close={comms.abort}
                       field='flowState' // change this?
                       text='Begin Flow'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupFlow
+                      open={comms.activateIgniter}
+                      close={comms.deactivateIgniter}
+                      field='igniter'
+                      text='Igniter'
                     />
                   </Grid>
                 </Grid>

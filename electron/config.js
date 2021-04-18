@@ -51,7 +51,7 @@ const model = {
   flight8vVoltage: 0.0,
   flightPower: 0.0,
   flightCurrent: 0.0,
-  
+
   // status
   flowType: 0,
   flowState: 0, // WTF is this
@@ -67,8 +67,9 @@ const model = {
   propGems: false,
   HPS: false,
   HPSEnable: false,
+  igniter: false,
+  igniterCurrent: 0.0,
 
-  //connection stats
   // connection stats
   flightConnected: false,
   flightKbps: 0,

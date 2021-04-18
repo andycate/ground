@@ -154,6 +154,10 @@ const packets = {
       field: 'lox2Way',
       interpolation: Interpolation.floatToBool
     },
+    1: {
+      field: 'igniter',
+      interpolation: Interpolation.floatToBool
+    },
     2: {
       field: 'lox5Way',
       interpolation: Interpolation.floatToBool
@@ -205,6 +209,9 @@ class FlightV2 extends Board {
     this.openHPS = this.openHPS.bind(this);
     this.closeHPS = this.closeHPS.bind(this);
 
+    this.activateIgniter = this.activateIgniter.bind(this);
+    this.deactivateIgniter = this.deactivateIgniter.bind(this);
+
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
 
@@ -240,6 +247,9 @@ class FlightV2 extends Board {
 
   beginFlow() { return this.sendPacket(29, [1.0]); } // 29 is old waterflow
   abort() { return this.sendPacket(29, [0.0]); } // 29 is old waterflow (should change to endFlow)
+
+  activateIgniter() { return this.sendPacket(23, [1.0]); }
+  deactivateIgniter() { return this.sendPacket(23, [0.0]); }
 
 
   setLoxPTHeater(val) { return this.sendPacket(40, [val]); }

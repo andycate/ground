@@ -254,6 +254,9 @@ class App {
     ipcMain.handle('open-HPS', this.flightComputer.openHPS);
     ipcMain.handle('close-HPS', this.flightComputer.closeHPS);
 
+    ipcMain.handle('activate-Igniter', this.flightComputer.activateIgniter)
+    ipcMain.handle('deactivate-Igniter', this.flightComputer.deactivateIgniter)
+
     ipcMain.handle('begin-flow', this.flightComputer.beginFlow);
     ipcMain.handle('abort', this.abort);
     ipcMain.handle('hold', this.hold);

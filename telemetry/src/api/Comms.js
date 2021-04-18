@@ -46,6 +46,9 @@ class Comms {
     this.openHPS = this.openHPS.bind(this);
     this.closeHPS = this.closeHPS.bind(this);
 
+    this.activateIgniter = this.activateIgniter.bind(this);
+    this.deactivateIgniter = this.deactivateIgniter.bind(this);
+
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
     this.hold = this.hold.bind(this);
@@ -229,6 +232,9 @@ class Comms {
   async disableHPS() { return await this.ipc.invoke('disable-HPS'); }
   async openHPS() { return await this.ipc.invoke('open-HPS'); }
   async closeHPS() { return await this.ipc.invoke('close-HPS'); }
+
+  async activateIgniter() { return await this.ipc.invoke('activate-Igniter'); }
+  async deactivateIgniter() { return await this.ipc.invoke('deactivate-Igniter'); }
 
   async beginFlow() { return await this.ipc.invoke('begin-flow'); }
   async abort() { return await this.ipc.invoke('abort'); }
