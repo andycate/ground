@@ -94,8 +94,8 @@ class Control extends Component {
                       close={comms.disableHPS}
                       field='HPSEnable'
                       text='Pressurant Enable'
-                      successText='Enab'
-                      failText='Dsabl'
+                      successText='Enable'
+                      failText='Disable'
                     />
                   </Grid>
                 </Grid>
@@ -160,6 +160,8 @@ class Control extends Component {
                       close={comms.deactivateIgniter}
                       field='igniter'
                       text='Igniter'
+                      successText='Activate'
+                      failText='Deactivate'
                     />
                   </Grid>
                 </Grid>

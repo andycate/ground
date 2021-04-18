@@ -11,7 +11,7 @@ const styles = theme => ({
     fontSize: '3rem'
   },
   thiccOrange: {
-    backgroundColor: theme.palette.warning.main + '!important',
+    backgroundColor: '#CCCC00' + '!important',
     color: theme.palette.text.main + '!important',
     width: '100%',
     fontSize: '3rem'
