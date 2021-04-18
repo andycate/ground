@@ -51,6 +51,7 @@ class Graph extends Component {
     this.numFields = this.props.fields.length;
 
     this.values = [];
+    this.lengths = [];
     this.buffer = [];
     this.lines = [];
     this.lastUpdate = Date.now();
@@ -76,44 +77,52 @@ class Graph extends Component {
 
     for(let f = 0; f < this.numFields; f++) {
       const vArray = this.values[f];
-      for(let i = 0; i < vArray.length; i+=2) {
-        if(vArray[i] - diff < 0) {
-          vArray.splice(i, 2);
-          i-=2;
-        } else {
+      let vLen = this.lengths[f];
+      let cutIndex = 0;
+      for(let i = 0; i < vLen; i+=2) {
+        if(vArray[i] - diff >= 0) {
+          cutIndex = i;
           break;
         }
       }
+      if(cutIndex > 0) {
+        vArray.copyWithin(0, cutIndex, vLen);
+        vLen -= cutIndex;
+      }
 
-      for(let i = 0; i < vArray.length; i+=2) {
-        vArray[i] = (vArray[i] - diff);
+      for(let i = 0; i < vLen; i+=2) {
+        vArray[i] = vArray[i] - diff;
       }
       const buff = this.buffer[f];
       if(buff.length > 0) {
         for(let i = 0; i < buff.length; i+=2) {
-          vArray.push(this.window - now + buff[i]);
-          vArray.push(buff[i+1]);
+          vArray[vLen] = this.window - now + buff[i];
+          vLen ++;
+          vArray[vLen] = buff[i+1];
+          vLen ++;
         }
         this.buffer[f] = [];
       }
 
-      for(let i = 0; i < vArray.length; i+=2) {
+      for(let i = 0; i < vLen; i+=2) {
         const value = vArray[i+1];
         minValue = (value < minValue) ? value : minValue;
         maxValue = (value > maxValue) ? value : maxValue;
       }
+      this.lengths[f] = vLen;
     }
     this.lastUpdate = now;
 
     for(let f = 0; f < this.lines.length; f++) {
-      const vArray = this.values[f];
       const l = this.lines[f];
       l.scaleY = 2.0 / (maxValue - minValue);
       l.offsetY = -minValue * l.scaleY - 1 || 0;
-      l.scaleX = 2.0/this.window;
-      l.numPoints = vArray.length/2;
-      l.webglNumPoints = vArray.length/2;
-      l.xy = Float32Array.from(vArray);
+      const len = this.lengths[f] / 2;
+      l.numPoints = len;
+      l.webglNumPoints = len;
+    }
+    if(this.lengths[0] > 0) {
+      console.log(Date.now() - now);
     }
     this.animationID = requestAnimationFrame(this.updateGraph);
     
@@ -130,11 +139,17 @@ class Graph extends Component {
 
     for(let i = 0; i < this.numFields; i++) {
       const field = this.props.fields[i];
-      this.values.push([]);
+      const fArray = new Float32Array(this.window);
+      this.values.push(fArray);
+      this.lengths.push(0);
       this.buffer.push([]);
-      this.lines.push(new WebglLine(new ColorRGBA(...field.color.map(c => c / 256), 1), 0));
-      this.lines[i].offsetX = -1;
-      this.webglp.addLine(this.lines[i]);
+
+      const newLine = new WebglLine(new ColorRGBA(...field.color.map(c => c / 256), 1), 0);
+      newLine.xy = fArray;
+      newLine.offsetX = -1;
+      newLine.scaleX = 2.0/this.window;
+      this.lines.push(newLine);
+      this.webglp.addLine(newLine);
       const subscriber = this.createUpdateHandler(i);
       this.subscribers.push(subscriber);
       comms.addSubscriber(field.name, subscriber);
