@@ -78,7 +78,7 @@ class Control extends Component {
           <Container maxWidth='xl' className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
               {/* START OF FIRST BUTTON COLUMN */}
-              <Grid item={1} xs={3} className={classes.item}>
+              <Grid item={1} xs={4} className={classes.item}>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroup
@@ -157,7 +157,7 @@ class Control extends Component {
                 </Grid>
               </Grid>
               {/* START OF SECOND BUTTON COLUMN */}
-              <Grid item={1} xs={3} className={classes.item}>
+              <Grid item={1} xs={4} className={classes.item}>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBV
@@ -224,7 +224,7 @@ class Control extends Component {
                 </Grid>
               </Grid>
               {/* START OF THIRD BUTTON COLUMN */}
-              <Grid item={1} xs={3} className={classes.item}>
+              <Grid item={1} xs={4} className={classes.item}>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={8}>
                     <ButtonGroupRBVTimed
@@ -313,9 +313,9 @@ class Control extends Component {
                 </Grid>
               </Grid>
               {/* START OF PROCEDURE COLUMN */}
-              <Grid item={1} xs={3} className={classes.item}>
-                {/* <Procedures /> */}
-              </Grid>
+              {/* <Grid item={1} xs={3} className={classes.item}>
+                <Procedures />
+              </Grid> */}
             </Grid>
             <Grid container={true} spacing={1}>
               <Grid item={1} xs={3} className={classes.item}>

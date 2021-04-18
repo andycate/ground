@@ -98,7 +98,7 @@ class Main extends Component {
                     [
                       {
                         name: 'pressurantPT',
-                        color: [123, 35, 162],
+                        color: [70, 1, 155],
                         unit: 'PSI'
                       }
                     ]
@@ -111,7 +111,7 @@ class Main extends Component {
                     [
                       {
                         name: 'loxTankPT',
-                        color: [123, 35, 162],
+                        color: [0, 126, 254],
                         unit: 'PSI'
                       }
                     ]
@@ -124,7 +124,7 @@ class Main extends Component {
                     [
                       {
                         name: 'propTankPT',
-                        color: [123, 35, 162],
+                        color: [0, 187, 0],
                         unit: 'PSI'
                       }
                     ]
@@ -171,7 +171,7 @@ class Main extends Component {
                     [
                       {
                         name: 'loxInjectorPT',
-                        color: [123, 35, 162],
+                        color: [221, 0, 0],
                         unit: 'PSI'
                       }
                     ]
@@ -184,7 +184,7 @@ class Main extends Component {
                     [
                       {
                         name: 'propInjectorPT',
-                        color: [123, 35, 162],
+                        color: [70, 1, 155],
                         unit: 'PSI'
                       }
                     ]
@@ -231,12 +231,12 @@ class Main extends Component {
                     [
                       {
                         name: 'loxTankLowTC',
-                        color: [123, 35, 162],
+                        color: [0, 126, 254],
                         unit: 'PSI'
                       },
                       {
                         name: 'loxTankMidTC',
-                        color: [123, 35, 162],
+                        color: [0, 187, 0],
                         unit: 'PSI'
                       },
                       {
@@ -254,12 +254,12 @@ class Main extends Component {
                     [
                       {
                         name: 'propTankLowTC',
-                        color: [123, 35, 162],
+                        color: [0, 126, 254],
                         unit: 'PSI'
                       },
                       {
                         name: 'propTankMidTC',
-                        color: [123, 35, 162],
+                        color: [0, 187, 0],
                         unit: 'PSI'
                       },
                       {
