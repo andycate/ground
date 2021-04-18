@@ -272,10 +272,11 @@ class Control extends Component {
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRQD
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
-                      field='_changeme_'
+                    <ButtonGroupRBVTimed
+                      open={comms.openLOxRQD}
+                      close={comms.closeLOxRQD}
+                      time={comms.timeLOxRQD}
+                      field='LOxRQD1state'
                       text='LOX RQD'
                     />
                   </Grid>
@@ -301,11 +302,12 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
-                    <ButtonGroupRQD
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
-                      field='_changeme_'
-                      text='Prop RQD'
+                    <ButtonGroupRBVTimed
+                      open={comms.openPropaneRQD}
+                      close={comms.closePropaneRQD}
+                      time={comms.timePropaneRQD}
+                      field='PropaneRQD1state'
+                      text='Propane RQD'
                     />
                   </Grid>
                 </Grid>
@@ -365,19 +367,19 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOx PT Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setLoxPTHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOx GEMs Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setLoxGemsHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOx Injector PT Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setLoxInjectorHeater}
                     />
                   </Grid>
                 </Grid>
@@ -387,19 +389,19 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeater
                       text='Propane PT Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setPropPTHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='Propane GEMs Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setPropGemsHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='Propane Injector PT Heater'
-                      sendDuty={(duty) => console.log('change me ' + duty)}
+                      sendDuty={comms.setPropInjectorHeater}
                     />
                   </Grid>
                 </Grid>

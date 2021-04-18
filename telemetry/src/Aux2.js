@@ -171,6 +171,11 @@ class Aux2 extends Component {
                             color: [123, 35, 162],
                             unit: 'Lbs'
                           },
+                          {
+                            name: 'totalThrust', // prop PT temp
+                            color: [123, 35, 162],
+                            unit: 'Lbs'
+                          },
                         ]
                       }
                     />
@@ -183,19 +188,19 @@ class Aux2 extends Component {
                     <SixValueSquare
                       field1={{
                         name: 'N2 Vent',
-                        field: '_changeme_',
+                        field: 'pressurantVentRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field2={{
                         name: 'Prop Vent',
-                        field: '_changeme_',
+                        field: 'propaneVentRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field3={{
                         name: 'Prop RQD-1',
-                        field: '_changeme_',
+                        field: 'propaneRQD1current',
                         unit: 'A',
                         decimals: 1
                       }}
@@ -207,13 +212,13 @@ class Aux2 extends Component {
                       }}
                       field5={{
                         name: 'Prop Flow',
-                        field: '_changeme_',
+                        field: 'propaneFlowRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field6={{
                         name: 'Prop RQD-2',
-                        field: '_changeme_',
+                        field: 'propaneRQD2current',
                         unit: 'A',
                         decimals: 1
                       }}
@@ -223,19 +228,19 @@ class Aux2 extends Component {
                     <SixValueSquare
                       field1={{
                         name: 'LOx Tank Vent',
-                        field: '_changeme_',
+                        field: 'LOxTankVentRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field2={{
                         name: 'LOx Vent',
-                        field: '_changeme_',
+                        field: 'LOxVentRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field3={{
                         name: 'LOx RQD-1',
-                        field: '_changeme_',
+                        field: 'LOxRQD1current',
                         unit: 'A',
                         decimals: 1
                       }}
@@ -247,13 +252,13 @@ class Aux2 extends Component {
                       }}
                       field5={{
                         name: 'LOx Flow',
-                        field: '_changeme_',
+                        field: 'LOxFlowRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field6={{
                         name: 'LOx RQD-2',
-                        field: '_changeme_',
+                        field: 'LOxRQD2current',
                         unit: 'A',
                         decimals: 1
                       }}
@@ -263,19 +268,19 @@ class Aux2 extends Component {
                     <SixValueSquare
                       field1={{
                         name: 'Purge/Pre-chill Vent',
-                        field: '_changeme_',
+                        field: 'purgePrechillVentRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field2={{
                         name: 'Purge Flow',
-                        field: '_changeme_',
+                        field: 'purgeFlowRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field3={{
                         name: 'Pre-Chill Flow',
-                        field: '_changeme_',
+                        field: 'prechillFlowRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
@@ -286,14 +291,14 @@ class Aux2 extends Component {
                         decimals: 1
                       }}
                       field5={{
-                        name: 'Purge',
-                        field: '_changeme_',
+                        name: 'LOx Pre/Purge',
+                        field: 'LOxPrechillRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}
                       field6={{
-                        name: 'Pre-Chill',
-                        field: '_changeme_',
+                        name: 'Prop Pre/Purge',
+                        field: 'propanePrechillRBVcurrent',
                         unit: 'A',
                         decimals: 1
                       }}

@@ -1,6 +1,6 @@
 const Influx = require('influx');
 
-const BATCH_SIZE = 100;
+const BATCH_SIZE = 500;
 
 class InfluxDB {
   constructor() {

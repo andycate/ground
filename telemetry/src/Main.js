@@ -144,8 +144,8 @@ class Main extends Component {
                     unit: 'PSI'
                   }}
                   field3={{
-                    name: '<UNNAMED>',
-                    field: '_changeme_',
+                    name: 'LOx Expected Static',
+                    field: 'loxExpectedStatic',
                     unit: 'PSI'
                   }}
                   field4={{
@@ -159,8 +159,8 @@ class Main extends Component {
                     unit: 'PSI'
                   }}
                   field6={{
-                    name: '<UNNAMED>',
-                    field: '_changeme_',
+                    name: 'Prop Expected Static',
+                    field: 'propExpectedStatic',
                     unit: 'PSI'
                   }}
                 />

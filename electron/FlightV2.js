@@ -89,6 +89,36 @@ const packets = {
       interpolation: null
     },
   },
+  8: {
+    0: {
+      field: 'propGemsTemp',
+      interpolation: null
+    },
+    1: {
+      field: 'propGemsHeater',
+      interpolation: null
+    },
+  },
+  16: {
+    0: {
+      field: 'propTreeTemp',
+      interpolation: null
+    },
+    1: {
+      field: 'propTreeHeater',
+      interpolation: null
+    },
+  },
+  17: {
+    0: {
+      field: 'loxExpectedStatic',
+      interpolation: null
+    },
+    1: {
+      field: 'propExpectedStatic',
+      interpolation: null
+    },
+  },
   18: {
     0: {
       field: 'flowType',
@@ -96,6 +126,26 @@ const packets = {
     },
     1: {
       field: 'flowState',
+      interpolation: null
+    },
+  },
+  19: {
+    0: {
+      field: 'loxInjectorTemp',
+      interpolation: null
+    },
+    1: {
+      field: 'loxInjectorHeater',
+      interpolation: null
+    },
+  },
+  60: {
+    0: {
+      field: 'propInjectorTemp',
+      interpolation: null
+    },
+    1: {
+      field: 'propInjectorHeater',
       interpolation: null
     },
   },
@@ -148,7 +198,7 @@ class FlightV2 extends Board {
     this.closeLoxGems = this.closeLoxGems.bind(this);
 
     this.openPropGems = this.openPropGems.bind(this);
-    this.closePropGems = this.openPropGems.bind(this);
+    this.closePropGems = this.closePropGems.bind(this);
 
     this.enableHPS = this.enableHPS.bind(this);
     this.disableHPS = this.disableHPS.bind(this);
@@ -157,6 +207,15 @@ class FlightV2 extends Board {
 
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
+
+
+    this.setLoxPTHeater = this.setLoxPTHeater.bind(this);
+    this.setLoxGemsHeater = this.setLoxGemsHeater.bind(this);
+    this.setLoxInjectorHeater = this.setLoxInjectorHeater.bind(this);
+
+    this.setPropanePTHeater = this.setPropanePTHeater.bind(this);
+    this.setPropaneGemsHeater = this.setPropaneGemsHeater.bind(this);
+    this.setPropaneInjectorHeater = this.setPropaneInjectorHeater.bind(this);
   }
 
   openLox2Way() { return this.sendPacket(20, [1.0]); }
@@ -179,8 +238,17 @@ class FlightV2 extends Board {
   openHPS() { return this.sendPacket(26, [1.0]); }
   closeHPS() { return this.sendPacket(26, [0.0]); }
 
-  beginFlow() { return this.sendPacket(29, [1.0]); }
+  beginFlow() { return this.sendPacket(29, [1.0]); } // 29 is old waterflow
   abort() { return this.sendPacket(33, [1.0]); }
+
+
+  setLoxPTHeater(val) { return this.sendPacket(40, [val]); }
+  setLoxGemsHeater(val) { return this.sendPacket(41, [val]); }
+  setLoxInjectorHeater(val) { return this.sendPacket(44, [val]); }
+
+  setPropanePTHeater(val) { return this.sendPacket(42, [val]); }
+  setPropaneGemsHeater(val) { return this.sendPacket(43, [val]); }
+  setPropaneInjectorHeater(val) { return this.sendPacket(45, [val]); }
 }
 
 module.exports = FlightV2;
