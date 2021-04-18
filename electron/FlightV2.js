@@ -239,7 +239,7 @@ class FlightV2 extends Board {
   closeHPS() { return this.sendPacket(26, [0.0]); }
 
   beginFlow() { return this.sendPacket(29, [1.0]); } // 29 is old waterflow
-  abort() { return this.sendPacket(33, [1.0]); }
+  abort() { return this.sendPacket(29, [0.0]); } // 29 is old waterflow (should change to endFlow)
 
 
   setLoxPTHeater(val) { return this.sendPacket(40, [val]); }
