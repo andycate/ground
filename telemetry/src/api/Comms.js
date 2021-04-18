@@ -95,13 +95,9 @@ class Comms {
 
     this.setLOxTankTopHeater = this.setLOxTankTopHeater.bind(this);
 
-    this.openLOxRQD1 = this.openLOxRQD1.bind(this);
-    this.closeLOxRQD1 = this.closeLOxRQD1.bind(this);
-    this.timeLOxRQD1 = this.timeLOxRQD1.bind(this);
-
-    this.openLOxRQD2 = this.openLOxRQD2.bind(this);
-    this.closeLOxRQD2 = this.closeLOxRQD2.bind(this);
-    this.timeLOxRQD2 = this.timeLOxRQD2.bind(this);
+    this.openLOxRQD = this.openLOxRQD.bind(this);
+    this.closeLOxRQD = this.closeLOxRQD.bind(this);
+    this.timeLOxRQD = this.timeLOxRQD.bind(this);
 
     this.openPropaneVentRBV = this.openPropaneVentRBV.bind(this);
     this.closePropaneVentRBV = this.closePropaneVentRBV.bind(this);
@@ -111,13 +107,9 @@ class Comms {
     this.closePropaneFlowRBV = this.closePropaneFlowRBV.bind(this);
     this.timePropaneFlowRBV = this.timePropaneFlowRBV.bind(this);
 
-    this.openPropaneRQD1 = this.openPropaneRQD1.bind(this);
-    this.closePropaneRQD1 = this.closePropaneRQD1.bind(this);
-    this.timePropaneRQD1 = this.timePropaneRQD1.bind(this);
-
-    this.openPropaneRQD2 = this.openPropaneRQD2.bind(this);
-    this.closePropaneRQD2 = this.closePropaneRQD2.bind(this);
-    this.timePropaneRQD2 = this.timePropaneRQD2.bind(this);
+    this.openPropaneRQD = this.openPropaneRQD.bind(this);
+    this.closePropaneRQD = this.closePropaneRQD.bind(this);
+    this.timePropaneRQD = this.timePropaneRQD.bind(this);
 
     //-------Actuator Controller 3-------
 
@@ -286,13 +278,9 @@ class Comms {
 
   async setLOxTankTopHeater(val) {return await this.ipc.invoke('set-LOxTankTopHeater', val); }
 
-  async openLOxRQD1() {return await this.ipc.invoke('open-LOxRQD1'); }
-  async closeLOxRQD1() {return await this.ipc.invoke('close-LOxRQD1'); }
-  async timeLOxRQD1(val) {return await this.ipc.invoke('time-LOxRQD1', val); }
-
-  async openLOxRQD2() {return await this.ipc.invoke('open-LOxRQD2'); }
-  async closeLOxRQD2() {return await this.ipc.invoke('close-LOxRQD2'); }
-  async timeLOxRQD2(val) {return await this.ipc.invoke('time-LOxRQD2', val); }
+  async openLOxRQD() {return await this.ipc.invoke('open-LOxRQD'); }
+  async closeLOxRQD() {return await this.ipc.invoke('close-LOxRQD'); }
+  async timeLOxRQD(val) {return await this.ipc.invoke('time-LOxRQD', val); }
 
   async openPropaneVentRBV() {return await this.ipc.invoke('open-propaneVentRBV'); }
   async closePropaneVentRBV() {return await this.ipc.invoke('close-propaneVentRBV'); }
@@ -302,13 +290,9 @@ class Comms {
   async closePropaneFlowRBV() {return await this.ipc.invoke('close-propaneFlowRBV'); }
   async timePropaneFlowRBV(val) {return await this.ipc.invoke('time-propaneFlowRBV', val); }
 
-  async openPropaneRQD1() {return await this.ipc.invoke('open-propaneRQD1'); }
-  async closePropaneRQD1() {return await this.ipc.invoke('close-propaneRQD1'); }
-  async timePropaneRQD1(val) {return await this.ipc.invoke('time-propaneRQD1', val); }
-
-  async openPropaneRQD2() {return await this.ipc.invoke('open-propaneRQD2'); }
-  async closePropaneRQD2() {return await this.ipc.invoke('close-propaneRQD2'); }
-  async timePropaneRQD2(val) {return await this.ipc.invoke('time-propaneRQD2', val); }
+  async openPropaneRQD() {return await this.ipc.invoke('open-propaneRQD'); }
+  async closePropaneRQD() {return await this.ipc.invoke('close-propaneRQD'); }
+  async timePropaneRQD(val) {return await this.ipc.invoke('time-propaneRQD', val); }
 
   //-------Actuator Controller 3-------
 

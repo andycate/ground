@@ -272,10 +272,11 @@ class Control extends Component {
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRQD
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
-                      field='_changeme_'
+                    <ButtonGroupRBVTimed
+                      open={comms.openLOxRQD}
+                      close={comms.closeLOxRQD}
+                      time={comms.timeLOxRQD}
+                      field='LOxRQD1state'
                       text='LOX RQD'
                     />
                   </Grid>
@@ -301,11 +302,12 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
-                    <ButtonGroupRQD
-                      open={() => console.log('change me')}
-                      close={() => console.log('change me')}
-                      field='_changeme_'
-                      text='Prop RQD'
+                    <ButtonGroupRBVTimed
+                      open={comms.openPropaneRQD}
+                      close={comms.closePropaneRQD}
+                      time={comms.timePropaneRQD}
+                      field='PropaneRQD1state'
+                      text='Propane RQD'
                     />
                   </Grid>
                 </Grid>

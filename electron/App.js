@@ -305,13 +305,9 @@ class App {
 
     ipcMain.handle('set-LOxTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
 
-    ipcMain.handle('open-LOxRQD1', this.actCtrlr2.openActCh0);
-    ipcMain.handle('close-LOxRQD1', this.actCtrlr2.closeActCh0);
-    ipcMain.handle('time-LOxRQD1', (e, val) => this.actCtrlr2.actCh0ms(val));
-
-    ipcMain.handle('open-LOxRQD2', this.actCtrlr2.openActCh1);
-    ipcMain.handle('close-LOxRQD2', this.actCtrlr2.closeActCh1);
-    ipcMain.handle('time-LOxRQD2', (e, val) => this.actCtrlr2.actCh1ms(val));
+    ipcMain.handle('open-LOxRQD', () => { this.actCtrlr2.openActCh0(); this.actCtrlr2.openActCh1() });
+    ipcMain.handle('close-LOxRQD', () => { this.actCtrlr2.closeActCh0(); this.actCtrlr2.closeActCh1() });
+    ipcMain.handle('time-LOxRQD', (e, val) => { this.actCtrlr2.actCh0ms(val); this.actCtrlr2.actCh1ms(val) });
 
     ipcMain.handle('open-propaneVentRBV', this.actCtrlr2.openActCh2);
     ipcMain.handle('close-propaneVentRBV', this.actCtrlr2.closeActCh2);
@@ -321,13 +317,13 @@ class App {
     ipcMain.handle('close-propaneFlowRBV', this.actCtrlr2.closeActCh3);
     ipcMain.handle('time-propaneFlowRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
 
-    ipcMain.handle('open-propaneRQD1', this.actCtrlr2.openActCh4);
-    ipcMain.handle('close-propaneRQD1', this.actCtrlr2.closeActCh4);
-    ipcMain.handle('time-propaneRQD1', (e, val) => this.actCtrlr2.actCh4ms(val));
+    ipcMain.handle('open-propaneRQD', () => { this.actCtrlr2.openActCh4(); this.actCtrlr2.openActCh5() });
+    ipcMain.handle('close-propaneRQD', () => { this.actCtrlr2.closeActCh4(); this.actCtrlr2.closeActCh5() });
+    ipcMain.handle('time-propaneRQD', (e, val) => { this.actCtrlr2.actCh4ms(val); this.actCtrlr2.actCh5ms(val) });
 
-    ipcMain.handle('open-propaneRQD2', this.actCtrlr2.openActCh5);
-    ipcMain.handle('close-propaneRQD2', this.actCtrlr2.closeActCh5);
-    ipcMain.handle('time-propaneRQD2', (e, val) => this.actCtrlr2.actCh5ms(val));
+    // ipcMain.handle('open-propaneRQD2', this.actCtrlr2.openActCh5);
+    // ipcMain.handle('close-propaneRQD2', this.actCtrlr2.closeActCh5);
+    // ipcMain.handle('time-propaneRQD2', (e, val) => this.actCtrlr2.actCh5ms(val));
 
     // Actuator Controller 3
 
