@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
@@ -108,6 +108,10 @@ function createSelectorWindow() {
 // Some APIs can only be used after this event occurs
 app.on('ready', () => {
   // createSelectorWindow();
+  const ret = globalShortcut.register('F17', () => {
+   backendApp.flightComputer.abort();
+  })
+
   if(isDev) {
     createWindow(isMainDev);
   } else {
