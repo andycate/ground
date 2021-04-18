@@ -164,6 +164,7 @@ class App {
     this.hold = this.hold.bind(this);
 
     this.setupIPC();
+
   }
 
   /**
@@ -209,8 +210,13 @@ class App {
     this.webContents.push(webContents);
   }
 
-  abort() {
+  abort() { // feels like this should be done in the frontend, not the backend.
     this.flightComputer.abort();
+    this.actCtrlr1.closeActCh1(); // Pressurant Flow
+    this.actCtrlr1.closeActCh4(); //  LOx Flow
+    this.actCtrlr2.closeActCh3(); // Propane Flow
+    // Close pre-chill/pruge flow RBVs?
+    // Open Vent RBVs?
   }
 
   hold() {
