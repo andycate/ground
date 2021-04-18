@@ -121,9 +121,6 @@ class Graph extends Component {
       l.numPoints = len;
       l.webglNumPoints = len;
     }
-    if(this.lengths[0] > 0) {
-      console.log(Date.now() - now);
-    }
     this.animationID = requestAnimationFrame(this.updateGraph);
     
     this.webglp.update();
@@ -141,7 +138,7 @@ class Graph extends Component {
       const field = this.props.fields[i];
       const fArray = new Float32Array(this.window);
       this.values.push(fArray);
-      this.lengths.push(0);
+      this.lengths.push(2);
       this.buffer.push([]);
 
       const newLine = new WebglLine(new ColorRGBA(...field.color.map(c => c / 256), 1), 0);

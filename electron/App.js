@@ -164,13 +164,6 @@ class App {
     this.hold = this.hold.bind(this);
 
     this.setupIPC();
-
-
-    setInterval(() => {
-      this.updateState(Date.now(), {
-        loxTankPT: Math.sin(Date.now()/1000)
-      });
-    }, 10);
   }
 
   /**
