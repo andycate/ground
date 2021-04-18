@@ -310,6 +310,46 @@ class Aux1 extends Component {
                   }
                 />
               </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <SixValueSquare
+                  field1={{
+                    name: 'LOx Tank Top Heater',
+                    field: 'LOxTankTopHeaterCurrent',
+                    unit: 'A',
+                    decimals: 2
+                  }}
+                  field2={{
+                    name: 'LOx Tank Mid Heater',
+                    field: 'LOxTankMidHeaterCurrent',
+                    unit: 'A',
+                    decimals: 2
+                  }}
+                  field3={{
+                    name: 'LOx Tank Bottom Heater',
+                    field: 'LOxTankBottomHeaterCurrent',
+                    unit: 'A',
+                    decimals: 2
+                  }}
+                  field4={{
+                    name: 'Prop Tank Top Heater',
+                    field: 'propTankTopHeaterCurrent',
+                    unit: 'A',
+                    decimals: 2
+                  }}
+                  field5={{
+                    name: 'Prop Tank Mid Heater',
+                    field: 'propTankMidHeaterCurrent',
+                    unit: 'A',
+                    decimals: 2
+                  }}
+                  field6={{
+                    name: 'Prop Tank Bottom Heater',
+                    field: 'propTankBottomHeaterCurrent',
+                    unit: 'A',
+                    decimals: 2
+                  }}
+                />
+              </Grid>
             </Grid>
           </Container>
         </Box>
