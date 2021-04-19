@@ -210,6 +210,10 @@ class App {
     this.webContents.push(webContents);
   }
 
+  removeWebContents(webContents) {
+    this.webContents.splice(this.webContents.indexOf(webContents), 1);
+  }
+
   abort() { // feels like this should be done in the frontend, not the backend.
     this.flightComputer.abort();
     this.actCtrlr1.closeActCh1(); // Pressurant Flow

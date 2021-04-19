@@ -195,7 +195,7 @@ class Main extends Component {
                 <TankHeaterSquare
                   field1={{
                     name: 'LOx Top',
-                    field: 'loxTankHighTC',
+                    field: 'loxTankTopTC',
                     decimals: 2
                   }}
                   field2={{
@@ -205,12 +205,12 @@ class Main extends Component {
                   }}
                   field3={{
                     name: 'LOx Bottom',
-                    field: 'loxTankLowTC',
+                    field: 'LOxTankBottomTC',
                     decimals: 2
                   }}
                   field4={{
                     name: 'Prop Top',
-                    field: 'propTankHighTC',
+                    field: 'propTankTopTC',
                     decimals: 2
                   }}
                   field5={{
@@ -220,7 +220,7 @@ class Main extends Component {
                   }}
                   field6={{
                     name: 'Prop Bottom',
-                    field: 'propTankLowTC',
+                    field: 'propTankBottomTC',
                     decimals: 2
                   }}
                 />
@@ -230,7 +230,7 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'loxTankLowTC',
+                        name: 'LOxTankBottomTC',
                         color: [0, 126, 254],
                         unit: 'PSI'
                       },
@@ -240,7 +240,7 @@ class Main extends Component {
                         unit: 'PSI'
                       },
                       {
-                        name: 'loxTankHighTC',
+                        name: 'loxTankTopTC',
                         color: [123, 35, 162],
                         unit: 'PSI'
                       }
@@ -253,7 +253,7 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'propTankLowTC',
+                        name: 'propTankBottomTC',
                         color: [0, 126, 254],
                         unit: 'PSI'
                       },
@@ -263,7 +263,7 @@ class Main extends Component {
                         unit: 'PSI'
                       },
                       {
-                        name: 'propTankHighTC',
+                        name: 'propTankTopTC',
                         color: [123, 35, 162],
                         unit: 'PSI'
                       }

@@ -34,6 +34,7 @@ function createWindow (isMain) {
   }
   window1.loadURL(url1);
   window1.on('closed', function () {
+    backendApp.removeWebContents(window1.webContents);
     window1 = null;
   });
   window1.webContents.once('did-finish-load', () => {

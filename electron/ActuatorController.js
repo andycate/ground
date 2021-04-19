@@ -2,42 +2,42 @@ const Interpolation = require('./Interpolation');
 const Board = require('./Board');
 
 const packets = {
-  0: {
+  1: {
     0: {
-      field: 'ch12v0Current',
-      interpolation: null
-    },
-    1: {
-      field: 'ch12v1Current',
-      interpolation: null
-    },
-    2: {
       field: 'ch24v0Current',
       interpolation: null
     },
-    3: {
-      field: 'ch24v1Current',
-      interpolation: null
-    }
-  },
-  1: {
-    0: {
-      field: 'ch12v0State',
-      interpolation: null
-    },
     1: {
-      field: 'ch12v1State',
+      field: 'ch24v1Current',
       interpolation: null
     },
     2: {
-      field: 'ch24v0State',
+      field: 'ch12v0Current',
       interpolation: null
     },
     3: {
-      field: 'ch24v1State',
+      field: 'ch12v1Current',
       interpolation: null
     }
   },
+  // 0: {
+  //   0: {
+  //     field: 'ch12v0State',
+  //     interpolation: null
+  //   },
+  //   1: {
+  //     field: 'ch12v1State',
+  //     interpolation: null
+  //   },
+  //   2: {
+  //     field: 'ch24v0State',
+  //     interpolation: null
+  //   },
+  //   3: {
+  //     field: 'ch24v1State',
+  //     interpolation: null
+  //   }
+  // },
   2: {
     0: {
       field: 'voltage',
