@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { withStyles, withTheme } from '@material-ui/core/styles';
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 
+import green from '@material-ui/core/colors/green';
+
 import comms from '../api/Comms';
 
 const styles = theme => ({
@@ -44,20 +46,23 @@ class Field extends Component {
   }
 
   render() {
-    const { classes, name, unit } = this.props;
+    const { classes, name, unit, theme, threshold } = this.props;
     const { value } = this.state;
+    const colorVal = threshold !== undefined ? (value > threshold ? theme.palette.success.main : "white") : "white";
     return (
       <Grid container spacing={1} direction='vertical' alignItems='center' className={classes.root}>
         <Grid item xs={12}>
-          <Typography variant='h6'>
-            {name}
-          </Typography>
-          <Typography variant='h3' className={classes.value}>
-            {value}
-          </Typography>
-          <Typography variant='h4' className={classes.unit}>
-            {unit}
-          </Typography>
+          <div style={{ backgroundColor: colorVal }}>
+            <Typography variant='h6'>
+              {name}
+            </Typography>
+            <Typography variant='h3' className={classes.value}>
+              {value}
+            </Typography>
+            <Typography variant='h4' className={classes.unit}>
+              {unit}
+            </Typography>
+          </div>
         </Grid>
       </Grid>
     );

@@ -40,6 +40,7 @@ class SixValueSquare extends Component {
                 field={field1.field}
                 unit={field1.unit}
                 decimals={field1.decimals}
+                threshold={field1.threshold}
               />
             </Grid>
             <Grid item xs={4} className={classes.item}>
@@ -48,6 +49,7 @@ class SixValueSquare extends Component {
                 field={field2.field}
                 unit={field2.unit}
                 decimals={field2.decimals}
+                threshold={field2.threshold}
               />
             </Grid>
             <Grid item xs={4} className={classes.item}>
@@ -56,6 +58,7 @@ class SixValueSquare extends Component {
                 field={field3.field}
                 unit={field3.unit}
                 decimals={field3.decimals}
+                threshold={field3.threshold}
               />
             </Grid>
 
@@ -65,6 +68,7 @@ class SixValueSquare extends Component {
                 field={field4.field}
                 unit={field4.unit}
                 decimals={field4.decimals}
+                threshold={field4.threshold}
               />
             </Grid>
             <Grid item xs={4} className={classes.item}>
@@ -73,6 +77,7 @@ class SixValueSquare extends Component {
                 field={field5.field}
                 unit={field5.unit}
                 decimals={field5.decimals}
+                threshold={field5.threshold}
               />
             </Grid>
             <Grid item xs={4} className={classes.item}>
@@ -81,6 +86,7 @@ class SixValueSquare extends Component {
                 field={field6.field}
                 unit={field6.unit}
                 decimals={field6.decimals}
+                threshold={field6.threshold}
               />
             </Grid>
           </Grid>
