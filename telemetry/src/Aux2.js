@@ -190,37 +190,43 @@ class Aux2 extends Component {
                         name: 'N2 Vent',
                         field: 'pressurantVentRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field2={{
                         name: 'Prop Vent',
                         field: 'propaneVentRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field3={{
                         name: 'Prop RQD-1',
                         field: 'propaneRQD1current',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field4={{
                         name: 'N2 Flow',
                         field: 'pressurantFlowRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field5={{
                         name: 'Prop Flow',
                         field: 'propaneFlowRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field6={{
                         name: 'Prop RQD-2',
                         field: 'propaneRQD2current',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                     />
                   </Grid>
@@ -230,19 +236,22 @@ class Aux2 extends Component {
                         name: 'LOx Tank Vent',
                         field: 'LOxTankVentRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field2={{
                         name: 'LOx Vent',
                         field: 'LOxVentRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field3={{
                         name: 'LOx RQD-1',
                         field: 'LOxRQD1current',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field4={{
                         name: '_changeme_',
@@ -254,13 +263,15 @@ class Aux2 extends Component {
                         name: 'LOx Flow',
                         field: 'LOxFlowRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field6={{
                         name: 'LOx RQD-2',
                         field: 'LOxRQD2current',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                     />
                   </Grid>
@@ -270,19 +281,22 @@ class Aux2 extends Component {
                         name: 'Purge/Pre-chill Vent',
                         field: 'purgePrechillVentRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field2={{
                         name: 'Purge Flow',
                         field: 'purgeFlowRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field3={{
                         name: 'Pre-Chill Flow',
                         field: 'prechillFlowRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field4={{
                         name: '_changeme_',
@@ -294,13 +308,15 @@ class Aux2 extends Component {
                         name: 'LOx Pre/Purge',
                         field: 'LOxPrechillRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                       field6={{
                         name: 'Prop Pre/Purge',
                         field: 'propanePrechillRBVcurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 1,
+                        threshold: 0.5
                       }}
                     />
                   </Grid>
