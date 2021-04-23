@@ -138,6 +138,40 @@ const packets = {
       field: 'loxInjectorHeater',
       interpolation: null
     },
+    2: {
+      field: 'loxInjectorHeaterCurrent',
+      interpolation: null
+    },
+  },
+  21: {
+    0: {
+      field: 'lox2WayCurrent',
+      interpolation: null
+    },
+    1: {
+      field: 'prop2WayCurrent',
+      interpolation: null
+    },
+    2: {
+      field: 'lox5WayCurrent',
+      interpolation: null
+    },
+    3: {
+      field: 'prop5WayCurrent',
+      interpolation: null
+    },
+    4: {
+      field: 'loxGemsCurrent',
+      interpolation: null
+    },
+    5: {
+      field: 'propGemsCurrent',
+      interpolation: null
+    },
+    6: {
+      field: 'pressurantCurrent',
+      interpolation: null
+    },
   },
   60: {
     0: {
@@ -146,6 +180,10 @@ const packets = {
     },
     1: {
       field: 'propInjectorHeater',
+      interpolation: null
+    },
+    2: {
+      field: 'propInjectorHeaterCurrent',
       interpolation: null
     },
   },

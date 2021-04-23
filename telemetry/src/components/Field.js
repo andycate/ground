@@ -24,15 +24,19 @@ class Field extends Component {
   constructor(props) {
     super(props);
     this.decimals = (this.props.decimals !== undefined ? this.props.decimals : 0);
-    this.state = {
-      value: (0).toFixed(this.decimals)
-    };
+    this.valRef = React.createRef();
+    this.colorRef = React.createRef();
 
     this.handleValueUpdate = this.handleValueUpdate.bind(this);
   }
 
   handleValueUpdate(timestamp, value) {
-    this.setState({value: value.toFixed(this.decimals)});
+    this.valRef.current.innerHTML = value.toFixed(this.decimals);
+    if(value > this.props.threshold) {
+      this.colorRef.current.style.backgroundColor = 'green';
+    } else {
+      this.colorRef.current.style.backgroundColor = '';
+    }
   }
 
   componentDidMount() {
@@ -46,18 +50,16 @@ class Field extends Component {
   }
 
   render() {
-    const { classes, name, unit, theme, threshold } = this.props;
-    const { value } = this.state;
-    const colorVal = threshold !== undefined ? (value > threshold ? theme.palette.success.main : "white") : "white";
+    const { classes, name, unit } = this.props;
     return (
       <Grid container spacing={1} direction='vertical' alignItems='center' className={classes.root}>
         <Grid item xs={12}>
-          <div style={{ backgroundColor: colorVal }}>
+          <div ref={this.colorRef}>
             <Typography variant='h6'>
               {name}
             </Typography>
-            <Typography variant='h3' className={classes.value}>
-              {value}
+            <Typography variant='h3' className={classes.value} ref={this.valRef}>
+              {(0).toFixed(this.decimals)}
             </Typography>
             <Typography variant='h4' className={classes.unit}>
               {unit}

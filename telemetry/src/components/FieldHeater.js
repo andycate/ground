@@ -23,15 +23,13 @@ class FieldTemp extends Component {
   constructor(props) {
     super(props);
     this.decimals = (this.props.decimals !== undefined ? this.props.decimals : 0);
-    this.state = {
-      value: (0).toFixed(this.decimals)
-    };
+    this.valRef = React.createRef();
 
     this.handleValueUpdate = this.handleValueUpdate.bind(this);
   }
 
   handleValueUpdate(timestamp, value) {
-    this.setState({value: value.toFixed(this.decimals)});
+    this.valRef.current.innerHTML = value.toFixed(this.decimals);
   }
 
   componentDidMount() {
@@ -46,14 +44,13 @@ class FieldTemp extends Component {
 
   render() {
     const { classes, name } = this.props;
-    const { value } = this.state;
     return (
       <div className={classes.root}>
         <Typography variant='h6' className={classes.value}>
           {name}:
         </Typography>
-        <Typography variant='h3' className={classes.value}>
-          {value}
+        <Typography variant='h3' className={classes.value} ref={this.valRef}>
+          {(0).toFixed(this.decimals)}
         </Typography>
       </div>
     );
