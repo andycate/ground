@@ -170,17 +170,19 @@ class Control extends Component {
               <Grid item={1} xs={4} className={classes.item}>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openPurgeFlowRBV}
                       close={comms.closePurgeFlowRBV}
+                      time={comms.timePurgeFlowRBV}
                       field='purgeFlowRBVstate'
                       text='Purge Flow RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openLOxPrechillRBV}
                       close={comms.closeLOxPrechillRBV}
+                      time={comms.timeLOxPrechillRBV}
                       field='LOxPrechillRBVstate'
                       text='LOx Prechill RBV'
                     />
@@ -188,17 +190,19 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openPrechillFlowRBV}
                       close={comms.closePrechillFlowRBV}
+                      time={comms.timePrechillFlowRBV}
                       field='prechillFlowRBVstate'
                       text='Prechill Flow RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openPropanePrechillRBV}
                       close={comms.closePropanePrechillRBV}
+                      time={comms.timePropanePrechillRBV}
                       field='propanePrechillRBVstate'
                       text='Propane Prechill RBV'
                     />
@@ -206,9 +210,10 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openPurgePrechillVentRBV}
                       close={comms.closePurgePrechillVentRBV}
+                      time={comms.timePurgePrechillVentRBV}
                       field='purgePrechillVentRBVstate'
                       text='Purge Prechill Vent RBV'
                     />
@@ -226,7 +231,6 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
                     <BigButton
-                      color='palette.error.text'
                       onClick={comms.hold}
                       text='Hold'
                     />
@@ -246,9 +250,10 @@ class Control extends Component {
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openPressurantVentRBV}
                       close={comms.closePressurantVentRBV}
+                      time={comms.timePressurantVentRBV}
                       field='pressurantVentRBVstate'
                       text='N2 Vent RBV'
                     />
@@ -256,17 +261,19 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openLOxVentRBV}
                       close={comms.closeLOxVentRBV}
+                      time={comms.timeLOxVentRBV}
                       field='LOxVentRBVstate'
                       text='LOX Vent RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openLOxFlowRBV}
                       close={comms.closeLOxFlowRBV}
+                      time={comms.timeLOxFlowRBV}
                       field='LOxFlowRBVstate'
                       text='LOX Flow RBV'
                     />
@@ -274,9 +281,10 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openLOxTankVentRBV}
                       close={comms.closeLOxTankVentRBV}
+                      time={comms.timeLOxTankVentRBV}
                       field='LOxTankVentRBVstate'
                       text='LOX Tank Vent RBV'
                     />
@@ -294,17 +302,19 @@ class Control extends Component {
 
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openPropaneVentRBV}
                       close={comms.closePropaneVentRBV}
+                      time={comms.timePropaneVentRBV}
                       field='propaneVentRBVstate'
                       text='Prop Vent RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBV
+                    <ButtonGroupRBVTimed
                       open={comms.openPropaneFlowRBV}
                       close={comms.closePropaneFlowRBV}
+                      time={comms.timePropaneFlowRBV}
                       field='propaneFlowRBVstate'
                       text='Prop Flow RBV'
                     />

@@ -148,8 +148,6 @@ class ButtonGroupRBVTimed extends Component {
           >
             {this.props.failText || "Send"}
           </Button>
-        </Grid>
-        <Grid item>
           <Button
             color='secondary'
             variant='outlined'
@@ -172,6 +170,8 @@ class ButtonGroupRBVTimed extends Component {
           >
             {this.props.successText || "Open"}
           </Button>
+        </Grid>
+        <Grid item>
         </Grid>
         {/* <Grid item >
           <TextField
