@@ -6,21 +6,28 @@ import { Grid, Button, Box, TextField } from '@material-ui/core';
 import comms from '../api/Comms';
 
 const styles = theme => ({
+  spacer: {
+    flexGrow: 1
+  },
   openButton: {
     backgroundColor: theme.palette.success.main + ' !important',
     color: theme.palette.text.primary + ' !important',
-    borderColor: theme.palette.success.main + ' !important'
+    borderColor: theme.palette.success.main + ' !important',
+    transition: 'none'
   },
   openButtonOutline: {
     color: theme.palette.success.main + ' !important',
-    borderColor: theme.palette.success.main + ' !important'
+    borderColor: theme.palette.success.main + ' !important',
+    transition: 'none'
   },
   closedButton: {
     backgroundColor: theme.palette.error.main + ' !important',
-    color: theme.palette.text.primary + ' !important'
+    color: theme.palette.text.primary + ' !important',
+    transition: 'none'
   },
   closedButtonOutline: {
-    color: theme.palette.error.main + ' !important'
+    color: theme.palette.error.main + ' !important',
+    transition: 'none'
   },
   openStatusBox: {
     padding: theme.spacing(2),
@@ -33,12 +40,14 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.error.main
+  },
+  txtField: {
+    width: '4rem'
   }
 });
 
 const statusBox = {
   borderColor: 'text.secondary',
-  m: 1,
   border: 0.5,
   style: { width: '9rem', height: '1rem', marginLeft: 'auto', marginRight: 'auto' },
 };
@@ -111,49 +120,55 @@ class ButtonGroupRBVTimed extends Component {
         break;
     }
     return (
-      <Grid container spacing={1} alignItems='center' style={{textAlign: 'center'}}>
+      <Grid container spacing={1} alignItems='center' direction="column" style={{textAlign: 'center'}}>
         <Grid item xs={12}>
           <Box component="span" display="block">{text}</Box>
         </Grid>
         <Grid item xs={12}>
           <Box borderRadius={4} {...statusBox} bgcolor={sColor}/>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item>
           <TextField
             type='number'
-            label='ms'
+            step={10}
             value={timeField}
             onChange={this.handleTimeFieldChange}
+            className={classes.txtField}
+            inputProps={{
+              step: 10
+            }}
           />
-        </Grid>
-        <Grid item xs={3}>
           <Button
             color='primary'
             variant='contained'
             onClick={this.setTime}
             disabled={this.props.disabled || false}
+            disableRipple
+            size='small'
           >
             {this.props.failText || "Send"}
           </Button>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item>
           <Button
             color='secondary'
             variant='outlined'
             className={!openClicked ? classes.closedButton : classes.closedButtonOutline}
             onClick={this.setClosed}
             disabled={this.props.disabled || false}
+            disableRipple
+            size='small'
           >
             {this.props.failText || "Close"}
           </Button>
-        </Grid>
-        <Grid item xs={3}>
           <Button
             color='primary'
             variant='outlined'
             className={openClicked ? classes.openButton : classes.openButtonOutline}
             onClick={this.setOpen}
             disabled={this.props.disabled || false}
+            disableRipple
+            size='small'
           >
             {this.props.successText || "Open"}
           </Button>

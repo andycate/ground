@@ -9,27 +9,31 @@ const styles = theme => ({
   openButton: {
     backgroundColor: theme.palette.success.main + ' !important',
     color: theme.palette.text.primary + ' !important',
-    borderColor: theme.palette.success.main + ' !important'
+    borderColor: theme.palette.success.main + ' !important',
+    transition: 'none',
   },
   openButtonOutline: {
     color: theme.palette.success.main + ' !important',
-    borderColor: theme.palette.success.main + ' !important'
+    borderColor: theme.palette.success.main + ' !important',
+    transition: 'none',
   },
   closedButton: {
     backgroundColor: theme.palette.error.main + ' !important',
-    color: theme.palette.text.primary + ' !important'
+    color: theme.palette.text.primary + ' !important',
+    transition: 'none',
   },
   closedButtonOutline: {
-    color: theme.palette.error.main + ' !important'
+    color: theme.palette.error.main + ' !important',
+    transition: 'none',
   },
   openStatusBox: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.success.main
   },
   closedStatusBox: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.error.main
@@ -38,7 +42,7 @@ const styles = theme => ({
 
 const statusBox = {
   borderColor: 'text.secondary',
-  m: 1,
+  // m: 1,
   border: 0.5,
   style: { width: '9rem', height: '1rem' },
 };
@@ -100,6 +104,8 @@ class ButtonGroup extends Component {
           className={!openClicked ? classes.closedButton : classes.closedButtonOutline}
           onClick={this.setClosed}
           disabled={this.props.disabled || false}
+          disableRipple
+          size='small'
           >
             {this.props.failText || "Close"}
           </Button>
@@ -109,6 +115,8 @@ class ButtonGroup extends Component {
           className={openClicked ? classes.openButton : classes.openButtonOutline}
           onClick={this.setOpen}
           disabled={this.props.disabled || false}
+          disableRipple
+          size='small'
           >
             {this.props.successText || "Open"}
           </Button>

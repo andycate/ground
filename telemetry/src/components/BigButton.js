@@ -8,13 +8,15 @@ const styles = theme => ({
     backgroundColor: theme.palette.error.main + '!important',
     color: theme.palette.text.main + '!important',
     width: '100%',
-    fontSize: '3rem'
+    fontSize: '3rem',
+    transition: 'none',
   },
   thiccOrange: {
     backgroundColor: '#CCCC00' + '!important',
     color: theme.palette.text.main + '!important',
     width: '100%',
-    fontSize: '3rem'
+    fontSize: '3rem',
+    transition: 'none',
   }
 });
 
@@ -22,7 +24,7 @@ class BigButton extends Component {
   render() {
     const { classes, theme, text, onClick, isRed } = this.props;
     return (
-      <Button onClick={onClick} color='primary' variant='contained' className={isRed ? classes.thiccRed : classes.thiccOrange}>{text}</Button>
+      <Button onClick={onClick} color='primary' variant='contained' disableRipple className={isRed ? classes.thiccRed : classes.thiccOrange}>{text}</Button>
     );
   }
 }

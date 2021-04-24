@@ -38,6 +38,8 @@ const styles = theme => ({
   }
 });
 
+const anchor = Date.now();
+
 class Graph extends Component {
   constructor(props) {
     super(props);
@@ -53,25 +55,37 @@ class Graph extends Component {
     this.values = [];
     this.lengths = [];
     this.buffer = [];
+    this.bufferIdx = [];
     this.lines = [];
     this.lastUpdate = Date.now();
     this.subscribers = [];
 
     this.createUpdateHandler = this.createUpdateHandler.bind(this);
     this.updateGraph = this.updateGraph.bind(this);
+    this.updateGraphWait = this.updateGraphWait.bind(this);
   }
 
   createUpdateHandler(index) {
     return (timestamp, value) => {
-      this.buffer[index].push(timestamp);
-      this.buffer[index].push(value);
+      const buff = this.buffer[index];
+      let buffIdx = this.bufferIdx[index];
+      if(buffIdx > 0 && timestamp - anchor - buff[buffIdx-2] < 24) return;
+      buff[buffIdx] = timestamp - anchor;
+      buffIdx ++;
+      buff[buffIdx] = value;
+      buffIdx++;
+      this.bufferIdx[index] = buffIdx;
       this.legendRefs[index].current.innerHTML = `(${value.toFixed(1)}`;
     }
   }
 
+  updateGraphWait() {
+    this.animationID = requestAnimationFrame(this.updateGraph);
+  }
+
   updateGraph() {
-    const now = Date.now();
-    const diff = now - this.lastUpdate;
+    const now = Date.now() - anchor;
+    const cutoff = now - this.window;
     let minValue = Number.MAX_VALUE;
     let maxValue = Number.MIN_VALUE;
 
@@ -80,7 +94,7 @@ class Graph extends Component {
       let vLen = this.lengths[f];
       let cutIndex = 0;
       for(let i = 0; i < vLen; i+=2) {
-        if(vArray[i] - diff >= 0) {
+        if(vArray[i] >= cutoff) {
           cutIndex = i;
           break;
         }
@@ -90,18 +104,13 @@ class Graph extends Component {
         vLen -= cutIndex;
       }
 
-      for(let i = 0; i < vLen; i+=2) {
-        vArray[i] = vArray[i] - diff;
-      }
       const buff = this.buffer[f];
-      if(buff.length > 0) {
-        for(let i = 0; i < buff.length; i+=2) {
-          vArray[vLen] = this.window - now + buff[i];
-          vLen ++;
-          vArray[vLen] = buff[i+1];
-          vLen ++;
-        }
-        this.buffer[f] = [];
+      let buffIdx = this.bufferIdx[f];
+      if(buffIdx > 0) {
+        vArray.set(buff, vLen);
+        vLen += buffIdx;
+        this.bufferIdx[f] = 0;
+        console.log(vLen);
       }
 
       for(let i = 0; i < vLen; i+=2) {
@@ -111,17 +120,19 @@ class Graph extends Component {
       }
       this.lengths[f] = vLen;
     }
-    this.lastUpdate = now;
 
     for(let f = 0; f < this.lines.length; f++) {
       const l = this.lines[f];
       l.scaleY = 2.0 / (maxValue - minValue);
-      l.offsetY = -minValue * l.scaleY - 1 || 0;
+      l.offsetY = -minValue * l.scaleY - 1;
+      l.offsetX = -(cutoff / (this.window / 2)) - 1;
+      // console.log(l.offsetX + " : " + cutoff);
+      // l.offsetX = -1;
       const len = this.lengths[f] / 2;
       l.numPoints = len;
       l.webglNumPoints = len;
     }
-    this.animationID = requestAnimationFrame(this.updateGraph);
+    this.animationID = requestAnimationFrame(this.updateGraphWait);
     
     this.webglp.update();
   }
@@ -139,7 +150,8 @@ class Graph extends Component {
       const fArray = new Float32Array(this.window);
       this.values.push(fArray);
       this.lengths.push(2);
-      this.buffer.push([]);
+      this.buffer.push(new Float32Array(20));
+      this.bufferIdx.push(0);
 
       const newLine = new WebglLine(new ColorRGBA(...field.color.map(c => c / 256), 1), 0);
       newLine.xy = fArray;

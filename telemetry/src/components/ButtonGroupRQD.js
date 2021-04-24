@@ -38,7 +38,6 @@ const styles = theme => ({
 
 const statusBox = {
   borderColor: 'text.secondary',
-  m: 1,
   border: 0.5,
   style: { width: '9rem', height: '1rem' },
 };
