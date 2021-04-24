@@ -83,37 +83,43 @@ class Aux2 extends Component {
                         name: 'HPS',
                         field: 'HPSCurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 2,
+                        threshold: 0.1
                       }}
                       field2={{
                         name: 'LOx GEMS',
                         field: 'loxGemsCurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 2,
+                        threshold: 0.1
                       }}
                       field3={{
                         name: 'Prop GEMS',
                         field: 'propGemsCurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 2,
+                        threshold: 0.1
                       }}
                       field4={{
                         name: 'ARM',
                         field: 'lox2WayCurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 2,
+                        threshold: 0.1
                       }}
                       field5={{
                         name: 'LOx Main',
                         field: 'lox5WayCurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 2,
+                        threshold: 0.1
                       }}
                       field6={{
                         name: 'Prop Main',
                         field: 'prop5WayCurrent',
                         unit: 'A',
-                        decimals: 1
+                        decimals: 2,
+                        threshold: 0.1
                       }}
                     />
                   </Grid>
