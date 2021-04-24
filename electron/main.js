@@ -127,6 +127,12 @@ app.on('window-all-closed', function () {
   }
 });
 
+app.on('before-quit', () => {
+  console.log('quitting');
+  backendApp.removeWebContents(window1.webContents);
+  backendApp.removeWebContents(window2.webContents);
+});
+
 ipcMain.handle('app-info', async (event) => {
   return {
     appName: app.getName(),
