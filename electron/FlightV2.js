@@ -149,7 +149,7 @@ const packets = {
       interpolation: null
     },
     1: {
-      field: 'prop2WayCurrent',
+      field: 'igniterCurrent',
       interpolation: null
     },
     2: {
@@ -170,6 +170,36 @@ const packets = {
     },
     6: {
       field: 'pressurantCurrent',
+      interpolation: null
+    },
+  },
+  22: {
+    0: {
+      field: 'lox2WayVoltage',
+      interpolation: null
+    },
+    1: {
+      field: 'igniterVoltage',
+      interpolation: null
+    },
+    2: {
+      field: 'lox5WayVoltage',
+      interpolation: null
+    },
+    3: {
+      field: 'prop5WayVoltage',
+      interpolation: null
+    },
+    4: {
+      field: 'loxGemsVoltage',
+      interpolation: null
+    },
+    5: {
+      field: 'propGemsVoltage',
+      interpolation: null
+    },
+    6: {
+      field: 'pressurantVoltage',
       interpolation: null
     },
   },
