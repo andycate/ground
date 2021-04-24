@@ -33,7 +33,7 @@ class Field extends Component {
   handleValueUpdate(timestamp, value) {
     this.valRef.current.innerHTML = value.toFixed(this.decimals);
     if(value > this.props.threshold) {
-      this.colorRef.current.style.backgroundColor = 'green';
+      this.colorRef.current.style.backgroundColor = '#27AE60';
     } else {
       this.colorRef.current.style.backgroundColor = '';
     }

@@ -124,42 +124,48 @@ class Aux2 extends Component {
                     />
                   </Grid>
                   <Grid item xs={6} className={classes.item}>
-                    <SixValueSquare
+                  <SixValueSquare
                       field1={{
-                        name: 'FC 12V',
-                        field: 'flight12vVoltage',
+                        name: 'HPS',
+                        field: 'HPSVoltage',
                         unit: 'V',
-                        decimals: 1
+                        decimals: 0,
+                        threshold: 3
                       }}
                       field2={{
-                        name: 'FC 8V',
-                        field: 'flight8vVoltage',
+                        name: 'LOx GEMS',
+                        field: 'loxGemsVoltage',
                         unit: 'V',
-                        decimals: 1
+                        decimals: 0,
+                        threshold: 3
                       }}
                       field3={{
-                        name: '_changeme_',
-                        field: '_changeme_',
+                        name: 'Prop GEMS',
+                        field: 'propGemsVoltage',
                         unit: 'V',
-                        decimals: 1
+                        decimals: 0,
+                        threshold: 3
                       }}
                       field4={{
-                        name: 'AC1 12V',
-                        field: 'ac1_12vVoltage',
+                        name: 'ARM',
+                        field: 'lox2WayVoltage',
                         unit: 'V',
-                        decimals: 1
+                        decimals: 0,
+                        threshold: 3
                       }}
                       field5={{
-                        name: 'AC2 12V',
-                        field: 'ac2_12vVoltage',
+                        name: 'LOx Main',
+                        field: 'lox5WayVoltage',
                         unit: 'V',
-                        decimals: 1
+                        decimals: 0,
+                        threshold: 3
                       }}
                       field6={{
-                        name: 'AC3 12V',
-                        field: 'ac3_12vVoltage',
+                        name: 'Prop Main',
+                        field: 'prop5WayVoltage',
                         unit: 'V',
-                        decimals: 1
+                        decimals: 0,
+                        threshold: 3
                       }}
                     />
                   </Grid>

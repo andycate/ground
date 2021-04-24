@@ -169,7 +169,7 @@ const packets = {
       interpolation: null
     },
     6: {
-      field: 'pressurantCurrent',
+      field: 'HPSCurrent',
       interpolation: null
     },
   },
@@ -199,7 +199,7 @@ const packets = {
       interpolation: null
     },
     6: {
-      field: 'pressurantVoltage',
+      field: 'HPSVoltage',
       interpolation: null
     },
   },
