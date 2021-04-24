@@ -232,17 +232,17 @@ class Main extends Component {
                       {
                         name: 'LOxTankBottomTC',
                         color: [0, 126, 254],
-                        unit: 'PSI'
+                        unit: 'degC'
                       },
                       {
                         name: 'loxTankMidTC',
                         color: [0, 187, 0],
-                        unit: 'PSI'
+                        unit: 'degC'
                       },
                       {
                         name: 'loxTankTopTC',
                         color: [123, 35, 162],
-                        unit: 'PSI'
+                        unit: 'degC'
                       }
                     ]
                   }
@@ -255,17 +255,17 @@ class Main extends Component {
                       {
                         name: 'propTankBottomTC',
                         color: [0, 126, 254],
-                        unit: 'PSI'
+                        unit: 'degC'
                       },
                       {
                         name: 'propTankMidTC',
                         color: [0, 187, 0],
-                        unit: 'PSI'
+                        unit: 'degC'
                       },
                       {
                         name: 'propTankTopTC',
                         color: [123, 35, 162],
-                        unit: 'PSI'
+                        unit: 'degC'
                       }
                     ]
                   }
