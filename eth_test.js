@@ -13,8 +13,8 @@ server.on('listening', () => {
 });
 server.bind(42069);
 
-setTimeout(() => {
- console.log('sending');
- server.send("big yeet", 42069, "10.0.0.42");
-}, 1000);
+// setTimeout(() => {
+//  console.log('sending');
+//  server.send("", 42069, "10.0.0.42");
+// }, 1000);
 // Prints: server listening 0.0.0.0:42069

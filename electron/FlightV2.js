@@ -70,11 +70,11 @@ const packets = {
       field: 'loxTankTopTC',
       interpolation: null
     },
-    2: {
+    3: {
       field: 'propTankMidTC',
       interpolation: null
     },
-    3: {
+    4: {
       field: 'propTankTopTC',
       interpolation: null
     },
