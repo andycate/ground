@@ -24,12 +24,23 @@ class FieldTemp extends Component {
     super(props);
     this.decimals = (this.props.decimals !== undefined ? this.props.decimals : 0);
     this.valRef = React.createRef();
+    this.value = 0;
+    this.animationID = null;
 
     this.handleValueUpdate = this.handleValueUpdate.bind(this);
+    this.updateDisplay = this.updateDisplay.bind(this);
   }
 
   handleValueUpdate(timestamp, value) {
-    this.valRef.current.innerHTML = value.toFixed(this.decimals);
+    this.value = value;
+    if(this.animationID === null) {
+      this.animationID = requestAnimationFrame(this.updateDisplay);
+    }
+  }
+
+  updateDisplay() {
+    this.animationID = null;
+    this.valRef.current.innerHTML = this.value.toFixed(this.decimals);
   }
 
   componentDidMount() {
@@ -40,6 +51,7 @@ class FieldTemp extends Component {
   componentWillUnmount() {
     const { field } = this.props;
     comms.removeSubscriber(field, this.handleValueUpdate);
+    cancelAnimationFrame(this.animationID);
   }
 
   render() {

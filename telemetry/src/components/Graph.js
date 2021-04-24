@@ -75,7 +75,6 @@ class Graph extends Component {
       buff[buffIdx] = value;
       buffIdx++;
       this.bufferIdx[index] = buffIdx;
-      this.legendRefs[index].current.innerHTML = `(${value.toFixed(1)}`;
     }
   }
 
@@ -110,7 +109,7 @@ class Graph extends Component {
         vArray.set(buff, vLen);
         vLen += buffIdx;
         this.bufferIdx[f] = 0;
-        console.log(vLen);
+        this.legendRefs[f].current.innerHTML = `(${vArray[vLen-1].toFixed(1)}`;
       }
 
       for(let i = 0; i < vLen; i+=2) {
@@ -185,7 +184,7 @@ class Graph extends Component {
               <tr>
                 {
                   this.props.fields.map((f, i) => (
-                    <>
+                    <React.Fragment key={i}>
                       <td style={{backgroundColor: `rgb(${f.color[0]},${f.color[1]},${f.color[2]})`, width: '30px', height: '100%'}}/>
                       <td style={{fontSize: '0.75rem'}}>
                         {f.name}
@@ -194,7 +193,7 @@ class Graph extends Component {
                         (0.0
                       </td>
                       <td style={{width: '2.5rem', fontSize: '0.75rem'}}>{f.unit})</td>
-                    </>
+                    </React.Fragment>
                   ))
                 }
               </tr>

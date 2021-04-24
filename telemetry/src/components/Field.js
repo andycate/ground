@@ -26,13 +26,24 @@ class Field extends Component {
     this.decimals = (this.props.decimals !== undefined ? this.props.decimals : 0);
     this.valRef = React.createRef();
     this.colorRef = React.createRef();
+    this.value = 0;
+    this.animationID = null;
 
     this.handleValueUpdate = this.handleValueUpdate.bind(this);
+    this.updateDisplay = this.updateDisplay.bind(this);
   }
 
   handleValueUpdate(timestamp, value) {
-    this.valRef.current.innerHTML = value.toFixed(this.decimals);
-    if(value > this.props.threshold) {
+    this.value = value;
+    if(this.animationID === null) {
+      this.animationID = requestAnimationFrame(this.updateDisplay);
+    }
+  }
+
+  updateDisplay() {
+    this.animationID = null;
+    this.valRef.current.innerHTML = this.value.toFixed(this.decimals);
+    if(this.value > this.props.threshold) {
       this.colorRef.current.style.backgroundColor = '#27AE60';
     } else {
       this.colorRef.current.style.backgroundColor = '';
@@ -47,12 +58,13 @@ class Field extends Component {
   componentWillUnmount() {
     const { field } = this.props;
     comms.removeSubscriber(field, this.handleValueUpdate);
+    cancelAnimationFrame(this.animationID);
   }
 
   render() {
     const { classes, name, unit } = this.props;
     return (
-      <Grid container spacing={1} direction='vertical' alignItems='center' className={classes.root}>
+      <Grid container spacing={1} alignItems='center' className={classes.root}>
         <Grid item xs={12}>
           <div ref={this.colorRef}>
             <Typography variant='h6'>
