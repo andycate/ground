@@ -54,7 +54,7 @@ const packets = {
       interpolation: null
     }
   },
-  19: {
+  5: {
     0: {
       field: 'analogTemp0',
       interpolation: null
