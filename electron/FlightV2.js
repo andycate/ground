@@ -63,19 +63,19 @@ const packets = {
   },
   4: {
     0: {
-      field: 'loxTankMidTC',
+      field: 'loxTankBottomTC',
       interpolation: null
     },
     1: {
-      field: 'loxTankTopTC',
+      field: 'loxTankMidTC',
       interpolation: null
     },
     2: {
-      field: 'propTankMidTC',
+      field: 'loxTankTopTC',
       interpolation: null
     },
     3: {
-      field: 'propTankTopTC',
+      field: 'propTankMidTC',
       interpolation: null
     },
   },

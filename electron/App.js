@@ -33,10 +33,10 @@ class App {
       lc0: 'thrust1',
       lc1: 'thrust2',
       lcSum: 'totalThrust',
-      tcVal0: 'LOxTankBottomTC',
-      tcVal1: 'propTankBottomTC',
-      tcVal2: 'engineTC1',
-      tcVal3: 'engineTC2',
+      tcVal0: 'engineTC1',
+      tcVal1: 'engineTC2',
+      tcVal2: 'engineTC3',
+      tcVal3: 'engineTC4',
       _5v_aVoltage: 'daq1_5v_aVoltage',
       _5v_aCurrent: 'daq1_5v_aCurrent',
       _5vVoltage: 'daq1_5vVoltage',
@@ -46,6 +46,28 @@ class App {
     () => this.updateState(Date.now(), { daq1Connected: true }),
     () => this.updateState(Date.now(), { daq1Connected: false }),
     (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
+
+    this.daq2 = new DAQ(this.port, '10.0.0.12', {
+      pressureVal0: null,
+      voltage: 'daq2Voltage',
+      power: 'daq2Power',
+      currentDraw: 'daq2CurrentDraw',
+      lc0: null,
+      lc1: null,
+      lcSum: null,
+      tcVal0: 'engineTC5',
+      tcVal1: 'engineTC6',
+      tcVal2: 'engineTC7',
+      tcVal3: 'engineTC8',
+      _5v_aVoltage: 'daq2_5v_aVoltage',
+      _5v_aCurrent: 'daq2_5v_aCurrent',
+      _5vVoltage: 'daq2_5vVoltage',
+      _5vCurrent: 'daq2_5vCurrent',
+      analogTemp0: null
+    },
+    () => this.updateState(Date.now(), { daq2Connected: true }),
+    () => this.updateState(Date.now(), { daq2Connected: false }),
+    (rate) => this.updateState(Date.now(), { daq2Kbps: rate }));
 
     this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
       ch12v0Current: null,
@@ -240,6 +262,7 @@ class App {
 
     ipcMain.handle('flight-connected', () => this.flightComputer.isConnected);
     ipcMain.handle('daq1-connected', () => this.daq1.isConnected);
+    ipcMain.handle('daq2-connected', () => this.daq2.isConnected);
     ipcMain.handle('actctrlr1-connected', () => this.actCtrlr1.isConnected);
     ipcMain.handle('actctrlr2-connected', () => this.actCtrlr2.isConnected);
     ipcMain.handle('actctrlr3-connected', () => this.actCtrlr3.isConnected);

@@ -83,7 +83,7 @@ const model = {
   thrust1: 0.0,
   thrust2: 0.0,
   totalThrust: 0.0,
-  LOxTankBottomTC: 0.0,
+  loxTankBottomTC: 0.0,
   propTankBottomTC: 0.0,
   engineTC1: 0.0,
   engineTC2: 0.0,

@@ -205,7 +205,7 @@ class Main extends Component {
                   }}
                   field3={{
                     name: 'LOx Bottom',
-                    field: 'LOxTankBottomTC',
+                    field: 'loxTankBottomTC',
                     decimals: 2
                   }}
                   field4={{
@@ -230,7 +230,7 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'LOxTankBottomTC',
+                        name: 'loxTankBottomTC',
                         color: [0, 126, 254],
                         unit: 'degC'
                       },
