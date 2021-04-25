@@ -109,10 +109,8 @@ function createSelectorWindow() {
 // Some APIs can only be used after this event occurs
 app.on('ready', () => {
   // createSelectorWindow();
-  console.log('yeet')
   const ret = globalShortcut.register('F17', () => {
-    console.log('here');
-  //  backendApp.abort();
+    backendApp.abort();
   })
 
   if(isDev) {

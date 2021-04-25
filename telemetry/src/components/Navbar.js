@@ -53,6 +53,7 @@ class Navbar extends Component {
 
     this.updateFlightKbps = this.updateFlightKbps.bind(this);
     this.updateDaq1Kbps = this.updateDaq1Kbps.bind(this);
+    this.updateDaq2Kbps = this.updateDaq2Kbps.bind(this);
     this.updateActCtrlr1Kbps = this.updateActCtrlr1Kbps.bind(this);
     this.updateActCtrlr2Kbps = this.updateActCtrlr2Kbps.bind(this);
     this.updateActCtrlr3Kbps = this.updateActCtrlr3Kbps.bind(this);
