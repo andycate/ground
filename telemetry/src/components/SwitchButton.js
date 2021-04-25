@@ -56,8 +56,9 @@ class ButtonGroupRBV extends Component {
     close();
   }
 
-  changeState() {
-    const {open, close } = this.props;
+  changeState(e) {
+    // For backend
+    const {open, close, change} = this.props;
     if (this.state.openClicked) {
       this.setState({openClicked: false});
       close();
@@ -65,6 +66,8 @@ class ButtonGroupRBV extends Component {
       this.setState({openClicked: true});
       open();
     }
+    // For frontend
+    change(e)
   }
 
   componentDidMount() {

@@ -94,9 +94,10 @@ class Control extends Component {
                   <Grid item={1} xs={6}>
                     <SwitchButton
                       text='Pressurant Enable'
-                      open={comms.openHPS}
-                      close={comms.closeHPS}
+                      open={comms.enableHPS}
+                      close={comms.disableHPS}
                       field='HPSEnable'
+                      change={e => {this.setState({HPS_en: e.target.checked});} }
                     />
                   </Grid>
                 </Grid>
