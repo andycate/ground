@@ -202,6 +202,10 @@ const packets = {
       field: 'HPSVoltage',
       interpolation: null
     },
+    7: {
+      field: 'HPSSupplyVoltage',
+      interpolation: null
+    },
   },
   60: {
     0: {

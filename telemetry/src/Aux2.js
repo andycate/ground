@@ -26,7 +26,7 @@ const styles = theme => ({
     height: '33%'
   },
   itemBig: {
-    height: '67%'
+    height: '33%'
   },
   twoThirds: {
     height: '100%'
@@ -124,7 +124,7 @@ class Aux2 extends Component {
                     />
                   </Grid>
                   <Grid item xs={6} className={classes.item}>
-                  <SixValueSquare
+                    <SixValueSquare
                       field1={{
                         name: 'HPS',
                         field: 'HPSVoltage',
@@ -167,6 +167,65 @@ class Aux2 extends Component {
                         decimals: 0,
                         threshold: 3
                       }}
+                    />
+                  </Grid>
+                  <Grid item xs={6} className={classes.item}>
+                    <SixValueSquare
+                      field1={{
+                        name: 'Igniter Current',
+                        field: 'igniterCurrent',
+                        unit: 'A',
+                        decimals: 2,
+                        threshold: 0.1
+                      }}
+                      field2={{
+                        name: 'Igniter Voltage',
+                        field: 'igniterVoltage',
+                        unit: 'V',
+                        decimals: 0,
+                        threshold: 3
+                      }}
+                      field3={{
+                        name: 'HPS Supply',
+                        field: 'HPSSupplyVoltage',
+                        unit: 'V',
+                        decimals: 0,
+                        threshold: 26
+                      }}
+                      field4={{
+                        name: '_changeme_',
+                        field: '_changeme_',
+                        unit: 'V',
+                        decimals: 0,
+                        threshold: 3
+                      }}
+                      field5={{
+                        name: '_changeme_',
+                        field: '_changeme_',
+                        unit: 'V',
+                        decimals: 0,
+                        threshold: 3
+                      }}
+                      field6={{
+                        name: '_changeme_',
+                        field: '_changeme_',
+                        unit: 'V',
+                        decimals: 0,
+                        threshold: 3
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6} className={classes.item}>
+                    <Graph
+                      fields={
+                        [
+                          {
+                            name: 'pressurantTemp', // prop PT temp
+                            color: [123, 35, 162],
+                            unit: 'degC'
+                          },
+                        ]
+                      }
                     />
                   </Grid>
                   <Grid item xs={12} className={classes.itemBig}>
