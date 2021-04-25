@@ -16,6 +16,7 @@ import ButtonGroupRQD from './components/ButtonGroupRQD';
 import ButtonGroupHeater from './components/ButtonGroupHeater';
 import BigButton from './components/BigButton';
 import Procedures from './components/Procedures';
+import SwitchButton from './components/SwitchButton'
 
 const styles = theme => ({
   root: {
@@ -43,6 +44,7 @@ class Control extends Component {
     this.state = {
       isDark: false,
       showSettings: false,
+      HPS_en: false
     };
 
     this.handleDarkMode = this.handleDarkMode.bind(this);
@@ -86,16 +88,15 @@ class Control extends Component {
                       close={comms.closeHPS}
                       field='HPS'
                       text='Pressurant'
+                      disabled={!this.state.HPS_en}
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroup
-                      open={comms.enableHPS}
-                      close={comms.disableHPS}
-                      field='HPSEnable'
+                    <SwitchButton
                       text='Pressurant Enable'
-                      successText='Enable'
-                      failText='Disable'
+                      open={comms.openHPS}
+                      close={comms.closeHPS}
+                      field='HPSEnable'
                     />
                   </Grid>
                 </Grid>
@@ -152,6 +153,7 @@ class Control extends Component {
                       close={comms.abort}
                       field='flowState' // change this?
                       text='Begin Flow'
+                      disabled={!this.state.HPS_en}
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
