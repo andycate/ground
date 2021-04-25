@@ -49,6 +49,7 @@ class Comms {
     this.activateIgniter = this.activateIgniter.bind(this);
     this.deactivateIgniter = this.deactivateIgniter.bind(this);
 
+    this.beginFlowAll = this.beginFlowAll.bind(this);
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
     this.hold = this.hold.bind(this);
@@ -236,6 +237,12 @@ class Comms {
   async activateIgniter() { return await this.ipc.invoke('activate-Igniter'); }
   async deactivateIgniter() { return await this.ipc.invoke('deactivate-Igniter'); }
 
+  async beginFlowAll() {
+    await this.closeLOxPrechillRBV();
+    await this.closePropanePrechillRBV();
+    await this.closePrechillFlowRBV();
+    return await this.beginFlow();
+  }
   async beginFlow() { return await this.ipc.invoke('begin-flow'); }
   async abort() { return await this.ipc.invoke('abort'); }
   async hold() { return await this.ipc.invoke('hold'); }

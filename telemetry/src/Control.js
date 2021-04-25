@@ -148,7 +148,7 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupFlow
-                      open={comms.beginFlow}
+                      open={comms.beginFlowAll}
                       close={comms.abort}
                       field='flowState' // change this?
                       text='Begin Flow'
