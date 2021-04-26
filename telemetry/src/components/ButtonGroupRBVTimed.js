@@ -105,7 +105,7 @@ class ButtonGroupRBVTimed extends Component {
   }
 
   render() {
-    const { classes, theme, text } = this.props;
+    const { classes, theme, text, noClose } = this.props;
     const { status, openClicked, timeField } = this.state;
     let sColor = null;
     switch(status) {
@@ -148,17 +148,21 @@ class ButtonGroupRBVTimed extends Component {
           >
             {this.props.failText || "Send"}
           </Button>
-          <Button
-            color='secondary'
-            variant='outlined'
-            className={!openClicked ? classes.closedButton : classes.closedButtonOutline}
-            onClick={this.setClosed}
-            disabled={this.props.disabled || false}
-            disableRipple
-            size='small'
-          >
-            {this.props.failText || "Close"}
-          </Button>
+          {!noClose ? 
+            <Button
+              color='secondary'
+              variant='outlined'
+              className={!openClicked ? classes.closedButton : classes.closedButtonOutline}
+              onClick={this.setClosed}
+              disabled={this.props.disabled || false}
+              disableRipple
+              size='small'
+            >
+              {this.props.failText || "Close"}
+            </Button>
+            :
+            <></>
+          }
           <Button
             color='primary'
             variant='outlined'

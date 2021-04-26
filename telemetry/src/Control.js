@@ -299,6 +299,7 @@ class Control extends Component {
                       time={comms.timeLOxRQD}
                       field='LOxRQD1state'
                       text='LOX RQD'
+                      noClose
                     />
                   </Grid>
                 </Grid>
@@ -331,6 +332,7 @@ class Control extends Component {
                       time={comms.timePropaneRQD}
                       field='PropaneRQD1state'
                       text='Propane RQD'
+                      noClose
                     />
                   </Grid>
                 </Grid>
