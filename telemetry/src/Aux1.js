@@ -233,20 +233,20 @@ class Aux1 extends Component {
                     decimals: 2
                   }}
                   field2={{
-                    name: 'Prop Tank PT Heater',
-                    field: 'propTreeHeater',
+                    name: 'LOx GEMS Heater',
+                    field: 'loxGemsHeater',
                     unit: '',
                     decimals: 2
                   }}
                   field3={{
-                    name: 'Prop Inj PT Heater',
-                    field: 'propInjectorHeater',
+                    name: 'LOx Inj PT Heater',
+                    field: 'loxInjectorHeater',
                     unit: '',
                     decimals: 2
                   }}
                   field4={{
-                    name: 'LOx GEMS Heater',
-                    field: 'loxGemsHeater',
+                    name: 'Prop Tank PT Heater',
+                    field: 'propTreeHeater',
                     unit: '',
                     decimals: 2
                   }}
@@ -257,8 +257,8 @@ class Aux1 extends Component {
                     decimals: 2
                   }}
                   field6={{
-                    name: 'LOx Inj PT Heater',
-                    field: 'loxInjectorHeater',
+                    name: 'Prop Inj PT Heater',
+                    field: 'propInjectorHeater',
                     unit: '',
                     decimals: 2
                   }}
@@ -313,40 +313,46 @@ class Aux1 extends Component {
               <Grid item={1} xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
-                    name: 'LOx Tank Top Heater',
-                    field: 'LOxTankTopHeaterCurrent',
+                    name: 'LOx Tank PT Heater',
+                    field: 'loxTreeHeaterCurrent',
                     unit: 'A',
-                    decimals: 2
+                    decimals: 2,
+                    threshold: 0.3
                   }}
                   field2={{
-                    name: 'LOx Tank Mid Heater',
-                    field: 'LOxTankMidHeaterCurrent',
+                    name: 'LOx GEMS Heater',
+                    field: 'loxGemsHeaterCurrent',
                     unit: 'A',
-                    decimals: 2
+                    decimals: 2,
+                    threshold: 0.3
                   }}
                   field3={{
-                    name: 'LOx Tank Bottom Heater',
-                    field: 'LOxTankBottomHeaterCurrent',
-                    unit: 'A',
-                    decimals: 2
+                    name: 'LOx Inj PT Heater',
+                    field: 'loxInjectorHeaterCurrent',
+                    unit: '',
+                    decimals: 2,
+                    threshold: 0.3
                   }}
                   field4={{
-                    name: 'Prop Tank Top Heater',
-                    field: 'propTankTopHeaterCurrent',
+                    name: 'Prop Tank PT Heater',
+                    field: 'propTreeHeaterCurrent',
                     unit: 'A',
-                    decimals: 2
+                    decimals: 2,
+                    threshold: 0.3
                   }}
                   field5={{
-                    name: 'Prop Tank Mid Heater',
-                    field: 'propTankMidHeaterCurrent',
+                    name: 'Prop GEMS Heater',
+                    field: 'propGemsHeaterCurrent',
                     unit: 'A',
-                    decimals: 2
+                    decimals: 2,
+                    threshold: 0.3
                   }}
                   field6={{
-                    name: 'Prop Tank Bottom Heater',
-                    field: 'propTankBottomHeaterCurrent',
+                    name: 'Prop Inj PT Heater',
+                    field: 'propInjectorHeater',
                     unit: 'A',
-                    decimals: 2
+                    decimals: 2,
+                    threshold: 0.3
                   }}
                 />
               </Grid>

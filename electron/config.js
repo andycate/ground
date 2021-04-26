@@ -70,6 +70,15 @@ const model = {
   igniter: false,
   igniterCurrent: 0.0,
 
+  // heater currents
+  loxTreeHeaterCurrent: 0.0,
+  loxGemsHeaterCurrent: 0.0,
+  loxInjectorHeaterCurrent: 0.0,
+  propTreeHeaterCurrent: 0.0,
+  propGemsHeaterCurrent: 0.0,
+  propInjectorHeater: 0.0,
+
+
   // connection stats
   flightConnected: false,
   flightKbps: 0,
