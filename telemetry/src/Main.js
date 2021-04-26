@@ -139,29 +139,29 @@ class Main extends Component {
                     unit: 'PSI'
                   }}
                   field2={{
-                    name: 'Prop DOME',
-                    field: 'propDomePT',
-                    unit: 'PSI'
-                  }}
-                  field3={{
                     name: 'LOx Expected Static',
                     field: 'loxExpectedStatic',
                     unit: 'PSI'
                   }}
+                  field3={{
+                    name: 'Pressurant Temp',
+                    field: 'pressurantTemp',
+                    unit: 'PSI'
+                  }}
                   field4={{
-                    name: 'LOx GEMS',
-                    field: 'loxGemsPT',
+                    name: 'Prop DOME',
+                    field: 'propDomePT',
                     unit: 'PSI'
                   }}
                   field5={{
-                    name: 'Prop GEMS',
-                    field: 'propGemsPT',
-                    unit: 'PSI'
-                  }}
-                  field6={{
                     name: 'Prop Expected Static',
                     field: 'propExpectedStatic',
                     unit: 'PSI'
+                  }}
+                  field6={{
+                    name: '_',
+                    field: '',
+                    unit: ''
                   }}
                 />
               </Grid>
@@ -192,37 +192,21 @@ class Main extends Component {
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                <TankHeaterSquare
-                  field1={{
-                    name: 'LOx Top',
-                    field: 'loxTankTopTC',
-                    decimals: 2
-                  }}
-                  field2={{
-                    name: 'LOx Middle',
-                    field: 'loxTankMidTC',
-                    decimals: 2
-                  }}
-                  field3={{
-                    name: 'LOx Bottom',
-                    field: 'loxTankBottomTC',
-                    decimals: 2
-                  }}
-                  field4={{
-                    name: 'Prop Top',
-                    field: 'propTankTopTC',
-                    decimals: 2
-                  }}
-                  field5={{
-                    name: 'Prop Middle',
-                    field: 'propTankMidTC',
-                    decimals: 2
-                  }}
-                  field6={{
-                    name: 'Prop Bottom',
-                    field: 'propTankBottomTC',
-                    decimals: 2
-                  }}
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'loxGemsPT',
+                        color: [0, 126, 254],
+                        unit: 'degC'
+                      },
+                      {
+                        name: 'propGemsPT',
+                        color: [0, 187, 0],
+                        unit: 'degC'
+                      },
+                    ]
+                  }
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
