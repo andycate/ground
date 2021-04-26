@@ -52,6 +52,7 @@ class Comms {
 
     this.beginFlowAll = this.beginFlowAll.bind(this);
     this.beginFlow = this.beginFlow.bind(this);
+    this.endFlow = this.endFlow.bind(this);
     this.abort = this.abort.bind(this);
     this.hold = this.hold.bind(this);
 
@@ -246,6 +247,7 @@ class Comms {
     return await this.beginFlow();
   }
   async beginFlow() { return await this.ipc.invoke('begin-flow'); }
+  async endFlow() { return await this.ipc.invoke('end-flow'); }
   async abort() { return await this.ipc.invoke('abort'); }
   async hold() { return await this.ipc.invoke('hold'); }
 

@@ -296,6 +296,7 @@ class App {
     ipcMain.handle('deactivate-Igniter', this.flightComputer.deactivateIgniter)
 
     ipcMain.handle('begin-flow', this.flightComputer.beginFlow);
+    ipcMain.handle('end-flow', this.flightComputer.abort);
     ipcMain.handle('abort', this.abort);
     ipcMain.handle('hold', this.hold);
 

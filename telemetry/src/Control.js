@@ -151,7 +151,7 @@ class Control extends Component {
                   <Grid item={1} xs={6}>
                     <ButtonGroupFlow
                       open={comms.beginFlowAll}
-                      close={comms.abort}
+                      close={comms.endFlow}
                       field='flowState' // change this?
                       text='Begin Flow'
                       disabled={!this.state.HPS_en}
@@ -299,6 +299,7 @@ class Control extends Component {
                       time={comms.timeLOxRQD}
                       field='LOxRQD1state'
                       text='LOX RQD'
+                      noClose
                     />
                   </Grid>
                 </Grid>
@@ -331,6 +332,7 @@ class Control extends Component {
                       time={comms.timePropaneRQD}
                       field='PropaneRQD1state'
                       text='Propane RQD'
+                      noClose
                     />
                   </Grid>
                 </Grid>
