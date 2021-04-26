@@ -238,11 +238,16 @@ class App {
 
   abort() { // feels like this should be done in the frontend, not the backend.
     this.flightComputer.abort();
-    this.actCtrlr1.closeActCh1(); // Pressurant Flow
-    this.actCtrlr1.closeActCh4(); //  LOx Flow
+    this.actCtrlr1.closeActCh1(); // Close Pressurant Flow
+    this.actCtrlr1.closeActCh4(); // LOx Flow
     this.actCtrlr2.closeActCh3(); // Propane Flow
-    // Close pre-chill/pruge flow RBVs?
-    // Open Vent RBVs?
+
+    this.actCtrlr3.closeActCh2();// Close pre-chill Flow
+    this.actCtrlr3.closeActCh4();// Close Purge Flow
+
+    this.actCtrlr1.openActCh2();// Open LOx Vent
+    this.actCtrlr2.openActCh2();// Open Propane Vent
+    this.actCtrlr3.openActCh1();// Open Purge/Pre-chill Vent
   }
 
   hold() {
