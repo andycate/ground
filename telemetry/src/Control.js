@@ -151,7 +151,7 @@ class Control extends Component {
                   <Grid item={1} xs={6}>
                     <ButtonGroupFlow
                       open={comms.beginFlowAll}
-                      close={comms.abort}
+                      close={comms.endFlow}
                       field='flowState' // change this?
                       text='Begin Flow'
                       disabled={!this.state.HPS_en}
