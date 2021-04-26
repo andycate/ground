@@ -129,8 +129,8 @@ class Aux2 extends Component {
                         name: 'HPS',
                         field: 'HPSVoltage',
                         unit: 'V',
-                        decimals: 0,
-                        threshold: 3
+                        decimals: 1,
+                        threshold: 1.5
                       }}
                       field2={{
                         name: 'LOx GEMS',
@@ -190,7 +190,7 @@ class Aux2 extends Component {
                         field: 'HPSSupplyVoltage',
                         unit: 'V',
                         decimals: 0,
-                        threshold: 26
+                        threshold: 60
                       }}
                       field4={{
                         name: '_changeme_',
