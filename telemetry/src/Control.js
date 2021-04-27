@@ -153,7 +153,7 @@ class Control extends Component {
                     <ButtonGroupFlow
                       open={comms.extendIgniterInserter}
                       close={comms.retractIgniterInserter}
-                      field='igniterInserterCurrent' // change this?
+                      field='igniterInserterState' // change this?
                       text='Igniter Inserter'
                       successText='Extend'
                       failText='Retract'
