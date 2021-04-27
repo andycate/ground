@@ -141,7 +141,7 @@ class Aux1 extends Component {
                       },
                       {
                         name: 'loxGemsTemp', // lox gems temp
-                        color: [123, 35, 162],
+                        color: [0, 126, 254],
                         unit: 'degC'
                       },
                     ]
