@@ -135,7 +135,7 @@ class Control extends Component {
                       open={comms.openLox5Way}
                       close={comms.closeLox5Way}
                       field='lox5Way'
-                      text='LOX 5 Way'
+                      text='LOX Main'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
@@ -143,18 +143,19 @@ class Control extends Component {
                       open={comms.openProp5Way}
                       close={comms.closeProp5Way}
                       field='prop5Way'
-                      text='Prop 5 Way'
+                      text='Prop Main'
                     />
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupFlow
-                      open={comms.beginFlowAll}
-                      close={comms.endFlow}
-                      field='flowState' // change this?
-                      text='Begin Flow'
-                      disabled={!this.state.HPS_en}
+                      open={comms.extendIgniterInserter}
+                      close={comms.retractIgniterInserter}
+                      field='igniterInserterCurrent' // change this?
+                      text='Igniter Inserter'
+                      successText='Extend'
+                      failText='Retract'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
@@ -165,6 +166,17 @@ class Control extends Component {
                       text='Igniter'
                       successText='Activate'
                       failText='Deactivate'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <ButtonGroupFlow
+                      open={comms.beginFlowAll}
+                      close={comms.endFlow}
+                      field='flowState' // change this?
+                      text='Begin Flow'
+                      disabled={!this.state.HPS_en}
                     />
                   </Grid>
                 </Grid>
