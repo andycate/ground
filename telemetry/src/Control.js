@@ -14,6 +14,7 @@ import ButtonGroupRBV from './components/ButtonGroupRBV';
 import ButtonGroupRBVTimed from './components/ButtonGroupRBVTimed';
 import ButtonGroupRQD from './components/ButtonGroupRQD';
 import ButtonGroupHeater from './components/ButtonGroupHeater';
+import ButtonGroupHeaterCtrlLoop from './components/ButtonGroupHeaterCtrlLoop';
 import BigButton from './components/BigButton';
 import Procedures from './components/Procedures';
 import SwitchButton from './components/SwitchButton'
@@ -390,19 +391,19 @@ class Control extends Component {
               <Grid item={1} xs={3} className={classes.item}>
                 <Grid container spacing={1} direction='column'>
                   <Grid item>
-                    <ButtonGroupHeater
+                    <ButtonGroupHeaterCtrlLoop
                       text='LOx PT Heater'
                       sendDuty={comms.setLoxPTHeater}
                     />
                   </Grid>
                   <Grid item>
-                    <ButtonGroupHeater
+                    <ButtonGroupHeaterCtrlLoop
                       text='LOx GEMs Heater'
                       sendDuty={comms.setLoxGemsHeater}
                     />
                   </Grid>
                   <Grid item>
-                    <ButtonGroupHeater
+                    <ButtonGroupHeaterCtrlLoop
                       text='LOx Injector PT Heater'
                       sendDuty={comms.setLoxInjectorHeater}
                     />
@@ -412,19 +413,19 @@ class Control extends Component {
               <Grid item={1} xs={3} className={classes.item}>
                 <Grid container spacing={1} direction='column'>
                   <Grid item>
-                    <ButtonGroupHeater
+                    <ButtonGroupHeaterCtrlLoop
                       text='Propane PT Heater'
                       sendDuty={comms.setPropPTHeater}
                     />
                   </Grid>
                   <Grid item>
-                    <ButtonGroupHeater
+                    <ButtonGroupHeaterCtrlLoop
                       text='Propane GEMs Heater'
                       sendDuty={comms.setPropGemsHeater}
                     />
                   </Grid>
                   <Grid item>
-                    <ButtonGroupHeater
+                    <ButtonGroupHeaterCtrlLoop
                       text='Propane Injector PT Heater'
                       sendDuty={comms.setPropInjectorHeater}
                     />

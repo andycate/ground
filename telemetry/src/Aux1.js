@@ -141,7 +141,7 @@ class Aux1 extends Component {
                       },
                       {
                         name: 'loxGemsTemp', // lox gems temp
-                        color: [123, 35, 162],
+                        color: [0, 126, 254],
                         unit: 'degC'
                       },
                     ]
@@ -349,7 +349,7 @@ class Aux1 extends Component {
                   }}
                   field6={{
                     name: 'Prop Inj PT Heater',
-                    field: 'propInjectorHeater',
+                    field: 'propInjectorHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
