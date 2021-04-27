@@ -143,6 +143,10 @@ class Comms {
     this.closePurgeFlowRBV = this.closePurgeFlowRBV.bind(this);
     this.timePurgeFlowRBV = this.timePurgeFlowRBV.bind(this);
 
+    this.extendIgniterInserter = this.extendIgniterInserter.bind(this);
+    this.retractIgniterInserter = this.retractIgniterInserter.bind(this);
+    this.timeIgniterInserter = this.timeIgniterInserter.bind(this);
+
   }
 
   stateUpdate(event, payload) {
@@ -244,6 +248,7 @@ class Comms {
     await this.closeLOxPrechillRBV();
     await this.closePropanePrechillRBV();
     await this.closePrechillFlowRBV();
+    await this.closeLOxTankVentRBV();
     return await this.beginFlow();
   }
   async beginFlow() { return await this.ipc.invoke('begin-flow'); }
@@ -336,6 +341,10 @@ class Comms {
   async openPurgeFlowRBV() {return await this.ipc.invoke('open-purgeFlowRBV'); }
   async closePurgeFlowRBV() {return await this.ipc.invoke('close-purgeFlowRBV'); }
   async timePurgeFlowRBV(val) {return await this.ipc.invoke('time-purgeFlowRBV', val); }
+
+  async extendIgniterInserter() {return await this.ipc.invoke('extend-igniterInserter')}
+  async retractIgniterInserter() {return await this.ipc.invoke('retract-igniterInserter')}
+  async timeIgniterInserter() {return await this.ipc.invoke('time-igniterInserter')}
 
 }
 

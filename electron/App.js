@@ -161,21 +161,21 @@ class App {
       act2Current: 'prechillFlowRBVcurrent',
       act3Current: 'propanePrechillRBVcurrent',
       act4Current: 'purgeFlowRBVcurrent',
-      act5Current: null,
+      act5Current: 'igniterInserterCurrent',
       act6Current: null,
       ch0State: 'LOxPrechillRBVchState',
       ch1State: 'purgePrechillVentRBVchState',
       ch2State: 'prechillFlowRBVchState',
       ch3State: 'propanePrechillRBVchState',
       ch4State: 'purgeFlowRBVchState',
-      ch5State: null,
+      ch5State: 'igniterInserterChState',
       ch6State: null,
       act0State: 'LOxPrechillRBVstate',
       act1State: 'purgePrechillVentRBVstate',
       act2State: 'prechillFlowRBVstate',
       act3State: 'propanePrechillRBVstate',
       act4State: 'purgeFlowRBVstate',
-      act5State: null,
+      act5State: 'igniterInserterState',
       act6State: null
     },
     () => this.updateState(Date.now(), { actCtrlr3Connected: true }),
@@ -242,12 +242,14 @@ class App {
     this.actCtrlr1.closeActCh4(); // LOx Flow
     this.actCtrlr2.closeActCh3(); // Propane Flow
 
-    this.actCtrlr3.closeActCh2();// Close pre-chill Flow
-    this.actCtrlr3.closeActCh4();// Close Purge Flow
+    this.actCtrlr3.closeActCh2(); // Close pre-chill Flow
+    this.actCtrlr3.closeActCh4(); // Close Purge Flow
+    this.actCtrlr3.closeActCh0(); // Close LOx Prechill
+    this.actCtrlr3.closeActCh3(); // Close Propane Prechill
 
-    this.actCtrlr1.openActCh2();// Open LOx Vent
-    this.actCtrlr2.openActCh2();// Open Propane Vent
-    this.actCtrlr3.openActCh1();// Open Purge/Pre-chill Vent
+    this.actCtrlr1.openActCh2(); // Open LOx Vent
+    this.actCtrlr2.openActCh2(); // Open Propane Vent
+    this.actCtrlr3.openActCh1(); // Open Purge/Pre-chill Vent
   }
 
   hold() {
@@ -392,6 +394,10 @@ class App {
     ipcMain.handle('open-purgeFlowRBV', this.actCtrlr3.openActCh4);
     ipcMain.handle('close-purgeFlowRBV', this.actCtrlr3.closeActCh4);
     ipcMain.handle('time-purgeFlowRBV', (e, val) => this.actCtrlr3.actCh4ms(val));
+
+    ipcMain.handle('extend-igniterInserter', this.actCtrlr3.openActCh5);
+    ipcMain.handle('retract-igniterInserter', this.actCtrlr3.closeActCh5);
+    ipcMain.handle('time-igniterInserter', (e, val) => this.actCtrlr3.actCh5ms(val));
 
   }
 }
