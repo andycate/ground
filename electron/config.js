@@ -148,6 +148,7 @@ const model = {
   // connection stats
   actCtrlr1Connected: false,
   actCtrlr1Kbps: 0,
+  actCtrlr1packetCounter: 0,
 
 
   //-------Actuator Controller 2-------
@@ -186,6 +187,7 @@ const model = {
 
   actCtrlr2Connected: false,
   actCtrlr2Kbps: 0,
+  actCtrlr2packetCounter: 0,
 
   //-------Actuator Controller 3-------
 
@@ -222,7 +224,8 @@ const model = {
   igniterInserterState: 0.0,
 
   actCtrlr3Connected: false,
-  actCtrlr3Kbps: 0
+  actCtrlr3Kbps: 0,
+  actCtrlr3packetCounter: 0
 };
 
 module.exports = { model };

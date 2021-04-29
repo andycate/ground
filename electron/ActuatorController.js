@@ -114,6 +114,12 @@ const packets = {
   },
   5: {
     0: {
+      field: 'packetCounter',
+      interpolation: null
+    },
+  },
+  6: {
+    0: {
       field: 'act0State',
       interpolation: null
     },

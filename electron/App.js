@@ -101,7 +101,8 @@ class App {
       act3State: 'LOxTankVentRBVstate',
       act4State: 'LOxFlowRBVstate',
       act5State: null,
-      act6State: null
+      act6State: null,
+      packetCounter: 'actCtrlr1packetCounter'
     },
     () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
     () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
@@ -138,7 +139,8 @@ class App {
       act3State: 'propaneFlowRBVstate',
       act4State: 'propaneRQD1state',
       act5State: 'propaneRQD2state',
-      act6State: null
+      act6State: null,
+      packetCounter: 'actCtrlr2packetCounter'
     },
     () => this.updateState(Date.now(), { actCtrlr2Connected: true }),
     () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
@@ -176,7 +178,8 @@ class App {
       act3State: 'propanePrechillRBVstate',
       act4State: 'purgeFlowRBVstate',
       act5State: 'igniterInserterState',
-      act6State: null
+      act6State: null,
+      packetCounter: 'actCtrlr3packetCounter'
     },
     () => this.updateState(Date.now(), { actCtrlr3Connected: true }),
     () => this.updateState(Date.now(), { actCtrlr3Connected: false }),
