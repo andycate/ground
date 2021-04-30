@@ -409,14 +409,14 @@ class Aux2 extends Component {
                     decimals: 1
                   }}
                   field5={{
-                    name: 'LOx Pre/Purge',
+                    name: 'LOx Prechill',
                     field: 'LOxPrechillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
                     threshold: 0.5
                   }}
                   field6={{
-                    name: 'Prop Pre/Purge',
+                    name: 'Prop Prechill',
                     field: 'propanePrechillRBVcurrent',
                     unit: 'A',
                     decimals: 1,

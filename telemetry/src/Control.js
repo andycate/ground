@@ -247,7 +247,7 @@ class Control extends Component {
                       close={comms.closePressurantFlowRBV}
                       time={comms.timePressurantFlowRBV}
                       field='pressurantFlowRBVstate'
-                      text='N2 Flow RBV'
+                      text='N2 Fill RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
@@ -256,18 +256,18 @@ class Control extends Component {
                       close={comms.closePressurantVentRBV}
                       time={comms.timePressurantVentRBV}
                       field='pressurantVentRBVstate'
-                      text='N2 Vent RBV'
+                      text='Pressurant Flow RBV'
                     />
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
-                      open={comms.openLOxVentRBV}
-                      close={comms.closeLOxVentRBV}
-                      time={comms.timeLOxVentRBV}
-                      field='LOxVentRBVstate'
-                      text='LOX Vent RBV'
+                      open={comms.openLOxTankVentRBV}
+                      close={comms.closeLOxTankVentRBV}
+                      time={comms.timeLOxTankVentRBV}
+                      field='LOxTankVentRBVstate'
+                      text='LOX Tank Vent RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
@@ -283,11 +283,11 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
-                      open={comms.openLOxTankVentRBV}
-                      close={comms.closeLOxTankVentRBV}
-                      time={comms.timeLOxTankVentRBV}
-                      field='LOxTankVentRBVstate'
-                      text='LOX Tank Vent RBV'
+                      open={comms.openLOxVentRBV}
+                      close={comms.closeLOxVentRBV}
+                      time={comms.timeLOxVentRBV}
+                      field='LOxVentRBVstate'
+                      text='LOX Vent RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>

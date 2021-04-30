@@ -5,19 +5,19 @@ const Packet = require('./Packet');
 const packets = {
   0: {
     0: {
-      field: 'loxTreeTemp',
+      field: 'loxPTTemp',
       interpolation: null
     },
     1: {
-      field: 'loxTreeHeater',
+      field: 'loxPTHeater',
       interpolation: null
     },
     2: {
-      field: 'loxTreeHeaterCurrent',
+      field: 'loxPTHeaterCurrent',
       interpolation: null
     },
     3: {
-      field: 'loxTreeHeaterVoltage',
+      field: 'loxPTHeaterVoltage',
       interpolation: null
     }
   },
@@ -125,19 +125,19 @@ const packets = {
   },
   16: {
     0: {
-      field: 'propTreeTemp',
+      field: 'propPTTemp',
       interpolation: null
     },
     1: {
-      field: 'propTreeHeater',
+      field: 'propPTHeater',
       interpolation: null
     },
     2: {
-      field: 'propTreeHeaterCurrent',
+      field: 'propPTHeaterCurrent',
       interpolation: null
     },
     3: {
-      field: 'propTreeHeaterVoltage',
+      field: 'propPTHeaterVoltage',
       interpolation: null
     },
   },

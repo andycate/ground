@@ -135,7 +135,7 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'loxTreeTemp', // lox PT temp
+                        name: 'loxPTTemp', // lox PT temp
                         color: [123, 35, 162],
                         unit: 'degC'
                       },
@@ -153,7 +153,7 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'propTreeTemp', // prop PT temp
+                        name: 'propPTTemp', // prop PT temp
                         color: [0, 126, 254],
                         unit: 'degC'
                       },
@@ -228,7 +228,7 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank PT Heater',
-                    field: 'loxTreeHeaterVoltage',
+                    field: 'loxPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
@@ -246,7 +246,7 @@ class Aux1 extends Component {
                   }}
                   field4={{
                     name: 'Prop Tank PT Heater',
-                    field: 'propTreeHeaterVoltage',
+                    field: 'propPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
@@ -314,7 +314,7 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank PT Heater',
-                    field: 'loxTreeHeaterCurrent',
+                    field: 'loxPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
@@ -335,7 +335,7 @@ class Aux1 extends Component {
                   }}
                   field4={{
                     name: 'Prop Tank PT Heater',
-                    field: 'propTreeHeaterCurrent',
+                    field: 'propPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3

@@ -9,8 +9,8 @@ const model = {
   loxGemsPT: 0.0,
   loxGemsCurrent: 0.0,
   // lox fitting tree and gems temperature
-  loxTreeTemp: 0.0,
-  loxTreeHeater: 0.0,
+  loxPTTemp: 0.0,
+  loxPTHeater: 0.0,
   loxGemsTemp: 0.0,
   loxGemsHeater: 0.0,
   // lox fill TCs
@@ -29,8 +29,8 @@ const model = {
   propGemsPT: 0.0,
   propGemsCurrent: 0.0,
   // TODO: lox fitting tree and gems temperature
-  propTreeTemp: 0.0,
-  propTreeHeater: 0.0,
+  propPTTemp: 0.0,
+  propPTHeater: 0.0,
   propGemsTemp: 0.0,
   propGemsHeater: 0.0,
   // propane fill TCs
@@ -71,10 +71,10 @@ const model = {
   igniterCurrent: 0.0,
 
   // heater currents
-  loxTreeHeaterCurrent: 0.0,
+  loxPTHeaterCurrent: 0.0,
   loxGemsHeaterCurrent: 0.0,
   loxInjectorHeaterCurrent: 0.0,
-  propTreeHeaterCurrent: 0.0,
+  propPTHeaterCurrent: 0.0,
   propGemsHeaterCurrent: 0.0,
   propInjectorHeater: 0.0,
 
