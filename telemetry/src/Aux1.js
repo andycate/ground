@@ -228,39 +228,39 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank PT Heater',
-                    field: 'loxTreeHeater',
-                    unit: '',
-                    decimals: 2
+                    field: 'loxTreeHeaterVoltage',
+                    unit: 'V',
+                    decimals: 0
                   }}
                   field2={{
                     name: 'LOx GEMS Heater',
-                    field: 'loxGemsHeater',
-                    unit: '',
-                    decimals: 2
+                    field: 'loxGemsHeaterVoltage',
+                    unit: 'V',
+                    decimals: 0
                   }}
                   field3={{
                     name: 'LOx Inj PT Heater',
-                    field: 'loxInjectorHeater',
-                    unit: '',
-                    decimals: 2
+                    field: 'loxInjectorHeaterVoltage',
+                    unit: 'V',
+                    decimals: 0
                   }}
                   field4={{
                     name: 'Prop Tank PT Heater',
-                    field: 'propTreeHeater',
-                    unit: '',
-                    decimals: 2
+                    field: 'propTreeHeaterVoltage',
+                    unit: 'V',
+                    decimals: 0
                   }}
                   field5={{
                     name: 'Prop GEMS Heater',
-                    field: 'propGemsHeater',
-                    unit: '',
-                    decimals: 2
+                    field: 'propGemsHeaterVoltage',
+                    unit: 'V',
+                    decimals: 0
                   }}
                   field6={{
                     name: 'Prop Inj PT Heater',
-                    field: 'propInjectorHeater',
-                    unit: '',
-                    decimals: 2
+                    field: 'propInjectorHeaterVoltage',
+                    unit: 'V',
+                    decimals: 0
                   }}
                 />
               </Grid>

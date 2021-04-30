@@ -11,6 +11,14 @@ const packets = {
     1: {
       field: 'loxTreeHeater',
       interpolation: null
+    },
+    2: {
+      field: 'loxTreeHeaterCurrent',
+      interpolation: null
+    },
+    3: {
+      field: 'loxTreeHeaterVoltage',
+      interpolation: null
     }
   },
   1: {
@@ -88,6 +96,14 @@ const packets = {
       field: 'loxGemsHeater',
       interpolation: null
     },
+    2: {
+      field: 'loxGemsHeaterCurrent',
+      interpolation: null
+    },
+    3: {
+      field: 'loxGemsHeaterVoltage',
+      interpolation: null
+    },
   },
   8: {
     0: {
@@ -98,6 +114,14 @@ const packets = {
       field: 'propGemsHeater',
       interpolation: null
     },
+    2: {
+      field: 'propGemsHeaterCurrent',
+      interpolation: null
+    },
+    3: {
+      field: 'propGemsHeaterVoltage',
+      interpolation: null
+    },
   },
   16: {
     0: {
@@ -106,6 +130,14 @@ const packets = {
     },
     1: {
       field: 'propTreeHeater',
+      interpolation: null
+    },
+    2: {
+      field: 'propTreeHeaterCurrent',
+      interpolation: null
+    },
+    3: {
+      field: 'propTreeHeaterVoltage',
       interpolation: null
     },
   },
@@ -140,6 +172,10 @@ const packets = {
     },
     2: {
       field: 'loxInjectorHeaterCurrent',
+      interpolation: null
+    },
+    3: {
+      field: 'loxInjectorHeaterVoltage',
       interpolation: null
     },
   },
@@ -218,6 +254,10 @@ const packets = {
     },
     2: {
       field: 'propInjectorHeaterCurrent',
+      interpolation: null
+    },
+    3: {
+      field: 'propInjectorHeaterVoltage',
       interpolation: null
     },
   },
