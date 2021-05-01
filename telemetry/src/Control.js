@@ -17,6 +17,7 @@ import ButtonGroupHeater from './components/ButtonGroupHeater';
 import ButtonGroupHeaterCtrlLoop from './components/ButtonGroupHeaterCtrlLoop';
 import BigButton from './components/BigButton';
 import Procedures from './components/Procedures';
+import SwitchButton from './components/SwitchButton'
 
 const styles = theme => ({
   root: {
@@ -44,6 +45,7 @@ class Control extends Component {
     this.state = {
       isDark: false,
       showSettings: false,
+      HPS_en: false
     };
 
     this.handleDarkMode = this.handleDarkMode.bind(this);
@@ -87,16 +89,16 @@ class Control extends Component {
                       close={comms.closeHPS}
                       field='HPS'
                       text='Pressurant'
+                      disabled={!this.state.HPS_en}
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroup
+                    <SwitchButton
+                      text='Pressurant Enable'
                       open={comms.enableHPS}
                       close={comms.disableHPS}
                       field='HPSEnable'
-                      text='Pressurant Enable'
-                      successText='Enable'
-                      failText='Disable'
+                      change={e => {this.setState({HPS_en: e.target.checked});} }
                     />
                   </Grid>
                 </Grid>
@@ -134,7 +136,7 @@ class Control extends Component {
                       open={comms.openLox5Way}
                       close={comms.closeLox5Way}
                       field='lox5Way'
-                      text='LOX 5 Way'
+                      text='LOX Main'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
@@ -142,17 +144,19 @@ class Control extends Component {
                       open={comms.openProp5Way}
                       close={comms.closeProp5Way}
                       field='prop5Way'
-                      text='Prop 5 Way'
+                      text='Prop Main'
                     />
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupFlow
-                      open={comms.beginFlowAll}
-                      close={comms.abort}
-                      field='flowState' // change this?
-                      text='Begin Flow'
+                      open={comms.extendIgniterInserter}
+                      close={comms.retractIgniterInserter}
+                      field='igniterInserterState' // change this?
+                      text='Igniter Inserter'
+                      successText='Extend'
+                      failText='Retract'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
@@ -163,6 +167,17 @@ class Control extends Component {
                       text='Igniter'
                       successText='Activate'
                       failText='Deactivate'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <ButtonGroupFlow
+                      open={comms.beginFlowAll}
+                      close={comms.endFlow}
+                      field='flowState' // change this?
+                      text='Begin Flow'
+                      disabled={!this.state.HPS_en}
                     />
                   </Grid>
                 </Grid>
@@ -297,6 +312,7 @@ class Control extends Component {
                       time={comms.timeLOxRQD}
                       field='LOxRQD1state'
                       text='LOX RQD'
+                      noClose
                     />
                   </Grid>
                 </Grid>
@@ -329,6 +345,7 @@ class Control extends Component {
                       time={comms.timePropaneRQD}
                       field='PropaneRQD1state'
                       text='Propane RQD'
+                      noClose
                     />
                   </Grid>
                 </Grid>

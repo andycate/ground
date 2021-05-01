@@ -101,7 +101,8 @@ class App {
       act3State: 'LOxTankVentRBVstate',
       act4State: 'LOxFlowRBVstate',
       act5State: null,
-      act6State: null
+      act6State: null,
+      packetCounter: 'actCtrlr1packetCounter'
     },
     () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
     () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
@@ -138,7 +139,8 @@ class App {
       act3State: 'propaneFlowRBVstate',
       act4State: 'propaneRQD1state',
       act5State: 'propaneRQD2state',
-      act6State: null
+      act6State: null,
+      packetCounter: 'actCtrlr2packetCounter'
     },
     () => this.updateState(Date.now(), { actCtrlr2Connected: true }),
     () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
@@ -161,22 +163,23 @@ class App {
       act2Current: 'prechillFlowRBVcurrent',
       act3Current: 'propanePrechillRBVcurrent',
       act4Current: 'purgeFlowRBVcurrent',
-      act5Current: null,
+      act5Current: 'igniterInserterCurrent',
       act6Current: null,
       ch0State: 'LOxPrechillRBVchState',
       ch1State: 'purgePrechillVentRBVchState',
       ch2State: 'prechillFlowRBVchState',
       ch3State: 'propanePrechillRBVchState',
       ch4State: 'purgeFlowRBVchState',
-      ch5State: null,
+      ch5State: 'igniterInserterChState',
       ch6State: null,
       act0State: 'LOxPrechillRBVstate',
       act1State: 'purgePrechillVentRBVstate',
       act2State: 'prechillFlowRBVstate',
       act3State: 'propanePrechillRBVstate',
       act4State: 'purgeFlowRBVstate',
-      act5State: null,
-      act6State: null
+      act5State: 'igniterInserterState',
+      act6State: null,
+      packetCounter: 'actCtrlr3packetCounter'
     },
     () => this.updateState(Date.now(), { actCtrlr3Connected: true }),
     () => this.updateState(Date.now(), { actCtrlr3Connected: false }),
@@ -238,11 +241,18 @@ class App {
 
   abort() { // feels like this should be done in the frontend, not the backend.
     this.flightComputer.abort();
-    this.actCtrlr1.closeActCh1(); // Pressurant Flow
-    this.actCtrlr1.closeActCh4(); //  LOx Flow
+    this.actCtrlr1.closeActCh1(); // Close Pressurant Flow
+    this.actCtrlr1.closeActCh4(); // LOx Flow
     this.actCtrlr2.closeActCh3(); // Propane Flow
-    // Close pre-chill/pruge flow RBVs?
-    // Open Vent RBVs?
+
+    this.actCtrlr3.closeActCh2(); // Close pre-chill Flow
+    this.actCtrlr3.closeActCh4(); // Close Purge Flow
+    this.actCtrlr3.closeActCh0(); // Close LOx Prechill
+    this.actCtrlr3.closeActCh3(); // Close Propane Prechill
+
+    this.actCtrlr1.openActCh2(); // Open LOx Vent
+    this.actCtrlr2.openActCh2(); // Open Propane Vent
+    this.actCtrlr3.openActCh1(); // Open Purge/Pre-chill Vent
   }
 
   hold() {
@@ -291,6 +301,7 @@ class App {
     ipcMain.handle('deactivate-Igniter', this.flightComputer.deactivateIgniter)
 
     ipcMain.handle('begin-flow', this.flightComputer.beginFlow);
+    ipcMain.handle('end-flow', this.flightComputer.abort);
     ipcMain.handle('abort', this.abort);
     ipcMain.handle('hold', this.hold);
 
@@ -386,6 +397,10 @@ class App {
     ipcMain.handle('open-purgeFlowRBV', this.actCtrlr3.openActCh4);
     ipcMain.handle('close-purgeFlowRBV', this.actCtrlr3.closeActCh4);
     ipcMain.handle('time-purgeFlowRBV', (e, val) => this.actCtrlr3.actCh4ms(val));
+
+    ipcMain.handle('extend-igniterInserter', this.actCtrlr3.openActCh5);
+    ipcMain.handle('retract-igniterInserter', this.actCtrlr3.closeActCh5);
+    ipcMain.handle('time-igniterInserter', (e, val) => this.actCtrlr3.actCh5ms(val));
 
   }
 }

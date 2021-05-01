@@ -146,7 +146,7 @@ class Main extends Component {
                   field3={{
                     name: 'Pressurant Temp',
                     field: 'pressurantTemp',
-                    unit: 'PSI'
+                    unit: 'ºC'
                   }}
                   field4={{
                     name: 'Prop DOME',
@@ -198,12 +198,12 @@ class Main extends Component {
                       {
                         name: 'loxGemsPT',
                         color: [0, 126, 254],
-                        unit: 'degC'
+                        unit: 'psi'
                       },
                       {
                         name: 'propGemsPT',
                         color: [0, 187, 0],
-                        unit: 'degC'
+                        unit: 'psi'
                       },
                     ]
                   }
@@ -216,17 +216,17 @@ class Main extends Component {
                       {
                         name: 'loxTankBottomTC',
                         color: [0, 126, 254],
-                        unit: 'degC'
+                        unit: 'ºC'
                       },
                       {
                         name: 'loxTankMidTC',
                         color: [0, 187, 0],
-                        unit: 'degC'
+                        unit: 'ºC'
                       },
                       {
                         name: 'loxTankTopTC',
                         color: [123, 35, 162],
-                        unit: 'degC'
+                        unit: 'ºC'
                       }
                     ]
                   }
@@ -239,17 +239,17 @@ class Main extends Component {
                       {
                         name: 'propTankBottomTC',
                         color: [0, 126, 254],
-                        unit: 'degC'
+                        unit: 'ºC'
                       },
                       {
                         name: 'propTankMidTC',
                         color: [0, 187, 0],
-                        unit: 'degC'
+                        unit: 'ºC'
                       },
                       {
                         name: 'propTankTopTC',
                         color: [123, 35, 162],
-                        unit: 'degC'
+                        unit: 'ºC'
                       }
                     ]
                   }

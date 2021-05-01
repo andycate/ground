@@ -148,6 +148,7 @@ const model = {
   // connection stats
   actCtrlr1Connected: false,
   actCtrlr1Kbps: 0,
+  actCtrlr1packetCounter: 0,
 
 
   //-------Actuator Controller 2-------
@@ -186,6 +187,7 @@ const model = {
 
   actCtrlr2Connected: false,
   actCtrlr2Kbps: 0,
+  actCtrlr2packetCounter: 0,
 
   //-------Actuator Controller 3-------
 
@@ -205,21 +207,25 @@ const model = {
   prechillFlowRBVcurrent: 0.0,
   propanePrechillRBVcurrent: 0.0,
   purgeFlowRBVcurrent: 0.0,
+  igniterInserterCurrent: 0.0,
 
   LOxPrechillRBVchState: 0.0,
   purgePrechillVentRBVchState: 0.0,
   prechillFlowRBVchState: 0.0,
   propanePrechillRBVchState: 0.0,
   purgeFlowRBVchState: 0.0,
+  igniterInserterChState: 0.0,
 
   LOxPrechillRBVstate: 0.0,
   purgePrechillVentRBVstate: 0.0,
   prechillFlowRBVstate: 0.0,
   propanePrechillRBVstate: 0.0,
   purgeFlowRBVstate: 0.0,
+  igniterInserterState: 0.0,
 
   actCtrlr3Connected: false,
-  actCtrlr3Kbps: 0
+  actCtrlr3Kbps: 0,
+  actCtrlr3packetCounter: 0
 };
 
 module.exports = { model };
