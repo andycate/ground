@@ -264,35 +264,35 @@ const packets = {
   20: {
     0: {
       field: 'lox2Way',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     1: {
       field: 'igniter',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     2: {
       field: 'lox5Way',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     3: {
       field: 'prop5Way',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     4: {
       field: 'loxGems',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     5: {
       field: 'propGems',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     6: {
       field: 'HPS',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
     7: {
       field: 'HPSEnable',
-      interpolation: Interpolation.floatToBool
+      interpolation: null
     },
   }
 };

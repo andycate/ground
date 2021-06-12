@@ -18,8 +18,8 @@ const influxRemote = new Influx.InfluxDB({
     failoverTimeout: 40000,
 });
 
-const localDatabaseName = '2021_06_07_coldflow';
-const remoteDatabaseName = '2021_06_07_coldflow';
+const localDatabaseName = '2021_06_10_coldflow';
+const remoteDatabaseName = '2021_06_10_coldflow';
 
 async function uploadMeasurement(m) {
     console.log('transferring measurement ' + m);
@@ -57,8 +57,7 @@ async function uploadMeasurement(m) {
 
 (async () => {
     const measurements = await influxLocal.getMeasurements(localDatabaseName);
-    const modMeas = measurements.slice(measurements.indexOf("thrust1"));
-    for(let m of modMeas) {
+    for(let m of measurements) {
         await uploadMeasurement(m);
     }
 })();

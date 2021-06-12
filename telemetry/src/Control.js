@@ -320,11 +320,11 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
-                      open={comms.openPropaneVentRBV}
-                      close={comms.closePropaneVentRBV}
-                      time={comms.timePropaneVentRBV}
-                      field='propaneVentRBVstate'
-                      text='Prop Vent RBV'
+                      open={comms.openPropaneTankVentRBV}
+                      close={comms.closePropaneTankVentRBV}
+                      time={comms.timePropaneTankVentRBV}
+                      field='propaneTankVentRBVstate'
+                      text='Prop Tank Vent RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
@@ -338,7 +338,16 @@ class Control extends Component {
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={12}>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroupRBVTimed
+                      open={comms.openPropaneVentRBV}
+                      close={comms.closePropaneVentRBV}
+                      time={comms.timePropaneVentRBV}
+                      field='propaneVentRBVstate'
+                      text='Prop Vent RBV'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openPropaneRQD}
                       close={comms.closePropaneRQD}

@@ -125,21 +125,21 @@ class App {
       act3Current: 'propaneFlowRBVcurrent',
       act4Current: 'propaneRQD1current',
       act5Current: 'propaneRQD2current',
-      act6Current: null,
+      act6Current: 'propaneTankVentRBVcurrent',
       ch0State: 'LOxRQD1chState',
       ch1State: 'LOxRQD2chState',
       ch2State: 'propaneVentRBVchState',
       ch3State: 'propaneFlowRBVchState',
       ch4State: 'propaneRQD1chState',
       ch5State: 'propaneRQD2chState',
-      ch6State: null,
+      ch6State: 'propaneTankVentRBVchState',
       act0State: 'LOxRQD1state',
       act1State: 'LOxRQD2state',
       act2State: 'propaneVentRBVstate',
       act3State: 'propaneFlowRBVstate',
       act4State: 'propaneRQD1state',
       act5State: 'propaneRQD2state',
-      act6State: null,
+      act6State: 'propaneTankVentRBVstate',
       packetCounter: 'actCtrlr2packetCounter'
     },
     () => this.updateState(Date.now(), { actCtrlr2Connected: true }),
@@ -242,8 +242,8 @@ class App {
   abort() { // feels like this should be done in the frontend, not the backend.
     this.flightComputer.abort();
     this.actCtrlr1.closeActCh1(); // Close Pressurant Flow
-    this.actCtrlr1.closeActCh4(); // LOx Flow
-    this.actCtrlr2.closeActCh3(); // Propane Flow
+    this.actCtrlr1.closeActCh4(); // Close LOx Flow
+    this.actCtrlr2.closeActCh3(); // Close Propane Flow
 
     this.actCtrlr3.closeActCh2(); // Close pre-chill Flow
     this.actCtrlr3.closeActCh4(); // Close Purge Flow
@@ -253,6 +253,8 @@ class App {
     this.actCtrlr1.openActCh2(); // Open LOx Vent
     this.actCtrlr2.openActCh2(); // Open Propane Vent
     this.actCtrlr3.openActCh1(); // Open Purge/Pre-chill Vent
+    this.actCtrlr1.openActCh3(); // Open LOx Tank Vent
+    this.actCtrlr2.openActCh6(); // Open Propane Tank Vent
   }
 
   hold() {
@@ -371,6 +373,10 @@ class App {
     // ipcMain.handle('open-propaneRQD2', this.actCtrlr2.openActCh5);
     // ipcMain.handle('close-propaneRQD2', this.actCtrlr2.closeActCh5);
     // ipcMain.handle('time-propaneRQD2', (e, val) => this.actCtrlr2.actCh5ms(val));
+
+    ipcMain.handle('open-propaneTankVentRBV', this.actCtrlr2.openActCh6);
+    ipcMain.handle('close-propaneTankVentRBV', this.actCtrlr2.closeActCh6);
+    ipcMain.handle('time-propaneTankVentRBV', (e, val) => this.actCtrlr2.actCh6ms(val));
 
     // Actuator Controller 3
 

@@ -113,6 +113,10 @@ class Comms {
     this.closePropaneFlowRBV = this.closePropaneFlowRBV.bind(this);
     this.timePropaneFlowRBV = this.timePropaneFlowRBV.bind(this);
 
+    this.openPropaneTankVentRBV = this.openPropaneTankVentRBV.bind(this);
+    this.closePropaneTankVentRBV = this.closePropaneTankVentRBV.bind(this);
+    this.timePropaneTankVentRBV = this.timePropaneTankVentRBV.bind(this);
+
     this.openPropaneRQD = this.openPropaneRQD.bind(this);
     this.closePropaneRQD = this.closePropaneRQD.bind(this);
     this.timePropaneRQD = this.timePropaneRQD.bind(this);
@@ -315,6 +319,10 @@ class Comms {
   async openPropaneRQD() {return await this.ipc.invoke('open-propaneRQD'); }
   async closePropaneRQD() {return await this.ipc.invoke('close-propaneRQD'); }
   async timePropaneRQD(val) {return await this.ipc.invoke('time-propaneRQD', val); }
+
+  async openPropaneTankVentRBV() {return await this.ipc.invoke('open-propaneTankVentRBV'); }
+  async closePropaneTankVentRBV() {return await this.ipc.invoke('close-propaneTankVentRBV'); }
+  async timePropaneTankVentRBV(val) {return await this.ipc.invoke('time-propaneTankVentRBV', val); }
 
   //-------Actuator Controller 3-------
 
