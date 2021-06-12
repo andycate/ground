@@ -82,26 +82,26 @@ class App {
       voltage: 'ac1Voltage',
       power: 'ac1Power',
       currentDraw: 'ac1CurrentDraw',
-      act0Current: 'pressurantVentRBVcurrent',
-      act1Current: 'pressurantFlowRBVcurrent',
+      act0Current: 'pressurantFlowRBVcurrent',
+      act1Current: 'pressurantFillRBVcurrent',
       act2Current: 'LOxVentRBVcurrent',
       act3Current: 'LOxTankVentRBVcurrent',
       act4Current: 'LOxFlowRBVcurrent',
-      act5Current: null,
+      act5Current: 'pressurantVentRBVcurrent',
       act6Current: null,
-      ch0State: 'pressurantVentRBVchState',
-      ch1State: 'pressurantFlowRBVchState',
+      ch0State: 'pressurantFlowRBVchState',
+      ch1State: 'pressurantFillRBVchState',
       ch2State: 'LOxVentRBVchState',
       ch3State: 'LOxTankVentRBVchState',
       ch4State: 'LOxFlowRBVchState',
-      ch5State: null,
+      ch5State: 'pressurantVentRBVchState',
       ch6State: null,
-      act0State: 'pressurantVentRBVstate',
-      act1State: 'pressurantFlowRBVstate',
+      act0State: 'pressurantFlowRBVstate',
+      act1State: 'pressurantFillRBVstate',
       act2State: 'LOxVentRBVstate',
       act3State: 'LOxTankVentRBVstate',
       act4State: 'LOxFlowRBVstate',
-      act5State: null,
+      act5State: 'pressurantVentRBVstate',
       act6State: null,
       packetCounter: 'actCtrlr1packetCounter'
     },
@@ -330,13 +330,13 @@ class App {
 
     ipcMain.handle('set-propTankMidHeater', (e, val) => this.actCtrlr1.setHeater24vCh1(val));
 
-    ipcMain.handle('open-pressurantVentRBV', this.actCtrlr1.openActCh0);
-    ipcMain.handle('close-pressurantVentRBV', this.actCtrlr1.closeActCh0);
-    ipcMain.handle('time-pressurantVentRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
+    ipcMain.handle('open-pressurantFlowRBV', this.actCtrlr1.openActCh0);
+    ipcMain.handle('close-pressurantFlowRBV', this.actCtrlr1.closeActCh0);
+    ipcMain.handle('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
 
-    ipcMain.handle('open-pressurantFlowRBV', this.actCtrlr1.openActCh1);
-    ipcMain.handle('close-pressurantFlowRBV', this.actCtrlr1.closeActCh1);
-    ipcMain.handle('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
+    ipcMain.handle('open-pressurantFillRBV', this.actCtrlr1.openActCh1);
+    ipcMain.handle('close-pressurantFillRBV', this.actCtrlr1.closeActCh1);
+    ipcMain.handle('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
     ipcMain.handle('open-LOxVentRBV', this.actCtrlr1.openActCh2);
     ipcMain.handle('close-LOxVentRBV', this.actCtrlr1.closeActCh2);
@@ -349,6 +349,10 @@ class App {
     ipcMain.handle('open-LOxFlowRBV', this.actCtrlr1.openActCh4);
     ipcMain.handle('close-LOxFlowRBV', this.actCtrlr1.closeActCh4);
     ipcMain.handle('time-LOxFlowRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
+
+    ipcMain.handle('open-pressurantVentRBV', this.actCtrlr1.openActCh5);
+    ipcMain.handle('close-pressurantVentRBV', this.actCtrlr1.closeActCh5);
+    ipcMain.handle('time-pressurantVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
 
     // Actuator Controller 2
 

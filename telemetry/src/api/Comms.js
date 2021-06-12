@@ -75,13 +75,13 @@ class Comms {
 
     this.setPropTankMidHeater = this.setPropTankMidHeater.bind(this);
 
-    this.openPressurantVentRBV = this.openPressurantVentRBV.bind(this);
-    this.closePressurantVentRBV = this.closePressurantVentRBV.bind(this);
-    this.timePressurantVentRBV = this.timePressurantVentRBV.bind(this);
-
     this.openPressurantFlowRBV = this.openPressurantFlowRBV.bind(this);
     this.closePressurantFlowRBV = this.closePressurantFlowRBV.bind(this);
     this.timePressurantFlowRBV = this.timePressurantFlowRBV.bind(this);
+
+    this.openPressurantFillRBV = this.openPressurantFillRBV.bind(this);
+    this.closePressurantFillRBV = this.closePressurantFillRBV.bind(this);
+    this.timePressurantFillRBV = this.timePressurantFillRBV.bind(this);
 
     this.openLOxVentRBV = this.openLOxVentRBV.bind(this);
     this.closeLOxVentRBV = this.closeLOxVentRBV.bind(this);
@@ -94,6 +94,10 @@ class Comms {
     this.openLOxFlowRBV = this.openLOxFlowRBV.bind(this);
     this.closeLOxFlowRBV = this.closeLOxFlowRBV.bind(this);
     this.timeLOxFlowRBV = this.timeLOxFlowRBV.bind(this);
+
+    this.openPressurantVentRBV = this.openPressurantVentRBV.bind(this);
+    this.closePressurantVentRBV = this.closePressurantVentRBV.bind(this);
+    this.timePressurantVentRBV = this.timePressurantVentRBV.bind(this);
 
     //-------Actuator Controller 2-------
 
@@ -278,13 +282,13 @@ class Comms {
 
   async setPropTankMidHeater(val) {return await this.ipc.invoke('set-propTankMidHeater', val); }
 
-  async openPressurantVentRBV() {return await this.ipc.invoke('open-pressurantVentRBV'); }
-  async closePressurantVentRBV() {return await this.ipc.invoke('close-pressurantVentRBV'); }
-  async timePressurantVentRBV(val) {return await this.ipc.invoke('time-pressurantVentRBV', val); }
-
   async openPressurantFlowRBV() {return await this.ipc.invoke('open-pressurantFlowRBV'); }
   async closePressurantFlowRBV() {return await this.ipc.invoke('close-pressurantFlowRBV'); }
   async timePressurantFlowRBV(val) {return await this.ipc.invoke('time-pressurantFlowRBV', val); }
+
+  async openPressurantFillRBV() {return await this.ipc.invoke('open-pressurantFillRBV'); }
+  async closePressurantFillRBV() {return await this.ipc.invoke('close-pressurantFillRBV'); }
+  async timePressurantFillRBV(val) {return await this.ipc.invoke('time-pressurantFillRBV', val); }
 
   async openLOxVentRBV() {return await this.ipc.invoke('open-LOxVentRBV'); }
   async closeLOxVentRBV() {return await this.ipc.invoke('close-LOxVentRBV'); }
@@ -297,6 +301,10 @@ class Comms {
   async openLOxFlowRBV() {return await this.ipc.invoke('open-LOxFlowRBV'); }
   async closeLOxFlowRBV() {return await this.ipc.invoke('close-LOxFlowRBV'); }
   async timeLOxFlowRBV(val) {return await this.ipc.invoke('time-LOxFlowRBV', val); }
+
+  async openPressurantVentRBV() {return await this.ipc.invoke('open-pressurantVentRBV'); }
+  async closePressurantVentRBV() {return await this.ipc.invoke('close-pressurantVentRBV'); }
+  async timePressurantVentRBV(val) {return await this.ipc.invoke('time-pressurantVentRBV', val); }
 
   //-------Actuator Controller 2-------
 
