@@ -33,6 +33,7 @@ class App {
       lc0: 'thrust1',
       lc1: 'thrust2',
       lcSum: 'totalThrust',
+      lc2: 'propaneSourceTankKg',
       tcVal0: 'engineTC1',
       tcVal1: 'engineTC2',
       tcVal2: 'engineTC3',
@@ -265,6 +266,7 @@ class App {
    * Sets up all the IPC commands that the windows have access to
    */
   setupIPC() {
+
     ipcMain.handle('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password));
     ipcMain.handle('get-databases', this.influxDB.getDatabaseNames);
     ipcMain.handle('set-database', (e, database) => this.influxDB.setDatabase(database));

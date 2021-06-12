@@ -353,12 +353,25 @@ class Aux2 extends Component {
                 />
               </Grid>
 
-              <Grid item xs={8}>
+              <Grid item xs={4}>
                 <Graph
                   fields={
                     [
                       {
-                        name: 'thrust1', // prop PT temp
+                        name: 'propaneSourceTankKg',
+                        color: [255, 51, 224],
+                        unit: 'KGs'
+                      },
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'thrust1',
                         color: [255, 51, 224],
                         unit: 'KGs'
                       },

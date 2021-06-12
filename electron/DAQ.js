@@ -34,6 +34,10 @@ const packets = {
     2: {
       field: 'lcSum',
       interpolation: null
+    },
+    3: {
+      field: 'lc2',
+      interpolation: null
     }
   },
   4: {
