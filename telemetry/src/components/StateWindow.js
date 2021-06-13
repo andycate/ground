@@ -31,25 +31,23 @@ class StateWindow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      state_num: 2
+      state_num: 0
     };
 
-    this.setOpen = this.setOpen.bind(this);
-    this.setClosed = this.setClosed.bind(this);
+    this.incState = this.incState.bind(this);
+    this.decState = this.decState.bind(this);
   }
 
-  setOpen() {
+  incState() {
     const { state_num } = this.state;
     var next_state_num = state_num == 5 ? 5 : state_num + 1;
     this.setState({state_num: next_state_num});
-    console.log(state_num);
   }
 
-  setClosed() {
+  decState() {
     const { state_num } = this.state;
     var next_state_num = state_num == 0 ? 0 : state_num - 1;
     this.setState({state_num: next_state_num});
-    console.log(state_num);
   }
 
 
@@ -76,7 +74,7 @@ class StateWindow extends Component {
           variant='contained'
           disableRipple
           size='small'
-          onClick={this.setClosed}
+          onClick={this.decState}
         >
           Previous
         </Button>
@@ -85,7 +83,7 @@ class StateWindow extends Component {
           variant='contained'
           disableRipple
           size='small'
-          onClick={this.setOpen}
+          onClick={this.incState}
         >
           Next
         </Button>
