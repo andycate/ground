@@ -18,6 +18,7 @@ import ButtonGroupHeaterCtrlLoop from './components/ButtonGroupHeaterCtrlLoop';
 import BigButton from './components/BigButton';
 import Procedures from './components/Procedures';
 import SwitchButton from './components/SwitchButton'
+import StateWindow from './components/StateWindow'
 
 const styles = theme => ({
   root: {
@@ -249,6 +250,12 @@ class Control extends Component {
                     <BigButton
                       onClick={comms.hold}
                       text='Hold'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <StateWindow
                     />
                   </Grid>
                 </Grid>
