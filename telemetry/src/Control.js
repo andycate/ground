@@ -20,6 +20,8 @@ import Procedures from './components/Procedures';
 import SwitchButton from './components/SwitchButton'
 import StateWindow from './components/StateWindow'
 
+import UpdogWav from './media/updog.wav';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -50,10 +52,15 @@ class Control extends Component {
     };
 
     this.handleDarkMode = this.handleDarkMode.bind(this);
+    this.playUpdog = this.playUpdog.bind(this);
   }
 
   handleDarkMode(isDark) {
     this.setState({ isDark });
+  }
+
+  playUpdog() {
+    (new Audio(UpdogWav)).play();
   }
 
   componentDidMount() {
@@ -168,6 +175,7 @@ class Control extends Component {
                       text='Igniter'
                       successText='Activate'
                       failText='Deactivate'
+                      onActuateCallback={this.playUpdog}
                     />
                   </Grid>
                 </Grid>
