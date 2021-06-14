@@ -256,6 +256,7 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
                     <StateWindow
+                      onUpdate={comms.setProcedureState}
                     />
                   </Grid>
                 </Grid>

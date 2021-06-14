@@ -271,6 +271,7 @@ class App {
     ipcMain.handle('get-databases', this.influxDB.getDatabaseNames);
     ipcMain.handle('set-database', (e, database) => this.influxDB.setDatabase(database));
     ipcMain.handle('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark));
+    ipcMain.handle('set-procedure-state', (e, procState) => this.influxDB.setProcedureStep(procState));
 
     // Flight Computer
 
