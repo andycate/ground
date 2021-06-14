@@ -262,62 +262,73 @@ class App {
     // TODO: implement hold
   }
 
+  addIPC(channel, handler, dbrecord=true) {
+    ipcMain.handle(channel, (...args) => {
+      if(dbrecord) {
+        const update = {};
+        update[channel] = true;
+        this.influxDB.handleStateUpdate(Date.now(), update);
+      }
+      return handler(...args);
+    });
+  }
+
   /**
    * Sets up all the IPC commands that the windows have access to
    */
   setupIPC() {
 
-    ipcMain.handle('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password));
-    ipcMain.handle('get-databases', this.influxDB.getDatabaseNames);
-    ipcMain.handle('set-database', (e, database) => this.influxDB.setDatabase(database));
-    ipcMain.handle('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark));
-    ipcMain.handle('set-procedure-state', (e, procState) => this.influxDB.setProcedureStep(procState));
+    this.addIPC('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password));
+    this.addIPC('get-databases', this.influxDB.getDatabaseNames);
+    this.addIPC('set-database', (e, database) => this.influxDB.setDatabase(database) );
+    this.addIPC('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark));
+    this.addIPC('set-procedure-state', (e, procState) => this.influxDB.setProcedureStep(procState));
 
     // Flight Computer
 
-    ipcMain.handle('flight-connected', () => this.flightComputer.isConnected);
-    ipcMain.handle('daq1-connected', () => this.daq1.isConnected);
-    ipcMain.handle('daq2-connected', () => this.daq2.isConnected);
-    ipcMain.handle('actctrlr1-connected', () => this.actCtrlr1.isConnected);
-    ipcMain.handle('actctrlr2-connected', () => this.actCtrlr2.isConnected);
-    ipcMain.handle('actctrlr3-connected', () => this.actCtrlr3.isConnected);
+    this.addIPC('flight-connected', () => this.flightComputer.isConnected);
+    this.addIPC('daq1-connected', () => this.daq1.isConnected);
+    this.addIPC('daq2-connected', () => this.daq2.isConnected);
+    this.addIPC('actctrlr1-connected', () => this.actCtrlr1.isConnected);
+    this.addIPC('actctrlr2-connected', () => this.actCtrlr2.isConnected);
+    this.addIPC('actctrlr3-connected', () => this.actCtrlr3.isConnected);
 
-    ipcMain.handle('open-lox2Way', this.flightComputer.openLox2Way);
-    ipcMain.handle('close-lox2Way', this.flightComputer.closeLox2Way);
+    this.addIPC('open-lox2Way', this.flightComputer.openLox2Way);
+    this.addIPC('close-lox2Way', this.flightComputer.closeLox2Way);
 
-    ipcMain.handle('open-lox5Way', this.flightComputer.openLox5Way);
-    ipcMain.handle('close-lox5Way', this.flightComputer.closeLox5Way);
+    this.addIPC('open-lox5Way', this.flightComputer.openLox5Way);
+    this.addIPC('close-lox5Way', this.flightComputer.closeLox5Way);
 
-    ipcMain.handle('open-prop5Way', this.flightComputer.openProp5Way);
-    ipcMain.handle('close-prop5Way', this.flightComputer.closeProp5Way);
+    this.addIPC('open-prop5Way', this.flightComputer.openProp5Way);
+    this.addIPC('close-prop5Way', this.flightComputer.closeProp5Way);
 
-    ipcMain.handle('open-loxGems', this.flightComputer.openLoxGems);
-    ipcMain.handle('close-loxGems', this.flightComputer.closeLoxGems);
+    this.addIPC('open-loxGems', this.flightComputer.openLoxGems);
+    this.addIPC('close-loxGems', this.flightComputer.closeLoxGems);
 
-    ipcMain.handle('open-propGems', this.flightComputer.openPropGems);
-    ipcMain.handle('close-propGems', this.flightComputer.closePropGems);
+    this.addIPC('open-propGems', this.flightComputer.openPropGems);
+    this.addIPC('close-propGems', this.flightComputer.closePropGems);
 
-    ipcMain.handle('enable-HPS', this.flightComputer.enableHPS);
-    ipcMain.handle('disable-HPS', this.flightComputer.disableHPS);
-    ipcMain.handle('open-HPS', this.flightComputer.openHPS);
-    ipcMain.handle('close-HPS', this.flightComputer.closeHPS);
+    this.addIPC('enable-HPS', this.flightComputer.enableHPS);
+    this.addIPC('disable-HPS', this.flightComputer.disableHPS);
+    this.addIPC('open-HPS', this.flightComputer.openHPS);
+    this.addIPC('close-HPS', this.flightComputer.closeHPS);
 
-    ipcMain.handle('activate-Igniter', this.flightComputer.activateIgniter)
-    ipcMain.handle('deactivate-Igniter', this.flightComputer.deactivateIgniter)
+    this.addIPC('activate-Igniter', this.flightComputer.activateIgniter)
+    this.addIPC('deactivate-Igniter', this.flightComputer.deactivateIgniter)
 
-    ipcMain.handle('begin-flow', this.flightComputer.beginFlow);
-    ipcMain.handle('end-flow', this.flightComputer.abort);
-    ipcMain.handle('abort', this.abort);
-    ipcMain.handle('hold', this.hold);
+    this.addIPC('begin-flow', this.flightComputer.beginFlow);
+    this.addIPC('end-flow', this.flightComputer.abort);
+    this.addIPC('abort', this.abort);
+    this.addIPC('hold', this.hold);
 
 
-    ipcMain.handle('set-loxPTHeater', (e, val) => this.flightComputer.setLoxPTHeater(val));
-    ipcMain.handle('set-loxGemsHeater', (e, val) => this.flightComputer.setLoxGemsHeater(val));
-    ipcMain.handle('set-loxInjectorHeater', (e, val) => this.flightComputer.setLoxInjectorHeater(val));
+    this.addIPC('set-loxPTHeater', (e, val) => this.flightComputer.setLoxPTHeater(val));
+    this.addIPC('set-loxGemsHeater', (e, val) => this.flightComputer.setLoxGemsHeater(val));
+    this.addIPC('set-loxInjectorHeater', (e, val) => this.flightComputer.setLoxInjectorHeater(val));
 
-    ipcMain.handle('set-propPTHeater', (e, val) => this.flightComputer.setPropanePTHeater(val));
-    ipcMain.handle('set-propGemsHeater', (e, val) => this.flightComputer.setPropaneGemsHeater(val));
-    ipcMain.handle('set-propInjectorHeater', (e, val) => this.flightComputer.setPropaneInjectorHeater(val));
+    this.addIPC('set-propPTHeater', (e, val) => this.flightComputer.setPropanePTHeater(val));
+    this.addIPC('set-propGemsHeater', (e, val) => this.flightComputer.setPropaneGemsHeater(val));
+    this.addIPC('set-propInjectorHeater', (e, val) => this.flightComputer.setPropaneInjectorHeater(val));
 
 
     // DAQ 1
@@ -327,93 +338,93 @@ class App {
 
     // Actuator Controller 1
 
-    ipcMain.handle('set-propTankTopHeater', (e, val) => this.actCtrlr1.setHeater24vCh0(val));
+    this.addIPC('set-propTankTopHeater', (e, val) => this.actCtrlr1.setHeater24vCh0(val));
 
-    ipcMain.handle('set-propTankMidHeater', (e, val) => this.actCtrlr1.setHeater24vCh1(val));
+    this.addIPC('set-propTankMidHeater', (e, val) => this.actCtrlr1.setHeater24vCh1(val));
 
-    ipcMain.handle('open-pressurantFlowRBV', this.actCtrlr1.openActCh0);
-    ipcMain.handle('close-pressurantFlowRBV', this.actCtrlr1.closeActCh0);
-    ipcMain.handle('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
+    this.addIPC('open-pressurantFlowRBV', this.actCtrlr1.openActCh0);
+    this.addIPC('close-pressurantFlowRBV', this.actCtrlr1.closeActCh0);
+    this.addIPC('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
 
-    ipcMain.handle('open-pressurantFillRBV', this.actCtrlr1.openActCh1);
-    ipcMain.handle('close-pressurantFillRBV', this.actCtrlr1.closeActCh1);
-    ipcMain.handle('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
+    this.addIPC('open-pressurantFillRBV', this.actCtrlr1.openActCh1);
+    this.addIPC('close-pressurantFillRBV', this.actCtrlr1.closeActCh1);
+    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
-    ipcMain.handle('open-LOxVentRBV', this.actCtrlr1.openActCh2);
-    ipcMain.handle('close-LOxVentRBV', this.actCtrlr1.closeActCh2);
-    ipcMain.handle('time-LOxVentRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
+    this.addIPC('open-LOxVentRBV', this.actCtrlr1.openActCh2);
+    this.addIPC('close-LOxVentRBV', this.actCtrlr1.closeActCh2);
+    this.addIPC('time-LOxVentRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
 
-    ipcMain.handle('open-LOxTankVentRBV', this.actCtrlr1.openActCh3);
-    ipcMain.handle('close-LOxTankVentRBV', this.actCtrlr1.closeActCh3);
-    ipcMain.handle('time-LOxTankVentRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
+    this.addIPC('open-LOxTankVentRBV', this.actCtrlr1.openActCh3);
+    this.addIPC('close-LOxTankVentRBV', this.actCtrlr1.closeActCh3);
+    this.addIPC('time-LOxTankVentRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
 
-    ipcMain.handle('open-LOxFlowRBV', this.actCtrlr1.openActCh4);
-    ipcMain.handle('close-LOxFlowRBV', this.actCtrlr1.closeActCh4);
-    ipcMain.handle('time-LOxFlowRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
+    this.addIPC('open-LOxFlowRBV', this.actCtrlr1.openActCh4);
+    this.addIPC('close-LOxFlowRBV', this.actCtrlr1.closeActCh4);
+    this.addIPC('time-LOxFlowRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
 
-    ipcMain.handle('open-pressurantVentRBV', this.actCtrlr1.openActCh5);
-    ipcMain.handle('close-pressurantVentRBV', this.actCtrlr1.closeActCh5);
-    ipcMain.handle('time-pressurantVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
+    this.addIPC('open-pressurantVentRBV', this.actCtrlr1.openActCh5);
+    this.addIPC('close-pressurantVentRBV', this.actCtrlr1.closeActCh5);
+    this.addIPC('time-pressurantVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
 
     // Actuator Controller 2
 
-    ipcMain.handle('set-propTankBottomHeater', (e, val) => this.actCtrlr2.setHeater24vCh0(val));
+    this.addIPC('set-propTankBottomHeater', (e, val) => this.actCtrlr2.setHeater24vCh0(val));
 
-    ipcMain.handle('set-LOxTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
+    this.addIPC('set-LOxTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
 
-    ipcMain.handle('open-LOxRQD', () => { this.actCtrlr2.openActCh0(); this.actCtrlr2.openActCh1() });
-    ipcMain.handle('close-LOxRQD', () => { this.actCtrlr2.closeActCh0(); this.actCtrlr2.closeActCh1() });
-    ipcMain.handle('time-LOxRQD', (e, val) => { this.actCtrlr2.actCh0ms(val); this.actCtrlr2.actCh1ms(val) });
+    this.addIPC('open-LOxRQD', () => { this.actCtrlr2.openActCh0(); this.actCtrlr2.openActCh1() });
+    this.addIPC('close-LOxRQD', () => { this.actCtrlr2.closeActCh0(); this.actCtrlr2.closeActCh1() });
+    this.addIPC('time-LOxRQD', (e, val) => { this.actCtrlr2.actCh0ms(val); this.actCtrlr2.actCh1ms(val) });
 
-    ipcMain.handle('open-propaneVentRBV', this.actCtrlr2.openActCh2);
-    ipcMain.handle('close-propaneVentRBV', this.actCtrlr2.closeActCh2);
-    ipcMain.handle('time-propaneVentRBV', (e, val) => this.actCtrlr2.actCh2ms(val));
+    this.addIPC('open-propaneVentRBV', this.actCtrlr2.openActCh2);
+    this.addIPC('close-propaneVentRBV', this.actCtrlr2.closeActCh2);
+    this.addIPC('time-propaneVentRBV', (e, val) => this.actCtrlr2.actCh2ms(val));
 
-    ipcMain.handle('open-propaneFlowRBV', this.actCtrlr2.openActCh3);
-    ipcMain.handle('close-propaneFlowRBV', this.actCtrlr2.closeActCh3);
-    ipcMain.handle('time-propaneFlowRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
+    this.addIPC('open-propaneFlowRBV', this.actCtrlr2.openActCh3);
+    this.addIPC('close-propaneFlowRBV', this.actCtrlr2.closeActCh3);
+    this.addIPC('time-propaneFlowRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
 
-    ipcMain.handle('open-propaneRQD', () => { this.actCtrlr2.openActCh4(); this.actCtrlr2.openActCh5() });
-    ipcMain.handle('close-propaneRQD', () => { this.actCtrlr2.closeActCh4(); this.actCtrlr2.closeActCh5() });
-    ipcMain.handle('time-propaneRQD', (e, val) => { this.actCtrlr2.actCh4ms(val); this.actCtrlr2.actCh5ms(val) });
+    this.addIPC('open-propaneRQD', () => { this.actCtrlr2.openActCh4(); this.actCtrlr2.openActCh5() });
+    this.addIPC('close-propaneRQD', () => { this.actCtrlr2.closeActCh4(); this.actCtrlr2.closeActCh5() });
+    this.addIPC('time-propaneRQD', (e, val) => { this.actCtrlr2.actCh4ms(val); this.actCtrlr2.actCh5ms(val) });
 
-    // ipcMain.handle('open-propaneRQD2', this.actCtrlr2.openActCh5);
-    // ipcMain.handle('close-propaneRQD2', this.actCtrlr2.closeActCh5);
-    // ipcMain.handle('time-propaneRQD2', (e, val) => this.actCtrlr2.actCh5ms(val));
+    // this.addIPC('open-propaneRQD2', this.actCtrlr2.openActCh5);
+    // this.addIPC('close-propaneRQD2', this.actCtrlr2.closeActCh5);
+    // this.addIPC('time-propaneRQD2', (e, val) => this.actCtrlr2.actCh5ms(val));
 
-    ipcMain.handle('open-propaneTankVentRBV', this.actCtrlr2.openActCh6);
-    ipcMain.handle('close-propaneTankVentRBV', this.actCtrlr2.closeActCh6);
-    ipcMain.handle('time-propaneTankVentRBV', (e, val) => this.actCtrlr2.actCh6ms(val));
+    this.addIPC('open-propaneTankVentRBV', this.actCtrlr2.openActCh6);
+    this.addIPC('close-propaneTankVentRBV', this.actCtrlr2.closeActCh6);
+    this.addIPC('time-propaneTankVentRBV', (e, val) => this.actCtrlr2.actCh6ms(val));
 
     // Actuator Controller 3
 
-    ipcMain.handle('set-LOxTankMidHeater', (e, val) => this.actCtrlr3.setHeater24vCh0(val));
+    this.addIPC('set-LOxTankMidHeater', (e, val) => this.actCtrlr3.setHeater24vCh0(val));
 
-    ipcMain.handle('set-LOxTankBottomHeater', (e, val) => this.actCtrlr3.setHeater24vCh1(val));
+    this.addIPC('set-LOxTankBottomHeater', (e, val) => this.actCtrlr3.setHeater24vCh1(val));
 
-    ipcMain.handle('open-LOxPrechillRBV', this.actCtrlr3.openActCh0);
-    ipcMain.handle('close-LOxPrechillRBV', this.actCtrlr3.closeActCh0);
-    ipcMain.handle('time-LOxPrechillRBV', (e, val) => this.actCtrlr3.actCh0ms(val));
+    this.addIPC('open-LOxPrechillRBV', this.actCtrlr3.openActCh0);
+    this.addIPC('close-LOxPrechillRBV', this.actCtrlr3.closeActCh0);
+    this.addIPC('time-LOxPrechillRBV', (e, val) => this.actCtrlr3.actCh0ms(val));
 
-    ipcMain.handle('open-purgePrechillVentRBV', this.actCtrlr3.openActCh1);
-    ipcMain.handle('close-purgePrechillVentRBV', this.actCtrlr3.closeActCh1);
-    ipcMain.handle('time-purgePrechillVentRBV', (e, val) => this.actCtrlr3.actCh1ms(val));
+    this.addIPC('open-purgePrechillVentRBV', this.actCtrlr3.openActCh1);
+    this.addIPC('close-purgePrechillVentRBV', this.actCtrlr3.closeActCh1);
+    this.addIPC('time-purgePrechillVentRBV', (e, val) => this.actCtrlr3.actCh1ms(val));
 
-    ipcMain.handle('open-prechillFlowRBV', this.actCtrlr3.openActCh2);
-    ipcMain.handle('close-prechillFlowRBV', this.actCtrlr3.closeActCh2);
-    ipcMain.handle('time-prechillFlowRBV', (e, val) => this.actCtrlr3.actCh2ms(val));
+    this.addIPC('open-prechillFlowRBV', this.actCtrlr3.openActCh2);
+    this.addIPC('close-prechillFlowRBV', this.actCtrlr3.closeActCh2);
+    this.addIPC('time-prechillFlowRBV', (e, val) => this.actCtrlr3.actCh2ms(val));
 
-    ipcMain.handle('open-propanePrechillRBV', this.actCtrlr3.openActCh3);
-    ipcMain.handle('close-propanePrechillRBV', this.actCtrlr3.closeActCh3);
-    ipcMain.handle('time-propanePrechillRBV', (e, val) => this.actCtrlr3.actCh3ms(val));
+    this.addIPC('open-propanePrechillRBV', this.actCtrlr3.openActCh3);
+    this.addIPC('close-propanePrechillRBV', this.actCtrlr3.closeActCh3);
+    this.addIPC('time-propanePrechillRBV', (e, val) => this.actCtrlr3.actCh3ms(val));
 
-    ipcMain.handle('open-purgeFlowRBV', this.actCtrlr3.openActCh4);
-    ipcMain.handle('close-purgeFlowRBV', this.actCtrlr3.closeActCh4);
-    ipcMain.handle('time-purgeFlowRBV', (e, val) => this.actCtrlr3.actCh4ms(val));
+    this.addIPC('open-purgeFlowRBV', this.actCtrlr3.openActCh4);
+    this.addIPC('close-purgeFlowRBV', this.actCtrlr3.closeActCh4);
+    this.addIPC('time-purgeFlowRBV', (e, val) => this.actCtrlr3.actCh4ms(val));
 
-    ipcMain.handle('extend-igniterInserter', this.actCtrlr3.openActCh5);
-    ipcMain.handle('retract-igniterInserter', this.actCtrlr3.closeActCh5);
-    ipcMain.handle('time-igniterInserter', (e, val) => this.actCtrlr3.actCh5ms(val));
+    this.addIPC('extend-igniterInserter', this.actCtrlr3.openActCh5);
+    this.addIPC('retract-igniterInserter', this.actCtrlr3.closeActCh5);
+    this.addIPC('time-igniterInserter', (e, val) => this.actCtrlr3.actCh5ms(val));
 
   }
 }
