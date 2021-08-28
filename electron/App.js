@@ -19,8 +19,6 @@ class App {
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
     this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
-    this.port1 = new UdpPort('0.0.0.0', 42070, this.updateState);
-    this.port2 = new UdpPort('0.0.0.0', 42071, this.updateState);
 
     this.flightComputer = new FlightV2(this.port,
                                        '10.0.0.42',
@@ -110,7 +108,7 @@ class App {
     () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
     () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
     (rate) => this.updateState(Date.now(), { actCtrlr1Kbps: rate }));
-    this.actCtrlr2 = new ActuatorController(this.port1, '10.0.0.21', {
+    this.actCtrlr2 = new ActuatorController(this.port, '10.0.0.22', {
       ch12v0Current: null,
       ch12v1Current: null,
       ch24v0Current: 'propTankBottomHeaterCurrent',
@@ -149,7 +147,7 @@ class App {
     () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
     (rate) => this.updateState(Date.now(), { actCtrlr2Kbps: rate }));
 
-    this.actCtrlr3 = new ActuatorController(this.port2, '10.0.0.21', {
+    this.actCtrlr3 = new ActuatorController(this.port, '10.0.0.23', {
       ch12v0Current: null,
       ch12v1Current: null,
       ch24v0Current: 'LOxTankMidHeaterCurrent',
