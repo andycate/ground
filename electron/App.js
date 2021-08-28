@@ -342,9 +342,9 @@ class App {
 
     // Actuator Controller 1
 
-    this.addIPC('set-propTankTopHeater', (e, val) => this.actCtrlr1.setHeater24vCh0(val));
+    // this.addIPC('set-propTankTopHeater', (e, val) => this.actCtrlr1.setHeater24vCh0(val));
 
-    this.addIPC('set-propTankMidHeater', (e, val) => this.actCtrlr1.setHeater24vCh1(val));
+    // this.addIPC('set-propTankMidHeater', (e, val) => this.actCtrlr1.setHeater24vCh1(val));
 
     this.addIPC('open-pressurantFlowRBV', this.actCtrlr1.openActCh0);
     this.addIPC('close-pressurantFlowRBV', this.actCtrlr1.closeActCh0);
@@ -372,25 +372,25 @@ class App {
 
     // Actuator Controller 2
 
-    this.addIPC('set-propTankBottomHeater', (e, val) => this.actCtrlr2.setHeater24vCh0(val));
+    this.addIPC('set-propTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh0(val));
 
-    this.addIPC('set-LOxTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
+    this.addIPC('set-propTankMidHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
 
-    this.addIPC('open-LOxRQD', () => { this.actCtrlr2.openActCh0(); this.actCtrlr2.openActCh1() });
-    this.addIPC('close-LOxRQD', () => { this.actCtrlr2.closeActCh0(); this.actCtrlr2.closeActCh1() });
-    this.addIPC('time-LOxRQD', (e, val) => { this.actCtrlr2.actCh0ms(val); this.actCtrlr2.actCh1ms(val) });
+    // this.addIPC('open-LOxRQD', () => { this.actCtrlr2.openActCh0(); this.actCtrlr2.openActCh1() });
+    // this.addIPC('close-LOxRQD', () => { this.actCtrlr2.closeActCh0(); this.actCtrlr2.closeActCh1() });
+    // this.addIPC('time-LOxRQD', (e, val) => { this.actCtrlr2.actCh0ms(val); this.actCtrlr2.actCh1ms(val) });
 
-    this.addIPC('open-propaneVentRBV', this.actCtrlr2.openActCh2);
-    this.addIPC('close-propaneVentRBV', this.actCtrlr2.closeActCh2);
-    this.addIPC('time-propaneVentRBV', (e, val) => this.actCtrlr2.actCh2ms(val));
+    // this.addIPC('open-propaneVentRBV', this.actCtrlr2.openActCh2);
+    // this.addIPC('close-propaneVentRBV', this.actCtrlr2.closeActCh2);
+    // this.addIPC('time-propaneVentRBV', (e, val) => this.actCtrlr2.actCh2ms(val));
 
-    this.addIPC('open-propaneFlowRBV', this.actCtrlr2.openActCh3);
-    this.addIPC('close-propaneFlowRBV', this.actCtrlr2.closeActCh3);
-    this.addIPC('time-propaneFlowRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
+    // this.addIPC('open-propaneFlowRBV', this.actCtrlr2.openActCh3);
+    // this.addIPC('close-propaneFlowRBV', this.actCtrlr2.closeActCh3);
+    // this.addIPC('time-propaneFlowRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
 
-    this.addIPC('open-propaneRQD', () => { this.actCtrlr2.openActCh4(); this.actCtrlr2.openActCh5() });
-    this.addIPC('close-propaneRQD', () => { this.actCtrlr2.closeActCh4(); this.actCtrlr2.closeActCh5() });
-    this.addIPC('time-propaneRQD', (e, val) => { this.actCtrlr2.actCh4ms(val); this.actCtrlr2.actCh5ms(val) });
+    // this.addIPC('open-propaneRQD', () => { this.actCtrlr2.openActCh4(); this.actCtrlr2.openActCh5() });
+    // this.addIPC('close-propaneRQD', () => { this.actCtrlr2.closeActCh4(); this.actCtrlr2.closeActCh5() });
+    // this.addIPC('time-propaneRQD', (e, val) => { this.actCtrlr2.actCh4ms(val); this.actCtrlr2.actCh5ms(val) });
 
     // this.addIPC('open-propaneRQD2', this.actCtrlr2.openActCh5);
     // this.addIPC('close-propaneRQD2', this.actCtrlr2.closeActCh5);
@@ -402,7 +402,7 @@ class App {
 
     // Actuator Controller 3
 
-    this.addIPC('set-LOxTankMidHeater', (e, val) => this.actCtrlr3.setHeater24vCh0(val));
+    // this.addIPC('set-LOxTankMidHeater', (e, val) => this.actCtrlr3.setHeater24vCh0(val));
 
     this.addIPC('set-LOxTankBottomHeater', (e, val) => this.actCtrlr3.setHeater24vCh1(val));
 
