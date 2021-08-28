@@ -26,7 +26,7 @@ class App {
                                        () => this.updateState(Date.now(), { flightConnected: false }),
                                        (rate) => this.updateState(Date.now(), { flightKbps: rate }));
     this.daq1 = new DAQ(this.port, '10.0.0.11', {
-      pressureVal0: 'propGemsPT',
+      pressureVal0: 'propDomePT',
       voltage: 'daq1Voltage',
       power: 'daq1Power',
       currentDraw: 'daq1CurrentDraw',
@@ -34,10 +34,10 @@ class App {
       lc1: 'thrust2',
       lcSum: 'totalThrust',
       lc2: 'propaneSourceTankKg',
-      tcVal0: 'engineTC1',
-      tcVal1: 'engineTC2',
-      tcVal2: 'engineTC3',
-      tcVal3: 'engineTC4',
+      tcVal0: 'loxTankMidTC',
+      tcVal1: 'engineTC5',
+      tcVal2: 'engineTC6',
+      tcVal3: 'loxTankTopTC',
       _5v_aVoltage: 'daq1_5v_aVoltage',
       _5v_aCurrent: 'daq1_5v_aCurrent',
       _5vVoltage: 'daq1_5vVoltage',
