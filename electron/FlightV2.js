@@ -83,7 +83,7 @@ const packets = {
       interpolation: null
     },
     3: {
-      field: 'fuelTankBottomTC',
+      field: 'propTankBottomTC',
       interpolation: null
     },
   },
