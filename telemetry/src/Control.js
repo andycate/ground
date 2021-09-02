@@ -131,9 +131,9 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
                     <ButtonGroup
-                      open={comms.openLox2Way}
-                      close={comms.closeLox2Way}
-                      field='lox2Way'
+                      open={comms.openarmValve}
+                      close={comms.closearmValve}
+                      field='armValve'
                       text='Arm Main Valves'
                     />
                   </Grid>
@@ -141,17 +141,17 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroup
-                      open={comms.openLox5Way}
-                      close={comms.closeLox5Way}
-                      field='lox5Way'
+                      open={comms.openloxMainValve}
+                      close={comms.closeloxMainValve}
+                      field='loxMainValve'
                       text='LOX Main'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
                     <ButtonGroup
-                      open={comms.openProp5Way}
-                      close={comms.closeProp5Way}
-                      field='prop5Way'
+                      open={comms.openfuelMainValve}
+                      close={comms.closefuelMainValve}
+                      field='fuelMainValve'
                       text='Prop Main'
                     />
                   </Grid>
@@ -430,7 +430,7 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeaterCtrlLoop
                       text='LOx PT Heater'
-                      sendDuty={comms.setLoxPTHeater}
+                      sendDuty={comms.setloxTankPTHeater}
                     />
                   </Grid>
                   <Grid item>
@@ -442,7 +442,7 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeaterCtrlLoop
                       text='LOx Injector PT Heater'
-                      sendDuty={comms.setLoxInjectorHeater}
+                      sendDuty={comms.setloxInjectorPTHeater}
                     />
                   </Grid>
                 </Grid>
@@ -452,7 +452,7 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeaterCtrlLoop
                       text='Propane PT Heater'
-                      sendDuty={comms.setPropPTHeater}
+                      sendDuty={comms.setfuelTankPTHeater}
                     />
                   </Grid>
                   <Grid item>
@@ -464,7 +464,7 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeaterCtrlLoop
                       text='Propane Injector PT Heater'
-                      sendDuty={comms.setPropInjectorHeater}
+                      sendDuty={comms.setfuelInjectorPTHeater}
                     />
                   </Grid>
                 </Grid>

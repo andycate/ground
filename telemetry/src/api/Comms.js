@@ -29,14 +29,14 @@ class Comms {
     this.getActCtrlr2Connected = this.getActCtrlr2Connected.bind(this);
     this.getActCtrlr3Connected = this.getActCtrlr3Connected.bind(this);
 
-    this.openLox2Way = this.openLox2Way.bind(this);
-    this.closeLox2Way = this.closeLox2Way.bind(this);
+    this.openarmValve = this.openarmValve.bind(this);
+    this.closearmValve = this.closearmValve.bind(this);
 
-    this.openLox5Way = this.openLox5Way.bind(this);
-    this.closeLox5Way = this.closeLox5Way.bind(this);
+    this.openloxMainValve = this.openloxMainValve.bind(this);
+    this.closeloxMainValve = this.closeloxMainValve.bind(this);
 
-    this.openProp5Way = this.openProp5Way.bind(this);
-    this.closeProp5Way = this.closeProp5Way.bind(this);
+    this.openfuelMainValve = this.openfuelMainValve.bind(this);
+    this.closefuelMainValve = this.closefuelMainValve.bind(this);
 
     this.openLoxGems = this.openLoxGems.bind(this);
     this.closeLoxGems = this.closeLoxGems.bind(this);
@@ -59,13 +59,13 @@ class Comms {
     this.hold = this.hold.bind(this);
 
 
-    this.setLoxPTHeater = this.setLoxPTHeater.bind(this);
+    this.setloxTankPTHeater = this.setloxTankPTHeater.bind(this);
     this.setLoxGemsHeater = this.setLoxGemsHeater.bind(this);
-    this.setLoxInjectorHeater = this.setLoxInjectorHeater.bind(this);
+    this.setloxInjectorPTHeater = this.setloxInjectorPTHeater.bind(this);
 
-    this.setPropPTHeater = this.setPropPTHeater.bind(this);
+    this.setfuelTankPTHeater = this.setfuelTankPTHeater.bind(this);
     this.setPropGemsHeater = this.setPropGemsHeater.bind(this);
-    this.setPropInjectorHeater = this.setPropInjectorHeater.bind(this);
+    this.setfuelInjectorPTHeater = this.setfuelInjectorPTHeater.bind(this);
 
     //---------------DAQ 1---------------
 
@@ -235,14 +235,14 @@ class Comms {
   async getActCtrlr2Connected() { return await this.ipc.invoke('actctrlr2-connected'); }
   async getActCtrlr3Connected() { return await this.ipc.invoke('actctrlr3-connected'); }
 
-  async openLox2Way() { return await this.ipc.invoke('open-lox2Way'); }
-  async closeLox2Way() { return await this.ipc.invoke('close-lox2Way'); }
+  async openarmValve() { return await this.ipc.invoke('open-armValve'); }
+  async closearmValve() { return await this.ipc.invoke('close-armValve'); }
 
-  async openLox5Way() { return await this.ipc.invoke('open-lox5Way'); }
-  async closeLox5Way() { return await this.ipc.invoke('close-lox5Way'); }
+  async openloxMainValve() { return await this.ipc.invoke('open-loxMainValve'); }
+  async closeloxMainValve() { return await this.ipc.invoke('close-loxMainValve'); }
 
-  async openProp5Way() { return await this.ipc.invoke('open-prop5Way'); }
-  async closeProp5Way() { return await this.ipc.invoke('close-prop5Way'); }
+  async openfuelMainValve() { return await this.ipc.invoke('open-fuelMainValve'); }
+  async closefuelMainValve() { return await this.ipc.invoke('close-fuelMainValve'); }
 
   async openLoxGems() { return await this.ipc.invoke('open-loxGems'); }
   async closeLoxGems() { return await this.ipc.invoke('close-loxGems'); }
@@ -270,13 +270,13 @@ class Comms {
   async abort() { return await this.ipc.invoke('abort'); }
   async hold() { return await this.ipc.invoke('hold'); }
 
-  async setLoxPTHeater(val) { return await this.ipc.invoke('set-loxPTHeater', val); }
+  async setloxTankPTHeater(val) { return await this.ipc.invoke('set-loxTankPTHeater', val); }
   async setLoxGemsHeater(val) { return await this.ipc.invoke('set-loxGemsHeater', val); }
-  async setLoxInjectorHeater(val) { return await this.ipc.invoke('set-loxInjectorHeater', val); }
+  async setloxInjectorPTHeater(val) { return await this.ipc.invoke('set-loxInjectorPTHeater', val); }
 
-  async setPropPTHeater(val) { return await this.ipc.invoke('set-propPTHeater', val); }
+  async setfuelTankPTHeater(val) { return await this.ipc.invoke('set-fuelTankPTHeater', val); }
   async setPropGemsHeater(val) { return await this.ipc.invoke('set-propGemsHeater', val); }
-  async setPropInjectorHeater(val) { return await this.ipc.invoke('set-propInjectorHeater', val); }
+  async setfuelInjectorPTHeater(val) { return await this.ipc.invoke('set-fuelInjectorPTHeater', val); }
 
   //---------------DAQ 1---------------
 

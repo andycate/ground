@@ -1,6 +1,6 @@
 const { ipcMain } = require('electron');
 
-const { model } = require('./config');
+// const { model } = require('./config');
 
 const State = require('./State');
 const UdpPort = require('./UdpPort');
@@ -12,7 +12,8 @@ const InfluxDB = require('./InfluxDB');
 class App {
   constructor() {
     this.webContents = [];
-    this.state = new State(model);
+    // this.state = new State(model);
+    this.state = new State({});
     this.influxDB = new InfluxDB();
 
     // comms
@@ -26,7 +27,7 @@ class App {
                                        () => this.updateState(Date.now(), { flightConnected: false }),
                                        (rate) => this.updateState(Date.now(), { flightKbps: rate }));
     this.daq1 = new DAQ(this.port, '10.0.0.11', {
-      pressureVal0: 'propDomePT',
+      pressureVal0: 'fuelDomePT',
       voltage: 'daq1Voltage',
       power: 'daq1Power',
       currentDraw: 'daq1CurrentDraw',
@@ -297,20 +298,20 @@ class App {
     this.addIPC('actctrlr2-connected', () => this.actCtrlr2.isConnected);
     this.addIPC('actctrlr3-connected', () => this.actCtrlr3.isConnected);
 
-    this.addIPC('open-lox2Way', this.flightComputer.openLox2Way);
-    this.addIPC('close-lox2Way', this.flightComputer.closeLox2Way);
+    this.addIPC('open-armValve', this.flightComputer.openarmValve);
+    this.addIPC('close-armValve', this.flightComputer.closearmValve);
 
-    this.addIPC('open-lox5Way', this.flightComputer.openLox5Way);
-    this.addIPC('close-lox5Way', this.flightComputer.closeLox5Way);
+    this.addIPC('open-loxMainValve', this.flightComputer.openloxMainValve);
+    this.addIPC('close-loxMainValve', this.flightComputer.closeloxMainValve);
 
-    this.addIPC('open-prop5Way', this.flightComputer.openProp5Way);
-    this.addIPC('close-prop5Way', this.flightComputer.closeProp5Way);
+    this.addIPC('open-fuelMainValve', this.flightComputer.openfuelMainValve);
+    this.addIPC('close-fuelMainValve', this.flightComputer.closefuelMainValve);
 
-    this.addIPC('open-loxGems', this.flightComputer.openLoxGems);
-    this.addIPC('close-loxGems', this.flightComputer.closeLoxGems);
+    // this.addIPC('open-loxGems', this.flightComputer.openLoxGems);
+    // this.addIPC('close-loxGems', this.flightComputer.closeLoxGems);
 
-    this.addIPC('open-propGems', this.flightComputer.openPropGems);
-    this.addIPC('close-propGems', this.flightComputer.closePropGems);
+    // this.addIPC('open-propGems', this.flightComputer.openPropGems);
+    // this.addIPC('close-propGems', this.flightComputer.closePropGems);
 
     this.addIPC('enable-HPS', this.flightComputer.enableHPS);
     this.addIPC('disable-HPS', this.flightComputer.disableHPS);
@@ -326,13 +327,13 @@ class App {
     this.addIPC('hold', this.hold);
 
 
-    this.addIPC('set-loxPTHeater', (e, val) => this.flightComputer.setLoxPTHeater(val));
-    this.addIPC('set-loxGemsHeater', (e, val) => this.flightComputer.setLoxGemsHeater(val));
-    this.addIPC('set-loxInjectorHeater', (e, val) => this.flightComputer.setLoxInjectorHeater(val));
+    this.addIPC('set-loxTankPTHeater', (e, val) => this.flightComputer.setloxTankPTHeater(val));
+    // this.addIPC('set-loxGemsHeater', (e, val) => this.flightComputer.setLoxGemsHeater(val));
+    this.addIPC('set-loxInjectorPTHeater', (e, val) => this.flightComputer.setloxInjectorPTHeater(val));
 
-    this.addIPC('set-propPTHeater', (e, val) => this.flightComputer.setPropanePTHeater(val));
-    this.addIPC('set-propGemsHeater', (e, val) => this.flightComputer.setPropaneGemsHeater(val));
-    this.addIPC('set-propInjectorHeater', (e, val) => this.flightComputer.setPropaneInjectorHeater(val));
+    this.addIPC('set-fuelTankPTHeater', (e, val) => this.flightComputer.setfuelTankPTHeater(val));
+    // this.addIPC('set-propGemsHeater', (e, val) => this.flightComputer.setPropaneGemsHeater(val));
+    this.addIPC('set-fuelInjectorPTHeater', (e, val) => this.flightComputer.setfuelInjectorPTHeater(val));
 
 
     // DAQ 1

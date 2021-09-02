@@ -101,21 +101,21 @@ class Aux2 extends Component {
                   }}
                   field4={{
                     name: 'ARM',
-                    field: 'lox2WayCurrent',
+                    field: 'armValveCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.1
                   }}
                   field5={{
                     name: 'LOx Main',
-                    field: 'lox5WayCurrent',
+                    field: 'loxMainValveCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.1
                   }}
                   field6={{
                     name: 'Prop Main',
-                    field: 'prop5WayCurrent',
+                    field: 'fuelMainValveCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.1
@@ -147,21 +147,21 @@ class Aux2 extends Component {
                   }}
                   field4={{
                     name: 'ARM',
-                    field: 'lox2WayVoltage',
+                    field: 'armValveVoltage',
                     unit: 'V',
                     decimals: 0,
                     threshold: 3
                   }}
                   field5={{
                     name: 'LOx Main',
-                    field: 'lox5WayVoltage',
+                    field: 'loxMainValveVoltage',
                     unit: 'V',
                     decimals: 0,
                     threshold: 3
                   }}
                   field6={{
                     name: 'Prop Main',
-                    field: 'prop5WayVoltage',
+                    field: 'fuelMainValveVoltage',
                     unit: 'V',
                     decimals: 0,
                     threshold: 3

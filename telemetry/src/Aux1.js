@@ -135,7 +135,7 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'loxPTTemp', // lox PT temp
+                        name: 'loxTankPTTemp', // lox PT temp
                         color: [123, 35, 162],
                         unit: 'degC'
                       },
@@ -153,7 +153,7 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'propPTTemp', // prop PT temp
+                        name: 'fuelTankPTTemp', // prop PT temp
                         color: [0, 126, 254],
                         unit: 'degC'
                       },
@@ -211,12 +211,12 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'loxInjectorTemp', // lox injector PT temp
+                        name: 'loxInjectorPTTemp', // lox injector PT temp
                         color: [0, 126, 254],
                         unit: 'degC'
                       },
                       {
-                        name: 'propInjectorTemp', // prop injector PT temp
+                        name: 'fuelInjectorPTTemp', // prop injector PT temp
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
@@ -228,7 +228,7 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank PT Heater',
-                    field: 'loxPTHeaterVoltage',
+                    field: 'loxTankPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
@@ -240,13 +240,13 @@ class Aux1 extends Component {
                   }}
                   field3={{
                     name: 'LOx Inj PT Heater',
-                    field: 'loxInjectorHeaterVoltage',
+                    field: 'loxInjectorPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
                   field4={{
                     name: 'Prop Tank PT Heater',
-                    field: 'propPTHeaterVoltage',
+                    field: 'fuelTankPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
@@ -258,7 +258,7 @@ class Aux1 extends Component {
                   }}
                   field6={{
                     name: 'Prop Inj PT Heater',
-                    field: 'propInjectorHeaterVoltage',
+                    field: 'fuelInjectorPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
@@ -319,7 +319,7 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank PT Heater',
-                    field: 'loxPTHeaterCurrent',
+                    field: 'loxTankPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
@@ -333,14 +333,14 @@ class Aux1 extends Component {
                   }}
                   field3={{
                     name: 'LOx Inj PT Heater',
-                    field: 'loxInjectorHeaterCurrent',
+                    field: 'loxInjectorPTHeaterCurrent',
                     unit: '',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field4={{
                     name: 'Prop Tank PT Heater',
-                    field: 'propPTHeaterCurrent',
+                    field: 'fuelTankPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
@@ -354,7 +354,7 @@ class Aux1 extends Component {
                   }}
                   field6={{
                     name: 'Prop Inj PT Heater',
-                    field: 'propInjectorHeaterCurrent',
+                    field: 'fuelInjectorPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3

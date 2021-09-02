@@ -123,7 +123,7 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'propTankPT',
+                        name: 'fuelTankPT',
                         color: [0, 187, 0],
                         unit: 'PSI'
                       }
@@ -150,12 +150,12 @@ class Main extends Component {
                   }}
                   field4={{
                     name: 'Prop DOME',
-                    field: 'propDomePT',
+                    field: 'fuelDomePT',
                     unit: 'PSI'
                   }}
                   field5={{
                     name: 'Prop Expected Static',
-                    field: 'propExpectedStatic',
+                    field: 'fuelExpectedStatic',
                     unit: 'PSI'
                   }}
                   field6={{
@@ -183,7 +183,7 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'propInjectorPT',
+                        name: 'fuelInjectorPT',
                         color: [70, 1, 155],
                         unit: 'PSI'
                       }
@@ -237,17 +237,17 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'propTankBottomTC',
+                        name: 'fuelTankBottomTC',
                         color: [0, 126, 254],
                         unit: 'ºC'
                       },
                       {
-                        name: 'propTankMidTC',
+                        name: 'fuelTankMidTC',
                         color: [0, 187, 0],
                         unit: 'ºC'
                       },
                       {
-                        name: 'propTankTopTC',
+                        name: 'fuelTankTopTC',
                         color: [123, 35, 162],
                         unit: 'ºC'
                       }
