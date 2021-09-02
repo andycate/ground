@@ -86,17 +86,16 @@ class Aux2 extends Component {
                     threshold: 0.1
                   }}
                   field2={{
-                    name: 'LOx GEMS',
-                    field: 'loxGemsCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.1
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field3={{
-                    name: 'Prop GEMS',
-                    field: 'propGemsCurrent',
-                    unit: 'A',
-                    decimals: 2,
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0,
                     threshold: 0.1
                   }}
                   field4={{
@@ -107,14 +106,14 @@ class Aux2 extends Component {
                     threshold: 0.1
                   }}
                   field5={{
-                    name: 'LOx Main',
+                    name: 'LOX Main',
                     field: 'loxMainValveCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.1
                   }}
                   field6={{
-                    name: 'Prop Main',
+                    name: 'Fuel Main',
                     field: 'fuelMainValveCurrent',
                     unit: 'A',
                     decimals: 2,
@@ -125,25 +124,22 @@ class Aux2 extends Component {
               <Grid item xs={4}>
                 <SixValueSquare
                   field1={{
-                    name: 'HPS',
-                    field: 'HPSVoltage',
-                    unit: 'V',
-                    decimals: 1,
-                    threshold: 1.5
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0,
                   }}
                   field2={{
-                    name: 'LOx GEMS',
-                    field: 'loxGemsVoltage',
-                    unit: 'V',
-                    decimals: 0,
-                    threshold: 3
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field3={{
-                    name: 'Prop GEMS',
-                    field: 'propGemsVoltage',
-                    unit: 'V',
-                    decimals: 0,
-                    threshold: 3
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field4={{
                     name: 'ARM',
@@ -153,14 +149,14 @@ class Aux2 extends Component {
                     threshold: 3
                   }}
                   field5={{
-                    name: 'LOx Main',
+                    name: 'LOX Main',
                     field: 'loxMainValveVoltage',
                     unit: 'V',
                     decimals: 0,
                     threshold: 3
                   }}
                   field6={{
-                    name: 'Prop Main',
+                    name: 'Fuel Main',
                     field: 'fuelMainValveVoltage',
                     unit: 'V',
                     decimals: 0,
@@ -171,46 +167,43 @@ class Aux2 extends Component {
               <Grid item xs={4}>
                 <SixValueSquare
                   field1={{
-                    name: 'Pressurant Fill',
-                    field: 'pressurantFillRBVcurrent',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.5
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0,
                   }}
                   field2={{
-                    name: 'Prop Vent',
-                    field: 'propaneVentRBVcurrent',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.5
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field3={{
-                    name: 'Prop RQD-1',
-                    field: 'propaneRQD1current',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.5
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field4={{
-                    name: 'N2 Flow',
+                    name: 'Pressurant Flow',
                     field: 'pressurantFlowRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                   field5={{
-                    name: 'Prop Flow',
+                    name: 'Fuel Fill',
                     field: 'fuelFillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                   field6={{
-                    name: 'Prop RQD-2',
-                    field: 'propaneRQD2current',
-                    unit: 'A',
+                    name: '_',
+                    field: '',
+                    unit: '',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                 />
               </Grid>
@@ -239,67 +232,64 @@ class Aux2 extends Component {
                     threshold: 60
                   }}
                   field4={{
-                    name: '_changeme_',
-                    field: '_changeme_',
-                    unit: 'V',
-                    decimals: 0,
-                    threshold: 3
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field5={{
-                    name: '_changeme_',
-                    field: '_changeme_',
-                    unit: 'V',
-                    decimals: 0,
-                    threshold: 3
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field6={{
-                    name: '_changeme_',
-                    field: '_changeme_',
-                    unit: 'V',
-                    decimals: 0,
-                    threshold: 3
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                 />
               </Grid>
               <Grid item xs={4}>
                 <SixValueSquare
                   field1={{
-                    name: 'LOx Tank Top Heater',
+                    name: 'LOX Tank Top Heater',
                     field: 'loxTankTopHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field2={{
-                    name: 'LOx Tank Mid Heater',
+                    name: 'LOX Tank Mid Heater',
                     field: 'loxTankMidHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field3={{
-                    name: 'LOx Tank Bottom Heater',
+                    name: 'LOX Tank Bottom Heater',
                     field: 'loxTankBottomHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field4={{
-                    name: 'Prop Tank Top Heater',
+                    name: 'Fuel Tank Top Heater',
                     field: 'fuelTankTopHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field5={{
-                    name: 'Prop Tank Mid Heater',
+                    name: 'Fuel Tank Mid Heater',
                     field: 'fuelTankMidHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field6={{
-                    name: 'Prop Tank Bottom Heater',
+                    name: 'Fuel Tank Bottom Heater',
                     field: 'fuelTankBottomHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
@@ -314,47 +304,45 @@ class Aux2 extends Component {
                     field: 'loxTankVentRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                   field2={{
-                    name: 'LOx Vent',
-                    field: 'LOxVentRBVcurrent',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.5
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field3={{
-                    name: 'LOx RQD-1',
-                    field: 'LOxRQD1current',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.5
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field4={{
-                    name: 'Prop Tank Vent',
+                    name: 'Fuel Tank Vent',
                     field: 'fuelTankVentRBVcurrent',
                     unit: 'A',
-                    decimals: 1
+                    decimals: 1,
+                    threshold: 0.1
                   }}
                   field5={{
-                    name: 'LOx Flow',
+                    name: 'LOX Fill',
                     field: 'loxFillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                   field6={{
-                    name: 'LOx RQD-2',
-                    field: 'LOxRQD2current',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.5
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                 />
               </Grid>
 
               <Grid item xs={4}>
-                <Graph
+                {/* <Graph
                   fields={
                     [
                       {
@@ -364,7 +352,7 @@ class Aux2 extends Component {
                       },
                     ]
                   }
-                />
+                /> */}
               </Grid>
               <Grid item xs={4}>
                 <Graph
@@ -399,41 +387,41 @@ class Aux2 extends Component {
                     field: 'purgePrechillVentRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                   field2={{
                     name: 'Purge Flow',
                     field: 'purgeFlowRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                   field3={{
                     name: 'Pre-Chill Flow',
                     field: 'prechillFlowRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                   field4={{
-                    name: '_changeme_',
-                    field: '_changeme_',
-                    unit: 'A',
-                    decimals: 1
+                    name: '_',
+                    field: '',
+                    unit: '',
+                    decimals: 0
                   }}
                   field5={{
-                    name: 'LOx Prechill',
+                    name: 'LOX Prechill',
                     field: 'loxPrechillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                   field6={{
-                    name: 'Prop Prechill',
+                    name: 'Fuel Prechill',
                     field: 'fuelPrechillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
-                    threshold: 0.5
+                    threshold: 0.1
                   }}
                 />
               </Grid>

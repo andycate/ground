@@ -38,11 +38,11 @@ class Comms {
     this.openfuelMainValve = this.openfuelMainValve.bind(this);
     this.closefuelMainValve = this.closefuelMainValve.bind(this);
 
-    this.openLoxGems = this.openLoxGems.bind(this);
-    this.closeLoxGems = this.closeLoxGems.bind(this);
+    // this.openLoxGems = this.openLoxGems.bind(this);
+    // this.closeLoxGems = this.closeLoxGems.bind(this);
 
-    this.openPropGems = this.openPropGems.bind(this);
-    this.closePropGems = this.closePropGems.bind(this);
+    // this.openPropGems = this.openPropGems.bind(this);
+    // this.closePropGems = this.closePropGems.bind(this);
 
     this.enableHPS = this.enableHPS.bind(this);
     this.disableHPS = this.disableHPS.bind(this);
@@ -60,11 +60,11 @@ class Comms {
 
 
     this.setloxTankPTHeater = this.setloxTankPTHeater.bind(this);
-    this.setLoxGemsHeater = this.setLoxGemsHeater.bind(this);
+    // this.setLoxGemsHeater = this.setLoxGemsHeater.bind(this);
     this.setloxInjectorPTHeater = this.setloxInjectorPTHeater.bind(this);
 
     this.setfuelTankPTHeater = this.setfuelTankPTHeater.bind(this);
-    this.setPropGemsHeater = this.setPropGemsHeater.bind(this);
+    // this.setPropGemsHeater = this.setPropGemsHeater.bind(this);
     this.setfuelInjectorPTHeater = this.setfuelInjectorPTHeater.bind(this);
 
     //---------------DAQ 1---------------
@@ -81,13 +81,13 @@ class Comms {
     this.closePressurantFlowRBV = this.closePressurantFlowRBV.bind(this);
     this.timePressurantFlowRBV = this.timePressurantFlowRBV.bind(this);
 
-    this.openPressurantFillRBV = this.openPressurantFillRBV.bind(this);
-    this.closePressurantFillRBV = this.closePressurantFillRBV.bind(this);
-    this.timePressurantFillRBV = this.timePressurantFillRBV.bind(this);
+    // this.openPressurantFillRBV = this.openPressurantFillRBV.bind(this);
+    // this.closePressurantFillRBV = this.closePressurantFillRBV.bind(this);
+    // this.timePressurantFillRBV = this.timePressurantFillRBV.bind(this);
 
-    this.openLOxVentRBV = this.openLOxVentRBV.bind(this);
-    this.closeLOxVentRBV = this.closeLOxVentRBV.bind(this);
-    this.timeLOxVentRBV = this.timeLOxVentRBV.bind(this);
+    // this.openLOxVentRBV = this.openLOxVentRBV.bind(this);
+    // this.closeLOxVentRBV = this.closeLOxVentRBV.bind(this);
+    // this.timeLOxVentRBV = this.timeLOxVentRBV.bind(this);
 
     this.openloxTankVentRBV = this.openloxTankVentRBV.bind(this);
     this.closeloxTankVentRBV = this.closeloxTankVentRBV.bind(this);
@@ -97,9 +97,9 @@ class Comms {
     this.closeloxFillRBV = this.closeloxFillRBV.bind(this);
     this.timeloxFillRBV = this.timeloxFillRBV.bind(this);
 
-    this.openPressurantVentRBV = this.openPressurantVentRBV.bind(this);
-    this.closePressurantVentRBV = this.closePressurantVentRBV.bind(this);
-    this.timePressurantVentRBV = this.timePressurantVentRBV.bind(this);
+    // this.openPressurantVentRBV = this.openPressurantVentRBV.bind(this);
+    // this.closePressurantVentRBV = this.closePressurantVentRBV.bind(this);
+    // this.timePressurantVentRBV = this.timePressurantVentRBV.bind(this);
 
     //-------Actuator Controller 2-------
 
@@ -107,13 +107,13 @@ class Comms {
 
     this.setloxTankTopHeater = this.setloxTankTopHeater.bind(this);
 
-    this.openLOxRQD = this.openLOxRQD.bind(this);
-    this.closeLOxRQD = this.closeLOxRQD.bind(this);
-    this.timeLOxRQD = this.timeLOxRQD.bind(this);
+    // this.openLOxRQD = this.openLOxRQD.bind(this);
+    // this.closeLOxRQD = this.closeLOxRQD.bind(this);
+    // this.timeLOxRQD = this.timeLOxRQD.bind(this);
 
-    this.openPropaneVentRBV = this.openPropaneVentRBV.bind(this);
-    this.closePropaneVentRBV = this.closePropaneVentRBV.bind(this);
-    this.timePropaneVentRBV = this.timePropaneVentRBV.bind(this);
+    // this.openPropaneVentRBV = this.openPropaneVentRBV.bind(this);
+    // this.closePropaneVentRBV = this.closePropaneVentRBV.bind(this);
+    // this.timePropaneVentRBV = this.timePropaneVentRBV.bind(this);
 
     this.openfuelFillRBV = this.openfuelFillRBV.bind(this);
     this.closefuelFillRBV = this.closefuelFillRBV.bind(this);
@@ -123,9 +123,9 @@ class Comms {
     this.closefuelTankVentRBV = this.closefuelTankVentRBV.bind(this);
     this.timefuelTankVentRBV = this.timefuelTankVentRBV.bind(this);
 
-    this.openPropaneRQD = this.openPropaneRQD.bind(this);
-    this.closePropaneRQD = this.closePropaneRQD.bind(this);
-    this.timePropaneRQD = this.timePropaneRQD.bind(this);
+    // this.openPropaneRQD = this.openPropaneRQD.bind(this);
+    // this.closePropaneRQD = this.closePropaneRQD.bind(this);
+    // this.timePropaneRQD = this.timePropaneRQD.bind(this);
 
     //-------Actuator Controller 3-------
 
@@ -153,21 +153,20 @@ class Comms {
     this.closePurgeFlowRBV = this.closePurgeFlowRBV.bind(this);
     this.timePurgeFlowRBV = this.timePurgeFlowRBV.bind(this);
 
-    this.extendIgniterInserter = this.extendIgniterInserter.bind(this);
-    this.retractIgniterInserter = this.retractIgniterInserter.bind(this);
-    this.timeIgniterInserter = this.timeIgniterInserter.bind(this);
+    // this.extendIgniterInserter = this.extendIgniterInserter.bind(this);
+    // this.retractIgniterInserter = this.retractIgniterInserter.bind(this);
+    // this.timeIgniterInserter = this.timeIgniterInserter.bind(this);
 
   }
 
   stateUpdate(event, payload) {
     const { timestamp, update } = payload;
-    const mTimestamp = moment(timestamp);
     for(let k of Object.keys(update)) {
       const subs = this.subscribers[k];
       if(subs !== undefined) {
         const val = update[k];
         for(let s of subs) {
-          s(mTimestamp, val);
+          s(timestamp, val);
         }
       }
     }
@@ -244,11 +243,11 @@ class Comms {
   async openfuelMainValve() { return await this.ipc.invoke('open-fuelMainValve'); }
   async closefuelMainValve() { return await this.ipc.invoke('close-fuelMainValve'); }
 
-  async openLoxGems() { return await this.ipc.invoke('open-loxGems'); }
-  async closeLoxGems() { return await this.ipc.invoke('close-loxGems'); }
+  // async openLoxGems() { return await this.ipc.invoke('open-loxGems'); }
+  // async closeLoxGems() { return await this.ipc.invoke('close-loxGems'); }
 
-  async openPropGems() { return await this.ipc.invoke('open-propGems'); }
-  async closePropGems() { return await this.ipc.invoke('close-propGems'); }
+  // async openPropGems() { return await this.ipc.invoke('open-propGems'); }
+  // async closePropGems() { return await this.ipc.invoke('close-propGems'); }
 
   async enableHPS() { return await this.ipc.invoke('enable-HPS'); }
   async disableHPS() { return await this.ipc.invoke('disable-HPS'); }
@@ -271,11 +270,11 @@ class Comms {
   async hold() { return await this.ipc.invoke('hold'); }
 
   async setloxTankPTHeater(val) { return await this.ipc.invoke('set-loxTankPTHeater', val); }
-  async setLoxGemsHeater(val) { return await this.ipc.invoke('set-loxGemsHeater', val); }
+  // async setLoxGemsHeater(val) { return await this.ipc.invoke('set-loxGemsHeater', val); }
   async setloxInjectorPTHeater(val) { return await this.ipc.invoke('set-loxInjectorPTHeater', val); }
 
   async setfuelTankPTHeater(val) { return await this.ipc.invoke('set-fuelTankPTHeater', val); }
-  async setPropGemsHeater(val) { return await this.ipc.invoke('set-propGemsHeater', val); }
+  // async setPropGemsHeater(val) { return await this.ipc.invoke('set-propGemsHeater', val); }
   async setfuelInjectorPTHeater(val) { return await this.ipc.invoke('set-fuelInjectorPTHeater', val); }
 
   //---------------DAQ 1---------------
@@ -292,13 +291,13 @@ class Comms {
   async closePressurantFlowRBV() {return await this.ipc.invoke('close-pressurantFlowRBV'); }
   async timePressurantFlowRBV(val) {return await this.ipc.invoke('time-pressurantFlowRBV', val); }
 
-  async openPressurantFillRBV() {return await this.ipc.invoke('open-pressurantFillRBV'); }
-  async closePressurantFillRBV() {return await this.ipc.invoke('close-pressurantFillRBV'); }
-  async timePressurantFillRBV(val) {return await this.ipc.invoke('time-pressurantFillRBV', val); }
+  // async openPressurantFillRBV() {return await this.ipc.invoke('open-pressurantFillRBV'); }
+  // async closePressurantFillRBV() {return await this.ipc.invoke('close-pressurantFillRBV'); }
+  // async timePressurantFillRBV(val) {return await this.ipc.invoke('time-pressurantFillRBV', val); }
 
-  async openLOxVentRBV() {return await this.ipc.invoke('open-LOxVentRBV'); }
-  async closeLOxVentRBV() {return await this.ipc.invoke('close-LOxVentRBV'); }
-  async timeLOxVentRBV(val) {return await this.ipc.invoke('time-LOxVentRBV', val); }
+  // async openLOxVentRBV() {return await this.ipc.invoke('open-LOxVentRBV'); }
+  // async closeLOxVentRBV() {return await this.ipc.invoke('close-LOxVentRBV'); }
+  // async timeLOxVentRBV(val) {return await this.ipc.invoke('time-LOxVentRBV', val); }
 
   async openloxTankVentRBV() {return await this.ipc.invoke('open-loxTankVentRBV'); }
   async closeloxTankVentRBV() {return await this.ipc.invoke('close-loxTankVentRBV'); }
@@ -318,21 +317,21 @@ class Comms {
 
   async setloxTankTopHeater(val) {return await this.ipc.invoke('set-loxTankTopHeater', val); }
 
-  async openLOxRQD() {return await this.ipc.invoke('open-LOxRQD'); }
-  async closeLOxRQD() {return await this.ipc.invoke('close-LOxRQD'); }
-  async timeLOxRQD(val) {return await this.ipc.invoke('time-LOxRQD', val); }
+  // async openLOxRQD() {return await this.ipc.invoke('open-LOxRQD'); }
+  // async closeLOxRQD() {return await this.ipc.invoke('close-LOxRQD'); }
+  // async timeLOxRQD(val) {return await this.ipc.invoke('time-LOxRQD', val); }
 
-  async openPropaneVentRBV() {return await this.ipc.invoke('open-propaneVentRBV'); }
-  async closePropaneVentRBV() {return await this.ipc.invoke('close-propaneVentRBV'); }
-  async timePropaneVentRBV(val) {return await this.ipc.invoke('time-propaneVentRBV', val); }
+  // async openPropaneVentRBV() {return await this.ipc.invoke('open-propaneVentRBV'); }
+  // async closePropaneVentRBV() {return await this.ipc.invoke('close-propaneVentRBV'); }
+  // async timePropaneVentRBV(val) {return await this.ipc.invoke('time-propaneVentRBV', val); }
 
   async openfuelFillRBV() {return await this.ipc.invoke('open-fuelFillRBV'); }
   async closefuelFillRBV() {return await this.ipc.invoke('close-fuelFillRBV'); }
   async timefuelFillRBV(val) {return await this.ipc.invoke('time-fuelFillRBV', val); }
 
-  async openPropaneRQD() {return await this.ipc.invoke('open-propaneRQD'); }
-  async closePropaneRQD() {return await this.ipc.invoke('close-propaneRQD'); }
-  async timePropaneRQD(val) {return await this.ipc.invoke('time-propaneRQD', val); }
+  // async openPropaneRQD() {return await this.ipc.invoke('open-propaneRQD'); }
+  // async closePropaneRQD() {return await this.ipc.invoke('close-propaneRQD'); }
+  // async timePropaneRQD(val) {return await this.ipc.invoke('time-propaneRQD', val); }
 
   async openfuelTankVentRBV() {return await this.ipc.invoke('open-fuelTankVentRBV'); }
   async closefuelTankVentRBV() {return await this.ipc.invoke('close-fuelTankVentRBV'); }
@@ -364,9 +363,9 @@ class Comms {
   async closePurgeFlowRBV() {return await this.ipc.invoke('close-purgeFlowRBV'); }
   async timePurgeFlowRBV(val) {return await this.ipc.invoke('time-purgeFlowRBV', val); }
 
-  async extendIgniterInserter() {return await this.ipc.invoke('extend-igniterInserter')}
-  async retractIgniterInserter() {return await this.ipc.invoke('retract-igniterInserter')}
-  async timeIgniterInserter() {return await this.ipc.invoke('time-igniterInserter')}
+  // async extendIgniterInserter() {return await this.ipc.invoke('extend-igniterInserter')}
+  // async retractIgniterInserter() {return await this.ipc.invoke('retract-igniterInserter')}
+  // async timeIgniterInserter() {return await this.ipc.invoke('time-igniterInserter')}
 
 }
 

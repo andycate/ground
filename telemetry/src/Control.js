@@ -92,12 +92,12 @@ class Control extends Component {
               <Grid item={1} xs={4} className={classes.item}>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroup
-                      open={comms.openHPS}
-                      close={comms.closeHPS}
-                      field='HPS'
-                      text='Pressurant'
-                      disabled={!this.state.HPS_en}
+                    <ButtonGroupRBVTimed
+                      open={comms.openPressurantFlowRBV}
+                      close={comms.closePressurantFlowRBV}
+                      time={comms.timePressurantFlowRBV}
+                      field='pressurantFlowRBVstate'
+                      text='Pressurant Flow RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
@@ -112,19 +112,21 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroup
-                      open={comms.openLoxGems}
-                      close={comms.closeLoxGems}
-                      field='loxGems'
-                      text='LOX GEMS'
+                    <ButtonGroupRBVTimed
+                      open={comms.openloxTankVentRBV}
+                      close={comms.closeloxTankVentRBV}
+                      time={comms.timeloxTankVentRBV}
+                      field='loxTankVentRBVstate'
+                      text='LOX Tank Vent RBV'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
-                    <ButtonGroup
-                      open={comms.openPropGems}
-                      close={comms.closePropGems}
-                      field='propGems'
-                      text='Prop GEMS'
+                    <ButtonGroupRBVTimed
+                      open={comms.openfuelTankVentRBV}
+                      close={comms.closefuelTankVentRBV}
+                      time={comms.timefuelTankVentRBV}
+                      field='fuelTankVentRBVstate'
+                      text='Fuel Tank Vent RBV'
                     />
                   </Grid>
                 </Grid>
@@ -157,7 +159,7 @@ class Control extends Component {
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
+                  {/* <Grid item={1} xs={6}>
                     <ButtonGroupFlow
                       open={comms.extendIgniterInserter}
                       close={comms.retractIgniterInserter}
@@ -166,7 +168,7 @@ class Control extends Component {
                       successText='Extend'
                       failText='Retract'
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid item={1} xs={6}>
                     <ButtonGroupFlow
                       open={comms.activateIgniter}
@@ -178,9 +180,7 @@ class Control extends Component {
                       onActuateCallback={this.playUpdog}
                     />
                   </Grid>
-                </Grid>
-                <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={12}>
+                  <Grid item={1} xs={6}>
                     <ButtonGroupFlow
                       open={comms.beginFlowAll}
                       close={comms.endFlow}
@@ -190,6 +190,17 @@ class Control extends Component {
                     />
                   </Grid>
                 </Grid>
+                {/* <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <ButtonGroupFlow
+                      open={comms.beginFlowAll}
+                      close={comms.endFlow}
+                      field='flowState' // change this?
+                      text='Begin Flow'
+                      disabled={!this.state.HPS_en}
+                    />
+                  </Grid>
+                </Grid> */}
               </Grid>
               {/* START OF SECOND BUTTON COLUMN */}
               <Grid item={1} xs={4} className={classes.item}>
@@ -209,7 +220,7 @@ class Control extends Component {
                       close={comms.closeloxPrechillRBV}
                       time={comms.timeloxPrechillRBV}
                       field='loxPrechillRBVstate'
-                      text='LOx Prechill RBV'
+                      text='LOX Prechill RBV'
                     />
                   </Grid>
                 </Grid>
@@ -229,7 +240,7 @@ class Control extends Component {
                       close={comms.closefuelPrechillRBV}
                       time={comms.timefuelPrechillRBV}
                       field='fuelPrechillRBVstate'
-                      text='Propane Prechill RBV'
+                      text='Fuel Prechill RBV'
                     />
                   </Grid>
                 </Grid>
@@ -272,7 +283,7 @@ class Control extends Component {
               {/* START OF THIRD BUTTON COLUMN */}
               <Grid item={1} xs={4} className={classes.item}>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
+                  {/* <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openPressurantFillRBV}
                       close={comms.closePressurantFillRBV}
@@ -280,8 +291,8 @@ class Control extends Component {
                       field='pressurantFillRBVstate'
                       text='N2 Fill RBV'
                     />
-                  </Grid>
-                  <Grid item={1} xs={6}>
+                  </Grid> */}
+                  {/* <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openPressurantFlowRBV}
                       close={comms.closePressurantFlowRBV}
@@ -289,10 +300,10 @@ class Control extends Component {
                       field='pressurantFlowRBVstate'
                       text='Pressurant Flow RBV'
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
+                  {/* <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openloxTankVentRBV}
                       close={comms.closeloxTankVentRBV}
@@ -300,19 +311,19 @@ class Control extends Component {
                       field='loxTankVentRBVstate'
                       text='LOX Tank Vent RBV'
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openloxFillRBV}
                       close={comms.closeloxFillRBV}
                       time={comms.timeloxFillRBV}
                       field='loxFillRBVstate'
-                      text='LOX Flow RBV'
+                      text='LOX Fill RBV'
                     />
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
+                  {/* <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openLOxVentRBV}
                       close={comms.closeLOxVentRBV}
@@ -330,11 +341,11 @@ class Control extends Component {
                       text='LOX RQD'
                       noClose
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
 
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
+                  {/* <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openfuelTankVentRBV}
                       close={comms.closefuelTankVentRBV}
@@ -342,19 +353,19 @@ class Control extends Component {
                       field='fuelTankVentRBVstate'
                       text='Prop Tank Vent RBV'
                     />
-                  </Grid>
+                  </Grid> */}
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openfuelFillRBV}
                       close={comms.closefuelFillRBV}
                       time={comms.timefuelFillRBV}
                       field='fuelFillRBVstate'
-                      text='Prop Flow RBV'
+                      text='Fuel Fill RBV'
                     />
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
+                  {/* <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openPropaneVentRBV}
                       close={comms.closePropaneVentRBV}
@@ -372,7 +383,7 @@ class Control extends Component {
                       text='Propane RQD'
                       noClose
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </Grid>
               {/* START OF PROCEDURE COLUMN */}
@@ -385,19 +396,19 @@ class Control extends Component {
                 <Grid container spacing={1} direction='column'>
                   <Grid item>
                     <ButtonGroupHeater
-                      text='LOx Tank Top Heater'
+                      text='LOX Tank Top Heater'
                       sendDuty={comms.setloxTankTopHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
-                      text='LOx Tank Middle Heater'
+                      text='LOX Tank Middle Heater'
                       sendDuty={comms.setloxTankMidHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
-                      text='LOx Tank Bottom Heater'
+                      text='LOX Tank Bottom Heater'
                       sendDuty={comms.setloxTankBottomHeater}
                     />
                   </Grid>
@@ -407,19 +418,19 @@ class Control extends Component {
                 <Grid container spacing={1} direction='column'>
                   <Grid item>
                     <ButtonGroupHeater
-                      text='Propane Tank Top Heater'
+                      text='Fuel Tank Top Heater'
                       sendDuty={comms.setfuelTankTopHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
-                      text='Propane Tank Middle Heater'
+                      text='Fuel Tank Middle Heater'
                       sendDuty={comms.setfuelTankMidHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
-                      text='Propane Tank Bottom Heater'
+                      text='Fuel Tank Bottom Heater'
                       sendDuty={comms.setfuelTankBottomHeater}
                     />
                   </Grid>
@@ -429,19 +440,13 @@ class Control extends Component {
                 <Grid container spacing={1} direction='column'>
                   <Grid item>
                     <ButtonGroupHeaterCtrlLoop
-                      text='LOx PT Heater'
+                      text='LOX Tank PT Heater'
                       sendDuty={comms.setloxTankPTHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeaterCtrlLoop
-                      text='LOx GEMs Heater'
-                      sendDuty={comms.setLoxGemsHeater}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroupHeaterCtrlLoop
-                      text='LOx Injector PT Heater'
+                      text='LOX Injector PT Heater'
                       sendDuty={comms.setloxInjectorPTHeater}
                     />
                   </Grid>
@@ -451,19 +456,13 @@ class Control extends Component {
                 <Grid container spacing={1} direction='column'>
                   <Grid item>
                     <ButtonGroupHeaterCtrlLoop
-                      text='Propane PT Heater'
+                      text='Fuel Tank PT Heater'
                       sendDuty={comms.setfuelTankPTHeater}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeaterCtrlLoop
-                      text='Propane GEMs Heater'
-                      sendDuty={comms.setPropGemsHeater}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroupHeaterCtrlLoop
-                      text='Propane Injector PT Heater'
+                      text='Fuel Injector PT Heater'
                       sendDuty={comms.setfuelInjectorPTHeater}
                     />
                   </Grid>

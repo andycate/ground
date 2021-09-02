@@ -134,12 +134,12 @@ class Main extends Component {
               <Grid item={1} xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
-                    name: 'LOx DOME',
+                    name: 'LOX DOME',
                     field: 'loxDomePT',
                     unit: 'PSI'
                   }}
                   field2={{
-                    name: 'LOx Expected Static',
+                    name: 'LOX Expected Static',
                     field: 'loxExpectedStatic',
                     unit: 'PSI'
                   }}
@@ -149,12 +149,12 @@ class Main extends Component {
                     unit: 'ºC'
                   }}
                   field4={{
-                    name: 'Prop DOME',
+                    name: 'Fuel DOME',
                     field: 'fuelDomePT',
                     unit: 'PSI'
                   }}
                   field5={{
-                    name: 'Prop Expected Static',
+                    name: 'Fuel Expected Static',
                     field: 'fuelExpectedStatic',
                     unit: 'PSI'
                   }}
@@ -192,7 +192,7 @@ class Main extends Component {
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                <Graph
+                {/* <Graph
                   fields={
                     [
                       {
@@ -207,7 +207,7 @@ class Main extends Component {
                       },
                     ]
                   }
-                />
+                /> */}
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph

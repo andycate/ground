@@ -139,11 +139,11 @@ class Aux1 extends Component {
                         color: [123, 35, 162],
                         unit: 'degC'
                       },
-                      {
-                        name: 'loxGemsTemp', // lox gems temp
-                        color: [0, 126, 254],
-                        unit: 'degC'
-                      },
+                      // {
+                      //   name: 'loxGemsTemp', // lox gems temp
+                      //   color: [0, 126, 254],
+                      //   unit: 'degC'
+                      // },
                     ]
                   }
                 />
@@ -157,11 +157,11 @@ class Aux1 extends Component {
                         color: [0, 126, 254],
                         unit: 'degC'
                       },
-                      {
-                        name: 'propGemsTemp', // prop gems temp
-                        color: [0, 187, 0],
-                        unit: 'degC'
-                      },
+                      // {
+                      //   name: 'propGemsTemp', // prop gems temp
+                      //   color: [0, 187, 0],
+                      //   unit: 'degC'
+                      // },
                     ]
                   }
                 />
@@ -233,31 +233,31 @@ class Aux1 extends Component {
                     decimals: 0
                   }}
                   field2={{
-                    name: 'LOx GEMS Heater',
-                    field: 'loxGemsHeaterVoltage',
-                    unit: 'V',
+                    name: '_',
+                    field: '',
+                    unit: '',
                     decimals: 0
                   }}
                   field3={{
-                    name: 'LOx Inj PT Heater',
+                    name: 'LOX Inj PT Heater',
                     field: 'loxInjectorPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
                   field4={{
-                    name: 'Prop Tank PT Heater',
+                    name: 'Fuel Tank PT Heater',
                     field: 'fuelTankPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
                   field5={{
-                    name: 'Prop GEMS Heater',
-                    field: 'propGemsHeaterVoltage',
-                    unit: 'V',
+                    name: '_',
+                    field: '',
+                    unit: '',
                     decimals: 0
                   }}
                   field6={{
-                    name: 'Prop Inj PT Heater',
+                    name: 'Fuel Inj PT Heater',
                     field: 'fuelInjectorPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
@@ -270,21 +270,16 @@ class Aux1 extends Component {
                     [
                       {
                         name: 'engineTC1', // engine temp 1
-                        color: [123, 35, 162],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineTC2', // engine temp 2
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC3', // engine temp 3
+                        name: 'engineTC2', // engine temp 2
                         color: [0, 127, 254],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC4', // engine temp 4
+                        name: 'engineTC3', // engine temp 3
                         color: [0, 187, 0],
                         unit: 'degC'
                       },
@@ -297,17 +292,17 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'engineTC5', // engine temp 4
+                        name: 'engineTC4', // engine temp 4
                         color: [123, 35, 162],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC6', // engine temp 5
+                        name: 'engineTC5', // engine temp 5
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC7', // engine temp 6
+                        name: 'engineTC6', // engine temp 6
                         color: [0, 127, 254],
                         unit: 'degC'
                       },
@@ -322,42 +317,42 @@ class Aux1 extends Component {
                     field: 'loxTankPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                   field2={{
-                    name: 'LOx GEMS Heater',
-                    field: 'loxGemsHeaterCurrent',
-                    unit: 'A',
+                    name: '_',
+                    field: '',
+                    unit: '',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                   field3={{
-                    name: 'LOx Inj PT Heater',
+                    name: 'LOX Inj PT Heater',
                     field: 'loxInjectorPTHeaterCurrent',
                     unit: '',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                   field4={{
-                    name: 'Prop Tank PT Heater',
+                    name: 'Fuel Tank PT Heater',
                     field: 'fuelTankPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                   field5={{
-                    name: 'Prop GEMS Heater',
-                    field: 'propGemsHeaterCurrent',
-                    unit: 'A',
+                    name: '_',
+                    field: '',
+                    unit: '',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                   field6={{
-                    name: 'Prop Inj PT Heater',
+                    name: 'Fuel Inj PT Heater',
                     field: 'fuelInjectorPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                 />
               </Grid>
