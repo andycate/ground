@@ -200,7 +200,7 @@ class Aux2 extends Component {
                   }}
                   field5={{
                     name: 'Prop Flow',
-                    field: 'propaneFlowRBVcurrent',
+                    field: 'fuelFillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
                     threshold: 0.5
@@ -265,42 +265,42 @@ class Aux2 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank Top Heater',
-                    field: 'LOxTankTopHeaterCurrent',
+                    field: 'loxTankTopHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field2={{
                     name: 'LOx Tank Mid Heater',
-                    field: 'LOxTankMidHeaterCurrent',
+                    field: 'loxTankMidHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field3={{
                     name: 'LOx Tank Bottom Heater',
-                    field: 'LOxTankBottomHeaterCurrent',
+                    field: 'loxTankBottomHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field4={{
                     name: 'Prop Tank Top Heater',
-                    field: 'propTankTopHeaterCurrent',
+                    field: 'fuelTankTopHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field5={{
                     name: 'Prop Tank Mid Heater',
-                    field: 'propTankMidHeaterCurrent',
+                    field: 'fuelTankMidHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field6={{
                     name: 'Prop Tank Bottom Heater',
-                    field: 'propTankBottomHeaterCurrent',
+                    field: 'fuelTankBottomHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
@@ -311,7 +311,7 @@ class Aux2 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank Vent',
-                    field: 'LOxTankVentRBVcurrent',
+                    field: 'loxTankVentRBVcurrent',
                     unit: 'A',
                     decimals: 1,
                     threshold: 0.5
@@ -332,13 +332,13 @@ class Aux2 extends Component {
                   }}
                   field4={{
                     name: 'Prop Tank Vent',
-                    field: 'propaneTankVentRBVcurrent',
+                    field: 'fuelTankVentRBVcurrent',
                     unit: 'A',
                     decimals: 1
                   }}
                   field5={{
                     name: 'LOx Flow',
-                    field: 'LOxFlowRBVcurrent',
+                    field: 'loxFillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
                     threshold: 0.5
@@ -423,14 +423,14 @@ class Aux2 extends Component {
                   }}
                   field5={{
                     name: 'LOx Prechill',
-                    field: 'LOxPrechillRBVcurrent',
+                    field: 'loxPrechillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
                     threshold: 0.5
                   }}
                   field6={{
                     name: 'Prop Prechill',
-                    field: 'propanePrechillRBVcurrent',
+                    field: 'fuelPrechillRBVcurrent',
                     unit: 'A',
                     decimals: 1,
                     threshold: 0.5

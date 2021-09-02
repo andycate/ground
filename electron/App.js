@@ -34,7 +34,7 @@ class App {
       lc0: 'thrust1',
       lc1: 'thrust2',
       lcSum: 'totalThrust',
-      lc2: 'propaneSourceTankKg',
+      // lc2: 'propaneSourceTankKg',
       tcVal0: 'loxTankMidTC',
       tcVal1: 'engineTC5',
       tcVal2: 'engineTC6',
@@ -74,36 +74,36 @@ class App {
     this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
       ch12v0Current: null, // these dont work currently
       ch12v1Current: null, // ^^^
-      ch24v0Current: 'propTankBottomHeaterCurrent',
-      ch24v1Current: 'LOxTankTopHeaterCurrent',
+      ch24v0Current: 'fuelTankBottomHeaterCurrent',
+      ch24v1Current: 'loxTankTopHeaterCurrent',
       ch12v0State: null, // dont work
       ch12v1State: null, // ^^^
-      ch24v0State: 'propTankBottomHeaterVal',
+      ch24v0State: 'fuelTankBottomHeaterVal',
       ch24v1State: 'loxTankTopHeaterVal',
       voltage: 'ac1Voltage',
       power: 'ac1Power',
       currentDraw: 'ac1CurrentDraw',
       act0Current: 'pressurantFlowRBVcurrent',
-      act1Current: 'propaneFlowRBVcurrent',
+      act1Current: 'fuelFillRBVcurrent',
       act2Current: null,
-      act3Current: 'LOxTankVentRBVcurrent',
-      act4Current: 'LOxFlowRBVcurrent',
+      act3Current: 'loxTankVentRBVcurrent',
+      act4Current: 'loxFillRBVcurrent',
       act5Current: null,
-      act6Current: 'propaneTankVentRBVcurrent',
+      act6Current: 'fuelTankVentRBVcurrent',
       ch0State: 'pressurantFlowRBVchState',
-      ch1State: 'propaneFlowRBVchState',
+      ch1State: 'fuelFillRBVchState',
       ch2State: null,
-      ch3State: 'LOxTankVentRBVchState',
-      ch4State: 'LOxFlowRBVchState',
+      ch3State: 'loxTankVentRBVchState',
+      ch4State: 'loxFillRBVchState',
       ch5State: null,
-      ch6State: 'propaneTankVentRBVchState',
+      ch6State: 'fuelTankVentRBVchState',
       act0State: 'pressurantFlowRBVstate',
-      act1State: 'propaneFlowRBVstate',
+      act1State: 'fuelFillRBVstate',
       act2State: null,
-      act3State: 'LOxTankVentRBVstate',
-      act4State: 'LOxFlowRBVstate',
+      act3State: 'loxTankVentRBVstate',
+      act4State: 'loxFillRBVstate',
       act5State: null,
-      act6State: 'propaneTankVentRBVstate',
+      act6State: 'fuelTankVentRBVstate',
       packetCounter: 'actCtrlr1packetCounter'
     },
     () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
@@ -112,12 +112,12 @@ class App {
     this.actCtrlr2 = new ActuatorController(this.port, '10.0.0.22', {
       ch12v0Current: null,
       ch12v1Current: null,
-      ch24v0Current: 'propTankTopHeaterCurrent',
-      ch24v1Current: 'propTankMidHeaterCurrent',
+      ch24v0Current: 'fuelTankTopHeaterCurrent',
+      ch24v1Current: 'fuelTankMidHeaterCurrent',
       ch12v0State: null,
       ch12v1State: null,
-      ch24v0State: 'propTankTopHeaterVal',
-      ch24v1State: 'propTankMidHeaterVal',
+      ch24v0State: 'fuelTankTopHeaterVal',
+      ch24v1State: 'fuelTankMidHeaterVal',
       voltage: 'ac2Voltage',
       power: 'ac2Power',
       currentDraw: 'ac2CurrentDraw',
@@ -155,33 +155,33 @@ class App {
     this.actCtrlr3 = new ActuatorController(this.port, '10.0.0.23', {
       ch12v0Current: null,
       ch12v1Current: null,
-      ch24v0Current: 'LOxTankBottomHeaterCurrent',
-      ch24v1Current: 'LOxTankMidHeaterCurrent',
+      ch24v0Current: 'loxTankBottomHeaterCurrent',
+      ch24v1Current: 'loxTankMidHeaterCurrent',
       ch12v0State: null,
       ch12v1State: null,
-      ch24v0State: 'LOxTankBottomHeaterVal',
-      ch24v1State: 'LOxTankMidHeaterVal',
+      ch24v0State: 'loxTankBottomHeaterVal',
+      ch24v1State: 'loxTankMidHeaterVal',
       voltage: 'ac3Voltage',
       power: 'ac3Power',
       currentDraw: 'ac3CurrentDraw',
-      act0Current: 'LOxPrechillRBVcurrent',
+      act0Current: 'loxPrechillRBVcurrent',
       act1Current: 'purgePrechillVentRBVcurrent',
       act2Current: 'prechillFlowRBVcurrent',
-      act3Current: 'propanePrechillRBVcurrent',
+      act3Current: 'fuelPrechillRBVcurrent',
       act4Current: 'purgeFlowRBVcurrent',
       act5Current: null,
       act6Current: null,
-      ch0State: 'LOxPrechillRBVchState',
+      ch0State: 'loxPrechillRBVchState',
       ch1State: 'purgePrechillVentRBVchState',
       ch2State: 'prechillFlowRBVchState',
-      ch3State: 'propanePrechillRBVchState',
+      ch3State: 'fuelPrechillRBVchState',
       ch4State: 'purgeFlowRBVchState',
       ch5State: null,
       ch6State: null,
-      act0State: 'LOxPrechillRBVstate',
+      act0State: 'loxPrechillRBVstate',
       act1State: 'purgePrechillVentRBVstate',
       act2State: 'prechillFlowRBVstate',
-      act3State: 'propanePrechillRBVstate',
+      act3State: 'fuelPrechillRBVstate',
       act4State: 'purgeFlowRBVstate',
       act5State: null,
       act6State: null,
@@ -343,43 +343,43 @@ class App {
 
     // Actuator Controller 1
 
-    this.addIPC('set-propTankBottomHeater', (e, val) => this.actCtrlr1.setHeater24vCh0(val));
+    this.addIPC('set-fuelTankBottomHeater', (e, val) => this.actCtrlr1.setHeater24vCh0(val));
 
-    this.addIPC('set-LOxTankTopHeater', (e, val) => this.actCtrlr1.setHeater24vCh1(val));
+    this.addIPC('set-loxTankTopHeater', (e, val) => this.actCtrlr1.setHeater24vCh1(val));
 
     this.addIPC('open-pressurantFlowRBV', this.actCtrlr1.openActCh0);
     this.addIPC('close-pressurantFlowRBV', this.actCtrlr1.closeActCh0);
     this.addIPC('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
 
-    this.addIPC('open-propaneFlowRBV', this.actCtrlr1.openActCh1);
-    this.addIPC('close-propaneFlowRBV', this.actCtrlr1.closeActCh1);
-    this.addIPC('time-propaneFlowRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
+    this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
+    this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
+    this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
     // this.addIPC('open-LOxVentRBV', this.actCtrlr1.openActCh2);
     // this.addIPC('close-LOxVentRBV', this.actCtrlr1.closeActCh2);
     // this.addIPC('time-LOxVentRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
 
-    this.addIPC('open-LOxTankVentRBV', this.actCtrlr1.openActCh3);
-    this.addIPC('close-LOxTankVentRBV', this.actCtrlr1.closeActCh3);
-    this.addIPC('time-LOxTankVentRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
+    this.addIPC('open-loxTankVentRBV', this.actCtrlr1.openActCh3);
+    this.addIPC('close-loxTankVentRBV', this.actCtrlr1.closeActCh3);
+    this.addIPC('time-loxTankVentRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
 
-    this.addIPC('open-LOxFlowRBV', this.actCtrlr1.openActCh4);
-    this.addIPC('close-LOxFlowRBV', this.actCtrlr1.closeActCh4);
-    this.addIPC('time-LOxFlowRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
+    this.addIPC('open-loxFillRBV', this.actCtrlr1.openActCh4);
+    this.addIPC('close-loxFillRBV', this.actCtrlr1.closeActCh4);
+    this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
 
     // this.addIPC('open-pressurantVentRBV', this.actCtrlr1.openActCh5);
     // this.addIPC('close-pressurantVentRBV', this.actCtrlr1.closeActCh5);
     // this.addIPC('time-pressurantVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
 
-    this.addIPC('open-propaneTankVentRBV', this.actCtrlr1.openActCh6);
-    this.addIPC('close-propaneTankVentRBV', this.actCtrlr1.closeActCh6);
-    this.addIPC('time-propaneTankVentRBV', (e, val) => this.actCtrlr1.actCh6ms(val));
+    this.addIPC('open-fuelTankVentRBV', this.actCtrlr1.openActCh6);
+    this.addIPC('close-fuelTankVentRBV', this.actCtrlr1.closeActCh6);
+    this.addIPC('time-fuelTankVentRBV', (e, val) => this.actCtrlr1.actCh6ms(val));
 
     // Actuator Controller 2
 
-    this.addIPC('set-propTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh0(val));
+    this.addIPC('set-fuelTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh0(val));
 
-    this.addIPC('set-propTankMidHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
+    this.addIPC('set-fuelTankMidHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
 
     // this.addIPC('open-LOxRQD', () => { this.actCtrlr2.openActCh0(); this.actCtrlr2.openActCh1() });
     // this.addIPC('close-LOxRQD', () => { this.actCtrlr2.closeActCh0(); this.actCtrlr2.closeActCh1() });
@@ -389,9 +389,9 @@ class App {
     // this.addIPC('close-propaneVentRBV', this.actCtrlr2.closeActCh2);
     // this.addIPC('time-propaneVentRBV', (e, val) => this.actCtrlr2.actCh2ms(val));
 
-    // this.addIPC('open-propaneFlowRBV', this.actCtrlr2.openActCh3);
-    // this.addIPC('close-propaneFlowRBV', this.actCtrlr2.closeActCh3);
-    // this.addIPC('time-propaneFlowRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
+    // this.addIPC('open-fuelFillRBV', this.actCtrlr2.openActCh3);
+    // this.addIPC('close-fuelFillRBV', this.actCtrlr2.closeActCh3);
+    // this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
 
     // this.addIPC('open-propaneRQD', () => { this.actCtrlr2.openActCh4(); this.actCtrlr2.openActCh5() });
     // this.addIPC('close-propaneRQD', () => { this.actCtrlr2.closeActCh4(); this.actCtrlr2.closeActCh5() });
@@ -401,19 +401,19 @@ class App {
     // this.addIPC('close-propaneRQD2', this.actCtrlr2.closeActCh5);
     // this.addIPC('time-propaneRQD2', (e, val) => this.actCtrlr2.actCh5ms(val));
 
-    // this.addIPC('open-propaneTankVentRBV', this.actCtrlr2.openActCh6);
-    // this.addIPC('close-propaneTankVentRBV', this.actCtrlr2.closeActCh6);
-    // this.addIPC('time-propaneTankVentRBV', (e, val) => this.actCtrlr2.actCh6ms(val));
+    // this.addIPC('open-fuelTankVentRBV', this.actCtrlr2.openActCh6);
+    // this.addIPC('close-fuelTankVentRBV', this.actCtrlr2.closeActCh6);
+    // this.addIPC('time-fuelTankVentRBV', (e, val) => this.actCtrlr2.actCh6ms(val));
 
     // Actuator Controller 3
 
-    this.addIPC('set-LOxTankBottomHeater', (e, val) => this.actCtrlr3.setHeater24vCh0(val));
+    this.addIPC('set-loxTankBottomHeater', (e, val) => this.actCtrlr3.setHeater24vCh0(val));
 
-    this.addIPC('set-LOxTankMidHeater', (e, val) => this.actCtrlr3.setHeater24vCh1(val));
+    this.addIPC('set-loxTankMidHeater', (e, val) => this.actCtrlr3.setHeater24vCh1(val));
 
-    this.addIPC('open-LOxPrechillRBV', this.actCtrlr3.openActCh0);
-    this.addIPC('close-LOxPrechillRBV', this.actCtrlr3.closeActCh0);
-    this.addIPC('time-LOxPrechillRBV', (e, val) => this.actCtrlr3.actCh0ms(val));
+    this.addIPC('open-loxPrechillRBV', this.actCtrlr3.openActCh0);
+    this.addIPC('close-loxPrechillRBV', this.actCtrlr3.closeActCh0);
+    this.addIPC('time-loxPrechillRBV', (e, val) => this.actCtrlr3.actCh0ms(val));
 
     this.addIPC('open-purgePrechillVentRBV', this.actCtrlr3.openActCh1);
     this.addIPC('close-purgePrechillVentRBV', this.actCtrlr3.closeActCh1);
@@ -423,9 +423,9 @@ class App {
     this.addIPC('close-prechillFlowRBV', this.actCtrlr3.closeActCh2);
     this.addIPC('time-prechillFlowRBV', (e, val) => this.actCtrlr3.actCh2ms(val));
 
-    this.addIPC('open-propanePrechillRBV', this.actCtrlr3.openActCh3);
-    this.addIPC('close-propanePrechillRBV', this.actCtrlr3.closeActCh3);
-    this.addIPC('time-propanePrechillRBV', (e, val) => this.actCtrlr3.actCh3ms(val));
+    this.addIPC('open-fuelPrechillRBV', this.actCtrlr3.openActCh3);
+    this.addIPC('close-fuelPrechillRBV', this.actCtrlr3.closeActCh3);
+    this.addIPC('time-fuelPrechillRBV', (e, val) => this.actCtrlr3.actCh3ms(val));
 
     this.addIPC('open-purgeFlowRBV', this.actCtrlr3.openActCh4);
     this.addIPC('close-purgeFlowRBV', this.actCtrlr3.closeActCh4);
