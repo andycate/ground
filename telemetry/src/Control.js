@@ -186,7 +186,6 @@ class Control extends Component {
                       close={comms.endFlow}
                       field='flowState' // change this?
                       text='Begin Flow'
-                      disabled={!this.state.HPS_en}
                     />
                   </Grid>
                 </Grid>
