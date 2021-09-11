@@ -382,9 +382,9 @@ class App {
     this.addIPC('set-fuelTankMidHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
 
 
-    this.addIPC('open-pressurantFillRBV', this.actCtrlr1.openActCh6);
-    this.addIPC('close-pressurantFillRBV', this.actCtrlr1.closeActCh6);
-    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh6ms(val));
+    this.addIPC('open-pressurantFillRBV', this.actCtrlr2.openActCh6);
+    this.addIPC('close-pressurantFillRBV', this.actCtrlr2.closeActCh6);
+    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr2.actCh6ms(val));
 
 
     // this.addIPC('open-LOxRQD', () => { this.actCtrlr2.openActCh0(); this.actCtrlr2.openActCh1() });
