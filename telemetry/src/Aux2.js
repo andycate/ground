@@ -179,10 +179,11 @@ class Aux2 extends Component {
                     decimals: 0
                   }}
                   field3={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 0
+                    name: 'Pressurant Fill',
+                    field: 'pressurantFillRBVcurrent',
+                    unit: 'A',
+                    decimals: 1,
+                    threshold: 0.1
                   }}
                   field4={{
                     name: 'Pressurant Flow',

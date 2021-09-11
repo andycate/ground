@@ -55,6 +55,8 @@ class ButtonGroupHeater extends Component {
 
     this.handleDutyChange = this.handleDutyChange.bind(this);
     this.setDuty = this.setDuty.bind(this);
+    this.setDutyOn = this.setDutyOn.bind(this);
+    this.setDutyOff = this.setDutyOff.bind(this);
   }
 
   handleDutyChange(e) {
@@ -65,6 +67,19 @@ class ButtonGroupHeater extends Component {
     const { duty } = this.state;
     const { sendDuty } = this.props;
     sendDuty(duty);
+  }
+
+  setDutyOn() {
+    const { sendDuty } = this.props;
+    sendDuty(255);
+    this.setState({duty: 255});
+  }
+
+  setDutyOff() {
+    const { duty } = this.state;
+    const { sendDuty } = this.props;
+    sendDuty(0);
+    this.setState({duty: 0});
   }
 
   // componentDidMount() {
@@ -88,24 +103,38 @@ class ButtonGroupHeater extends Component {
         {/* <Grid item xs={12}>
           <Box borderRadius={4} {...statusBox} bgcolor={sColor}/>
         </Grid> */}
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <TextField
             type='number'
             label='duty cycle'
             value={duty}
             onChange={this.handleDutyChange}
           />
+        </Grid> */}
+        <Grid item xs={6}>
+          <Button
+            color='secondary'
+            variant='contained'
+            onClick={this.setDutyOff}
+            className={this.state.duty === 0 ? classes.closeButton : classes.closeButtonOutline}
+            disabled={this.props.disabled || false}
+            disableRipple
+            size='small'
+          >
+            Turn Off
+          </Button>
         </Grid>
         <Grid item xs={6}>
           <Button
             color='primary'
             variant='contained'
-            onClick={this.setDuty}
+            className={this.state.duty === 255 ? classes.openButton : classes.openButtonOutline}
+            onClick={this.setDutyOn}
             disabled={this.props.disabled || false}
             disableRipple
             size='small'
           >
-            Send
+            Turn On
           </Button>
         </Grid>
       </Grid>

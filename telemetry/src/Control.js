@@ -282,7 +282,7 @@ class Control extends Component {
               {/* START OF THIRD BUTTON COLUMN */}
               <Grid item={1} xs={4} className={classes.item}>
                 <Grid container={true} spacing={1}>
-                  {/* <Grid item={1} xs={6}>
+                  <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openPressurantFillRBV}
                       close={comms.closePressurantFillRBV}
@@ -290,7 +290,7 @@ class Control extends Component {
                       field='pressurantFillRBVstate'
                       text='N2 Fill RBV'
                     />
-                  </Grid> */}
+                  </Grid>
                   {/* <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openPressurantFlowRBV}

@@ -128,7 +128,7 @@ class App {
       act3Current: null,
       act4Current: null,
       act5Current: null,
-      act6Current: null,
+      act6Current: 'pressurantFillRBVcurrent',
 
       ch0State: null,
       ch1State: null,
@@ -136,7 +136,7 @@ class App {
       ch3State: null,
       ch4State: null,
       ch5State: null,
-      ch6State: null,
+      ch6State: 'pressurantFillRBVchState',
 
       act0State: null,
       act1State: null,
@@ -144,7 +144,7 @@ class App {
       act3State: null,
       act4State: null,
       act5State: null,
-      act6State: null,
+      act6State: 'pressurantFillRBVstate',
 
       packetCounter: 'actCtrlr2packetCounter'
     },
@@ -380,6 +380,12 @@ class App {
     this.addIPC('set-fuelTankTopHeater', (e, val) => this.actCtrlr2.setHeater24vCh0(val));
 
     this.addIPC('set-fuelTankMidHeater', (e, val) => this.actCtrlr2.setHeater24vCh1(val));
+
+
+    this.addIPC('open-pressurantFillRBV', this.actCtrlr1.openActCh6);
+    this.addIPC('close-pressurantFillRBV', this.actCtrlr1.closeActCh6);
+    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh6ms(val));
+
 
     // this.addIPC('open-LOxRQD', () => { this.actCtrlr2.openActCh0(); this.actCtrlr2.openActCh1() });
     // this.addIPC('close-LOxRQD', () => { this.actCtrlr2.closeActCh0(); this.actCtrlr2.closeActCh1() });
