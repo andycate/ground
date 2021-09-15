@@ -20,6 +20,7 @@ class Comms {
     this.setDarkMode = this.setDarkMode.bind(this);
 
     this.setProcedureState = this.setProcedureState.bind(this);
+    this.doNothing = this.doNothing.bind(this);
 
     //----------Flight Computer----------
 
@@ -233,6 +234,10 @@ class Comms {
 
   async setProcedureState(procState) {
     return await this.ipc.invoke('set-procedure-state', procState)
+  }
+
+  async doNothing() {
+    return
   }
 
   //----------Flight Computer----------

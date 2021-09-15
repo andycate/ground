@@ -101,13 +101,14 @@ class Control extends Component {
                       time={comms.timePressurantFlowRBV}
                       field='pressurantFlowRBVstate'
                       text='Pressurant Flow RBV'
+                      disabled={!this.state.HPS_en}
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
                     <SwitchButton
                       text='Pressurant Enable'
-                      open={comms.enableHPS}
-                      close={comms.disableHPS}
+                      open={comms.doNothing}
+                      close={comms.doNothing}
                       field='HPSEnable'
                       change={e => {this.setState({HPS_en: e.target.checked});} }
                     />
