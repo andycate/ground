@@ -16,6 +16,7 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList as List } from "react-window";
 import moment from "moment";
 import { useWindowSize } from "./useWindowSize";
+import clsx from "clsx";
 
 const styles = style => ({
   root: {
@@ -82,13 +83,16 @@ const styles = style => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  unknownLogSrc: {
+    background: 'rgba(255,243,0,0.4)'
   }
 });
 
 export const LogMessageContext = createContext({});
 
 const LogMessage = ({ log, index, classes }) => {
-  const { ts, _k, _val, trueIdx } = log;
+  const { ts, _k, _val, trueIdx, unknown } = log;
   const { setSize, windowWidth } = useContext(LogMessageContext);
   const root = useRef();
 
@@ -99,7 +103,7 @@ const LogMessage = ({ log, index, classes }) => {
   }, [windowWidth]);
 
   return (
-    <div ref={root} className={classes.logLine} title={`${moment(ts).fromNow(false)}`}>
+    <div ref={root} className={clsx(classes.logLine, unknown && classes.unknownLogSrc)} title={`${moment(ts).fromNow(false)}`}>
       <span className={classes.logLineIdx}>
         [{paddedIndex}]
       </span>
@@ -118,10 +122,14 @@ const ROOT_OPTION_GROUPING = {
   key: 't1-all',
   children: [
     {
+      name: 'Unknown Updates',
+      key: 't2-unknowns'
+    },
+    {
       name: 'Bitrate Updates',
       key: 't2-bit-rate',
       children: [
-        { name: '', key: 'flightKbps' },
+        // { name: '', key: 'flightKbps' },
         { name: '', key: 'daq1Kbps' },
         { name: '', key: 'daq2Kbps' },
         { name: '', key: 'actCtrlr1Kbps' },
@@ -203,7 +211,7 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
 
   const toggleOptionRootNode = useCallback((key, to) => {
     if (to === true) {
-      // go downwards
+      // go downwards and turn all sub nodes on
       dfs(optionGroupState, (node) => {
         if (node.key === key) {
           dfs(node, (_node) => {
@@ -212,6 +220,16 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
           return true
         }
       })
+
+      // find path to node, if any of the parent nodes now includes all children, turn parent node on
+      const nodes = findPath(optionGroupState, (node) => node.key === key).reverse()
+      for (let i = 1; i < nodes.length; i++) {
+        const node = nodes[i]
+        if ((node.children || []).reduce((acc, cur) => acc && cur.included, true)){
+          node.included = true
+        }
+      }
+
     } else {
       // find path to node and turn them all off, children nodes need to be turned off too
       const nodes = findPath(optionGroupState, (node) => node.key === key)
@@ -271,17 +289,19 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
    * filtered logs
    */
   const logs = useMemo(() => {
+    let allFields = []
     let allowedFields = []
-    let allChosen = false
+    let includeUnknownFields = false
 
     dfs(optionGroupState, (node) => {
-      if (node.key === 't1-all' && node.included) {
-        allChosen = true
+      if (node.key === 't2-unknowns' && node.included) {
+        includeUnknownFields = true
       }
       if ((node.children || []).length === 0) {
         if (node.included) {
           allowedFields.push(node.key)
         }
+        allFields.push(node.key)
       }
     })
 
@@ -289,8 +309,8 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
       .map((_l, idx) => ({
         ..._l,
         trueIdx: idx,
-        included: allowedFields.includes(_l._k) || allChosen,
-        unknown: allChosen && !allowedFields.includes(_l._k)
+        included: allowedFields.includes(_l._k) || (includeUnknownFields && !allFields.includes(_l._k)),
+        unknown: !allFields.includes(_l._k)
       }))
       .filter(log => log.included)
   }, [_flatGroupState, _logs.length])
