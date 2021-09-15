@@ -12,6 +12,8 @@ import SixValueSquare from './components/SixValueSquare';
 
 import comms from './api/Comms';
 
+const PAGE_TITLE = "Telemetry: Aux #1"
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -63,6 +65,7 @@ class Aux1 extends Component {
   }
 
   componentDidMount() {
+    document.title = PAGE_TITLE;
     comms.connect();
   }
 
