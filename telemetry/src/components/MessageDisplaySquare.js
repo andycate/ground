@@ -18,6 +18,33 @@ import moment from "moment";
 import { useWindowSize } from "./useWindowSize";
 import clsx from "clsx";
 
+const ROOT_OPTION_GROUPING = {
+  name: 'Select All',
+  key: 't1-all',
+  children: [
+    {
+      name: 'Unknown Updates',
+      key: 't2-unknowns',
+      highlight: 'rgba(255,243,0,0.4)'
+    },
+    {
+      name: 'Bitrate Updates',
+      key: 't2-bit-rate',
+      children: [
+        // { name: '', key: 'flightKbps' },
+        { name: '', key: 'daq1Kbps' },
+        { name: '', key: 'daq2Kbps' },
+        { name: '', key: 'actCtrlr1Kbps' },
+        {
+          name: '', key: 'actCtrlr2Kbps',
+          highlight: 'rgba(0,136,255,0.4)'
+        },
+        { name: '', key: 'actCtrlr3Kbps' },
+      ]
+    }
+  ]
+}
+
 const styles = style => ({
   root: {
     height: '100%'
@@ -75,7 +102,7 @@ const styles = style => ({
   filterMenuRoot: {
     whiteSpace: 'nowrap',
     padding: 8,
-    paddingLeft: 0,
+    marginLeft: -16,
     maxHeight: 240, // TODO: change this to be dynamic to the height of the text display box
     overflowY: 'auto'
   },
@@ -83,16 +110,13 @@ const styles = style => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
-  },
-  unknownLogSrc: {
-    background: 'rgba(255,243,0,0.4)'
   }
 });
 
 export const LogMessageContext = createContext({});
 
 const LogMessage = ({ log, index, classes }) => {
-  const { ts, _k, _val, trueIdx, unknown } = log;
+  const { ts, _k, _val, trueIdx, highlight } = log;
   const { setSize, windowWidth } = useContext(LogMessageContext);
   const root = useRef();
 
@@ -103,7 +127,11 @@ const LogMessage = ({ log, index, classes }) => {
   }, [windowWidth]);
 
   return (
-    <div ref={root} className={clsx(classes.logLine, unknown && classes.unknownLogSrc)} title={`${moment(ts).fromNow(false)}`}>
+    <div ref={root} className={classes.logLine} title={`${moment(ts).fromNow(false)}`} {...highlight ? {
+      style: {
+        background: highlight
+      }
+    } : {}}>
       <span className={classes.logLineIdx}>
         [{paddedIndex}]
       </span>
@@ -117,35 +145,19 @@ const LogMessage = ({ log, index, classes }) => {
   );
 };
 
-const ROOT_OPTION_GROUPING = {
-  name: 'Select All',
-  key: 't1-all',
-  children: [
-    {
-      name: 'Unknown Updates',
-      key: 't2-unknowns'
-    },
-    {
-      name: 'Bitrate Updates',
-      key: 't2-bit-rate',
-      children: [
-        // { name: '', key: 'flightKbps' },
-        { name: '', key: 'daq1Kbps' },
-        { name: '', key: 'daq2Kbps' },
-        { name: '', key: 'actCtrlr1Kbps' },
-        { name: '', key: 'actCtrlr2Kbps' },
-        { name: '', key: 'actCtrlr3Kbps' },
-      ]
-    }
-  ]
-}
-
-const FilterItem = ({ node, classes }) => {
+const FilterItem = ({ node, classes, parentHighlight }) => {
   const { toggleOptionRootNode } = useContext(LogMessageContext)
-  const { name, children, key, included = false } = node
+  const { name, children, key, included = false, highlight: _highlight } = node
+
+  // prioritize lowest subitem's highlight preference first
+  const highlight = _highlight || parentHighlight
   return (
     <div className={classes.filterMenuSubItem}>
-      <div className={classes.filterMenuSubItemCheckBox}>
+      <div className={classes.filterMenuSubItemCheckBox} {...highlight ? {
+        style: {
+          background: highlight
+        }
+      } : {}}>
         <Checkbox
           checked={included}
           onChange={(evt) => toggleOptionRootNode(key, evt.target.checked)}
@@ -154,8 +166,10 @@ const FilterItem = ({ node, classes }) => {
           }}
         /> {name || key}
       </div>
-      {(children || []).map(_node => <FilterItem key={`filter - ${key} -> ${(_node.key)}`}
-        node={{ ..._node, included: included || _node.included }} classes={classes}/>)}
+      {(children || []).map(_node =>
+        <FilterItem key={`filter - ${key} -> ${(_node.key)}`} node={{ ..._node, included: included || _node.included }}
+          classes={classes} parentHighlight={highlight}/>
+      )}
     </div>
   )
 }
@@ -225,7 +239,7 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
       const nodes = findPath(optionGroupState, (node) => node.key === key).reverse()
       for (let i = 1; i < nodes.length; i++) {
         const node = nodes[i]
-        if ((node.children || []).reduce((acc, cur) => acc && cur.included, true)){
+        if ((node.children || []).reduce((acc, cur) => acc && cur.included, true)) {
           node.included = true
         }
       }
@@ -286,16 +300,20 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
   }, [_flatGroupState])
 
   /**
-   * filtered logs
+   * Parses filter tree to figure out what fields are allowed and find highlight colors for rows
+   * @type {function(): [*[], *[], boolean, string, {}]}
    */
-  const logs = useMemo(() => {
+  const parseFilters = useCallback(() => {
     let allFields = []
     let allowedFields = []
     let includeUnknownFields = false
+    let unknownHighlightColor = ''
+    let highlights = {}
 
     dfs(optionGroupState, (node) => {
       if (node.key === 't2-unknowns' && node.included) {
         includeUnknownFields = true
+        unknownHighlightColor = node.highlight
       }
       if ((node.children || []).length === 0) {
         if (node.included) {
@@ -305,12 +323,33 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
       }
     })
 
+    allowedFields.forEach(key => {
+      const path = findPath(optionGroupState, node => node.key === key).reverse() // start from back for specificity
+      for (let i = 0; i < path.length; i++) {
+        const node = path[i]
+        if (node.highlight) {
+          highlights[key] = node.highlight
+          break
+        }
+      }
+    })
+
+    return [allFields, allowedFields, includeUnknownFields, unknownHighlightColor, highlights]
+  }, [_flatGroupState])
+
+  /**
+   * filtered logs
+   */
+  const logs = useMemo(() => {
+    const [allFields, allowedFields, includeUnknownFields, unknownHighlightColor, highlights] = parseFilters()
+
     return _logs
       .map((_l, idx) => ({
         ..._l,
         trueIdx: idx,
         included: allowedFields.includes(_l._k) || (includeUnknownFields && !allFields.includes(_l._k)),
-        unknown: !allFields.includes(_l._k)
+        unknown: !allFields.includes(_l._k),
+        highlight: !allFields.includes(_l._k) ? unknownHighlightColor : highlights[_l._k]
       }))
       .filter(log => log.included)
   }, [_flatGroupState, _logs.length])
