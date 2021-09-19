@@ -19,6 +19,18 @@ import { useWindowSize } from "./useWindowSize";
 import clsx from "clsx";
 import throttle from 'lodash.throttle';
 
+/**
+ * Applies to every node
+ * @type {[{ignoredIf: (function(*): boolean), name: string, key: string}]}
+ */
+const GENERIC_FILTERS = [
+  {
+    name: 'Number Updates',
+    key: 't2-number-updates',
+    ignoredIf: (node) => (typeof node._val === 'number') // if node value is a number, probably is a value update
+  },
+]
+
 const ROOT_OPTION_GROUPING = {
   name: 'Select All',
   key: 't1-all',
@@ -26,18 +38,21 @@ const ROOT_OPTION_GROUPING = {
     {
       name: 'Unknown Updates',
       key: 't2-unknowns',
-      highlight: 'rgba(255,243,0,0.4)'
+      highlight: 'rgba(100,100,100,0.4)',
     },
     {
-      name: 'Bitrate Updates',
-      key: 't2-bit-rate',
+      name: 'Control Updates',
+      key: 't2-controls',
       children: [
-        { name: '', key: 'flightKbps' },
-        { name: '', key: 'daq1Kbps' },
-        { name: '', key: 'daq2Kbps' },
-        { name: '', key: 'actCtrlr1Kbps' },
-        { name: '', key: 'actCtrlr2Kbps' },
-        { name: '', key: 'actCtrlr3Kbps' },
+        { key: 'abort', highlight: 'rgba(255,0,0,0.4)' },
+        { key: 'hold' }
+      ]
+    },
+    {
+      name: 'Connection Status',
+      key: 't2-connection-status',
+      children: [
+        { key: 'flightConnected', highlight: 'rgba(255,243,0,0.4)' }
       ]
     }
   ]
@@ -139,7 +154,7 @@ const LogMessage = ({ log, index, classes }) => {
         {moment(ts).format("hh:mm:ss.SSS")}
       </span>
       <div className={classes.logLineMessage}>
-        {_k} -> {_val}
+        {_k} -> {_val.toString()}
       </div>
     </div>
   );
@@ -147,10 +162,15 @@ const LogMessage = ({ log, index, classes }) => {
 
 const FilterItem = ({ node, classes, parentHighlight }) => {
   const { toggleOptionRootNode } = useContext(LogMessageContext)
-  const { name, children, key, included = false, highlight: _highlight } = node
+  const { name, children, key, included = false, highlight: _highlight, ignored = false } = node
 
   // prioritize lowest subitem's highlight preference first
   const highlight = _highlight || parentHighlight
+
+  if (ignored) {
+    return <></>
+  }
+
   return (
     <div className={classes.filterMenuSubItem}>
       <div className={classes.filterMenuSubItemCheckBox} {...highlight ? {
@@ -288,10 +308,17 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
 
     dfs(optionGroupState, (node) => {
       if ((node.children || []).length === 0) {
-        total++
-        if (node.included) {
-          counter++
+        if (!node.ignored) {
+          total++
+          if (node.included) {
+            counter++
+          }
         }
+      } else {
+        node.children = node.children.map(_n => ({
+          ..._n,
+          ignored: _n.ignored || node.ignored
+        }))
       }
     })
 
@@ -452,10 +479,43 @@ class MessageDisplaySquare
   }
 
   handleUpdate(timestamp, update) {
+    const discardedFields = new Set()
+    const nodes = [ROOT_OPTION_GROUPING]
+
+    // figure out which fields should get ignored
+    while (nodes.length > 0) {
+      const node = nodes.shift()
+      const ignored = node.ignored
+      if (Array.isArray(node.children)) {
+        const children = node.children.map(_n => ({
+          ..._n,
+          ignored: _n.ignored || ignored
+        }))
+        nodes.push(...children)
+      } else {
+        if (ignored) {
+          discardedFields.add(node.key)
+        } else {
+          discardedFields.delete(node.key)
+        }
+      }
+    }
+
     if (this.rawLogs.current) {
-      this.rawLogs.current.push(...Object.keys(update).map(_k => ({ ts: timestamp, _k, _val: update[_k] })))
+      this.rawLogs.current
+        .push(...Object.keys(update)
+          .filter(_k => !discardedFields.has(_k))
+          .map(_k => ({
+            ts: timestamp,
+            _k,
+            _val: update[_k]
+          }))
+          .filter(_o => GENERIC_FILTERS.reduce((acc, cur) => {
+            return acc && !cur.ignoredIf(_o)
+          }, true))
+        )
     } else {
-      this.rawLogs.current = []
+      this.rawLogs.current = this.state.logs
     }
     this.debouncedHandleUpdate()
   }

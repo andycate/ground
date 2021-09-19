@@ -287,7 +287,7 @@ class App {
    * Sets up all the IPC commands that the windows have access to
    */
   setupIPC() {
-
+    console.debug('setting up ipc channels')
     this.addIPC('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password));
     this.addIPC('get-databases', this.influxDB.getDatabaseNames);
     this.addIPC('set-database', (e, database) => this.influxDB.setDatabase(database));
