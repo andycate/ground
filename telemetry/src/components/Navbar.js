@@ -89,11 +89,11 @@ class Navbar extends Component {
     comms.addSubscriber('actCtrlr3Kbps', this.updateActCtrlr3Kbps);
 
     this.setState({
-      flightConnected: await comms.getFlightConnected(),
-      daq1Connected: await comms.getDaq1Connected(),
-      actCtrlr1Connected: await comms.getActCtrlr1Connected(),
-      actCtrlr2Connected: await comms.getActCtrlr2Connected(),
-      actCtrlr3Connected: await comms.getActCtrlr3Connected(),
+      flightConnected: false,
+      daq1Connected: false,
+      actCtrlr1Connected: false,
+      actCtrlr2Connected: false,
+      actCtrlr3Connected: false,
     });
   }
 
@@ -117,7 +117,7 @@ class Navbar extends Component {
     const { classes,
             changeLightDark,
             openSettings } = this.props;
-    
+
     const { flightConnected,
             daq1Connected,
             daq2Connected,

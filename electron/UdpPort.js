@@ -23,12 +23,19 @@ class UdpPort {
     });
 
     this.server.on('message', (msg, rinfo) => {
-      const b = this.boards[rinfo.address];
-      if(b === undefined) return;
+      let b = this.boards[rinfo.address];
+      if (b === undefined && rinfo.address !== '127.0.0.1') { // enables testing packets from localhost
+        console.info(`received packet from unknown remote: ${rinfo.address}`)
+        return;
+      }
       const pkt = Packet.parsePacket(msg.toString());
-      if(pkt) {
+      if (b === undefined && rinfo.address === '127.0.0.1'){ // if packet is from local test, set b to given address
+        b = this.boards[`10.0.0.${pkt.values[0]}`]
+        pkt.values.shift()
+      }
+      if (pkt) {
         const update = b.processPacket(pkt);
-        if(update === undefined) return;
+        if (update === undefined) return;
         this.updateStateCallback(pkt.timestamp, update);
       }
     });
@@ -50,7 +57,7 @@ class UdpPort {
   register(address, board) {
     this.boards[address] = board;
     // stupid windows won't start receiving until at least one packet sent
-    if(process.platform === 'win32') {
+    if (process.platform === 'win32') {
       console.log('sending first packet (windows)')
       this.server.send("{0|eeee}", this.port, address);
     }

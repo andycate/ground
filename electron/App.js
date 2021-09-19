@@ -16,198 +16,204 @@ class App {
     this.state = new State({});
     this.influxDB = new InfluxDB();
 
-    // comms
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
+    this.abort = this.abort.bind(this);
+    this.hold = this.hold.bind(this);
+  }
+
+  /**
+   * Separate init function from constructor to ensure WebContents are present before accepting IPC invocations
+   */
+  initApp(){
     this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
 
     this.flightComputer = new FlightV2(this.port,
-                                       '10.0.0.42',
-                                       () => this.updateState(Date.now(), { flightConnected: true }),
-                                       () => this.updateState(Date.now(), { flightConnected: false }),
-                                       (rate) => this.updateState(Date.now(), { flightKbps: rate }));
+      '10.0.0.42',
+      () => this.updateState(Date.now(), { flightConnected: true }),
+      () => this.updateState(Date.now(), { flightConnected: false }),
+      (rate) => this.updateState(Date.now(), { flightKbps: rate }));
     this.daq1 = new DAQ(this.port, '10.0.0.11', {
-      pressureVal0: 'fuelDomePT',
-      voltage: 'daq1Voltage',
-      power: 'daq1Power',
-      currentDraw: 'daq1CurrentDraw',
-      lc0: 'thrust1',
-      lc1: 'thrust2',
-      lcSum: 'totalThrust',
-      // lc2: 'propaneSourceTankKg',
-      tcVal0: 'loxTankMidTC',
-      tcVal1: 'engineTC5',
-      tcVal2: 'engineTC6',
-      tcVal3: 'loxTankTopTC',
-      _5v_aVoltage: 'daq1_5v_aVoltage',
-      _5v_aCurrent: 'daq1_5v_aCurrent',
-      _5vVoltage: 'daq1_5vVoltage',
-      _5vCurrent: 'daq1_5vCurrent',
-      analogTemp0:'pressurantTemp'
-    },
-    () => this.updateState(Date.now(), { daq1Connected: true }),
-    () => this.updateState(Date.now(), { daq1Connected: false }),
-    (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
+        pressureVal0: 'fuelDomePT',
+        voltage: 'daq1Voltage',
+        power: 'daq1Power',
+        currentDraw: 'daq1CurrentDraw',
+        lc0: 'thrust1',
+        lc1: 'thrust2',
+        lcSum: 'totalThrust',
+        // lc2: 'propaneSourceTankKg',
+        tcVal0: 'loxTankMidTC',
+        tcVal1: 'engineTC5',
+        tcVal2: 'engineTC6',
+        tcVal3: 'loxTankTopTC',
+        _5v_aVoltage: 'daq1_5v_aVoltage',
+        _5v_aCurrent: 'daq1_5v_aCurrent',
+        _5vVoltage: 'daq1_5vVoltage',
+        _5vCurrent: 'daq1_5vCurrent',
+        analogTemp0: 'pressurantTemp'
+      },
+      () => this.updateState(Date.now(), { daq1Connected: true }),
+      () => this.updateState(Date.now(), { daq1Connected: false }),
+      (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
 
     this.daq2 = new DAQ(this.port, '10.0.0.12', {
-      pressureVal0: null,
-      voltage: null,
-      power: null,
-      currentDraw: null,
-      lc0: null,
-      lc1: null,
-      lcSum: null,
-      tcVal0: 'engineTC1',
-      tcVal1: 'engineTC2',
-      tcVal2: 'engineTC3',
-      tcVal3: 'engineTC4',
-      _5v_aVoltage: null,
-      _5v_aCurrent: null,
-      _5vVoltage: null,
-      _5vCurrent: null,
-      analogTemp0: null
-    },
-    () => this.updateState(Date.now(), { daq2Connected: true }),
-    () => this.updateState(Date.now(), { daq2Connected: false }),
-    (rate) => this.updateState(Date.now(), { daq2Kbps: rate }));
+        pressureVal0: null,
+        voltage: null,
+        power: null,
+        currentDraw: null,
+        lc0: null,
+        lc1: null,
+        lcSum: null,
+        tcVal0: 'engineTC1',
+        tcVal1: 'engineTC2',
+        tcVal2: 'engineTC3',
+        tcVal3: 'engineTC4',
+        _5v_aVoltage: null,
+        _5v_aCurrent: null,
+        _5vVoltage: null,
+        _5vCurrent: null,
+        analogTemp0: null
+      },
+      () => this.updateState(Date.now(), { daq2Connected: true }),
+      () => this.updateState(Date.now(), { daq2Connected: false }),
+      (rate) => this.updateState(Date.now(), { daq2Kbps: rate }));
 
     this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
-      ch12v0Current: null, // these dont work currently
-      ch12v1Current: null, // ^^^
-      ch24v0Current: 'fuelTankBottomHeaterCurrent',
-      ch24v1Current: 'loxTankTopHeaterCurrent',
-      ch12v0State: null, // dont work
-      ch12v1State: null, // ^^^
-      ch24v0State: 'fuelTankBottomHeaterVal',
-      ch24v1State: 'loxTankTopHeaterVal',
-      voltage: 'ac1Voltage',
-      power: 'ac1Power',
-      currentDraw: 'ac1CurrentDraw',
-      act0Current: 'pressurantFlowRBVcurrent',
-      act1Current: 'fuelFillRBVcurrent',
-      act2Current: null,
-      act3Current: 'loxTankVentRBVcurrent',
-      act4Current: 'loxFillRBVcurrent',
-      act5Current: null,
-      act6Current: 'fuelTankVentRBVcurrent',
-      ch0State: 'pressurantFlowRBVchState',
-      ch1State: 'fuelFillRBVchState',
-      ch2State: null,
-      ch3State: 'loxTankVentRBVchState',
-      ch4State: 'loxFillRBVchState',
-      ch5State: null,
-      ch6State: 'fuelTankVentRBVchState',
-      act0State: 'pressurantFlowRBVstate',
-      act1State: 'fuelFillRBVstate',
-      act2State: null,
-      act3State: 'loxTankVentRBVstate',
-      act4State: 'loxFillRBVstate',
-      act5State: null,
-      act6State: 'fuelTankVentRBVstate',
-      packetCounter: 'actCtrlr1packetCounter'
-    },
-    () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
-    () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
-    (rate) => this.updateState(Date.now(), { actCtrlr1Kbps: rate }));
+        ch12v0Current: null, // these dont work currently
+        ch12v1Current: null, // ^^^
+        ch24v0Current: 'fuelTankBottomHeaterCurrent',
+        ch24v1Current: 'loxTankTopHeaterCurrent',
+        ch12v0State: null, // dont work
+        ch12v1State: null, // ^^^
+        ch24v0State: 'fuelTankBottomHeaterVal',
+        ch24v1State: 'loxTankTopHeaterVal',
+        voltage: 'ac1Voltage',
+        power: 'ac1Power',
+        currentDraw: 'ac1CurrentDraw',
+        act0Current: 'pressurantFlowRBVcurrent',
+        act1Current: 'fuelFillRBVcurrent',
+        act2Current: null,
+        act3Current: 'loxTankVentRBVcurrent',
+        act4Current: 'loxFillRBVcurrent',
+        act5Current: null,
+        act6Current: 'fuelTankVentRBVcurrent',
+        ch0State: 'pressurantFlowRBVchState',
+        ch1State: 'fuelFillRBVchState',
+        ch2State: null,
+        ch3State: 'loxTankVentRBVchState',
+        ch4State: 'loxFillRBVchState',
+        ch5State: null,
+        ch6State: 'fuelTankVentRBVchState',
+        act0State: 'pressurantFlowRBVstate',
+        act1State: 'fuelFillRBVstate',
+        act2State: null,
+        act3State: 'loxTankVentRBVstate',
+        act4State: 'loxFillRBVstate',
+        act5State: null,
+        act6State: 'fuelTankVentRBVstate',
+        packetCounter: 'actCtrlr1packetCounter'
+      },
+      () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
+      () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
+      (rate) => this.updateState(Date.now(), { actCtrlr1Kbps: rate }));
     this.actCtrlr2 = new ActuatorController(this.port, '10.0.0.22', {
-      ch12v0Current: null,
-      ch12v1Current: null,
-      ch24v0Current: 'fuelTankTopHeaterCurrent',
-      ch24v1Current: 'fuelTankMidHeaterCurrent',
-      ch12v0State: null,
-      ch12v1State: null,
-      ch24v0State: 'fuelTankTopHeaterVal',
-      ch24v1State: 'fuelTankMidHeaterVal',
-      voltage: 'ac2Voltage',
-      power: 'ac2Power',
-      currentDraw: 'ac2CurrentDraw',
+        ch12v0Current: null,
+        ch12v1Current: null,
+        ch24v0Current: 'fuelTankTopHeaterCurrent',
+        ch24v1Current: 'fuelTankMidHeaterCurrent',
+        ch12v0State: null,
+        ch12v1State: null,
+        ch24v0State: 'fuelTankTopHeaterVal',
+        ch24v1State: 'fuelTankMidHeaterVal',
+        voltage: 'ac2Voltage',
+        power: 'ac2Power',
+        currentDraw: 'ac2CurrentDraw',
 
-      act0Current: null,
-      act1Current: null,
-      act2Current: null,
-      act3Current: null,
-      act4Current: null,
-      act5Current: null,
-      act6Current: 'pressurantFillRBVcurrent',
+        act0Current: null,
+        act1Current: null,
+        act2Current: null,
+        act3Current: null,
+        act4Current: null,
+        act5Current: null,
+        act6Current: 'pressurantFillRBVcurrent',
 
-      ch0State: null,
-      ch1State: null,
-      ch2State: null,
-      ch3State: null,
-      ch4State: null,
-      ch5State: null,
-      ch6State: 'pressurantFillRBVchState',
+        ch0State: null,
+        ch1State: null,
+        ch2State: null,
+        ch3State: null,
+        ch4State: null,
+        ch5State: null,
+        ch6State: 'pressurantFillRBVchState',
 
-      act0State: null,
-      act1State: null,
-      act2State: null,
-      act3State: null,
-      act4State: null,
-      act5State: null,
-      act6State: 'pressurantFillRBVstate',
+        act0State: null,
+        act1State: null,
+        act2State: null,
+        act3State: null,
+        act4State: null,
+        act5State: null,
+        act6State: 'pressurantFillRBVstate',
 
-      packetCounter: 'actCtrlr2packetCounter'
-    },
-    () => this.updateState(Date.now(), { actCtrlr2Connected: true }),
-    () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
-    (rate) => this.updateState(Date.now(), { actCtrlr2Kbps: rate }));
+        packetCounter: 'actCtrlr2packetCounter'
+      },
+      () => this.updateState(Date.now(), { actCtrlr2Connected: true }),
+      () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
+      (rate) => this.updateState(Date.now(), { actCtrlr2Kbps: rate }));
 
     this.actCtrlr3 = new ActuatorController(this.port, '10.0.0.23', {
-      ch12v0Current: null,
-      ch12v1Current: null,
-      ch24v0Current: 'loxTankBottomHeaterCurrent',
-      ch24v1Current: 'loxTankMidHeaterCurrent',
-      ch12v0State: null,
-      ch12v1State: null,
-      ch24v0State: 'loxTankBottomHeaterVal',
-      ch24v1State: 'loxTankMidHeaterVal',
-      voltage: 'ac3Voltage',
-      power: 'ac3Power',
-      currentDraw: 'ac3CurrentDraw',
-      act0Current: 'loxPrechillRBVcurrent',
-      act1Current: 'purgePrechillVentRBVcurrent',
-      act2Current: 'prechillFlowRBVcurrent',
-      act3Current: 'fuelPrechillRBVcurrent',
-      act4Current: 'purgeFlowRBVcurrent',
-      act5Current: null,
-      act6Current: null,
-      ch0State: 'loxPrechillRBVchState',
-      ch1State: 'purgePrechillVentRBVchState',
-      ch2State: 'prechillFlowRBVchState',
-      ch3State: 'fuelPrechillRBVchState',
-      ch4State: 'purgeFlowRBVchState',
-      ch5State: null,
-      ch6State: null,
-      act0State: 'loxPrechillRBVstate',
-      act1State: 'purgePrechillVentRBVstate',
-      act2State: 'prechillFlowRBVstate',
-      act3State: 'fuelPrechillRBVstate',
-      act4State: 'purgeFlowRBVstate',
-      act5State: null,
-      act6State: null,
-      packetCounter: 'actCtrlr3packetCounter'
-    },
-    () => this.updateState(Date.now(), { actCtrlr3Connected: true }),
-    () => this.updateState(Date.now(), { actCtrlr3Connected: false }),
-    (rate) => this.updateState(Date.now(), { actCtrlr3Kbps: rate }));
-
-    this.abort = this.abort.bind(this);
-    this.hold = this.hold.bind(this);
+        ch12v0Current: null,
+        ch12v1Current: null,
+        ch24v0Current: 'loxTankBottomHeaterCurrent',
+        ch24v1Current: 'loxTankMidHeaterCurrent',
+        ch12v0State: null,
+        ch12v1State: null,
+        ch24v0State: 'loxTankBottomHeaterVal',
+        ch24v1State: 'loxTankMidHeaterVal',
+        voltage: 'ac3Voltage',
+        power: 'ac3Power',
+        currentDraw: 'ac3CurrentDraw',
+        act0Current: 'loxPrechillRBVcurrent',
+        act1Current: 'purgePrechillVentRBVcurrent',
+        act2Current: 'prechillFlowRBVcurrent',
+        act3Current: 'fuelPrechillRBVcurrent',
+        act4Current: 'purgeFlowRBVcurrent',
+        act5Current: null,
+        act6Current: null,
+        ch0State: 'loxPrechillRBVchState',
+        ch1State: 'purgePrechillVentRBVchState',
+        ch2State: 'prechillFlowRBVchState',
+        ch3State: 'fuelPrechillRBVchState',
+        ch4State: 'purgeFlowRBVchState',
+        ch5State: null,
+        ch6State: null,
+        act0State: 'loxPrechillRBVstate',
+        act1State: 'purgePrechillVentRBVstate',
+        act2State: 'prechillFlowRBVstate',
+        act3State: 'fuelPrechillRBVstate',
+        act4State: 'purgeFlowRBVstate',
+        act5State: null,
+        act6State: null,
+        packetCounter: 'actCtrlr3packetCounter'
+      },
+      () => this.updateState(Date.now(), { actCtrlr3Connected: true }),
+      () => this.updateState(Date.now(), { actCtrlr3Connected: false }),
+      (rate) => this.updateState(Date.now(), { actCtrlr3Kbps: rate }));
 
     this.setupIPC();
-
   }
 
   /**
    * Takes in an update to the state and sends it where it needs to go
    *
+   * @param timestamp timestamp of the state update
    * @param {Object} update
+   * @param dbrecord should store in db?
    */
-  updateState(timestamp, update) {
-    // console.log(update);
+  updateState(timestamp, update, dbrecord = true) {
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
-    this.influxDB.handleStateUpdate(timestamp, update);
+    if (dbrecord) {
+      this.influxDB.handleStateUpdate(timestamp, update);
+    }
   }
 
   /**
@@ -217,7 +223,7 @@ class App {
    * @param {Object} update
    */
   sendStateUpdate(timestamp, update) {
-    for(let wc of this.webContents) {
+    for (let wc of this.webContents) {
       wc.send('state-update', {
         timestamp,
         update,
@@ -226,7 +232,7 @@ class App {
   }
 
   sendDarkModeUpdate(isDark) {
-    for(let wc of this.webContents) {
+    for (let wc of this.webContents) {
       wc.send('set-darkmode', isDark);
     }
   }
@@ -267,13 +273,12 @@ class App {
     // TODO: implement hold
   }
 
-  addIPC(channel, handler, dbrecord=true) {
+  addIPC(channel, handler, dbrecord = true) {
     ipcMain.handle(channel, (...args) => {
-      if(dbrecord) {
-        const update = {};
-        update[channel] = true;
-        this.influxDB.handleStateUpdate(Date.now(), update);
-      }
+      const update = {
+        [channel]: true
+      };
+      this.updateState(Date.now(), update, dbrecord)
       return handler(...args);
     });
   }
@@ -285,7 +290,7 @@ class App {
 
     this.addIPC('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password));
     this.addIPC('get-databases', this.influxDB.getDatabaseNames);
-    this.addIPC('set-database', (e, database) => this.influxDB.setDatabase(database) );
+    this.addIPC('set-database', (e, database) => this.influxDB.setDatabase(database));
     this.addIPC('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark));
     this.addIPC('set-procedure-state', (e, procState) => this.influxDB.setProcedureStep(procState));
 

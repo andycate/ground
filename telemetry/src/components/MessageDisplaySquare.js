@@ -17,6 +17,7 @@ import { VariableSizeList as List } from "react-window";
 import moment from "moment";
 import { useWindowSize } from "./useWindowSize";
 import clsx from "clsx";
+import throttle from 'lodash.throttle';
 
 const ROOT_OPTION_GROUPING = {
   name: 'Select All',
@@ -31,19 +32,18 @@ const ROOT_OPTION_GROUPING = {
       name: 'Bitrate Updates',
       key: 't2-bit-rate',
       children: [
-        // { name: '', key: 'flightKbps' },
+        { name: '', key: 'flightKbps' },
         { name: '', key: 'daq1Kbps' },
         { name: '', key: 'daq2Kbps' },
         { name: '', key: 'actCtrlr1Kbps' },
-        {
-          name: '', key: 'actCtrlr2Kbps',
-          highlight: 'rgba(0,136,255,0.4)'
-        },
+        { name: '', key: 'actCtrlr2Kbps' },
         { name: '', key: 'actCtrlr3Kbps' },
       ]
     }
   ]
 }
+
+const DEFAULT_ROW_HEIGHT = 22
 
 const styles = style => ({
   root: {
@@ -123,7 +123,7 @@ const LogMessage = ({ log, index, classes }) => {
   const paddedIndex = trueIdx.toString().padStart(5, "0")
 
   useEffect(() => {
-    setSize(index, root.current.getBoundingClientRect().height);
+    setSize(index, root.current.clientHeight);
   }, [windowWidth]);
 
   return (
@@ -263,7 +263,7 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
   const setSize = useCallback((index, size) => {
     sizeMap.current = { ...sizeMap.current, [index]: size };
   }, []);
-  const getSize = useCallback(index => sizeMap.current[index] || 20, []);
+  const getSize = useCallback(index => sizeMap.current[index] || DEFAULT_ROW_HEIGHT, []);
 
   /**
    * sets filter to show all
@@ -344,13 +344,16 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
     const [allFields, allowedFields, includeUnknownFields, unknownHighlightColor, highlights] = parseFilters()
 
     return _logs
-      .map((_l, idx) => ({
-        ..._l,
-        trueIdx: idx,
-        included: allowedFields.includes(_l._k) || (includeUnknownFields && !allFields.includes(_l._k)),
-        unknown: !allFields.includes(_l._k),
-        highlight: !allFields.includes(_l._k) ? unknownHighlightColor : highlights[_l._k]
-      }))
+      .map((_l, idx) => {
+        const allowedFieldsInclude = allowedFields.includes(_l._k)
+        const anyFieldIncludes = allFields.includes(_l._k)
+        return {
+          ..._l,
+          trueIdx: idx,
+          included: allowedFieldsInclude || (includeUnknownFields && !anyFieldIncludes),
+          highlight: !anyFieldIncludes ? unknownHighlightColor : highlights[_l._k]
+        }
+      })
       .filter(log => log.included)
   }, [_flatGroupState, _logs.length])
 
@@ -432,9 +435,11 @@ class MessageDisplaySquare
         _k: 'filler',
         _val: 'initial'
       }],
-      pauseAutoScroll: false
+      pauseAutoScroll: false,
+      waiting: false
     }
 
+    this.rawLogs = createRef()
     this.listRef = createRef()
     this.rowHeights = createRef()
 
@@ -443,16 +448,21 @@ class MessageDisplaySquare
     this.handleUpdate = this.handleUpdate.bind(this)
     this.getRowHeight = this.getRowHeight.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
+    this.debouncedHandleUpdate = throttle(this._handleUpdate, 500)
   }
 
   handleUpdate(timestamp, update) {
-    const { logs } = this.state
+    if (this.rawLogs.current) {
+      this.rawLogs.current.push(...Object.keys(update).map(_k => ({ ts: timestamp, _k, _val: update[_k] })))
+    } else {
+      this.rawLogs.current = []
+    }
+    this.debouncedHandleUpdate()
+  }
 
-    // if (logs.length > 50) return
-
-    logs.push(...Object.keys(update).map(_k => ({ ts: timestamp, _k, _val: update[_k] })))
+  _handleUpdate() {
     this.setState({
-      logs
+      logs: this.rawLogs.current
     }, () => {
       this.recalculateElHeights()
       this.scrollToBottom()
@@ -495,7 +505,7 @@ class MessageDisplaySquare
       return this.rowHeights.current[index]
     }
 
-    return 20
+    return DEFAULT_ROW_HEIGHT
   }
 
   setRowHeight(index, size) {
