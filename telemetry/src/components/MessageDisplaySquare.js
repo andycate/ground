@@ -36,9 +36,9 @@ const ROOT_OPTION_GROUPING = {
   key: 't1-all',
   children: [
     {
-      name: 'Unknown Updates',
+      name: 'Unknown (Catch All) Updates',
       key: 't2-unknowns',
-      highlight: 'rgba(100,100,100,0.4)',
+      highlight: 'rgba(255,0,0,0.4)',
     },
     {
       name: 'Control Updates',
@@ -53,6 +53,13 @@ const ROOT_OPTION_GROUPING = {
       key: 't2-connection-status',
       children: [
         { key: 'flightConnected', highlight: 'rgba(255,243,0,0.4)' }
+      ]
+    },
+    {
+      name: 'Spacers',
+      key: 't2-spacers',
+      children: [
+        { key: 'filler', highlight: 'rgb(255,255,255)' }
       ]
     }
   ]
@@ -476,6 +483,9 @@ class MessageDisplaySquare
     this.getRowHeight = this.getRowHeight.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
     this.debouncedHandleUpdate = throttle(this._handleUpdate, 500)
+
+    this._handleScroll = this._handleScroll.bind(this)
+    this.debouncedHandleScroll = throttle(this._handleScroll, 200)
   }
 
   handleUpdate(timestamp, update) {
@@ -529,6 +539,12 @@ class MessageDisplaySquare
     })
   }
 
+  _handleScroll(evt){
+    if(this.wheelListener?.current) {
+      this.wheelListener.current(evt)
+    }
+  }
+
   componentDidMount() {
     comms.addUniversalSubscriber(this.handleUpdate);
   }
@@ -556,7 +572,7 @@ class MessageDisplaySquare
           }
         }
       }
-      listNode.addEventListener('wheel', this.wheelListener.current)
+      listNode.addEventListener('wheel', this.debouncedHandleScroll)
     }
   }
 
