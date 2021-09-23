@@ -16,7 +16,7 @@ class Interpolation {
 
     function mapSolNumToName(num){
       // TODO: map the number to a string
-      return `#${num}`
+      return `#${num + 1}`
     }
 
     let int = Math.round(value)
@@ -25,16 +25,7 @@ class Interpolation {
       return value
     }
 
-    let errors = []
-    while (int > 0) {
-      if (int % 10 === 1) {
-        errors.push(true)
-      } else {
-        errors.push(false)
-      }
-      int = Math.round(int / 10)
-    }
-    errors = errors.reverse()
+    let errors = int.toString(2).split("").reverse().map(_char => (+_char === 1))
     const str = `Shorted sols: ${errors.reduce((acc, cur, idx) => {
       if (cur) {
         acc += `${mapSolNumToName(idx)}, `

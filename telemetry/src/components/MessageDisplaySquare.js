@@ -88,6 +88,8 @@ const styles = style => ({
   },
   floatingButton: {
     position: 'absolute',
+    display: 'flex',
+    flexDirection: 'row',
     zIndex: 21,
     top: 0,
     right: 0,
@@ -213,7 +215,7 @@ const FilterMenu = forwardRef((props, ref) => {
   )
 })
 
-const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
+const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
   const filterMenuButton = useRef(null);
 
   const sizeMap = useRef({});
@@ -399,16 +401,27 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes }) => {
             justifyContent={'space-between'} zIndex={19} className={classes.floatingBackBoard} mr={3}>
             <div>Event Logs</div>
             <Box position={'relative'}>
-              <Button
-                variant={'contained'}
-                color={'primary'}
-                size={'small'}
-                className={classes.floatingButton}
-                ref={filterMenuButton}
-                onClick={() => setOpenFilterMenu(true)}
-              >
-                Filter Logs ({numFiltersApplied}/{numFiltersAvailable})
-              </Button>
+              <Box className={classes.floatingButton}>
+                <Button
+                  variant={'contained'}
+                  size={'small'}
+                  onClick={() => deleteLogs()}
+                  style={{
+                    marginRight: 8
+                  }}
+                >
+                  Delete All Logs
+                </Button>
+                <Button
+                  variant={'contained'}
+                  color={'primary'}
+                  size={'small'}
+                  ref={filterMenuButton}
+                  onClick={() => setOpenFilterMenu(true)}
+                >
+                  Filter Logs ({numFiltersApplied}/{numFiltersAvailable})
+                </Button>
+              </Box>
               <Popper open={openFilterMenu}
                 anchorEl={filterMenuButton.current} role={undefined}
                 transition disablePortal
@@ -482,6 +495,7 @@ class MessageDisplaySquare
     this.handleUpdate = this.handleUpdate.bind(this)
     this.getRowHeight = this.getRowHeight.bind(this)
     this.setRowHeight = this.setRowHeight.bind(this)
+    this.deleteLogs = this.deleteLogs.bind(this)
     this.debouncedHandleUpdate = throttle(this._handleUpdate, 500)
 
     this._handleScroll = this._handleScroll.bind(this)
@@ -534,13 +548,15 @@ class MessageDisplaySquare
     this.setState({
       logs: this.rawLogs.current
     }, () => {
-      this.recalculateElHeights()
-      this.scrollToBottom()
+      setTimeout(() => {
+        this.recalculateElHeights()
+        this.scrollToBottom()
+      }, 0)
     })
   }
 
-  _handleScroll(evt){
-    if(this.wheelListener?.current) {
+  _handleScroll(evt) {
+    if (this.wheelListener?.current) {
       this.wheelListener.current(evt)
     }
   }
@@ -602,12 +618,28 @@ class MessageDisplaySquare
     }
   }
 
+  deleteLogs(){
+    if(Array.isArray(this.rawLogs.current)){
+      this.rawLogs.current = []
+    }
+
+    this.rowHeights.current = {}
+
+    this.debouncedHandleUpdate.cancel()
+    this._handleUpdate()
+    this.debouncedHandleScroll.cancel()
+
+    this.setState({
+      pauseAutoScroll: false
+    })
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <LogMessageHistory classes={classes} listRef={this.listRef} logs={this.state.logs}/>
+          <LogMessageHistory classes={classes} listRef={this.listRef} logs={this.state.logs} deleteLogs={this.deleteLogs}/>
         </CardContent>
       </Card>
     );
