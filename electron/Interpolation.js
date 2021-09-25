@@ -14,9 +14,14 @@ class Interpolation {
     // value is binary where each "1" indicates an error for that solenoid
     // 0 represents no error in any of the sols
 
-    function mapSolNumToName(num){
-      // TODO: map the number to a string
-      return `#${num + 1}`
+    function mapSolNumToName(num) {
+      const names = [
+        "LOX2Way: Arming valve for 150 psi",
+        "Prop2Way: Ignitor",
+        "LOX5Way: Main valve for LOX",
+        "Prop5Way: main valve for prop"
+      ]
+      return names[num] || `Unknown (#${num + 1})`
     }
 
     let int = Math.round(value)
@@ -26,13 +31,12 @@ class Interpolation {
     }
 
     let errors = int.toString(2).split("").reverse().map(_char => (+_char === 1))
-    const str = `Shorted sols: ${errors.reduce((acc, cur, idx) => {
+    return `Shorted sols: <br/>${errors.reduce((acc, cur, idx) => {
       if (cur) {
-        acc += `${mapSolNumToName(idx)}, `
+        acc += `${mapSolNumToName(idx)}, <br/>`
       }
       return acc
     }, "")}`
-    return str.substring(0, str.length - 2)
   }
 }
 

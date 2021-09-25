@@ -20,7 +20,7 @@ import clsx from "clsx";
 import throttle from 'lodash.throttle';
 import { GENERIC_FILTERS, ROOT_OPTION_GROUPING } from "../config/textbox-display-config";
 
-const DEFAULT_ROW_HEIGHT = 22
+const DEFAULT_ROW_HEIGHT = 22 * 2
 
 const styles = style => ({
   root: {
@@ -117,9 +117,7 @@ const LogMessage = ({ log, index, classes }) => {
       <span className={classes.logLineTime}>
         {moment(ts).format("hh:mm:ss.SSS")}
       </span>
-      <div className={classes.logLineMessage}>
-        {_k} -> {_val.toString()}
-      </div>
+      <div className={classes.logLineMessage} dangerouslySetInnerHTML={{ __html: `${_k} -> ${_val.toString()}` }}/>
     </div>
   );
 };
@@ -505,7 +503,9 @@ class MessageDisplaySquare
     }, () => {
       setTimeout(() => {
         this.recalculateElHeights()
-        this.scrollToBottom()
+        setTimeout(() => {
+          this.scrollToBottom()
+        }, 0)
       }, 0)
     })
   }
@@ -573,8 +573,8 @@ class MessageDisplaySquare
     }
   }
 
-  deleteLogs(){
-    if(Array.isArray(this.rawLogs.current)){
+  deleteLogs() {
+    if (Array.isArray(this.rawLogs.current)) {
       this.rawLogs.current = []
     }
 
@@ -594,7 +594,8 @@ class MessageDisplaySquare
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <LogMessageHistory classes={classes} listRef={this.listRef} logs={this.state.logs} deleteLogs={this.deleteLogs}/>
+          <LogMessageHistory classes={classes} listRef={this.listRef} logs={this.state.logs}
+            deleteLogs={this.deleteLogs}/>
         </CardContent>
       </Card>
     );
