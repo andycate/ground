@@ -10,6 +10,14 @@ class Interpolation {
     return value
   }
 
+  static interpolateCustomEvent(value){
+    let int = Math.round(value)
+    if(int === 0){
+      return value
+    }
+    return `value: ${value}`
+  }
+
   static interpolateSolenoidErrors(value) {
     // value is binary where each "1" indicates an error for that solenoid
     // 0 represents no error in any of the sols

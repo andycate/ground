@@ -219,6 +219,12 @@ const packets = {
       interpolation: null
     },
   },
+  57: {
+    0: {
+      field: 'customEvent',
+      interpolation: Interpolation.interpolateCustomEvent
+    }
+  },
   60: {
     0: {
       field: 'fuelInjectorPTTemp',
