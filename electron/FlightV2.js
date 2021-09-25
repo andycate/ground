@@ -19,6 +19,10 @@ const packets = {
     3: {
       field: 'loxTankPTHeaterVoltage',
       interpolation: null
+    },
+    4: {
+      field: 'loxTankPTHeaterOvercurrentFlag',
+      interpolation: Interpolation.interpolateErrorFlags
     }
   },
   1: {
@@ -49,7 +53,7 @@ const packets = {
     6: {
       field: 'fuelDomePT',
       interpolation: null
-    }
+    },
   },
   2: {
     0: {
@@ -100,6 +104,10 @@ const packets = {
       field: 'fuelTankPTHeaterVoltage',
       interpolation: null
     },
+    4: {
+      field: 'fuelTankPTHeaterOvercurrentFlag',
+      interpolation: Interpolation.interpolateErrorFlags
+    },
   },
   17: {
     0: {
@@ -138,6 +146,10 @@ const packets = {
       field: 'loxInjectorPTHeaterVoltage',
       interpolation: null
     },
+    4: {
+      field: 'loxInjectorPTHeaterOvercurrentFlag',
+      interpolation: Interpolation.interpolateErrorFlags
+    },
   },
   21: {
     0: {
@@ -167,6 +179,10 @@ const packets = {
     6: {
       field: 'HPSCurrent',
       interpolation: null
+    },
+    7: {
+      field: 'overcurrentTriggeredSols',
+      interpolation: Interpolation.interpolateSolenoidErrors
     },
   },
   22: {
@@ -219,6 +235,10 @@ const packets = {
     3: {
       field: 'fuelInjectorPTHeaterVoltage',
       interpolation: null
+    },
+    4: {
+      field: 'fuelInjectorPTHeaterOvercurrentFlag',
+      interpolation: Interpolation.interpolateErrorFlags
     },
   },
   20: {
