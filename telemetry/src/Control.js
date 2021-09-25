@@ -155,7 +155,7 @@ class Control extends Component {
                       open={comms.openfuelMainValve}
                       close={comms.closefuelMainValve}
                       field='fuelMainValve'
-                      text='Prop Main'
+                      text='Prop Main' 
                     />
                   </Grid>
                 </Grid>
@@ -276,6 +276,8 @@ class Control extends Component {
                   <Grid item={1} xs={12}>
                     <StateWindow
                       onUpdate={comms.setProcedureState}
+                      onState0Enter={comms.startCheckout}
+                      onState0Exit={comms.endCheckout}
                     />
                   </Grid>
                 </Grid>
