@@ -181,10 +181,6 @@ const packets = {
       interpolation: null
     },
     7: {
-      field: 'solenoidOvercurrentFlag',
-      interpolation: null
-    },
-    8: {
       field: 'overcurrentTriggeredSols',
       interpolation: Interpolation.interpolateSolenoidErrors
     },
