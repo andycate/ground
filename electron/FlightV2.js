@@ -254,6 +254,18 @@ const packets = {
       field: 'HPSEnable',
       interpolation: null
     },
+  },
+  57: {
+    0: {
+      field: 'fcEvent',
+      interpolation: null
+    }
+  },
+  58: {
+    0: {
+      field: 'fcEventEnable',
+      interpolation: null
+    }
   }
 };
 
