@@ -1,4 +1,15 @@
 const Packet = require('./Packet');
+const Interpolation = require("./Interpolation");
+
+const UNIVERSAL_PACKETS = {
+  99: {
+    0: {
+      field: 'boardMetadata',
+      interpolation: Interpolation.interpolateMetadata,
+      parseAsString: true
+    }
+  }
+}
 
 class Board {
   constructor(port, address, packets, mapping, onConnect, onDisconnect, onRate) {
@@ -6,7 +17,7 @@ class Board {
     this.watchdog = null;
     this.port = port;
     this.address = address;
-    this.packets = packets;
+    this.packets = { ...UNIVERSAL_PACKETS, ...packets };
     this.mapping = mapping;
     this.onConnect = onConnect;
     this.onDisconnect = onDisconnect;
@@ -40,20 +51,19 @@ class Board {
     this.resetWatchdog();
     this.bytesRecv += packet.length;
     const def = this.packets[packet.id];
-    if(def === undefined) return;
+    if (def === undefined) return;
     const update = {};
-    for(let i = 0; i < packet.values.length; i++) {
+    for (let i = 0; i < packet.values.length; i++) {
       const fieldDef = def[i];
-      if(fieldDef === undefined) continue;
+      if (fieldDef === undefined) continue;
       let val = packet.values[i];
-      if(fieldDef.interpolation !== null) {
+      if (fieldDef.interpolation !== null) {
         val = fieldDef.interpolation(val);
       }
       let mappedField = this.mapping[fieldDef.field];
-      if(mappedField === undefined) {
+      if (mappedField === undefined) {
         mappedField = fieldDef.field;
-      }
-      else if (mappedField === null) {
+      } else if (mappedField === null) {
         continue;
       }
       update[mappedField] = val;
@@ -62,7 +72,8 @@ class Board {
   }
 
   resetWatchdog() {
-    if(!this.isConnected) {
+    if (!this.isConnected) {
+      this.sendPacket(99, [0])
       this.onConnect();
     }
     this.isConnected = true;

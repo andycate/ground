@@ -10,9 +10,14 @@ class Interpolation {
     return value
   }
 
-  static interpolateCustomEvent(value){
+  static interpolateMetadata(value) {
+    console.debug('metadata value: ', value)
+    return value;
+  }
+
+  static interpolateCustomEvent(value) {
     let int = Math.round(value)
-    if(int === 0){
+    if (int === 0) {
       return value
     }
     return `value: ${value}`

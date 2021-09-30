@@ -478,6 +478,8 @@ class MessageDisplaySquare
       }
     }
 
+    const beforeLength = this.rawLogs.current?.length || 0
+
     if (this.rawLogs.current) {
       this.rawLogs.current
         .push(...Object.keys(update)
@@ -494,7 +496,10 @@ class MessageDisplaySquare
     } else {
       this.rawLogs.current = this.state.logs
     }
-    this.debouncedHandleUpdate()
+
+    if(beforeLength !== this.rawLogs.current.length){
+      this.debouncedHandleUpdate()
+    }
   }
 
   _handleUpdate() {
@@ -539,6 +544,7 @@ class MessageDisplaySquare
               pauseAutoScroll: false
             })
           } else {
+            console.debug('recalculating el heights because of scroll')
             this.recalculateElHeights()
           }
         }
