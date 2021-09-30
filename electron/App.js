@@ -212,6 +212,12 @@ class App {
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
     if (dbrecord) {
+      // if update value is not number -> add to syslog as well
+      Object.keys(update).forEach(_k => {
+        if(typeof update[_k] !== 'number'){
+          this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${update[_k]}`)
+        }
+      })
       this.influxDB.handleStateUpdate(timestamp, update);
     }
   }
@@ -276,7 +282,7 @@ class App {
   addIPC(channel, handler, dbrecord = true) {
     ipcMain.handle(channel, (...args) => {
       const update = {
-        [channel]: true
+        [channel]: args.length > 1 ? `invoked with arg(s): ${args.slice(1)}` : 'invoked'
       };
       this.updateState(Date.now(), update, dbrecord)
       return handler(...args);
@@ -288,10 +294,10 @@ class App {
    */
   setupIPC() {
     console.debug('setting up ipc channels')
-    this.addIPC('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password));
+    this.addIPC('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password), false);
     this.addIPC('get-databases', this.influxDB.getDatabaseNames);
     this.addIPC('set-database', (e, database) => this.influxDB.setDatabase(database));
-    this.addIPC('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark));
+    this.addIPC('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark), false);
     this.addIPC('set-procedure-state', (e, procState) => this.influxDB.setProcedureStep(procState));
 
     // Flight Computer

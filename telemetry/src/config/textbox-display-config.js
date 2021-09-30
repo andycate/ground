@@ -17,7 +17,7 @@ export const ROOT_OPTION_GROUPING = {
     {
       name: 'Unknown (Catch All) Updates',
       key: 't2-unknowns',
-      highlight: 'rgba(255,0,0,0.4)',
+      highlight: 'rgba(255,72,0,0.21)',
     },
     {
       name: 'Control Updates',
