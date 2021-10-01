@@ -13,6 +13,9 @@ import Navbar from './components/Navbar';
 import Settings from './components/Settings';
 import SixValueSquare from './components/SixValueSquare';
 import TankHeaterSquare from './components/TankHeaterSquare';
+import MessageDisplaySquare from "./components/MessageDisplaySquare";
+
+const PAGE_TITLE = "Telemetry: Main"
 
 const styles = theme => ({
   root: {
@@ -65,6 +68,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    document.title = PAGE_TITLE;
     comms.connect();
   }
 
@@ -192,6 +196,7 @@ class Main extends Component {
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
+                <MessageDisplaySquare/>
                 {/* <Graph
                   fields={
                     [

@@ -39,6 +39,9 @@ function createWindow (isMain) {
   });
   window1.webContents.once('did-finish-load', () => {
     backendApp.addWebContents(window1.webContents);
+    if(backendApp.webContents.length === 2){
+      backendApp.initApp()
+    }
   });
   window1.once('ready-to-show', () => {
     window1.show();
@@ -61,6 +64,9 @@ function createWindow (isMain) {
   });
   window2.webContents.once('did-finish-load', () => {
     backendApp.addWebContents(window2.webContents);
+    if(backendApp.webContents.length === 2){
+      backendApp.initApp()
+    }
   });
   window2.once('ready-to-show', () => {
     window2.show();

@@ -22,6 +22,8 @@ import StateWindow from './components/StateWindow'
 
 import UpdogWav from './media/updog.wav';
 
+const PAGE_TITLE = "Telemetry: Controls"
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -64,6 +66,7 @@ class Control extends Component {
   }
 
   componentDidMount() {
+    document.title = PAGE_TITLE;
     comms.connect();
     comms.addDarkModeListener(this.handleDarkMode);
   }
