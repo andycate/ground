@@ -280,6 +280,18 @@ const packets = {
       field: 'HPSEnable',
       interpolation: null
     },
+  },
+  57: {
+    0: {
+      field: 'fcEvent',
+      interpolation: null
+    }
+  },
+  58: {
+    0: {
+      field: 'fcEventEnable',
+      interpolation: null
+    }
   }
 };
 
@@ -321,6 +333,10 @@ class FlightV2 extends Board {
     this.setfuelTankPTHeater = this.setfuelTankPTHeater.bind(this);
     // this.setPropaneGemsHeater = this.setPropaneGemsHeater.bind(this);
     this.setfuelInjectorPTHeater = this.setfuelInjectorPTHeater.bind(this);
+    
+    this.endCheckout = this.endCheckout.bind(this);
+    this.startCheckout = this.startCheckout.bind(this);
+    
   }
 
   openarmValve() { return this.sendPacket(20, [1.0]); }
@@ -357,6 +373,10 @@ class FlightV2 extends Board {
   setfuelTankPTHeater(val) { return this.sendPacket(42, [val]); }
   // setPropaneGemsHeater(val) { return this.sendPacket(43, [val]); }
   setfuelInjectorPTHeater(val) { return this.sendPacket(45, [val]); }
+  
+  endCheckout() { return this.sendPacket(58, [1.0]); }
+  startCheckout() { return this.sendPacket(58, [0.0]); }
+  
 }
 
 module.exports = FlightV2;

@@ -340,6 +340,9 @@ class App {
     // this.addIPC('set-propGemsHeater', (e, val) => this.flightComputer.setPropaneGemsHeater(val));
     this.addIPC('set-fuelInjectorPTHeater', (e, val) => this.flightComputer.setfuelInjectorPTHeater(val));
 
+    this.addIPC('end-Checkout', this.flightComputer.endCheckout);
+    this.addIPC('start-Checkout', this.flightComputer.startCheckout);
+
 
     // DAQ 1
 

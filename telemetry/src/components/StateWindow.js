@@ -40,18 +40,24 @@ class StateWindow extends Component {
 
   incState() {
     const { state_num } = this.state;
-    const { onUpdate } = this.props;
+    const { onUpdate, onState0Exit } = this.props;
     var next_state_num = state_num == 5 ? 5 : state_num + 1;
     this.setState({state_num: next_state_num});
     onUpdate(next_state_num);
+    if (state_num == 0 && this.props.onState0Exit) {
+      onState0Exit();
+    }
   }
 
   decState() {
     const { state_num } = this.state;
-    const { onUpdate } = this.props;
+    const { onUpdate, onState0Enter } = this.props;
     var next_state_num = state_num == 0 ? 0 : state_num - 1;
     this.setState({state_num: next_state_num});
     onUpdate(next_state_num);
+    if (state_num == 1 && this.props.onState0Enter) {
+      onState0Enter();
+    }
   }
 
 
