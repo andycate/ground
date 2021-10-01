@@ -32,7 +32,9 @@ class Interpolation {
         "LOX2Way: Arming valve for 150 psi",
         "Prop2Way: Ignitor",
         "LOX5Way: Main valve for LOX",
-        "Prop5Way: main valve for prop"
+        "Prop5Way: main valve for prop",
+        "LOXGems",
+        "PropGems"
       ]
       return names[num] || `Unknown (#${num + 1})`
     }
