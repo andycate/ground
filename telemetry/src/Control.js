@@ -158,7 +158,7 @@ class Control extends Component {
                       open={comms.openfuelMainValve}
                       close={comms.closefuelMainValve}
                       field='fuelMainValve'
-                      text='Prop Main' 
+                      text='Prop Main'
                     />
                   </Grid>
                 </Grid>
@@ -366,6 +366,16 @@ class Control extends Component {
                       time={comms.timefuelFillRBV}
                       field='fuelFillRBVstate'
                       text='Fuel Fill RBV'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                    <SwitchButton
+                      open={comms.enableThermocoupleRead}
+                      close={comms.disableThermocoupleRead}
+                      field='thermocoupleReadEnable'
+                      text='Thermocouple Read'
                     />
                   </Grid>
                 </Grid>

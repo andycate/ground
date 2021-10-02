@@ -332,6 +332,9 @@ class App {
     this.addIPC('activate-Igniter', this.flightComputer.activateIgniter)
     this.addIPC('deactivate-Igniter', this.flightComputer.deactivateIgniter)
 
+    this.addIPC('enable-thermocoupleReading', this.flightComputer.enableThermocoupleRead)
+    this.addIPC('disable-thermocoupleReading', this.flightComputer.disableThermocoupleRead)
+
     this.addIPC('begin-flow', this.flightComputer.beginFlow);
     this.addIPC('end-flow', this.flightComputer.abort);
     this.addIPC('abort', this.abort);

@@ -286,6 +286,12 @@ const packets = {
       field: 'fuelInjectorPTHeaterOvercurrentFlag',
       interpolation: Interpolation.interpolateErrorFlags
     },
+  },
+  65: {
+    0: {
+      field: 'thermocoupleReadEnable',
+      interpolation: null
+    }
   }
 };
 
@@ -312,6 +318,9 @@ class FlightV2 extends Board {
     this.disableHPS = this.disableHPS.bind(this);
     this.openHPS = this.openHPS.bind(this);
     this.closeHPS = this.closeHPS.bind(this);
+
+    this.enableThermocoupleRead = this.enableThermocoupleRead.bind(this)
+    this.disableThermocoupleRead = this.disableThermocoupleRead.bind(this)
 
     this.activateIgniter = this.activateIgniter.bind(this);
     this.deactivateIgniter = this.deactivateIgniter.bind(this);
@@ -358,6 +367,9 @@ class FlightV2 extends Board {
 
   activateIgniter() { return this.sendPacket(23, [1.0]); }
   deactivateIgniter() { return this.sendPacket(23, [0.0]); }
+
+  enableThermocoupleRead() { return this.sendPacket(65, [1.0]); }
+  disableThermocoupleRead() { return this.sendPacket(65, [0.0]); }
 
 
   setloxTankPTHeater(val) { return this.sendPacket(40, [val]); }
