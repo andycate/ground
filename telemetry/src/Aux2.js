@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '@fontsource/roboto';
-import { createMuiTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Box, Container, Grid } from '@material-ui/core';
 
@@ -67,7 +67,7 @@ class Aux2 extends Component {
 
   render() {
     const { classes } = this.props;
-    const theme = createMuiTheme({
+    const theme = createTheme({
       palette: {
         type: this.state.isDark ? 'dark' : 'light'
       }

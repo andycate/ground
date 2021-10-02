@@ -11,7 +11,6 @@ class Interpolation {
   }
 
   static interpolateMetadata(value) {
-    console.debug('metadata value: ', value)
     return value;
   }
 

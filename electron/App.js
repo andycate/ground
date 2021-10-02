@@ -20,6 +20,7 @@ class App {
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
     this.abort = this.abort.bind(this);
     this.hold = this.hold.bind(this);
+    this.handleSendCustomMessage = this.handleSendCustomMessage.bind(this)
   }
 
   /**
@@ -282,11 +283,27 @@ class App {
   addIPC(channel, handler, dbrecord = true) {
     ipcMain.handle(channel, (...args) => {
       const update = {
-        [channel]: args.length > 1 ? `invoked with arg(s): ${args.slice(1)}` : 'invoked'
+        [channel]: args.length > 1 ? `invoked with arg(s): ${args.slice(1).join(", ")}` : 'invoked'
       };
       this.updateState(Date.now(), update, dbrecord)
       return handler(...args);
     });
+  }
+
+  handleSendCustomMessage(e, messageDestination, message){
+    if(messageDestination === 'sys-log'){
+      this.influxDB.handleSysLogUpdate(Date.now(), `text-input -> ${message}`, {
+        manualInput: true
+      }).then(r => {
+        // TODO: implement some sort of sent check
+      })
+    }else{
+      const destBoard = this[messageDestination]
+      if(destBoard){
+        // TODO: implement sending to the respective boards with sendPacket
+      }
+    }
+    console.debug(`received request to send custom message to ${messageDestination}: ${message}`)
   }
 
   /**
@@ -299,6 +316,8 @@ class App {
     this.addIPC('set-database', (e, database) => this.influxDB.setDatabase(database));
     this.addIPC('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark), false);
     this.addIPC('set-procedure-state', (e, procState) => this.influxDB.setProcedureStep(procState));
+
+    this.addIPC('send-custom-message', this.handleSendCustomMessage, false)
 
     // Flight Computer
 

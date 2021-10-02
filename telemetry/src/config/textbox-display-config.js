@@ -24,21 +24,28 @@ export const ROOT_OPTION_GROUPING = {
       key: 't2-controls',
       children: [
         { key: 'abort', highlight: 'rgba(255,0,0,0.4)' },
-        { key: 'hold' }
+        { key: 'hold' },
+        { key: 'send-custom-message'}
       ]
     },
     {
       name: 'Connection Status',
       key: 't2-connection-status',
+      highlight: 'rgba(255,243,0,0.4)',
       children: [
-        { key: 'flightConnected', highlight: 'rgba(255,243,0,0.4)' }
+        { key: 'flightConnected' },
+        { key: 'daq1Connected' },
+        { key: 'daq2Connected' },
+        { key: 'actCtrlr1Connected' },
+        { key: 'actCtrlr2Connected' },
+        { key: 'actCtrlr3Connected' },
       ]
     },
     {
       name: 'Spacers',
       key: 't2-spacers',
       children: [
-        { key: 'filler', highlight: 'rgb(255,255,255)' }
+        { key: 'filler' }
       ]
     }
   ]

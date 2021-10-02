@@ -69,10 +69,10 @@ class InfluxDB {
     this.tags.procedureStep = null;
   }
 
-  async handleSysLogUpdate(timestamp, message) {
+  async handleSysLogUpdate(timestamp, message, additionalTags = {}) {
     this.sysLogBuffer.push({
       measurement: 'syslog',
-      tags: this.tags,
+      tags: { ...this.tags, ...additionalTags },
       fields: {
         // TODO: can implement severity at one point?
         message,
@@ -84,7 +84,7 @@ class InfluxDB {
 
     if (timestamp - this.lastSysLog > 1000 * 10) {
       this.lastSysLog = timestamp
-      await this.influx.writePoints(this.sysLogBuffer, { database: this.database })
+      await this.influx.writePoints(this.sysLogBuffer, { database: this.database, precision: 'ms' })
       this.sysLogBuffer = [];
       return true;
     }

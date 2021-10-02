@@ -13,13 +13,38 @@ import { withStyles, withTheme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import comms from "../api/Comms";
 import moment from "moment";
-import { useWindowSize } from "./useWindowSize";
 import { Virtuoso } from 'react-virtuoso'
 
 import throttle from 'lodash.throttle';
 import { GENERIC_FILTERS, ROOT_OPTION_GROUPING } from "../config/textbox-display-config";
 
-const DEFAULT_ROW_HEIGHT = 22 * 2
+const BOARD_CONNECTION_FIELDS = [
+  "flightConnected",
+  "daq1Connected",
+  "daq2Connected",
+  "actCtrlr1Connected",
+  "actCtrlr2Connected",
+  "actCtrlr3Connected"
+]
+
+const BOARD_NAMES = {
+  "flightConnected": "Flight Comp",
+  "daq1Connected": "DAQ1",
+  "daq2Connected": "DAQ2",
+  "actCtrlr1Connected": "Act Ctrlr1",
+  "actCtrlr2Connected": "Act Ctrlr2",
+  "actCtrlr3Connected": "Act Ctrlr3"
+}
+
+const FORMAL_BOARD_NAMES = {
+  "SysLog": "sys-log",
+  "flightConnected": "flightComputer",
+  "daq1Connected": "daq1",
+  "daq2Connected": "daq2",
+  "actCtrlr1Connected": "actCtrlr1",
+  "actCtrlr2Connected": "actCtrlr2",
+  "actCtrlr3Connected": "actCtrlr3"
+}
 
 const styles = style => ({
   root: {
@@ -45,8 +70,8 @@ const styles = style => ({
     display: 'flex',
     flexDirection: 'row',
     zIndex: 21,
-    top: 0,
-    right: 0,
+    top: -4,
+    right: -16,
     whiteSpace: 'nowrap'
   },
   floatingMenu: {
@@ -88,6 +113,14 @@ const styles = style => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  flatInput: {
+    border: 'none',
+    borderLeft: '1px solid black',
+    borderRight: '1px solid black',
+    padding: '4px 8px',
+    height: '100%',
+    width: '100%'
   }
 });
 
@@ -162,14 +195,16 @@ const FilterMenu = forwardRef((props, ref) => {
   )
 })
 
-const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
-  const filterMenuButton = useRef(null);
+const LogMessageHistory = forwardRef(({ logs: _logs, classes, deleteLogs, availableMessageDestinations }, listRef) => {
+  const filterMenuButton = useRef(null)
+  const inputRef = useRef(null)
 
   const [openFilterMenu, setOpenFilterMenu] = useState(false)
   const [optionGroupState, _setOptionGroupState] = useState(ROOT_OPTION_GROUPING)
   const [numFiltersApplied, setNumFiltersApplied] = useState(0)
   const [numFiltersAvailable, setNumFiltersAvailable] = useState(0)
-  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+  const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
+  const [messageDestination, setMessageDestination] = useState([...availableMessageDestinations][0])
 
   const _flatGroupState = JSON.stringify(optionGroupState)
 
@@ -267,7 +302,7 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
     setNumFiltersApplied(counter)
     setNumFiltersAvailable(total)
 
-    if(listRef.current){
+    if (listRef.current) {
       listRef.current.scrollToIndex({ index: logs.length - 1, align: 'start' })
     }
   }, [_flatGroupState])
@@ -330,9 +365,48 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
       .filter(log => log.included)
   }, [_flatGroupState, _logs.length])
 
+
+  const _handleKeyup = (evt) => {
+    if (evt.key === 'Enter') {
+      if (!inputRef?.current) return
+      if (document.activeElement !== inputRef.current) {
+        // pressed enter outside the inputRef
+        inputRef.current.focus()
+      } else {
+        // pressed enter within the inputRef
+        sendMessage()
+      }
+    }
+  }
+
+  const sendMessage = () => {
+    if (!availableMessageDestinations.has(messageDestination)) {
+      // board has been disconnected
+      return
+    }
+    const value = (inputRef.current.value || "").trim()
+    if (value.length !== 0) {
+      console.debug('sending message', value, 'to', messageDestination)
+      comms.sendCustomMessage(FORMAL_BOARD_NAMES[messageDestination], value).then(r => {
+        // TODO: maybe have a verify thing
+        inputRef.current.value = ""
+      })
+    }
+  }
+
+  /**
+   * Install key up listeners
+   */
+  useEffect(() => {
+    window.addEventListener('keyup', _handleKeyup)
+    return () => {
+      window.removeEventListener('keyup', _handleKeyup)
+    }
+  }, [])
+
   return (
     <LogMessageContext.Provider value={{ optionGroupState, toggleOptionRootNode }}>
-      <Box height={'100%'}>
+      <Box height={'100%'} display={'flex'} flexDirection={'column'}>
         <Box position={'relative'}>
           <Box position={'absolute'} top={0} left={0} right={0} display={'flex'} flexDirection={'row'}
             justifyContent={'space-between'} zIndex={19} className={classes.floatingBackBoard} mr={3}>
@@ -386,7 +460,7 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
             </Box>
           </Box>
         </Box>
-        {logs.length > 0 && <Virtuoso className={classes.messagesContainer}
+        <Virtuoso className={classes.messagesContainer}
           data={logs}
           ref={listRef}
           followOutput={true}
@@ -395,11 +469,38 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
               <LogMessage index={index} log={log} classes={classes}/>
             </div>
           }}
-        />}
+        />
+        <Box marginLeft={-1} marginRight={-1} marginBottom={-1} borderTop={'1px solid black'}
+          display={'flex'} flexDirection={'row'} paddingLeft={1} paddingRight={1} alignItems={'center'}>
+          <Box paddingTop={1} paddingBottom={1} marginRight={1}>
+            <select
+              style={{
+                border: 'none'
+              }}
+              onChange={e => setMessageDestination(e.target.value)}
+            >
+              {([...new Set([...availableMessageDestinations, messageDestination])]).map(field => {
+                return (
+                  <option key={field} selected={messageDestination === field}
+                    disabled={!availableMessageDestinations.has(field)}>
+                    {BOARD_NAMES[field] || field}
+                  </option>
+                )
+              })}
+            </select>
+          </Box>
+          <input type={'text'} className={classes.flatInput} ref={inputRef}/>
+          <Box marginLeft={1}>
+            <Button variant={'contained'} size={'small'} onClick={sendMessage}
+              disabled={!availableMessageDestinations.has(messageDestination)}>
+              Send
+            </Button>
+          </Box>
+        </Box>
       </Box>
     </LogMessageContext.Provider>
   );
-};
+});
 
 class MessageDisplaySquare
   extends Component {
@@ -411,7 +512,8 @@ class MessageDisplaySquare
         ts: 0,
         _k: 'filler',
         _val: 'initial'
-      }]
+      }],
+      availableMessageDestinations: new Set(['SysLog'])
     }
 
     this.rawLogs = createRef()
@@ -419,7 +521,10 @@ class MessageDisplaySquare
 
     this.handleUpdate = this.handleUpdate.bind(this)
     this.deleteLogs = this.deleteLogs.bind(this)
-    this.debouncedHandleUpdate = throttle(this._handleUpdate, 250)
+
+    this._handleUpdate = this._handleUpdate.bind(this)
+
+    this.throttledHandleUpdate = throttle(this._handleUpdate, 250)
   }
 
   handleUpdate(timestamp, update) {
@@ -459,13 +564,32 @@ class MessageDisplaySquare
           .filter(_o => GENERIC_FILTERS.reduce((acc, cur) => {
             return acc && !cur.ignoredIf(_o)
           }, true))
+          .map(_o => {
+            const { _k, _, _val } = _o
+            if (BOARD_CONNECTION_FIELDS.includes(_k)) {
+              if (_val) {
+                // board is on now
+                this.state.availableMessageDestinations.add(_k)
+                this.setState({
+                  availableMessageDestinations: this.state.availableMessageDestinations
+                })
+              } else {
+                // board is off now
+                this.state.availableMessageDestinations.delete(_k)
+                this.setState({
+                  availableMessageDestinations: this.state.availableMessageDestinations
+                })
+              }
+            }
+            return _o
+          })
         )
     } else {
       this.rawLogs.current = this.state.logs
     }
 
     if (beforeLength !== this.rawLogs.current.length) {
-      this.debouncedHandleUpdate()
+      this.throttledHandleUpdate()
     }
   }
 
@@ -488,7 +612,7 @@ class MessageDisplaySquare
       this.rawLogs.current = []
     }
 
-    this.debouncedHandleUpdate.cancel()
+    this.throttledHandleUpdate.cancel()
     this._handleUpdate()
   }
 
@@ -497,7 +621,9 @@ class MessageDisplaySquare
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <LogMessageHistory classes={classes} listRef={this.listRef} logs={this.state.logs}
+          <LogMessageHistory classes={classes} logs={this.state.logs}
+            ref={this.listRef}
+            availableMessageDestinations={this.state.availableMessageDestinations}
             deleteLogs={this.deleteLogs}/>
         </CardContent>
       </Card>
