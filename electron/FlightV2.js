@@ -151,6 +151,40 @@ const packets = {
       interpolation: Interpolation.interpolateErrorFlags
     },
   },
+  20: {
+    0: {
+      field: 'armValve',
+      interpolation: null
+    },
+    1: {
+      field: 'igniter',
+      interpolation: null
+    },
+    2: {
+      field: 'loxMainValve',
+      interpolation: null
+    },
+    3: {
+      field: 'fuelMainValve',
+      interpolation: null
+    },
+    // 4: {
+    //   field: 'loxGems',
+    //   interpolation: null
+    // },
+    // 5: {
+    //   field: 'propGems',
+    //   interpolation: null
+    // },
+    6: {
+      field: 'HPS',
+      interpolation: null
+    },
+    7: {
+      field: 'HPSEnable',
+      interpolation: null
+    },
+  },
   21: {
     0: {
       field: 'armValveCurrent',
@@ -219,12 +253,6 @@ const packets = {
       interpolation: null
     },
   },
-  57: {
-    0: {
-      field: 'customEvent',
-      interpolation: Interpolation.interpolateCustomEvent
-    }
-  },
   60: {
     0: {
       field: 'fuelInjectorPTTemp',
@@ -247,44 +275,10 @@ const packets = {
       interpolation: Interpolation.interpolateErrorFlags
     },
   },
-  20: {
-    0: {
-      field: 'armValve',
-      interpolation: null
-    },
-    1: {
-      field: 'igniter',
-      interpolation: null
-    },
-    2: {
-      field: 'loxMainValve',
-      interpolation: null
-    },
-    3: {
-      field: 'fuelMainValve',
-      interpolation: null
-    },
-    // 4: {
-    //   field: 'loxGems',
-    //   interpolation: null
-    // },
-    // 5: {
-    //   field: 'propGems',
-    //   interpolation: null
-    // },
-    6: {
-      field: 'HPS',
-      interpolation: null
-    },
-    7: {
-      field: 'HPSEnable',
-      interpolation: null
-    },
-  },
   57: {
     0: {
       field: 'fcEvent',
-      interpolation: null
+      interpolation: Interpolation.interpolateCustomEvent
     }
   },
   58: {
@@ -333,10 +327,10 @@ class FlightV2 extends Board {
     this.setfuelTankPTHeater = this.setfuelTankPTHeater.bind(this);
     // this.setPropaneGemsHeater = this.setPropaneGemsHeater.bind(this);
     this.setfuelInjectorPTHeater = this.setfuelInjectorPTHeater.bind(this);
-    
+
     this.endCheckout = this.endCheckout.bind(this);
     this.startCheckout = this.startCheckout.bind(this);
-    
+
   }
 
   openarmValve() { return this.sendPacket(20, [1.0]); }
@@ -373,10 +367,10 @@ class FlightV2 extends Board {
   setfuelTankPTHeater(val) { return this.sendPacket(42, [val]); }
   // setPropaneGemsHeater(val) { return this.sendPacket(43, [val]); }
   setfuelInjectorPTHeater(val) { return this.sendPacket(45, [val]); }
-  
+
   endCheckout() { return this.sendPacket(58, [1.0]); }
   startCheckout() { return this.sendPacket(58, [0.0]); }
-  
+
 }
 
 module.exports = FlightV2;
