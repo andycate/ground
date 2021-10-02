@@ -20,7 +20,28 @@ class Interpolation {
     if (int === 0) {
       return value
     }
-    return `value: ${value}`
+    const event_mapping = {
+      1: "Open Both Main Valve",
+      2: "Open LOX",
+      3: "Open Fuel",
+      4: "Close LOX",
+      5: "Close Fuel",
+      6: "Abort Close Lox",
+      7: "Abort Close Fuel",
+      8: "Turn On Igniter & Open 2 Way",
+      9: "Close LOX 2 Way",
+      10: "Turn Off Igniter",
+      11: "[Igniter] Abort",
+      15: "Enter Checkout",
+      16: "Exit Checkout"
+
+    };
+    if (Object.keys(event_mapping).includes(value)){
+      return event_mapping[value];
+    }
+    else{
+      return "Id not found" + value.toString()
+    }  
   }
 
   static interpolateSolenoidErrors(value) {
