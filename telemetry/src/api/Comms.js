@@ -51,6 +51,9 @@ class Comms {
     this.openHPS = this.openHPS.bind(this);
     this.closeHPS = this.closeHPS.bind(this);
 
+    this.enableThermocoupleRead = this.enableThermocoupleRead.bind(this)
+    this.disableThermocoupleRead = this.disableThermocoupleRead.bind(this)
+
     this.activateIgniter = this.activateIgniter.bind(this);
     this.deactivateIgniter = this.deactivateIgniter.bind(this);
 
@@ -68,7 +71,7 @@ class Comms {
     this.setfuelTankPTHeater = this.setfuelTankPTHeater.bind(this);
     // this.setPropGemsHeater = this.setPropGemsHeater.bind(this);
     this.setfuelInjectorPTHeater = this.setfuelInjectorPTHeater.bind(this);
-    
+
     this.startCheckout = this.startCheckout.bind(this);
     this.endCheckout = this.endCheckout.bind(this);
 
@@ -347,6 +350,14 @@ class Comms {
     return await this.ipc.invoke('deactivate-Igniter');
   }
 
+  async disableThermocoupleRead() {
+    return await this.ipc.invoke('disable-thermocoupleReading');
+  }
+
+  async enableThermocoupleRead() {
+    return await this.ipc.invoke('enable-thermocoupleReading');
+  }
+
   async beginFlowAll() {
     await this.closeloxPrechillRBV();
     await this.closefuelPrechillRBV();
@@ -389,7 +400,7 @@ class Comms {
   // async setPropGemsHeater(val) { return await this.ipc.invoke('set-propGemsHeater', val); }
 
   async setfuelInjectorPTHeater(val) { return await this.ipc.invoke('set-fuelInjectorPTHeater', val); }
-  
+
   async endCheckout() { return await this.ipc.invoke('end-Checkout'); }
   async startCheckout() { return await this.ipc.invoke('start-Checkout'); }
 
