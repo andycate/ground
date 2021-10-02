@@ -51,6 +51,9 @@ class Comms {
     this.openHPS = this.openHPS.bind(this);
     this.closeHPS = this.closeHPS.bind(this);
 
+    this.enableThermocoupleRead = this.enableThermocoupleRead.bind(this)
+    this.disableThermocoupleRead = this.disableThermocoupleRead.bind(this)
+
     this.activateIgniter = this.activateIgniter.bind(this);
     this.deactivateIgniter = this.deactivateIgniter.bind(this);
 
@@ -351,6 +354,14 @@ class Comms {
 
   async deactivateIgniter() {
     return await this.ipc.invoke('deactivate-Igniter');
+  }
+
+  async disableThermocoupleRead() {
+    return await this.ipc.invoke('disable-thermocoupleReading');
+  }
+
+  async enableThermocoupleRead() {
+    return await this.ipc.invoke('enable-thermocoupleReading');
   }
 
   async beginFlowAll() {
