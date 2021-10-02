@@ -4,7 +4,7 @@ import React, {
   createRef, forwardRef,
   useCallback,
   useContext,
-  useEffect, useMemo,
+  useEffect, useMemo, useReducer,
   useRef,
   useState
 } from "react";
@@ -12,11 +12,10 @@ import { Button, Card, CardContent, Checkbox, ClickAwayListener, Grow, Paper, Po
 import { withStyles, withTheme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import comms from "../api/Comms";
-import AutoSizer from "react-virtualized-auto-sizer";
-import { VariableSizeList as List } from "react-window";
 import moment from "moment";
 import { useWindowSize } from "./useWindowSize";
-import clsx from "clsx";
+import { Virtuoso } from 'react-virtuoso'
+
 import throttle from 'lodash.throttle';
 import { GENERIC_FILTERS, ROOT_OPTION_GROUPING } from "../config/textbox-display-config";
 
@@ -94,16 +93,11 @@ const styles = style => ({
 
 export const LogMessageContext = createContext({});
 
-const LogMessage = ({ log, index, classes }) => {
+const LogMessage = ({ log, classes }) => {
   const { ts, _k, _val, trueIdx, highlight } = log;
-  const { setSize, windowWidth } = useContext(LogMessageContext);
   const root = useRef();
 
   const paddedIndex = trueIdx.toString().padStart(5, "0")
-
-  useEffect(() => {
-    setSize(index, root.current.clientHeight);
-  }, [windowWidth]);
 
   return (
     <div ref={root} className={classes.logLine} title={`${moment(ts).fromNow(false)}`} {...highlight ? {
@@ -171,14 +165,11 @@ const FilterMenu = forwardRef((props, ref) => {
 const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
   const filterMenuButton = useRef(null);
 
-  const sizeMap = useRef({});
-
   const [openFilterMenu, setOpenFilterMenu] = useState(false)
   const [optionGroupState, _setOptionGroupState] = useState(ROOT_OPTION_GROUPING)
   const [numFiltersApplied, setNumFiltersApplied] = useState(0)
   const [numFiltersAvailable, setNumFiltersAvailable] = useState(0)
-
-  const [windowWidth] = useWindowSize();
+  const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
   const _flatGroupState = JSON.stringify(optionGroupState)
 
@@ -240,12 +231,8 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
       }
     }
     _setOptionGroupState(optionGroupState)
+    forceUpdate();
   }, [_flatGroupState])
-
-  const setSize = useCallback((index, size) => {
-    sizeMap.current = { ...sizeMap.current, [index]: size };
-  }, []);
-  const getSize = useCallback(index => sizeMap.current[index] || DEFAULT_ROW_HEIGHT, []);
 
   /**
    * sets filter to show all
@@ -253,13 +240,6 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
   useEffect(() => {
     toggleOptionRootNode(ROOT_OPTION_GROUPING.key, true)
   }, [])
-
-  /**
-   * clear size when filter changes
-   */
-  useEffect(() => {
-    sizeMap.current = {}
-  }, [_flatGroupState])
 
   /**
    * calculate the number of filters being used
@@ -286,6 +266,10 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
 
     setNumFiltersApplied(counter)
     setNumFiltersAvailable(total)
+
+    if(listRef.current){
+      listRef.current.scrollToIndex({ index: logs.length - 1, align: 'start' })
+    }
   }, [_flatGroupState])
 
   /**
@@ -347,7 +331,7 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
   }, [_flatGroupState, _logs.length])
 
   return (
-    <LogMessageContext.Provider value={{ setSize, windowWidth, optionGroupState, toggleOptionRootNode }}>
+    <LogMessageContext.Provider value={{ optionGroupState, toggleOptionRootNode }}>
       <Box height={'100%'}>
         <Box position={'relative'}>
           <Box position={'absolute'} top={0} left={0} right={0} display={'flex'} flexDirection={'row'}
@@ -402,23 +386,16 @@ const LogMessageHistory = ({ listRef, logs: _logs, classes, deleteLogs }) => {
             </Box>
           </Box>
         </Box>
-        {logs.length > 0 && <AutoSizer className={classes.messagesContainer}>
-          {({ height, width }) => (
-            <List
-              className="List"
-              height={height - 12}
-              width={width}
-              itemCount={logs.length}
-              itemSize={getSize}
-              ref={listRef}>
-              {({ index, style }) => (
-                <div style={style}>
-                  <LogMessage index={index} log={logs[index]} classes={classes}/>
-                </div>
-              )}
-            </List>
-          )}
-        </AutoSizer>}
+        {logs.length > 0 && <Virtuoso className={classes.messagesContainer}
+          data={logs}
+          ref={listRef}
+          followOutput={true}
+          itemContent={(index, log) => {
+            return <div>
+              <LogMessage index={index} log={log} classes={classes}/>
+            </div>
+          }}
+        />}
       </Box>
     </LogMessageContext.Provider>
   );
@@ -434,25 +411,15 @@ class MessageDisplaySquare
         ts: 0,
         _k: 'filler',
         _val: 'initial'
-      }],
-      pauseAutoScroll: false,
-      waiting: false
+      }]
     }
 
     this.rawLogs = createRef()
     this.listRef = createRef()
-    this.rowHeights = createRef()
-
-    this.wheelListener = createRef()
 
     this.handleUpdate = this.handleUpdate.bind(this)
-    this.getRowHeight = this.getRowHeight.bind(this)
-    this.setRowHeight = this.setRowHeight.bind(this)
     this.deleteLogs = this.deleteLogs.bind(this)
-    this.debouncedHandleUpdate = throttle(this._handleUpdate, 500)
-
-    this._handleScroll = this._handleScroll.bind(this)
-    this.debouncedHandleScroll = throttle(this._handleScroll, 200)
+    this.debouncedHandleUpdate = throttle(this._handleUpdate, 250)
   }
 
   handleUpdate(timestamp, update) {
@@ -497,7 +464,7 @@ class MessageDisplaySquare
       this.rawLogs.current = this.state.logs
     }
 
-    if(beforeLength !== this.rawLogs.current.length){
+    if (beforeLength !== this.rawLogs.current.length) {
       this.debouncedHandleUpdate()
     }
   }
@@ -505,20 +472,7 @@ class MessageDisplaySquare
   _handleUpdate() {
     this.setState({
       logs: this.rawLogs.current
-    }, () => {
-      setTimeout(() => {
-        this.recalculateElHeights()
-        setTimeout(() => {
-          this.scrollToBottom()
-        }, 0)
-      }, 0)
     })
-  }
-
-  _handleScroll(evt) {
-    if (this.wheelListener?.current) {
-      this.wheelListener.current(evt)
-    }
   }
 
   componentDidMount() {
@@ -527,56 +481,6 @@ class MessageDisplaySquare
 
   componentWillUnmount() {
     comms.removeUniversalSubscriber(this.handleUpdate);
-    this.listRef.current?._outerRef?.removeEventListener('wheel', this.wheelListener.current)
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.listRef.current && !this.wheelListener.current) {
-      const { _outerRef: listNode } = this.listRef.current
-      this.wheelListener.current = (evt) => {
-        if (evt.wheelDelta && evt.wheelDelta > 0 || evt.deltaY < 0) {
-          this.setState({
-            pauseAutoScroll: true
-          })
-        } else {
-          if (listNode.scrollHeight - listNode.scrollTop - listNode.clientHeight <= 50) {
-            this.setState({
-              pauseAutoScroll: false
-            })
-          } else {
-            console.debug('recalculating el heights because of scroll')
-            this.recalculateElHeights()
-          }
-        }
-      }
-      listNode.addEventListener('wheel', this.debouncedHandleScroll)
-    }
-  }
-
-  getRowHeight(index) {
-    if (this.rowHeights.current && typeof this.rowHeights.current[index] === 'number') {
-      return this.rowHeights.current[index]
-    }
-
-    return DEFAULT_ROW_HEIGHT
-  }
-
-  setRowHeight(index, size) {
-    this.rowHeights.current = {
-      ...this.rowHeights.current, [index]: size
-    }
-  }
-
-  recalculateElHeights() {
-    this.listRef.current?.resetAfterIndex(0)
-  }
-
-  scrollToBottom(forceScroll = false) {
-    const { current } = this.listRef
-    if (current) {
-      if (this.state.pauseAutoScroll && !forceScroll) return
-      current.scrollToItem(this.state.logs.length - 1, "end")
-    }
   }
 
   deleteLogs() {
@@ -584,15 +488,8 @@ class MessageDisplaySquare
       this.rawLogs.current = []
     }
 
-    this.rowHeights.current = {}
-
     this.debouncedHandleUpdate.cancel()
     this._handleUpdate()
-    this.debouncedHandleScroll.cancel()
-
-    this.setState({
-      pauseAutoScroll: false
-    })
   }
 
   render() {

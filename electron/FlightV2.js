@@ -253,6 +253,18 @@ const packets = {
       interpolation: null
     },
   },
+  57: {
+    0: {
+      field: 'fcEvent',
+      interpolation: Interpolation.interpolateCustomEvent
+    }
+  },
+  58: {
+    0: {
+      field: 'fcEventEnable',
+      interpolation: null
+    }
+  },
   60: {
     0: {
       field: 'fuelInjectorPTTemp',
@@ -274,18 +286,6 @@ const packets = {
       field: 'fuelInjectorPTHeaterOvercurrentFlag',
       interpolation: Interpolation.interpolateErrorFlags
     },
-  },
-  57: {
-    0: {
-      field: 'fcEvent',
-      interpolation: Interpolation.interpolateCustomEvent
-    }
-  },
-  58: {
-    0: {
-      field: 'fcEventEnable',
-      interpolation: null
-    }
   }
 };
 
