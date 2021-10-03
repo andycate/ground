@@ -368,7 +368,9 @@ class Comms {
     await this.closeloxPrechillRBV();
     await this.closefuelPrechillRBV();
     await this.closePrechillFlowRBV();
+    await this.closePurgeFlowRBV();
     await this.closeloxTankVentRBV();
+    await this.closefuelTankVentRBV();
     window.setTimeout(() => {
       return this.beginFlow();
     }, 2000);

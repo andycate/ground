@@ -260,20 +260,35 @@ class App {
 
   abort() { // feels like this should be done in the frontend, not the backend.
     // this.flightComputer.abort();
-    this.actCtrlr1.closeActCh1(); // Close Pressurant Flow
-    this.actCtrlr1.closeActCh4(); // Close LOx Flow
-    this.actCtrlr2.closeActCh3(); // Close Propane Flow
+    // this.actCtrlr1.closeActCh1(); // Close Pressurant Flow
+    // this.actCtrlr1.closeActCh4(); // Close LOx Flow
+    // this.actCtrlr2.closeActCh3(); // Close Propane Flow
 
-    this.actCtrlr3.closeActCh2(); // Close pre-chill Flow
-    this.actCtrlr3.closeActCh4(); // Close Purge Flow
-    this.actCtrlr3.closeActCh0(); // Close LOx Prechill
-    this.actCtrlr3.closeActCh3(); // Close Propane Prechill
+    // this.actCtrlr3.closeActCh2(); // Close pre-chill Flow
+    // this.actCtrlr3.closeActCh4(); // Close Purge Flow
+    // this.actCtrlr3.closeActCh0(); // Close LOx Prechill
+    // this.actCtrlr3.closeActCh3(); // Close Propane Prechill
 
-    this.actCtrlr1.openActCh2(); // Open LOx Vent
-    this.actCtrlr2.openActCh2(); // Open Propane Vent
-    this.actCtrlr3.openActCh1(); // Open Purge/Pre-chill Vent
-    this.actCtrlr1.openActCh3(); // Open LOx Tank Vent
-    this.actCtrlr2.openActCh6(); // Open Propane Tank Vent
+    // this.actCtrlr1.openActCh2(); // Open LOx Vent
+    // this.actCtrlr2.openActCh2(); // Open Propane Vent
+    // this.actCtrlr3.openActCh1(); // Open Purge/Pre-chill Vent
+    // this.actCtrlr1.openActCh3(); // Open LOx Tank Vent
+    // this.actCtrlr2.openActCh6(); // Open Propane Tank Vent
+
+
+    this.actCtrlr1.openActCh3(); // loxTankVent open
+    this.actCtrlr1.openActCh6(); // fuelTankVent open
+
+    this.actCtrlr1.closeActCh4(); // loxFill close
+    this.actCtrlr1.closeActCh1(); // fuelFill close
+
+    this.actCtrlr2.closeActCh6(); // pressurantFill close
+    this.actCtrlr3.closeActCh4(); // purge flow close
+
+    this.actCtrlr3.openActCh1(); // purge prechill vent open
+
+
+
   }
 
   hold() {
