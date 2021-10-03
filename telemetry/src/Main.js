@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '@fontsource/roboto';
-import { createTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -79,7 +79,7 @@ class Main extends Component {
 
   render() {
     const { classes } = this.props;
-    const theme = createTheme({
+    const theme = createMuiTheme({
       palette: {
         type: this.state.isDark ? 'dark' : 'light'
       }
