@@ -15,10 +15,10 @@ class Interpolation {
     return value;
   }
 
-  static interpolateCustomEvent(value) {
-    let int = Math.round(value)
-    if (int === 0) {
-      return value
+  static interpolateCustomEvent(raw_value) {
+    let value_num = Math.round(raw_value)
+    if (value_num === 0) {
+      return raw_valuel
     }
     const event_mapping = {
       1: "Open Both Main Valve",
@@ -36,11 +36,11 @@ class Interpolation {
       16: "Exit Checkout"
 
     };
-    if (Object.keys(event_mapping).includes(value)){
-      return event_mapping[value];
+    if (Object.keys(event_mapping).includes(raw_value.toString())){
+      return event_mapping[raw_value]
     }
     else{
-      return "Id not found" + value.toString()
+      return "Id not found: " + raw_value
     }  
   }
 
