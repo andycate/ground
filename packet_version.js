@@ -8,7 +8,6 @@ const rl = require('readline').createInterface({
 });
 
 // address of board to send to
-const BOARD_ADDRESS = "10.0.0.12";
 const BOARD_PORT = 42069;
 
 // checksum generator
@@ -26,7 +25,10 @@ server.on('error', (err) => {
   server.close();
 });
 server.on('message', (msg, rinfo) => {
-  console.log(msg.toString());
+  let ret_packet = msg.toString();
+  if (ret_packet.substring(1,3) == "99"){
+    console.log(msg.toString());
+  }
 });
 server.on('listening', () => {
   const address = server.address();
@@ -34,11 +36,13 @@ server.on('listening', () => {
   if(process.platform === 'win32') {
     server.send("big yeet", 42069, "10.0.0.42");
   }
-  rl.on('line', line => {
-    const checksum = fletcher16(Buffer.from(line, 'binary')).toString(16);
-    console.log('sending: ' + '{' + line + '|' + checksum + '}');
-    server.send('{' + line + '|' + checksum + '}', BOARD_PORT, BOARD_ADDRESS);
-  });
+  let line = "99, 0";
+  const checksum = fletcher16(Buffer.from(line, 'binary')).toString(16);
+  console.log('sending: ' + '{' + line + '|' + checksum + '}');
+  for (var i = 0; i < 256; i++) {
+    let dest = "10.0.0." + i;
+    server.send('{' + line + '|' + checksum + '}', BOARD_PORT, dest);
+  }
 });
 server.bind(42069);
 
