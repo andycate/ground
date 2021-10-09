@@ -58,7 +58,12 @@ class Board {
       if (fieldDef === undefined) continue;
       let val = packet.values[i];
       if (fieldDef.interpolation !== null) {
-        val = fieldDef.interpolation(val);
+        val = fieldDef.interpolation(val, packet.timestamp);
+        if (val._val) {
+          const { additionalFields } = val
+          Object.assign(update, additionalFields)
+          val = val._val
+        }
       }
       let mappedField = this.mapping[fieldDef.field];
       if (mappedField === undefined) {

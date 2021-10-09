@@ -1,4 +1,12 @@
+// const CircularBuffer = require("circular-buffer"); // can be used to keep track of finer details later
+const GRANULARITY = 200 // store points as 200ms average
+const AVERAGE_INTERVAL = 5000 // default to 5 second averages
+
 class Interpolation {
+  static firstTimeStamps = {}
+  static valueBuffers = {}
+  static pastValues = {}
+
   static floatToBool(value) {
     return value > 0.0;
   }
@@ -35,15 +43,14 @@ class Interpolation {
       16: "Exit Checkout"
 
     };
-    if (Object.keys(event_mapping).includes(raw_value.toString())){
+    if (Object.keys(event_mapping).includes(raw_value.toString())) {
       return {
         message: event_mapping[raw_value],
         tags: {
           eventId: value_num
         }
       }
-    }
-    else{
+    } else {
       return "Id not found: " + raw_value
     }
   }
@@ -77,6 +84,51 @@ class Interpolation {
       }
       return acc
     }, "")}`
+  }
+
+  static interpolateRateOfChange(value, lastTime, outputFieldName) {
+    if (!this.valueBuffers[outputFieldName] || !this.firstTimeStamps[outputFieldName]) {
+      this.firstTimeStamps[outputFieldName] = lastTime
+      this.valueBuffers[outputFieldName] = []
+    }
+
+    let firstTime = this.firstTimeStamps[outputFieldName]
+
+    if (lastTime < firstTime) {
+      firstTime = lastTime
+      this.firstTimeStamps[outputFieldName] = firstTime
+    }
+    this.valueBuffers[outputFieldName].push(value)
+
+    if (!this.pastValues[outputFieldName]) {
+      this.pastValues[outputFieldName] = []
+    }
+
+    if (lastTime - firstTime > GRANULARITY) {
+      this.pastValues[outputFieldName].push({
+        firstTime,
+        lastTime,
+        value: this.valueBuffers[outputFieldName].reduce((acc, cur) => acc + cur, 0) / this.valueBuffers[outputFieldName].length
+      })
+      this.valueBuffers[outputFieldName] = []
+      this.firstTimeStamps[outputFieldName] = null
+
+      const current = new Date().getTime()
+
+      const pointsInInterval = this.pastValues[outputFieldName].filter(({ lastTime }) => current - lastTime < AVERAGE_INTERVAL)
+
+      const valuesInInterval = pointsInInterval.map(pt => pt.value)
+      const dP = valuesInInterval[valuesInInterval.length - 1] - valuesInInterval[0]
+
+      return {
+        additionalFields: {
+          [outputFieldName]: dP
+        },
+        _val: value
+      }
+    } else {
+      return value
+    }
   }
 }
 

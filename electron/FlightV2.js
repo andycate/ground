@@ -44,7 +44,7 @@ const packets = {
     },
     4: {
       field: 'pressurantPT',
-      interpolation: null
+      interpolation: (val, timestamp) => Interpolation.interpolateRateOfChange(val, timestamp, 'dPressurantPT'),
     },
     5: {
       field: 'loxDomePT',

@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "circular-buffer": "~1.0.3",
     "electron-is-dev": "~1.2.0",
     "influx": "~5.9.2",
     "lodash.throttle": "~4.1.1",

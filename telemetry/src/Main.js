@@ -163,9 +163,10 @@ class Main extends Component {
                     unit: 'PSI'
                   }}
                   field6={{
-                    name: '_',
-                    field: '',
-                    unit: ''
+                    name: 'Δ PSI / 5 Seconds',
+                    field: 'dPressurantPT',
+                    unit: 'PSI',
+                    decimals: 2
                   }}
                 />
               </Grid>
