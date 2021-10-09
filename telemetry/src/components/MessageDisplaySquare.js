@@ -144,7 +144,10 @@ const LogMessage = ({ log, classes }) => {
       <span className={classes.logLineTime}>
         {moment(ts).format("hh:mm:ss.SSS")}
       </span>
-      <div className={classes.logLineMessage} dangerouslySetInnerHTML={{ __html: `${_k} -> ${_val.toString()}` }}/>
+      <div
+        className={classes.logLineMessage}
+        dangerouslySetInnerHTML={{ __html: `${_k} -> ${_val.message ? _val.message : _val.toString()}` }}
+      />
     </div>
   );
 };

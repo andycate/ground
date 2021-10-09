@@ -17,7 +17,7 @@ class Interpolation {
   static interpolateCustomEvent(raw_value) {
     let value_num = Math.round(raw_value)
     if (value_num === 0) {
-      return raw_valuel
+      return raw_value
     }
     const event_mapping = {
       1: "Open Both Main Valve",
@@ -36,11 +36,16 @@ class Interpolation {
 
     };
     if (Object.keys(event_mapping).includes(raw_value.toString())){
-      return event_mapping[raw_value]
+      return {
+        message: event_mapping[raw_value],
+        tags: {
+          eventId: value_num
+        }
+      }
     }
     else{
       return "Id not found: " + raw_value
-    }  
+    }
   }
 
   static interpolateSolenoidErrors(value) {

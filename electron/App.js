@@ -216,7 +216,11 @@ class App {
       // if update value is not number -> add to syslog as well
       Object.keys(update).forEach(_k => {
         if(typeof update[_k] !== 'number'){
-          this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${update[_k]}`)
+          if(update[_k].message){
+            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${update[_k].message}`, update[_k].tags)
+          }else{
+            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${update[_k]}`)
+          }
         }
       })
       this.influxDB.handleStateUpdate(timestamp, update);

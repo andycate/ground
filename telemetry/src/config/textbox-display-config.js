@@ -15,17 +15,13 @@ export const ROOT_OPTION_GROUPING = {
   key: 't1-all',
   children: [
     {
-      name: 'Unknown (Catch All) Updates',
-      key: 't2-unknowns',
-      highlight: 'rgba(255,72,0,0.21)',
-    },
-    {
       name: 'Control Updates',
       key: 't2-controls',
       children: [
         { key: 'abort', highlight: 'rgba(255,0,0,0.4)' },
         { key: 'hold' },
-        { key: 'send-custom-message'}
+        { key: 'send-custom-message', name: 'Send Custom Message'},
+        { key: 'fcEvent', name: 'Receive Custom Message', highlight: "rgba(183,255,150,0.21)"}
       ]
     },
     {
@@ -40,6 +36,11 @@ export const ROOT_OPTION_GROUPING = {
         { key: 'actCtrlr2Connected' },
         { key: 'actCtrlr3Connected' },
       ]
+    },
+    {
+      name: 'Unknown (Catch All) Updates',
+      key: 't2-unknowns',
+      highlight: 'rgba(255,72,0,0.21)',
     },
     {
       name: 'Spacers',

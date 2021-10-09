@@ -1,4 +1,5 @@
 const Influx = require('influx');
+const throttle = require('lodash.throttle');
 
 const BATCH_SIZE = 10000;
 
@@ -21,7 +22,6 @@ class InfluxDB {
     };
     this.pointsBuffer = [];
     this.sysLogBuffer = [];
-    this.lastSysLog = 0;
 
     this.connect = this.connect.bind(this);
     this.getDatabaseNames = this.getDatabaseNames.bind(this);
@@ -31,6 +31,8 @@ class InfluxDB {
     this.setProcedureStep = this.setProcedureStep.bind(this);
     this.clearProcedureStep = this.clearProcedureStep.bind(this);
     this.handleStateUpdate = this.handleStateUpdate.bind(this);
+    this._pushSysLog = this._pushSysLog.bind(this);
+    this.throttledSysLogPush = throttle(this._pushSysLog, 250)
   }
 
   connect(host, port, protocol, username, password) {
@@ -69,6 +71,15 @@ class InfluxDB {
     this.tags.procedureStep = null;
   }
 
+  async _pushSysLog() {
+    const sysLogBuffer = [...this.sysLogBuffer]
+    if (sysLogBuffer.length === 0) return
+    this.sysLogBuffer = []
+    console.debug("writing # to influx", sysLogBuffer.length)
+    await this.influx.writePoints(sysLogBuffer, { database: this.database, precision: 'ms' }
+    )
+  }
+
   async handleSysLogUpdate(timestamp, message, additionalTags = {}) {
     this.sysLogBuffer.push({
       measurement: 'syslog',
@@ -79,16 +90,15 @@ class InfluxDB {
       },
       timestamp
     })
+
+    console.debug("pushed to syslog queue", this.sysLogBuffer[this.sysLogBuffer.length - 1].fields.message)
+
     if (this.influx === null) return;
     if (this.database === null) return;
 
-    if (timestamp - this.lastSysLog > 1000 * 10) {
-      this.lastSysLog = timestamp
-      await this.influx.writePoints(this.sysLogBuffer, { database: this.database, precision: 'ms' })
-      this.sysLogBuffer = [];
-      return true;
-    }
-    return false;
+    console.debug("sysLogBufferLength", this.sysLogBuffer.length)
+
+    this.throttledSysLogPush()
   }
 
   async handleStateUpdate(timestamp, update) {
@@ -98,7 +108,7 @@ class InfluxDB {
       this.pointsBuffer.push({
         measurement: k,
         tags: this.tags,
-        fields: { value: update[k] },
+        fields: { value: update[k].message ? update[k].message : update[k] },
         timestamp: timestamp
       });
     }
