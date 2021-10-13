@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '@fontsource/roboto';
-import { createMuiTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -13,6 +13,9 @@ import Navbar from './components/Navbar';
 import Settings from './components/Settings';
 import SixValueSquare from './components/SixValueSquare';
 import TankHeaterSquare from './components/TankHeaterSquare';
+import MessageDisplaySquare from "./components/MessageDisplaySquare";
+
+const PAGE_TITLE = "Telemetry: Main"
 
 const styles = theme => ({
   root: {
@@ -65,6 +68,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    document.title = PAGE_TITLE;
     comms.connect();
   }
 
@@ -75,7 +79,7 @@ class Main extends Component {
 
   render() {
     const { classes } = this.props;
-    const theme = createMuiTheme({
+    const theme = createTheme({
       palette: {
         type: this.state.isDark ? 'dark' : 'light'
       }
@@ -123,7 +127,7 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'propTankPT',
+                        name: 'fuelTankPT',
                         color: [0, 187, 0],
                         unit: 'PSI'
                       }
@@ -134,12 +138,12 @@ class Main extends Component {
               <Grid item={1} xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
-                    name: 'LOx DOME',
+                    name: 'LOX DOME',
                     field: 'loxDomePT',
                     unit: 'PSI'
                   }}
                   field2={{
-                    name: 'LOx Expected Static',
+                    name: 'LOX Expected Static',
                     field: 'loxExpectedStatic',
                     unit: 'PSI'
                   }}
@@ -149,19 +153,20 @@ class Main extends Component {
                     unit: 'ºC'
                   }}
                   field4={{
-                    name: 'Prop DOME',
-                    field: 'propDomePT',
+                    name: 'Fuel DOME',
+                    field: 'fuelDomePT',
                     unit: 'PSI'
                   }}
                   field5={{
-                    name: 'Prop Expected Static',
-                    field: 'propExpectedStatic',
+                    name: 'Fuel Expected Static',
+                    field: 'fuelExpectedStatic',
                     unit: 'PSI'
                   }}
                   field6={{
-                    name: '_',
-                    field: '',
-                    unit: ''
+                    name: 'Δ PSI / 5 Seconds',
+                    field: 'dPressurantPT',
+                    unit: 'PSI',
+                    decimals: 2
                   }}
                 />
               </Grid>
@@ -183,7 +188,7 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'propInjectorPT',
+                        name: 'fuelInjectorPT',
                         color: [70, 1, 155],
                         unit: 'PSI'
                       }
@@ -192,7 +197,8 @@ class Main extends Component {
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                <Graph
+                <MessageDisplaySquare/>
+                {/* <Graph
                   fields={
                     [
                       {
@@ -207,7 +213,7 @@ class Main extends Component {
                       },
                     ]
                   }
-                />
+                /> */}
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph
@@ -237,17 +243,17 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'propTankBottomTC',
+                        name: 'fuelTankBottomTC',
                         color: [0, 126, 254],
                         unit: 'ºC'
                       },
                       {
-                        name: 'propTankMidTC',
+                        name: 'fuelTankMidTC',
                         color: [0, 187, 0],
                         unit: 'ºC'
                       },
                       {
-                        name: 'propTankTopTC',
+                        name: 'fuelTankTopTC',
                         color: [123, 35, 162],
                         unit: 'ºC'
                       }

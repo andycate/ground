@@ -5,10 +5,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "electron-is-dev": "^1.2.0",
-    "influx": "^5.8.0",
-    "moment": "^2.29.1",
-    "serialport": "^9.0.1"
+    "circular-buffer": "~1.0.3",
+    "electron-is-dev": "~1.2.0",
+    "influx": "~5.9.2",
+    "lodash.throttle": "~4.1.1",
+    "moment": "~2.29.1",
+    "serialport": "~9.2.1"
   },
   "scripts": {
     "start-main": "cross-env VARIANT=main electron .",

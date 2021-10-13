@@ -120,6 +120,11 @@ class Graph extends Component {
       this.lengths[f] = vLen;
     }
 
+    if(maxValue - minValue < 0.2){
+      maxValue += 0.1
+      minValue -= 0.1
+    }
+
     for(let f = 0; f < this.lines.length; f++) {
       const l = this.lines[f];
       l.scaleY = 2.0 / (maxValue - minValue);
@@ -132,7 +137,7 @@ class Graph extends Component {
       l.webglNumPoints = len;
     }
     this.animationID = requestAnimationFrame(this.updateGraphWait);
-    
+
     this.webglp.update();
   }
 

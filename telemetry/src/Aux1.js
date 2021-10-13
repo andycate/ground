@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '@fontsource/roboto';
-import { createMuiTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, withStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Box, Container, Grid } from '@material-ui/core';
 
@@ -11,6 +11,8 @@ import Graph from './components/Graph';
 import SixValueSquare from './components/SixValueSquare';
 
 import comms from './api/Comms';
+
+const PAGE_TITLE = "Telemetry: Aux #1"
 
 const styles = theme => ({
   root: {
@@ -63,6 +65,7 @@ class Aux1 extends Component {
   }
 
   componentDidMount() {
+    document.title = PAGE_TITLE;
     comms.connect();
   }
 
@@ -73,7 +76,7 @@ class Aux1 extends Component {
 
   render() {
     const { classes } = this.props;
-    const theme = createMuiTheme({
+    const theme = createTheme({
       palette: {
         type: this.state.isDark ? 'dark' : 'light'
       }
@@ -135,15 +138,15 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'loxPTTemp', // lox PT temp
+                        name: 'loxTankPTTemp', // lox PT temp
                         color: [123, 35, 162],
                         unit: 'degC'
                       },
-                      {
-                        name: 'loxGemsTemp', // lox gems temp
-                        color: [0, 126, 254],
-                        unit: 'degC'
-                      },
+                      // {
+                      //   name: 'loxGemsTemp', // lox gems temp
+                      //   color: [0, 126, 254],
+                      //   unit: 'degC'
+                      // },
                     ]
                   }
                 />
@@ -153,15 +156,15 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'propPTTemp', // prop PT temp
+                        name: 'fuelTankPTTemp', // prop PT temp
                         color: [0, 126, 254],
                         unit: 'degC'
                       },
-                      {
-                        name: 'propGemsTemp', // prop gems temp
-                        color: [0, 187, 0],
-                        unit: 'degC'
-                      },
+                      // {
+                      //   name: 'propGemsTemp', // prop gems temp
+                      //   color: [0, 187, 0],
+                      //   unit: 'degC'
+                      // },
                     ]
                   }
                 />
@@ -211,12 +214,12 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'loxInjectorTemp', // lox injector PT temp
+                        name: 'loxInjectorPTTemp', // lox injector PT temp
                         color: [0, 126, 254],
                         unit: 'degC'
                       },
                       {
-                        name: 'propInjectorTemp', // prop injector PT temp
+                        name: 'fuelInjectorPTTemp', // prop injector PT temp
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
@@ -228,37 +231,37 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank PT Heater',
-                    field: 'loxPTHeaterVoltage',
+                    field: 'loxTankPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
                   field2={{
-                    name: 'LOx GEMS Heater',
-                    field: 'loxGemsHeaterVoltage',
-                    unit: 'V',
+                    name: '_',
+                    field: '',
+                    unit: '',
                     decimals: 0
                   }}
                   field3={{
-                    name: 'LOx Inj PT Heater',
-                    field: 'loxInjectorHeaterVoltage',
+                    name: 'LOX Inj PT Heater',
+                    field: 'loxInjectorPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
                   field4={{
-                    name: 'Prop Tank PT Heater',
-                    field: 'propPTHeaterVoltage',
+                    name: 'Fuel Tank PT Heater',
+                    field: 'fuelTankPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
                   field5={{
-                    name: 'Prop GEMS Heater',
-                    field: 'propGemsHeaterVoltage',
-                    unit: 'V',
+                    name: '_',
+                    field: '',
+                    unit: '',
                     decimals: 0
                   }}
                   field6={{
-                    name: 'Prop Inj PT Heater',
-                    field: 'propInjectorHeaterVoltage',
+                    name: 'Fuel Inj PT Heater',
+                    field: 'fuelInjectorPTHeaterVoltage',
                     unit: 'V',
                     decimals: 0
                   }}
@@ -270,21 +273,16 @@ class Aux1 extends Component {
                     [
                       {
                         name: 'engineTC1', // engine temp 1
-                        color: [123, 35, 162],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineTC2', // engine temp 2
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC3', // engine temp 3
+                        name: 'engineTC2', // engine temp 2
                         color: [0, 127, 254],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC4', // engine temp 4
+                        name: 'engineTC3', // engine temp 3
                         color: [0, 187, 0],
                         unit: 'degC'
                       },
@@ -297,17 +295,17 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'engineTC5', // engine temp 4
+                        name: 'engineTC4', // engine temp 4
                         color: [123, 35, 162],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC6', // engine temp 5
+                        name: 'engineTC5', // engine temp 5
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC7', // engine temp 6
+                        name: 'engineTC6', // engine temp 6
                         color: [0, 127, 254],
                         unit: 'degC'
                       },
@@ -319,45 +317,45 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank PT Heater',
-                    field: 'loxPTHeaterCurrent',
+                    field: 'loxTankPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                   field2={{
-                    name: 'LOx GEMS Heater',
-                    field: 'loxGemsHeaterCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.3
-                  }}
-                  field3={{
-                    name: 'LOx Inj PT Heater',
-                    field: 'loxInjectorHeaterCurrent',
+                    name: '_',
+                    field: '',
                     unit: '',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
+                  }}
+                  field3={{
+                    name: 'LOX Inj PT Heater',
+                    field: 'loxInjectorPTHeaterCurrent',
+                    unit: '',
+                    decimals: 2,
+                    threshold: 0.2
                   }}
                   field4={{
-                    name: 'Prop Tank PT Heater',
-                    field: 'propPTHeaterCurrent',
+                    name: 'Fuel Tank PT Heater',
+                    field: 'fuelTankPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                   field5={{
-                    name: 'Prop GEMS Heater',
-                    field: 'propGemsHeaterCurrent',
-                    unit: 'A',
+                    name: '_',
+                    field: '',
+                    unit: '',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                   field6={{
-                    name: 'Prop Inj PT Heater',
-                    field: 'propInjectorHeaterCurrent',
+                    name: 'Fuel Inj PT Heater',
+                    field: 'fuelInjectorPTHeaterCurrent',
                     unit: 'A',
                     decimals: 2,
-                    threshold: 0.3
+                    threshold: 0.2
                   }}
                 />
               </Grid>
