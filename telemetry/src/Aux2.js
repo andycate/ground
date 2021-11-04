@@ -89,16 +89,17 @@ class Aux2 extends Component {
                     threshold: 0.1
                   }}
                   field2={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 0
+                    name: 'LED1',
+                    field: 'led1Current',
+                    unit: 'A',
+                    decimals: 2,
+                    threshold: 0.1
                   }}
                   field3={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 0,
+                    name: 'LED2',
+                    field: 'led2Current',
+                    unit: 'A',
+                    decimals: 2,
                     threshold: 0.1
                   }}
                   field4={{
@@ -133,16 +134,18 @@ class Aux2 extends Component {
                     decimals: 0,
                   }}
                   field2={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 0
+                    name: 'LED1',
+                    field: 'led1Voltage',
+                    unit: 'V',
+                    decimals: 0,
+                    threshold: 3
                   }}
                   field3={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 0
+                    name: 'LED2',
+                    field: 'led2Voltage',
+                    unit: 'V',
+                    decimals: 0,
+                    threshold: 3
                   }}
                   field4={{
                     name: 'ARM',

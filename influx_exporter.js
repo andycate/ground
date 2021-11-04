@@ -9,17 +9,15 @@ const influxLocal = new Influx.InfluxDB({
 });
 
 const influxRemote = new Influx.InfluxDB({
-    host: 'influx.andycate.com',
-    port: 443,
-    protocol: 'https',
-    username: 'coldflowClient',
-    password: 'coldflowClient',
+    host: '127.0.0.1',
+    port: 8086,
+    protocol: 'http',
     requestTimeout: 20000,
     failoverTimeout: 40000,
 });
 
-const localDatabaseName = '2021_06_13_coldflow';
-const remoteDatabaseName = '2021_06_13_coldflow';
+const localDatabaseName = 'justin_is_a_poop_head';
+const remoteDatabaseName = '2021_10_31_capfill';
 
 async function uploadMeasurement(m) {
     console.log('transferring measurement ' + m);
@@ -57,7 +55,8 @@ async function uploadMeasurement(m) {
 
 (async () => {
     const measurements = await influxLocal.getMeasurements(localDatabaseName);
-    for(let m of measurements) {
+    const modMeas = measurements.slice(measurements.indexOf("syslog")+1);
+    for(let m of modMeas) {
         await uploadMeasurement(m);
     }
 })();

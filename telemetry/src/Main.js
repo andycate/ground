@@ -159,7 +159,7 @@ class Main extends Component {
                   }}
                   field5={{
                     name: 'Fuel Expected Static',
-                    field: 'fuelExpectedStatic',
+                    field: '_',
                     unit: 'PSI'
                   }}
                   field6={{

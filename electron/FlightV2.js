@@ -168,14 +168,14 @@ const packets = {
       field: 'fuelMainValve',
       interpolation: null
     },
-    // 4: {
-    //   field: 'loxGems',
-    //   interpolation: null
-    // },
-    // 5: {
-    //   field: 'propGems',
-    //   interpolation: null
-    // },
+    4: {
+      field: 'led1',
+      interpolation: null
+    },
+    5: {
+      field: 'led2',
+      interpolation: null
+    },
     6: {
       field: 'HPS',
       interpolation: null
@@ -202,14 +202,14 @@ const packets = {
       field: 'fuelMainValveCurrent',
       interpolation: null
     },
-    // 4: {
-    //   field: 'loxGemsCurrent',
-    //   interpolation: null
-    // },
-    // 5: {
-    //   field: 'propGemsCurrent',
-    //   interpolation: null
-    // },
+    4: {
+      field: 'led1Current',
+      interpolation: null
+    },
+    5: {
+      field: 'led2Current',
+      interpolation: null
+    },
     6: {
       field: 'HPSCurrent',
       interpolation: null
@@ -236,14 +236,14 @@ const packets = {
       field: 'fuelMainValveVoltage',
       interpolation: null
     },
-    // 4: {
-    //   field: 'loxGemsVoltage',
-    //   interpolation: null
-    // },
-    // 5: {
-    //   field: 'propGemsVoltage',
-    //   interpolation: null
-    // },
+    4: {
+      field: 'led1Voltage',
+      interpolation: null
+    },
+    5: {
+      field: 'led2Voltage',
+      interpolation: null
+    },
     6: {
       field: 'HPSVoltage',
       interpolation: null
