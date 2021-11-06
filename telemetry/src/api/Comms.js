@@ -27,6 +27,7 @@ class Comms {
     this.getFlightConnected = this.getFlightConnected.bind(this);
     this.getDaq1Connected = this.getDaq1Connected.bind(this);
     this.getDaq2Connected = this.getDaq2Connected.bind(this);
+    this.getDaq3Connected = this.getDaq3Connected.bind(this);
     this.getActCtrlr1Connected = this.getActCtrlr1Connected.bind(this);
     this.getActCtrlr2Connected = this.getActCtrlr2Connected.bind(this);
     this.getActCtrlr3Connected = this.getActCtrlr3Connected.bind(this);
@@ -288,6 +289,10 @@ class Comms {
 
   async getDaq2Connected() {
     return await this.ipc.invoke('daq2-connected');
+  }
+
+  async getDaq3Connected() {
+    return await this.ipc.invoke('daq3-connected');
   }
 
   async getActCtrlr1Connected() {
