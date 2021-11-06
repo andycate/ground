@@ -77,7 +77,7 @@ class Aux2 extends Component {
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <Box>
-          <Container className={classes.container}>
+          <Container maxWidth='xl' className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
               
               {/* START OF ROW 1 */}
@@ -279,11 +279,11 @@ class Aux2 extends Component {
 
               {/* START OF ROW 3 */}
 
-              <Grid item xs={4}>
-                {/* Empty Slot */}
-              </Grid>
+              {/* <Grid item xs={4}>
+                {/* Empty Slot
+              </Grid> */}
               
-              <Grid item xs={4}>
+              <Grid item xs={8}>
                 <Graph
                   fields={
                     [
