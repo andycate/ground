@@ -22,6 +22,7 @@ const BOARD_CONNECTION_FIELDS = [
   "flightConnected",
   "daq1Connected",
   "daq2Connected",
+  "daq3Connected",
   "actCtrlr1Connected",
   "actCtrlr2Connected",
   "actCtrlr3Connected"
@@ -31,6 +32,7 @@ const BOARD_NAMES = {
   "flightConnected": "Flight Comp",
   "daq1Connected": "DAQ1",
   "daq2Connected": "DAQ2",
+  "daq3Connected": "DAQ3",
   "actCtrlr1Connected": "Act Ctrlr1",
   "actCtrlr2Connected": "Act Ctrlr2",
   "actCtrlr3Connected": "Act Ctrlr3"
@@ -41,6 +43,7 @@ const FORMAL_BOARD_NAMES = {
   "flightConnected": "flightComputer",
   "daq1Connected": "daq1",
   "daq2Connected": "daq2",
+  "daq3Connected": "daq3",
   "actCtrlr1Connected": "actCtrlr1",
   "actCtrlr2Connected": "actCtrlr2",
   "actCtrlr3Connected": "actCtrlr3"

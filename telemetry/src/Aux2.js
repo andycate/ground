@@ -81,7 +81,7 @@ class Aux2 extends Component {
             <Grid container={true} spacing={1} className={classes.row}>
               
               {/* START OF ROW 1 */}
-              <Grid item xs={4}>
+              <Grid item xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
                     name: 'Igniter Current',
@@ -128,7 +128,7 @@ class Aux2 extends Component {
                 />
               </Grid>
               
-              <Grid item xs={4}>
+              <Grid item xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
                     name: '_',
@@ -174,7 +174,7 @@ class Aux2 extends Component {
                 />
               </Grid>
               
-              <Grid item xs={4}>
+              <Grid item xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
                     name: 'LOx Tank Vent',
@@ -223,15 +223,37 @@ class Aux2 extends Component {
 
               {/* START OF ROW 2 */}
 
-              <Grid item xs={4}>
-                {/* Empty Slot */}
+              <Grid item xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'daq3-lox-capVal',
+                        color: [70, 1, 155],
+                        unit: 'pF',
+                        precision: 3
+                      }
+                    ]
+                  }
+                />
               </Grid>
               
-              <Grid item xs={4}>
-                {/* Empty Slot */}
+              <Grid item xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'daq3-fuel-capVal',
+                        color: [56, 44, 30],
+                        unit: 'pF',
+                        precision: 3
+                      }
+                    ]
+                  }
+                />
               </Grid>
               
-              <Grid item xs={4}>
+              <Grid item xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
                     name: 'Purge/Pre-chill Vent',
@@ -283,7 +305,7 @@ class Aux2 extends Component {
                 {/* Empty Slot
               </Grid> */}
               
-              <Grid item xs={8}>
+              <Grid item xs={8} className={classes.item}>
                 <Graph
                   fields={
                     [
@@ -307,7 +329,7 @@ class Aux2 extends Component {
                 />
               </Grid>
               
-              <Grid item xs={4}>
+              <Grid item xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
                     name: 'LOX Tank Top Heater',
