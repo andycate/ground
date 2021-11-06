@@ -365,15 +365,17 @@ class Comms {
   }
 
   async beginFlowAll() {
-    await this.closeloxPrechillRBV();
-    await this.closefuelPrechillRBV();
-    await this.closePrechillFlowRBV();
-    await this.closePurgeFlowRBV();
-    await this.closeloxTankVentRBV();
-    await this.closefuelTankVentRBV();
-    window.setTimeout(() => {
-      return this.beginFlow();
-    }, 2000);
+    window.setTimeout(async () => {
+      await this.closeloxPrechillRBV();
+      await this.closefuelPrechillRBV();
+      await this.closePrechillFlowRBV();
+      await this.closePurgeFlowRBV();
+      await this.closeloxTankVentRBV();
+      await this.closefuelTankVentRBV();
+      window.setTimeout(() => {
+        return this.beginFlow();
+      }, 3000);
+    }, 2875);
   }
 
   async beginFlow() {
