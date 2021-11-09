@@ -81,6 +81,20 @@ const packets = {
       field: '5vCurrent',
       interpolation: null
     }
+  },
+  7: {
+    0: {
+      field: 'newLoadCell1',
+      interpolation: null
+    },
+    1: {
+      field: 'newLoadCell2',
+      interpolation: null
+    },
+    2: {
+      field: 'newLoadCellTotal',
+      interpolation: null
+    }
   }
 };
 
