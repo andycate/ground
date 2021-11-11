@@ -38,7 +38,8 @@ class Interpolation {
       8: "Turn On Igniter & Open 2 Way",
       9: "Close LOX 2 Way",
       10: "Turn Off Igniter",
-      11: "[Igniter] Abort",
+      11: "[Abort] Igniter Current",
+      12: "[Abort] Igniter Break",
       15: "Enter Checkout",
       16: "Exit Checkout"
 

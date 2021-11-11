@@ -137,8 +137,8 @@ class Aux2 extends Component {
                     decimals: 0,
                   }}
                   field2={{
-                    name: 'LED1',
-                    field: 'led1Voltage',
+                    name: 'Breakwire',
+                    field: 'breakwireVoltage',
                     unit: 'V',
                     decimals: 0,
                     threshold: 3
