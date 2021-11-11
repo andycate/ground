@@ -21,6 +21,7 @@ import SwitchButton from './components/SwitchButton'
 import StateWindow from './components/StateWindow'
 
 import UpdogWav from './media/updog.wav';
+import CountdownTimer from './components/CountdownTimer';
 
 const PAGE_TITLE = "Telemetry: Controls"
 
@@ -55,6 +56,10 @@ class Control extends Component {
 
     this.handleDarkMode = this.handleDarkMode.bind(this);
     this.playUpdog = this.playUpdog.bind(this);
+    this.setStartCountdownCallback = this.setStartCountdownCallback.bind(this);
+    this.setStopCountdownCallback = this.setStopCountdownCallback.bind(this);
+    this.startCountdown = this.startCountdown.bind(this);
+    this.stopCountdown = this.stopCountdown.bind(this);
   }
 
   handleDarkMode(isDark) {
@@ -63,6 +68,22 @@ class Control extends Component {
 
   playUpdog() {
     (new Audio(UpdogWav)).play();
+  }
+
+  setStartCountdownCallback(callback) {
+    this.startCountdownCallback = callback;
+  }
+
+  setStopCountdownCallback(callback) {
+    this.stopCountdownCallback = callback;
+  }
+
+  startCountdown() {
+    this.startCountdownCallback();
+  }
+
+  stopCountdown() {
+    this.stopCountdownCallback();
   }
 
   componentDidMount() {
@@ -200,8 +221,8 @@ class Control extends Component {
                   </Grid>
                   <Grid item={1} xs={6}>
                     <ButtonGroupFlow
-                      open={comms.beginFlowAll}
-                      close={comms.endFlow}
+                      open={() => { comms.beginFlowAll(); this.startCountdown() }}
+                      close={() => { comms.endFlow(); this.stopCountdown(); }}
                       field='flowState' // change this?
                       text='Begin Flow'
                     />
@@ -275,19 +296,19 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
                     <BigButton
-                      onClick={comms.abort}
+                      onClick={() => {comms.abort(); this.stopCountdown()}}
                       text='Abort'
                       isRed
                     />
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={12}>
+                  {/* <Grid item={1} xs={12}>
                     <BigButton
                       onClick={comms.hold}
                       text='Hold'
                     />
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
@@ -300,9 +321,9 @@ class Control extends Component {
                 </Grid>
               </Grid>
               {/* START OF THIRD BUTTON COLUMN */}
-              <Grid item={1} xs={4} className={classes.item}>
+              <Grid item={1} xs={2} className={classes.item}>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
+                  <Grid item={1} xs={12}>
                     <ButtonGroupRBVTimed
                       open={comms.openPressurantFillRBV}
                       close={comms.closePressurantFillRBV}
@@ -331,7 +352,7 @@ class Control extends Component {
                       text='LOX Tank Vent RBV'
                     />
                   </Grid> */}
-                  <Grid item={1} xs={6}>
+                  <Grid item={1} xs={12}>
                     <ButtonGroupRBVTimed
                       open={comms.openloxFillRBV}
                       close={comms.closeloxFillRBV}
@@ -373,7 +394,7 @@ class Control extends Component {
                       text='Prop Tank Vent RBV'
                     />
                   </Grid> */}
-                  <Grid item={1} xs={6}>
+                  <Grid item={1} xs={12}>
                     <ButtonGroupRBVTimed
                       open={comms.openfuelFillRBV}
                       close={comms.closefuelFillRBV}
@@ -384,7 +405,7 @@ class Control extends Component {
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
+                  <Grid item={1} xs={12}>
                     <SwitchButton
                       open={comms.enableThermocoupleRead}
                       close={comms.disableThermocoupleRead}
@@ -416,6 +437,12 @@ class Control extends Component {
                 </Grid>
               </Grid>
               {/* START OF PROCEDURE COLUMN */}
+              <Grid item={1} xs={2} className={classes.item}>
+                <Grid container={true} spacing={1}>
+                  <CountdownTimer setStartCountdownCallback={this.setStartCountdownCallback} setStopCountdownCallback={this.setStopCountdownCallback}/>
+                </Grid>
+              </Grid>
+
               {/* <Grid item={1} xs={3} className={classes.item}>
                 <Procedures />
               </Grid> */}

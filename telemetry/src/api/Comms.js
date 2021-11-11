@@ -27,6 +27,7 @@ class Comms {
     this.getFlightConnected = this.getFlightConnected.bind(this);
     this.getDaq1Connected = this.getDaq1Connected.bind(this);
     this.getDaq2Connected = this.getDaq2Connected.bind(this);
+    this.getDaq3Connected = this.getDaq3Connected.bind(this);
     this.getActCtrlr1Connected = this.getActCtrlr1Connected.bind(this);
     this.getActCtrlr2Connected = this.getActCtrlr2Connected.bind(this);
     this.getActCtrlr3Connected = this.getActCtrlr3Connected.bind(this);
@@ -290,6 +291,10 @@ class Comms {
     return await this.ipc.invoke('daq2-connected');
   }
 
+  async getDaq3Connected() {
+    return await this.ipc.invoke('daq3-connected');
+  }
+
   async getActCtrlr1Connected() {
     return await this.ipc.invoke('actctrlr1-connected');
   }
@@ -365,15 +370,17 @@ class Comms {
   }
 
   async beginFlowAll() {
-    await this.closeloxPrechillRBV();
-    await this.closefuelPrechillRBV();
-    await this.closePrechillFlowRBV();
-    await this.closePurgeFlowRBV();
-    await this.closeloxTankVentRBV();
-    await this.closefuelTankVentRBV();
-    window.setTimeout(() => {
-      return this.beginFlow();
-    }, 2000);
+    window.setTimeout(async () => {
+      await this.closeloxPrechillRBV();
+      await this.closefuelPrechillRBV();
+      await this.closePrechillFlowRBV();
+      await this.closePurgeFlowRBV();
+      await this.closeloxTankVentRBV();
+      await this.closefuelTankVentRBV();
+      window.setTimeout(() => {
+        return this.beginFlow();
+      }, 3000);
+    }, 2875);
   }
 
   async beginFlow() {
