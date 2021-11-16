@@ -6,6 +6,8 @@ class Interpolation {
   static firstTimeStamps = {}
   static valueBuffers = {}
   static pastValues = {}
+  static pastNewLoadCell0Value = 0
+  static pastNewLoadCell1Value = 0
 
   static floatToBool(value) {
     return value > 0.0;
@@ -55,6 +57,31 @@ class Interpolation {
       return "Id not found: " + raw_value
     }
   }
+  static interpolateLoadCellValues(val, timestamp, flag) {
+	  const scaling = {
+
+		  /* Off: offset, Scal: scaling */
+
+		  "lc0Off": 0,
+		  "lc0Scal": 0,
+
+		  "lc1Off": 0,
+		  "lc1Scal": 0
+	  }
+	  if (flag === 0) {
+      this.pastNewLoadCell0Value = val
+		  return (val - scaling["lc0Off"]) * scaling["lc0Scal"]
+
+	  } else if (flag == 1) {
+      this.pastNewLoadCell1Value = val
+		  return (val - scaling["lc1Off"]) * scaling["lc1Scal"]
+
+    } else {
+      return ((this.pastNewLoadCell0Value - scaling["lc0Off"]) * scaling["lc0Scal"]) + ((this.pastNewLoadCell1Value - scaling["lc1Off"]) * scaling["lc1Scal"])
+    }
+  }
+
+
 
   static interpolateSolenoidErrors(value) {
     // value is binary where each "1" indicates an error for that solenoid

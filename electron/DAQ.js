@@ -85,11 +85,11 @@ const packets = {
   7: {
     0: {
       field: 'newLoadCell1',
-      interpolation: null
+      interpolation: (val, timestamp) => Interpolation.interpolateLoadCellValues(val, timestamp, 0)
     },
     1: {
       field: 'newLoadCell2',
-      interpolation: null
+      interpolation: (val, timestamp) => Interpolation.interpolateLoadCellValues(val, timestamp, 1)
     },
     2: {
       field: 'newLoadCellTotal',
