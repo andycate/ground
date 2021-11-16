@@ -2,6 +2,12 @@
 const GRANULARITY = 200 // store points as 200ms average
 const AVERAGE_INTERVAL = 5000 // default to 5 second averages
 
+const LC1_OFFSET = 0;
+const LC1_SCALE = 0;
+
+const LC2_OFFSET = 0;
+const LC2_SCALE = 0;
+
 class Interpolation {
   static firstTimeStamps = {}
   static valueBuffers = {}
@@ -57,29 +63,13 @@ class Interpolation {
       return "Id not found: " + raw_value
     }
   }
-  static interpolateLoadCellValues(val, timestamp, flag) {
-	  const scaling = {
-
-		  /* Off: offset, Scal: scaling */
-
-		  "lc0Off": 0,
-		  "lc0Scal": 0,
-
-		  "lc1Off": 0,
-		  "lc1Scal": 0
-	  }
-	  if (flag === 0) {
-      this.pastNewLoadCell0Value = val
-		  return (val - scaling["lc0Off"]) * scaling["lc0Scal"]
-
-	  } else if (flag == 1) {
-      this.pastNewLoadCell1Value = val
-		  return (val - scaling["lc1Off"]) * scaling["lc1Scal"]
-
-    } else {
-      return ((this.pastNewLoadCell0Value - scaling["lc0Off"]) * scaling["lc0Scal"]) + ((this.pastNewLoadCell1Value - scaling["lc1Off"]) * scaling["lc1Scal"])
-    }
+  static interpolateLoadCell1(value) {
+    return (value - LC1_OFFSET) * LC1_SCALE
   }
+  static interpolateLoadCell2(value) {
+    return (value - LC2_OFFSET) * LC2_SCALE
+  }
+
 
 
 
