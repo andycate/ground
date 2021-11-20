@@ -434,9 +434,9 @@ class App {
     // this.addIPC('close-pressurantVentRBV', this.actCtrlr1.closeActCh5);
     // this.addIPC('time-pressurantVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
 
-    this.addIPC('open-fuelTankVentRBV', this.actCtrlr1.openActCh6);
-    this.addIPC('close-fuelTankVentRBV', this.actCtrlr1.closeActCh6);
-    this.addIPC('time-fuelTankVentRBV', (e, val) => this.actCtrlr1.actCh6ms(val));
+    this.addIPC('open-fuelTankVentRBV', this.actCtrlr1.openActCh5);
+    this.addIPC('close-fuelTankVentRBV', this.actCtrlr1.closeActCh5);
+    this.addIPC('time-fuelTankVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
 
     // Actuator Controller 2
 
