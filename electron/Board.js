@@ -23,7 +23,8 @@ class Board {
     this.onDisconnect = onDisconnect;
     this.onRate = onRate;
     this.port.register(this.address, this);
-
+    /** @type {Number} the time (in ms) at which the board was registered */
+    this.registrationTime = -1;
     this.bytesRecv = 0;
     this.setupDataRateMonitor();
   }
@@ -40,6 +41,44 @@ class Board {
     const p = new Packet(id, values);
     this.port.send(this.address, p.stringify());
     return true;
+  }
+
+  /**
+   * Parses the raw packet into a data object
+   * @param {Buffer} buf is the buffer that contains the full udp packet content
+   * @returns {Packet|null} packet with parsed data
+   */
+  parseMsgBuf(buf) {
+    const id = buf.readUInt8(0);
+    const len = buf.readUInt8(1);
+
+    const timestamp = Date.now(); // TODO: Change this to use packet TS offset byte and registrationTime
+
+    const checksum = buf.readUInt16LE(2);
+
+    // currently, data comes after the 2 bytes checksum (at offset 2) 2 + 2 = 4
+    const dataOffset = 4;
+
+    const dataBuf = buf.slice(dataOffset, dataOffset + len)
+    const expectedChecksum = Packet.fletcher16(dataBuf)
+
+    if (checksum === expectedChecksum) {
+      const values = []
+      const packetDef = this.packets[id]
+
+      let offset = dataOffset;
+
+      for (const [_, parser] of packetDef[id]) {
+        const [value, byteLen] = parser(dataBuf, offset);
+        values.push(value);
+        offset += byteLen;
+      }
+
+      return new Packet(id, values, timestamp);
+    } else {
+      console.debug(`check sum check failed for packet id: ${id} from board ip: ${this.address}`)
+      return null
+    }
   }
 
   /**

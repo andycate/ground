@@ -2,7 +2,7 @@ class Packet {
   /**
    *
    * @param {Number} id
-   * @param {Array} values
+   * @param {Array.<number|string>} values
    * @param {number} timestamp
    */
   constructor(id, values, timestamp = null) {
@@ -25,31 +25,6 @@ class Packet {
     const pack = `{${data}|${Packet.fletcher16(Buffer.from(data, 'binary')).toString(16)}}`;
     // console.log(pack);
     return pack;
-  }
-
-  /**
-   * Parses stringified packet into object
-   * @param {String} rawData
-   * @param parseAsString should the packet values not be converted to float?
-   * @returns parsed packet
-   */
-  static parsePacket(rawData, parseAsString = false) {
-    const timestamp = Date.now(); // TODO: Change this to come from packet
-    let data = rawData.replace(/(\r\n|\n|\r)/gm, '');
-    const start = data.indexOf('{');
-    const end = data.indexOf('}');
-    if (start < 0 || end < 0) {
-      return null;
-    }
-    data = data.substring(start + 1, end);
-    const [rawValues, checksum] = data.replace(/({|})/gm, '').split('|');
-    const calculatedChecksum = Packet.fletcher16(Buffer.from(rawValues, 'binary'));
-    if (Number('0x' + checksum) !== calculatedChecksum) {
-      return null;
-    }
-
-    const [id, ...values] = rawValues.split(',').map(v => parseAsString ? v.toString().replace(/`/g, ",") : parseFloat(v));
-    return new Packet(id, values, timestamp);
   }
 
   /**
