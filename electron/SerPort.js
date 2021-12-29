@@ -2,7 +2,7 @@ const dgram = require('dgram');
 
 const Packet = require('./Packet');
 const SerialPort = require('serialport');
-const Readline = require('@serialport/parser-readline');
+const Readline = SerialPort.parsers.Readline;
 
 class SerPort {
   /**
@@ -21,7 +21,7 @@ class SerPort {
     this.updateStateCallback = updateStateCallback;
 
     this.lineStream.on('data', (msg) => {
-      
+
     });
   }
 
