@@ -1,14 +1,13 @@
 const Packet = require('./Packet');
 const Interpolation = require("./Interpolation");
+const field = require("../telemetry/src/components/Field");
+
+const { asASCIIString, asUInt8 } = Interpolation
 
 const UNIVERSAL_PACKETS = {
-  99: {
-    0: {
-      field: 'boardMetadata',
-      interpolation: Interpolation.interpolateMetadata,
-      parseAsString: true
-    }
-  }
+  99: [
+    ['boardMetadata', asASCIIString, null],
+  ]
 }
 
 class Board {
@@ -17,6 +16,15 @@ class Board {
     this.watchdog = null;
     this.port = port;
     this.address = address;
+    /**
+     * Interpolates the value to obtain an update object
+     * @typedef {function(any): any|ExtendedUpdateObject} Interpolator
+     */
+    /**
+     * Parses the buffer at an offset to obtain a value
+     * @typedef {function(Buffer,Number): [any, Number]} Parser
+     */
+    /** @type {Object.<Number,Array.<[String,Parser,Interpolator|null]>>} */
     this.packets = { ...UNIVERSAL_PACKETS, ...packets };
     this.mapping = mapping;
     this.onConnect = onConnect;
@@ -94,7 +102,7 @@ class Board {
 
       let offset = dataOffset;
 
-      for (const [_, parser] of packetDef[id]) {
+      for (const [_, parser = asUInt8, _] of packetDef[id]) {
         const [value, byteLen] = parser(dataBuf, offset);
         values.push(value);
         offset += byteLen;
@@ -108,37 +116,48 @@ class Board {
   }
 
   /**
+   * Resets the board status watch dog and increases total bytesReceived
+   * @param byteLen {Number} the number of bytes received
+   * @returns {void}
+   */
+  updateRcvRate(byteLen) {
+    this.resetWatchdog();
+    this.bytesRecv += byteLen;
+  }
+
+  /**
    * Takes in a packet and returns a state update
-   *
-   * @param {Packet} packet
+   * @param packet {Packet} a fully formed packet
    */
   processPacket(packet) {
-    this.resetWatchdog();
-    this.bytesRecv += packet.length;
-    const def = this.packets[packet.id];
-    if (def === undefined) return;
+    const { id, values } = packet
+    const packetDef = this.packets[id];
+
     const update = {};
-    for (let i = 0; i < packet.values.length; i++) {
-      const fieldDef = def[i];
-      if (fieldDef === undefined) continue;
-      let val = packet.values[i];
-      if (fieldDef.interpolation !== null) {
-        val = fieldDef.interpolation(val, packet.timestamp);
-        if (val._val) {
-          const { additionalFields } = val
+
+    values.forEach((_value, idx) => {
+      const fieldDef = packetDef[idx]
+      const [_fieldName, _, interpolator] = fieldDef
+      let value
+      if (interpolator) {
+        value = interpolator(_value)
+        if (value.isExtended) {
+          const { additionalFields } = value
           Object.assign(update, additionalFields)
-          val = val._val
+          value = value.value
         }
+      }else{
+        value = _value
       }
-      let mappedField = this.mapping[fieldDef.field];
-      if (mappedField === undefined) {
-        mappedField = fieldDef.field;
-      } else if (mappedField === null) {
-        continue;
+      const fieldName = this.mapping[_fieldName]
+      if(fieldName === undefined){
+        update[_fieldName] = value
+      }else if(fieldName !== null){
+        update[fieldName] = value
       }
-      update[mappedField] = val;
-    }
-    return update;
+    })
+
+    return update
   }
 
   resetWatchdog() {

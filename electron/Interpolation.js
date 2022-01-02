@@ -15,7 +15,77 @@ class Interpolation {
   static pastNewLoadCell0Value = 0
   static pastNewLoadCell1Value = 0
 
-  static floatToBool(value) {
+  /**
+   * Returns the string that is represented by the buffer.
+   * @param buffer {Buffer} the source buffer
+   * @param offset {Number}
+   * @returns {[String,Number]}
+   */
+  static asASCIIString(buffer, offset) {
+    return [buffer.slice(offset).toString("ascii"), buffer.length]
+  }
+
+  /**
+   * Returns the float that is represented by the buffer at the given offset.
+   * @param buffer {Buffer} the source buffer
+   * @param offset {Number}
+   * @returns {[Number|Number]}
+   */
+  static asFloat(buffer, offset) {
+    return [buffer.readFloatLE(offset), 4]
+  }
+
+  /**
+   * Returns the unsigned 8 bit int that is represented by the buffer at the given offset.
+   * @param buffer {Buffer} the source buffer
+   * @param offset {Number}
+   * @returns {[Number|Number]}
+   */
+  static asUInt8(buffer, offset) {
+    return [buffer.readUInt8(offset), 1]
+  }
+
+  /**
+   * Returns the unsigned 16 bit int that is represented by the buffer at the given offset.
+   * @param buffer {Buffer} the source buffer
+   * @param offset {Number}
+   * @returns {[Number|Number]}
+   */
+  static asUInt16(buffer, offset) {
+    return [buffer.readUInt16LE(offset), 2]
+  }
+
+  /**
+   * Returns the unsigned 32 bit int that is represented by the buffer at the given offset.
+   * @param buffer {Buffer} the source buffer
+   * @param offset {Number}
+   * @returns {[Number|Number]}
+   */
+  static asUInt32(buffer, offset) {
+    return [buffer.readUInt32LE(offset), 4]
+  }
+
+  /**
+   * @typedef {Object} ExtendedUpdateObject
+   * @property {Boolean} isExtended Indicates that this is an extended object
+   * @property {any} value The original update value
+   * @property {Object.<String,any>} An object containing additional field / value pairs
+   */
+  /**
+   * Allows a value to interpolate into multiple update values
+   * @param value {any} the original value
+   * @param additionalFields {Object.<String,any>} any additional fields/value that should be added
+   * @returns ExtendedUpdateObject
+   */
+  static createExtendedObject(value, additionalFields) {
+    return {
+      isExtended: true,
+      value,
+      additionalFields
+    }
+  }
+
+  static interpolateFloatToBool(value) {
     return value > 0.0;
   }
 
@@ -24,10 +94,6 @@ class Interpolation {
       return true
     }
     return value
-  }
-
-  static interpolateMetadata(value) {
-    return value;
   }
 
   static interpolateCustomEvent(raw_value) {
@@ -50,7 +116,6 @@ class Interpolation {
       12: "[Abort] Igniter Break",
       15: "Enter Checkout",
       16: "Exit Checkout"
-
     };
     if (Object.keys(event_mapping).includes(raw_value.toString())) {
       return {
@@ -63,14 +128,14 @@ class Interpolation {
       return "Id not found: " + raw_value
     }
   }
+
   static interpolateLoadCell1(value) {
     return (value - LC1_OFFSET) * LC1_SCALE
   }
+
   static interpolateLoadCell2(value) {
     return (value - LC2_OFFSET) * LC2_SCALE
   }
-
-
 
 
   static interpolateSolenoidErrors(value) {
@@ -138,12 +203,9 @@ class Interpolation {
       const valuesInInterval = pointsInInterval.map(pt => pt.value)
       const dP = valuesInInterval[valuesInInterval.length - 1] - valuesInInterval[0]
 
-      return {
-        additionalFields: {
-          [outputFieldName]: dP
-        },
-        _val: value
-      }
+      return this.createExtendedObject(value, {
+        [outputFieldName]: dP
+      })
     } else {
       return value
     }

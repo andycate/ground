@@ -33,6 +33,7 @@ class UdpPort {
 
     this.server.on('message', (msg, rinfo) => {
       const board = this.boards[rinfo.address];
+      board.updateRcvRate(msg.length);
       const packet = board.parseMsgBuf(msg);
 
       if (packet) {
