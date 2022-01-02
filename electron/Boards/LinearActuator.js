@@ -1,8 +1,8 @@
-const Interpolation = require('./Interpolation');
-const Board = require('./Board');
+const Interpolation = require('../Interpolation');
+const Board = require('../Board');
 
 const packets = {
-  
+
 };
 
 class LinearActuator extends Board {

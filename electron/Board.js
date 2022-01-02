@@ -1,31 +1,13 @@
 const Packet = require('./Packet');
-const Interpolation = require("./Interpolation");
-const field = require("../telemetry/src/components/Field");
 
-const { asASCIIString, asUInt8 } = Interpolation
-
-const UNIVERSAL_PACKETS = {
-  99: [
-    ['boardMetadata', asASCIIString, null],
-  ]
-}
+const { PACKET_DEFS } = require("./packetDefs");
 
 class Board {
-  constructor(port, address, packets, mapping, onConnect, onDisconnect, onRate) {
+  constructor(port, address, mapping, onConnect, onDisconnect, onRate) {
     this.isConnected = false;
     this.watchdog = null;
     this.port = port;
     this.address = address;
-    /**
-     * Interpolates the value to obtain an update object
-     * @typedef {function(any): any|ExtendedUpdateObject} Interpolator
-     */
-    /**
-     * Parses the buffer at an offset to obtain a value
-     * @typedef {function(Buffer,Number): [any, Number]} Parser
-     */
-    /** @type {Object.<Number,Array.<[String,Parser,Interpolator|null]>>} */
-    this.packets = { ...UNIVERSAL_PACKETS, ...packets };
     this.mapping = mapping;
     this.onConnect = onConnect;
     this.onDisconnect = onDisconnect;
@@ -98,11 +80,11 @@ class Board {
 
     if (checksum === expectedChecksum) {
       const values = []
-      const packetDef = this.packets[id]
+      const packetDef = PACKET_DEFS[id]
 
       let offset = dataOffset;
 
-      for (const [_, parser = asUInt8, _] of packetDef[id]) {
+      for (const [_, parser, __] of packetDef[id]) {
         const [value, byteLen] = parser(dataBuf, offset);
         values.push(value);
         offset += byteLen;
@@ -131,7 +113,7 @@ class Board {
    */
   processPacket(packet) {
     const { id, values } = packet
-    const packetDef = this.packets[id];
+    const packetDef = PACKET_DEFS[id];
 
     const update = {};
 

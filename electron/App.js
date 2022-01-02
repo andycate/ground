@@ -4,10 +4,10 @@ const { ipcMain } = require('electron');
 
 const State = require('./State');
 const UdpPort = require('./UdpPort');
-const FlightV2 = require('./FlightV2');
-const DAQ = require('./DAQ');
-const DAQV3 = require('./DAQV3');
-const ActuatorController = require('./ActuatorController');
+const FlightV2 = require('./Boards/FlightV2');
+const DAQ = require('./Boards/DAQ');
+const DAQV3 = require('./Boards/DAQV3');
+const ActuatorController = require('./Boards/ActuatorController');
 const InfluxDB = require('./InfluxDB');
 
 class App {
