@@ -1,6 +1,7 @@
 const Interpolation = require("./Interpolation");
 
 const { asASCIIString, asFloat, asUInt8, asUInt16, asUInt32 } = Interpolation
+const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES
 
 /**
  * Interpolates the value to obtain an update object
@@ -11,8 +12,8 @@ const { asASCIIString, asFloat, asUInt8, asUInt16, asUInt32 } = Interpolation
  * @typedef {function(Buffer,Number): [any, Number]} Parser
  */
 /** @type {Object.<Number,Array.<[String,Parser,Interpolator|null]>|Array.<[String,Parser]>>} */
-const PACKET_DEFS = {
-  // [1-9] Sent by All Boards
+const INBOUND_PACKET_DEFS = {
+  // [1..9] Sent by All Boards
   1: [
     ['battVoltage', asFloat],
     ['battCurrent', asFloat],
@@ -27,9 +28,18 @@ const PACKET_DEFS = {
     ['supply8Voltage', asFloat],
     ['supply8Current', asFloat],
     ['supply8Power', asFloat]
-  ]
-  // [10-59] Sent by Flight Computer
-
+  ],
+  // [10..59] Sent by Flight Computer
 }
 
-module.exports = { PACKET_DEFS }
+/** @type {Object.<Number,Array.<Number>>} */
+const OUTBOUND_PACKET_DEFS = {
+  // Windows enable port packet
+  0: [UINT8],
+  // [130..169] Sent to Flight Computer
+  130: [UINT8],
+  // [170..199] Sent to Actuator Controller
+  170: [UINT8, UINT32]
+}
+
+module.exports = { INBOUND_PACKET_DEFS, OUTBOUND_PACKET_DEFS }

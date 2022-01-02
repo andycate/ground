@@ -61,7 +61,7 @@ class UdpPort {
     this.boards[address] = board;
     // Windows sometimes only accepts packets from an address/port AFTER making an outbound connection to it first.
     if (process.platform === 'win32') {
-      this.server.send("{0|eeee}", this.port, address, error => {
+      this.send(address, new Packet(0, [0]).toBuffer(), error => {
         if (!error) {
           return
         }
@@ -75,10 +75,12 @@ class UdpPort {
    *
    * @param {String} address
    * @param {Object} data
-   */
-  send(address, data) {
-    console.log(address + ": " + data);
-    this.server.send(data, this.port, address);
+   * @param {Function} cb
+    */
+  send(address, data, cb) {
+    console.debug(`[${address}]: `);
+    console.debug(data.toString('hex').match(/../g).join(' '))
+    this.server.send(data, this.port, address, cb);
   }
 }
 

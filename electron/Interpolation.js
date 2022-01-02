@@ -12,8 +12,13 @@ class Interpolation {
   static firstTimeStamps = {}
   static valueBuffers = {}
   static pastValues = {}
-  static pastNewLoadCell0Value = 0
-  static pastNewLoadCell1Value = 0
+
+  static TYPES = {
+    FLOAT: 0,
+    UINT8: 1,
+    UINT16: 2,
+    UINT32: 3
+  }
 
   /**
    * Returns the string that is represented by the buffer.
@@ -196,7 +201,7 @@ class Interpolation {
       this.valueBuffers[outputFieldName] = []
       this.firstTimeStamps[outputFieldName] = null
 
-      const current = new Date().getTime()
+      const current = Date.now()
 
       const pointsInInterval = this.pastValues[outputFieldName].filter(({ lastTime }) => current - lastTime < AVERAGE_INTERVAL)
 

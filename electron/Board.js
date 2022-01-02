@@ -1,6 +1,6 @@
 const Packet = require('./Packet');
 
-const { PACKET_DEFS } = require("./packetDefs");
+const { INBOUND_PACKET_DEFS } = require("./packetDefs");
 
 class Board {
   constructor(port, address, mapping, onConnect, onDisconnect, onRate) {
@@ -31,7 +31,12 @@ class Board {
 
   sendPacket(id, values) {
     const p = new Packet(id, values);
-    this.port.send(this.address, p.stringify());
+    const buf = p.toBuffer()
+    if(!buf){
+      console.debug(`[id ${id}] Outbound packet's packet data typing definition could not be found. Not sent.`)
+      return false
+    }
+    this.port.send(this.address, buf);
     return true;
   }
 
@@ -44,7 +49,7 @@ class Board {
     if (this.firstRecvTime < 0) {
       /* TODO: consider using multiple packet offsets to reduce likelihood of noise causing the first receive time to
       *   deviate too significantly */
-      this.firstRecvTime = new Date().getTime()
+      this.firstRecvTime = Date.now()
     }
     if (this.firstRecvOffset < 0) {
       this.firstRecvOffset = runTime
@@ -80,7 +85,7 @@ class Board {
 
     if (checksum === expectedChecksum) {
       const values = []
-      const packetDef = PACKET_DEFS[id]
+      const packetDef = INBOUND_PACKET_DEFS[id]
 
       let offset = dataOffset;
 
@@ -113,7 +118,7 @@ class Board {
    */
   processPacket(packet) {
     const { id, values } = packet
-    const packetDef = PACKET_DEFS[id];
+    const packetDef = INBOUND_PACKET_DEFS[id];
 
     const update = {};
 
