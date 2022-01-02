@@ -23,8 +23,10 @@ class Board {
     this.onDisconnect = onDisconnect;
     this.onRate = onRate;
     this.port.register(this.address, this);
-    /** @type {Number} the time (in ms) at which the board was registered */
-    this.registrationTime = -1;
+    /** @type {Number} the local time (in ms) at which the first packet was received from this board */
+    this.firstRecvTime = -1;
+    /** @type {Number} the sent offset time (in ms) at which the first packet was received */
+    this.firstRecvOffset = -1;
     this.bytesRecv = 0;
     this.setupDataRateMonitor();
   }
@@ -44,23 +46,47 @@ class Board {
   }
 
   /**
+   * Uses the offset given in the first packet received from the board to calculate subsequent packet arrival times
+   * @param runTime {number} is the received running duration of the board (in ms)
+   * @returns {number} the estimated timestamp at which the packet was sent (in ms)
+   */
+  calculateTimestamp(runTime) {
+    if (this.firstRecvTime < 0) {
+      /* TODO: consider using multiple packet offsets to reduce likelihood of noise causing the first receive time to
+      *   deviate too significantly */
+      this.firstRecvTime = new Date().getTime()
+    }
+    if (this.firstRecvOffset < 0) {
+      this.firstRecvOffset = runTime
+    }
+    return runTime - this.firstRecvOffset + this.firstRecvTime
+  }
+
+  /**
    * Parses the raw packet into a data object
-   * @param {Buffer} buf is the buffer that contains the full udp packet content
+   * @param buf {Buffer} is the buffer that contains the full udp packet content
    * @returns {Packet|null} packet with parsed data
    */
   parseMsgBuf(buf) {
+    // Packet format:
+    // [ ________ | ________ | ________ ________ ________ ________ | ________ ________ | ________ ... ________ ]
+    // [    id    |   len    |              runTime                |       checkSum    |          data         ]
+    // [  u_int8  |  u_int8  |              u_int32                |        u_int16    |     defined in doc    ]
     const id = buf.readUInt8(0);
     const len = buf.readUInt8(1);
 
-    const timestamp = Date.now(); // TODO: Change this to use packet TS offset byte and registrationTime
+    const runTime = buf.readUInt32LE(2);
+    const timestamp = this.calculateTimestamp(runTime);
 
-    const checksum = buf.readUInt16LE(2);
+    const checksum = buf.readUInt16LE(6);
 
     // currently, data comes after the 2 bytes checksum (at offset 2) 2 + 2 = 4
-    const dataOffset = 4;
+    const dataOffset = 8;
 
     const dataBuf = buf.slice(dataOffset, dataOffset + len)
-    const expectedChecksum = Packet.fletcher16(dataBuf)
+    const payloadBuf = buf.slice(0, 6)
+    const sumBuf = Buffer.concat([payloadBuf, dataBuf])
+    const expectedChecksum = Packet.fletcher16(sumBuf)
 
     if (checksum === expectedChecksum) {
       const values = []

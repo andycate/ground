@@ -58,14 +58,15 @@ class UdpPort {
    */
   register(address, board) {
     this.boards[address] = board;
-    // sends the timestamp sync packet, also solves Window not listening to port until first send issue
-    this.server.send("{0|eeee}", this.port, address, error => {
-      if (error) {
+    // Windows sometimes only accepts packets from an address/port AFTER making an outbound connection to it first.
+    if (process.platform === 'win32') {
+      this.server.send("{0|eeee}", this.port, address, error => {
+        if (!error) {
+          return
+        }
         console.debug(`could not connect to the board on address: ${address}. Error: ${error.toString()}`)
-      } else {
-        board.registrationTime = new Date().getTime()
-      }
-    });
+      });
+    }
   }
 
   /**
