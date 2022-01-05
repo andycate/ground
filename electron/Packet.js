@@ -88,8 +88,8 @@ class Packet {
     let a = 0, b = 0;
     for (const buf of bufArr) {
       for (let i = 0; i < buf.length; i++) {
-        a = (a + buf[i]) % 255;
-        b = (b + a) % 255;
+        a = (a + buf[i]) % 256;
+        b = (b + a) % 256;
       }
     }
     return a | (b << 8);
@@ -105,8 +105,8 @@ class Packet {
   static fletcher16(data) {
     let a = 0, b = 0;
     for (let i = 0; i < data.length; i++) {
-      a = (a + data[i]) % 255;
-      b = (b + a) % 255;
+      a = (a + data[i]) % 256;
+      b = (b + a) % 256;
     }
     return a | (b << 8);
   }

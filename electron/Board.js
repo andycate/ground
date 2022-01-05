@@ -32,7 +32,7 @@ class Board {
   sendPacket(id, values) {
     const p = new Packet(id, values);
     const buf = p.toBuffer()
-    if(!buf){
+    if (!buf) {
       console.debug(`[id ${id}] Outbound packet's packet data typing definition could not be found. Not sent.`)
       return false
     }
@@ -87,9 +87,14 @@ class Board {
       const values = []
       const packetDef = INBOUND_PACKET_DEFS[id]
 
-      let offset = dataOffset;
+      if (!packetDef) {
+        console.debug(`inbound packet with id: ${id} has the correct checksum but is undefined in the PACKET_DEFS.`)
+        return null
+      }
 
-      for (const [_, parser, __] of packetDef[id]) {
+      let offset = 0;
+
+      for (const [_, parser, __] of packetDef) {
         const [value, byteLen] = parser(dataBuf, offset);
         values.push(value);
         offset += byteLen;
@@ -133,13 +138,13 @@ class Board {
           Object.assign(update, additionalFields)
           value = value.value
         }
-      }else{
+      } else {
         value = _value
       }
       const fieldName = this.mapping[_fieldName]
-      if(fieldName === undefined){
+      if (fieldName === undefined) {
         update[_fieldName] = value
-      }else if(fieldName !== null){
+      } else if (fieldName !== null) {
         update[fieldName] = value
       }
     })
@@ -156,6 +161,8 @@ class Board {
     clearTimeout(this.watchdog);
     this.watchdog = setTimeout(() => {
       this.isConnected = false;
+      this.firstRecvTime = -1;
+      this.firstRecvOffset = -1;
       this.onDisconnect();
     }, 1000);
   }
