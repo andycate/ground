@@ -4,10 +4,10 @@ const { ipcMain } = require('electron');
 
 const State = require('./State');
 const UdpPort = require('./UdpPort');
-const FlightV2 = require('./FlightV2');
-const DAQ = require('./DAQ');
-const DAQV3 = require('./DAQV3');
-const ActuatorController = require('./ActuatorController');
+const FlightV2 = require('./Boards/FlightV2');
+const DAQ = require('./Boards/DAQ');
+const DAQV3 = require('./Boards/DAQV3');
+const ActuatorController = require('./Boards/ActuatorController');
 const InfluxDB = require('./InfluxDB');
 const SerPort = require('./SerPort');
 
@@ -105,22 +105,22 @@ class App {
         act2Current: null,
         act3Current: 'loxTankVentRBVcurrent',
         act4Current: 'loxFillRBVcurrent',
-        act5Current: null,
-        act6Current: 'fuelTankVentRBVcurrent',
+        act5Current: 'fuelTankVentRBVcurrent',
+        act6Current: null,
         ch0State: 'pressurantFlowRBVchState',
         ch1State: 'fuelFillRBVchState',
         ch2State: null,
         ch3State: 'loxTankVentRBVchState',
         ch4State: 'loxFillRBVchState',
-        ch5State: null,
-        ch6State: 'fuelTankVentRBVchState',
+        ch5State: 'fuelTankVentRBVcurrent',
+        ch6State: null,
         act0State: 'pressurantFlowRBVstate',
         act1State: 'fuelFillRBVstate',
         act2State: null,
         act3State: 'loxTankVentRBVstate',
         act4State: 'loxFillRBVstate',
-        act5State: null,
-        act6State: 'fuelTankVentRBVstate',
+        act5State: 'fuelTankVentRBVcurrent',
+        act6State: null,
         packetCounter: 'actCtrlr1packetCounter'
       },
       () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
@@ -441,9 +441,9 @@ class App {
     // this.addIPC('close-pressurantVentRBV', this.actCtrlr1.closeActCh5);
     // this.addIPC('time-pressurantVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
 
-    this.addIPC('open-fuelTankVentRBV', this.actCtrlr1.openActCh6);
-    this.addIPC('close-fuelTankVentRBV', this.actCtrlr1.closeActCh6);
-    this.addIPC('time-fuelTankVentRBV', (e, val) => this.actCtrlr1.actCh6ms(val));
+    this.addIPC('open-fuelTankVentRBV', this.actCtrlr1.openActCh5);
+    this.addIPC('close-fuelTankVentRBV', this.actCtrlr1.closeActCh5);
+    this.addIPC('time-fuelTankVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
 
     // Actuator Controller 2
 
