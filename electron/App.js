@@ -7,6 +7,7 @@ const UdpPort = require('./UdpPort');
 const FlightV2 = require('./Boards/FlightV2');
 const DAQ = require('./Boards/DAQ');
 const DAQV3 = require('./Boards/DAQV3');
+const EReg = require("./Boards/EReg");
 const ActuatorController = require('./Boards/ActuatorController');
 const InfluxDB = require('./InfluxDB');
 const SerPort = require('./SerPort');
