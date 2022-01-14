@@ -13,7 +13,7 @@ const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES
  */
 /** @type {Object.<Number,Array.<[String,Parser,Interpolator|null]>|Array.<[String,Parser]>>} */
 const INBOUND_PACKET_DEFS = {
-  // [1..9] Sent by All Boards
+  // [1..59] Sent by Flight Computer
   1: [
     ['flightBattVoltage', asFloat],
     ['flightBattCurrent', asFloat],
@@ -38,6 +38,7 @@ const INBOUND_PACKET_DEFS = {
     ['pressurantPT', asFloat],
     ['loxDomePT', asFloat],
   ],
+
   20: [
     ['engineTC1', asFloat],
   ],
@@ -50,6 +51,172 @@ const INBOUND_PACKET_DEFS = {
   23: [
     ['engineTC4', asFloat],
   ],
+
+  30: [
+    ['armValveVoltage', asFloat],
+    ['armValveCurrent', asFloat],
+  ],
+  31: [
+    ['igniterVoltage', asFloat],
+    ['igniterCurrent', asFloat],
+  ],
+  32: [
+    ['loxMainValveVoltage', asFloat],
+    ['loxMainValveCurrent', asFloat],
+  ],
+  33: [
+    ['fuelMainValveVoltage', asFloat],
+    ['fuelMainValveCurrent', asFloat],
+  ],
+  34: [
+    ['breakwireVoltage', asFloat],
+    ['breakwireCurrent', asFloat],
+  ],
+
+  35: [
+    ['loxTankBottomHtrVoltage', asFloat],
+    ['loxTankBottomHtrCurrent', asFloat],
+  ],
+  36: [
+    ['loxTankMidHtrVoltage', asFloat],
+    ['loxTankMidHtrCurrent', asFloat],
+  ],
+  37: [
+    ['loxTankTopHtrVoltage', asFloat],
+    ['loxTankTopHtrCurrent', asFloat],
+  ],
+
+  40: [
+    ['armValveState', asUInt8],
+  ],
+  41: [
+    ['igniterState', asUInt8],
+  ],
+  42: [
+    ['loxMainValveState', asUInt8],
+  ],
+  43: [
+    ['fuelMainValveState', asUInt8],
+  ],
+  45: [
+    ['loxTankBottomHtrState', asUInt8],
+  ],
+  46: [
+    ['loxTankMidHtrState', asUInt8],
+  ],
+  47: [
+    ['loxTankTopHtrState', asUInt8],
+  ],
+
+  49: [
+    ['actuatorStates', asUInt8],
+  ],
+
+  50: [
+    ['flowState', asUInt8],
+  ],
+
+  // [60:89] ACTUATOR CONTROLLERS
+  61: [
+    ['acBattVoltage', asFloat],
+    ['acBattCurrent', asFloat],
+  ],
+  62: [
+    ['acSupply12Voltage', asFloat],
+    ['acSupply12Current', asFloat],
+  ],
+  70: [
+    ['acLinAct1State', asUInt8],
+    ['acLinAct1Voltage', asFloat],
+    ['acLinAct1Current', asFloat],
+  ],
+  71: [
+    ['acLinAct2State', asUInt8],
+    ['acLinAct2Voltage', asFloat],
+    ['acLinAct2Current', asFloat],
+  ],
+  72: [
+    ['acLinAct3State', asUInt8],
+    ['acLinAct3Voltage', asFloat],
+    ['acLinAct3Current', asFloat],
+  ],
+  73: [
+    ['acLinAct4State', asUInt8],
+    ['acLinAct4Voltage', asFloat],
+    ['acLinAct4Current', asFloat],
+  ],
+  74: [
+    ['acLinAct5State', asUInt8],
+    ['acLinAct5Voltage', asFloat],
+    ['acLinAct5Current', asFloat],
+  ],
+  75: [
+    ['acLinAct6State', asUInt8],
+    ['acLinAct6Voltage', asFloat],
+    ['acLinAct6Current', asFloat],
+  ],
+  76: [
+    ['acLinAct7State', asUInt8],
+    ['acLinAct7Voltage', asFloat],
+    ['acLinAct7Current', asFloat],
+  ],
+
+  80: [
+    ['acHeater1Voltage', asFloat],
+    ['acHeater1Current', asFloat],
+  ],
+  81: [
+    ['acHeater2Voltage', asFloat],
+    ['acHeater2Current', asFloat],
+  ],
+  82: [
+    ['acHeater3Voltage', asFloat],
+    ['acHeater3Current', asFloat],
+  ],
+  83: [
+    ['acHeater4Voltage', asFloat],
+    ['acHeater4Current', asFloat],
+  ],
+
+  // [100:129] DAQs
+  100: [
+    ['daqBattVoltage', asFloat],
+    ['daqBattCurrent', asFloat],
+  ],
+
+  101: [
+    ['daqADC0', asFloat],
+    ['daqADC1', asFloat],
+    ['daqADC2', asFloat],
+    ['daqADC3', asFloat],
+    ['daqADC4', asFloat],
+    ['daqADC5', asFloat],
+    ['daqADC6', asFloat],
+    ['daqADC7', asFloat],
+  ],
+
+  110: [
+    ['daqTC1', asFloat],
+  ],
+  111: [
+    ['daqTC2', asFloat],
+  ],
+  112: [
+    ['daqTC3', asFloat],
+  ],
+  113: [
+    ['daqTC4', asFloat],
+  ],
+
+  120: [
+    ['loadCell1', asFloat],
+    ['loadCell2', asFloat],
+    ['loadCellSum', asFloat],
+  ],
+  121: [
+    ['capacitor1', asFloat],
+    ['capacitor2', asFloat],
+  ],
 }
 
 /** @type {Object.<Number,Array.<Number>>} */
@@ -61,8 +228,10 @@ const OUTBOUND_PACKET_DEFS = {
   131: [UINT8],
   132: [UINT8],
   133: [UINT8],
-  134: [],
-  135: [],
+  135: [UINT8],
+  136: [UINT8],
+  137: [UINT8],
+
   // [170..199] Sent to Actuator Controller
   170: [UINT8, UINT32],
   171: [UINT8, UINT32],

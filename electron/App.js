@@ -292,45 +292,23 @@ class App {
     this.addIPC('open-armValve', this.flightComputer.openarmValve);
     this.addIPC('close-armValve', this.flightComputer.closearmValve);
 
+    this.addIPC('activate-igniter', this.flightComputer.activateIgniter);
+    this.addIPC('deactivate-igniter', this.flightComputer.deactivateIgniter);
+
     this.addIPC('open-loxMainValve', this.flightComputer.openloxMainValve);
     this.addIPC('close-loxMainValve', this.flightComputer.closeloxMainValve);
 
     this.addIPC('open-fuelMainValve', this.flightComputer.openfuelMainValve);
     this.addIPC('close-fuelMainValve', this.flightComputer.closefuelMainValve);
 
-    // this.addIPC('open-loxGems', this.flightComputer.openLoxGems);
-    // this.addIPC('close-loxGems', this.flightComputer.closeLoxGems);
+    this.addIPC('activate-loxTankBottomHtr', this.flightComputer.activateLoxTankBottomHtr);
+    this.addIPC('deactivate-loxTankBottomHtr', this.flightComputer.deactivateLoxTankBottomHtr);
 
-    // this.addIPC('open-propGems', this.flightComputer.openPropGems);
-    // this.addIPC('close-propGems', this.flightComputer.closePropGems);
+    this.addIPC('activate-loxTankMidHtr', this.flightComputer.activateLoxTankMidHtr);
+    this.addIPC('deactivate-loxTankMidHtr', this.flightComputer.deactivateLoxTankMidHtr);
 
-    this.addIPC('enable-HPS', this.flightComputer.enableHPS);
-    this.addIPC('disable-HPS', this.flightComputer.disableHPS);
-    this.addIPC('open-HPS', this.flightComputer.openHPS);
-    this.addIPC('close-HPS', this.flightComputer.closeHPS);
-
-    this.addIPC('activate-Igniter', this.flightComputer.activateIgniter)
-    this.addIPC('deactivate-Igniter', this.flightComputer.deactivateIgniter)
-
-    this.addIPC('enable-thermocoupleReading', this.flightComputer.enableThermocoupleRead)
-    this.addIPC('disable-thermocoupleReading', this.flightComputer.disableThermocoupleRead)
-
-    this.addIPC('begin-flow', this.flightComputer.beginFlow);
-    this.addIPC('end-flow', this.flightComputer.abort);
-    this.addIPC('abort', this.abort);
-    this.addIPC('hold', this.hold);
-
-
-    this.addIPC('set-loxTankPTHeater', (e, val) => this.flightComputer.setloxTankPTHeater(val));
-    // this.addIPC('set-loxGemsHeater', (e, val) => this.flightComputer.setLoxGemsHeater(val));
-    this.addIPC('set-loxInjectorPTHeater', (e, val) => this.flightComputer.setloxInjectorPTHeater(val));
-
-    this.addIPC('set-fuelTankPTHeater', (e, val) => this.flightComputer.setfuelTankPTHeater(val));
-    // this.addIPC('set-propGemsHeater', (e, val) => this.flightComputer.setPropaneGemsHeater(val));
-    this.addIPC('set-fuelInjectorPTHeater', (e, val) => this.flightComputer.setfuelInjectorPTHeater(val));
-
-    this.addIPC('end-Checkout', this.flightComputer.endCheckout);
-    this.addIPC('start-Checkout', this.flightComputer.startCheckout);
+    this.addIPC('activate-loxTankTopHtr', this.flightComputer.activateLoxTankTopHtr);
+    this.addIPC('deactivate-loxTankTopHtr', this.flightComputer.deactivateLoxTankTopHtr);
 
 
     // DAQ 1

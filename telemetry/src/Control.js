@@ -453,76 +453,36 @@ class Control extends Component {
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOX Tank Top Heater'
-                      sendDuty={comms.setloxTankTopHeater}
+                      activate={comms.activateLoxTankTopHtr}
+                      deactivate={comms.deactivateLoxTankTopHtr}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOX Tank Middle Heater'
-                      sendDuty={comms.setloxTankMidHeater}
+                      activate={comms.activateLoxTankMidHtr}
+                      deactivate={comms.deactivateLoxTankMidHtr}
                     />
                   </Grid>
                   <Grid item>
                     <ButtonGroupHeater
                       text='LOX Tank Bottom Heater'
-                      sendDuty={comms.setloxTankBottomHeater}
+                      activate={comms.activateLoxTankBottomHtr}
+                      deactivate={comms.deactivateLoxTankBottomHtr}
                     />
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
                 <Grid container spacing={1} direction='column'>
-                  <Grid item>
-                    <ButtonGroupHeater
-                      text='Fuel Tank Top Heater'
-                      sendDuty={comms.setfuelTankTopHeater}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroupHeater
-                      text='Fuel Tank Middle Heater'
-                      sendDuty={comms.setfuelTankMidHeater}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroupHeater
-                      text='Fuel Tank Bottom Heater'
-                      sendDuty={comms.setfuelTankBottomHeater}
-                    />
-                  </Grid>
+                  
                 </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
-                <Grid container spacing={1} direction='column'>
-                  <Grid item>
-                    <ButtonGroupHeaterCtrlLoop
-                      text='LOX Tank PT Heater'
-                      sendDuty={comms.setloxTankPTHeater}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroupHeaterCtrlLoop
-                      text='LOX Injector PT Heater'
-                      sendDuty={comms.setloxInjectorPTHeater}
-                    />
-                  </Grid>
-                </Grid>
+                
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
-                <Grid container spacing={1} direction='column'>
-                  <Grid item>
-                    <ButtonGroupHeaterCtrlLoop
-                      text='Fuel Tank PT Heater'
-                      sendDuty={comms.setfuelTankPTHeater}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroupHeaterCtrlLoop
-                      text='Fuel Injector PT Heater'
-                      sendDuty={comms.setfuelInjectorPTHeater}
-                    />
-                  </Grid>
-                </Grid>
+                
               </Grid>
             </Grid>
           </Container>
