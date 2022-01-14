@@ -30,7 +30,6 @@ class Comms {
     this.getDaq3Connected = this.getDaq3Connected.bind(this);
     this.getActCtrlr1Connected = this.getActCtrlr1Connected.bind(this);
     this.getActCtrlr2Connected = this.getActCtrlr2Connected.bind(this);
-    this.getActCtrlr3Connected = this.getActCtrlr3Connected.bind(this);
 
     this.openarmValve = this.openarmValve.bind(this);
     this.closearmValve = this.closearmValve.bind(this);
@@ -301,10 +300,6 @@ class Comms {
 
   async getActCtrlr2Connected() {
     return await this.ipc.invoke('actctrlr2-connected');
-  }
-
-  async getActCtrlr3Connected() {
-    return await this.ipc.invoke('actctrlr3-connected');
   }
 
   async openarmValve() {

@@ -24,8 +24,7 @@ const BOARD_CONNECTION_FIELDS = [
   "daq2Connected",
   "daq3Connected",
   "actCtrlr1Connected",
-  "actCtrlr2Connected",
-  "actCtrlr3Connected"
+  "actCtrlr2Connected"
 ]
 
 const BOARD_NAMES = {
@@ -34,8 +33,7 @@ const BOARD_NAMES = {
   "daq2Connected": "DAQ2",
   "daq3Connected": "DAQ3",
   "actCtrlr1Connected": "Act Ctrlr1",
-  "actCtrlr2Connected": "Act Ctrlr2",
-  "actCtrlr3Connected": "Act Ctrlr3"
+  "actCtrlr2Connected": "Act Ctrlr2"
 }
 
 const FORMAL_BOARD_NAMES = {
@@ -45,8 +43,7 @@ const FORMAL_BOARD_NAMES = {
   "daq2Connected": "daq2",
   "daq3Connected": "daq3",
   "actCtrlr1Connected": "actCtrlr1",
-  "actCtrlr2Connected": "actCtrlr2",
-  "actCtrlr3Connected": "actCtrlr3"
+  "actCtrlr2Connected": "actCtrlr2"
 }
 
 const styles = style => ({

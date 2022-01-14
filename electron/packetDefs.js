@@ -15,21 +15,41 @@ const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES
 const INBOUND_PACKET_DEFS = {
   // [1..9] Sent by All Boards
   1: [
-    ['battVoltage', asFloat],
-    ['battCurrent', asFloat],
-    ['battPower', asFloat]
+    ['flightBattVoltage', asFloat],
+    ['flightBattCurrent', asFloat],
+    ['flightBattPower', asFloat]
   ],
   2: [
-    ['supply12Voltage', asFloat],
-    ['supply12Current', asFloat],
-    ['supply12Power', asFloat]
+    ['flightSupply12Voltage', asFloat],
+    ['flightSupply12Current', asFloat],
+    ['flightSupply12Power', asFloat]
   ],
   3: [
-    ['supply8Voltage', asFloat],
-    ['supply8Current', asFloat],
-    ['supply8Power', asFloat]
+    ['flightSupply8Voltage', asFloat],
+    ['flightSupply8Current', asFloat],
+    ['flightSupply8Power', asFloat]
   ],
   // [10..59] Sent by Flight Computer
+  10: [
+    ['loxTankPT', asFloat],
+    ['fuelTankPT', asFloat],
+    ['loxInjectorPT', asFloat],
+    ['fuelInjectorPT', asFloat],
+    ['pressurantPT', asFloat],
+    ['loxDomePT', asFloat],
+  ],
+  20: [
+    ['engineTC1', asFloat],
+  ],
+  21: [
+    ['engineTC2', asFloat],
+  ],
+  22: [
+    ['engineTC3', asFloat],
+  ],
+  23: [
+    ['engineTC4', asFloat],
+  ],
 }
 
 /** @type {Object.<Number,Array.<Number>>} */
@@ -38,8 +58,23 @@ const OUTBOUND_PACKET_DEFS = {
   0: [UINT8],
   // [130..169] Sent to Flight Computer
   130: [UINT8],
+  131: [UINT8],
+  132: [UINT8],
+  133: [UINT8],
+  134: [],
+  135: [],
   // [170..199] Sent to Actuator Controller
-  170: [UINT8, UINT32]
+  170: [UINT8, UINT32],
+  171: [UINT8, UINT32],
+  172: [UINT8, UINT32],
+  173: [UINT8, UINT32],
+  174: [UINT8, UINT32],
+  175: [UINT8, UINT32],
+  176: [UINT8, UINT32],
+  180: [UINT8],
+  181: [UINT8],
+  182: [UINT8],
+  183: [UINT8],
 }
 
 module.exports = { INBOUND_PACKET_DEFS, OUTBOUND_PACKET_DEFS }
