@@ -407,10 +407,10 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
                     <SwitchButton
-                      open={comms.enableThermocoupleRead}
-                      close={comms.disableThermocoupleRead}
-                      field='thermocoupleReadEnable'
-                      text='Thermocouple Read'
+                      open={comms.enableFastRead}
+                      close={comms.disableFastRead}
+                      field='_'
+                      text='Fast Read Rate'
                     />
                   </Grid>
                 </Grid>

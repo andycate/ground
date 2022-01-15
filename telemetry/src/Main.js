@@ -243,26 +243,33 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'engineTC1',
-                        color: [0, 126, 254],
-                        unit: 'ºC'
-                      },
-                      {
-                        name: 'engineTC2',
-                        color: [0, 187, 0],
-                        unit: 'ºC'
-                      },
-                      {
-                        name: 'engineTC3',
+                        name: 'fuelTankTopTC',
                         color: [123, 35, 162],
                         unit: 'ºC'
-                      },
-                      {
-                        name: 'engineTC4',
-                        color: [35, 123, 162],
-                        unit: 'ºC'
-                      },
+                      }
                     ]
+                    // [
+                    //   {
+                    //     name: 'engineTC1',
+                    //     color: [0, 126, 254],
+                    //     unit: 'ºC'
+                    //   },
+                    //   {
+                    //     name: 'engineTC2',
+                    //     color: [0, 187, 0],
+                    //     unit: 'ºC'
+                    //   },
+                    //   {
+                    //     name: 'engineTC3',
+                    //     color: [123, 35, 162],
+                    //     unit: 'ºC'
+                    //   },
+                    //   {
+                    //     name: 'engineTC4',
+                    //     color: [35, 123, 162],
+                    //     unit: 'ºC'
+                    //   },
+                    // ]
                   }
                 />
               </Grid>

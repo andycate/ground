@@ -52,6 +52,9 @@ class Comms {
     this.activateLoxTankTopHtr = this.activateLoxTankTopHtr.bind(this);
     this.deactivateLoxTankTopHtr = this.deactivateLoxTankTopHtr.bind(this);
 
+    this.enableFastRead = this.enableFastRead.bind(this);
+    this.disableFastRead = this.disableFastRead.bind(this);
+
     //---------------DAQ 1---------------
 
     //---------------DAQ 2---------------
@@ -293,6 +296,14 @@ class Comms {
 
   async deactivateIgniter() {
     return await this.ipc.invoke('deactivate-igniter');
+  }
+
+  async enableFastRead() {
+    return await this.ipc.invoke('enable-fastReadRate');
+  }
+
+  async disableFastRead() {
+    return await this.ipc.invoke('disable-fastReadRate');
   }
 
   async activateLoxTankBottomHtr() { return await this.ipc.invoke('activate-loxTankBottomHtr'); }

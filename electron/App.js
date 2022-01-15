@@ -36,21 +36,87 @@ class App {
       () => this.updateState(Date.now(), { flightConnected: false }),
       (rate) => this.updateState(Date.now(), { flightKbps: rate }));
     this.daq1 = new DAQ(this.port, '10.0.0.11', {
-        
+        daqBattVoltage: null,
+        daqBattCurrent: null,
+
+        daqADC0: null,
+        daqADC1: null,
+        daqADC2: null,
+        daqADC3: null,
+        daqADC4: null,
+        daqADC5: null,
+        daqADC6: 'fuelDomePT',
+        daqADC7: null,
+
+        daqTC1: null,
+        daqTC2: null,
+        daqTC3: null,
+        daqTC4: null,
+
+        loadCell1: null,
+        loadCell2: null,
+        loadCellSum: null,
+
+        capacitor1: null,
+        capacitor2: null,
       },
       () => this.updateState(Date.now(), { daq1Connected: true }),
       () => this.updateState(Date.now(), { daq1Connected: false }),
       (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
 
     this.daq2 = new DAQ(this.port, '10.0.0.12', {
-        
+        daqBattVoltage: null,
+        daqBattCurrent: null,
+
+        daqADC0: null,
+        daqADC1: null,
+        daqADC2: null,
+        daqADC3: null,
+        daqADC4: null,
+        daqADC5: null,
+        daqADC6: null,
+        daqADC7: null,
+
+        daqTC1: 'loxTankBottomTC',
+        daqTC2: 'loxTankMidTC',
+        daqTC3: 'loxTankTopTC',
+        daqTC4: 'fuelTankTopTC',
+
+        loadCell1: null,
+        loadCell2: null,
+        loadCellSum: null,
+
+        capacitor1: null,
+        capacitor2: null,
       },
       () => this.updateState(Date.now(), { daq2Connected: true }),
       () => this.updateState(Date.now(), { daq2Connected: false }),
       (rate) => this.updateState(Date.now(), { daq2Kbps: rate }));
 
     this.daq3 = new DAQ(this.port, '10.0.0.13', {
+        daqBattVoltage: null,
+        daqBattCurrent: null,
 
+        daqADC0: null,
+        daqADC1: null,
+        daqADC2: null,
+        daqADC3: null,
+        daqADC4: null,
+        daqADC5: null,
+        daqADC6: null,
+        daqADC7: null,
+
+        daqTC1: null,
+        daqTC2: null,
+        daqTC3: null,
+        daqTC4: null,
+
+        loadCell1: null,
+        loadCell2: null,
+        loadCellSum: null,
+
+        capacitor1: 'daq3-fuel-capVal',
+        capacitor2: 'daq3-lox-capVal',
       },
       () => this.updateState(Date.now(), { daq3Connected: true }),
       () => this.updateState(Date.now(), { daq3Connected: false }),
@@ -298,6 +364,9 @@ class App {
 
     this.addIPC('activate-loxTankTopHtr', this.flightComputer.activateLoxTankTopHtr);
     this.addIPC('deactivate-loxTankTopHtr', this.flightComputer.deactivateLoxTankTopHtr);
+
+    this.addIPC('enable-fastReadRate', this.flightComputer.enableFastReadRate);
+    this.addIPC('disable-fastReadRate', this.flightComputer.disableFastReadRate);
 
 
     // DAQ 1
