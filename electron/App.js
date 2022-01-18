@@ -19,8 +19,6 @@ class App {
 
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
-    this.abort = this.abort.bind(this);
-    this.hold = this.hold.bind(this);
     this.handleSendCustomMessage = this.handleSendCustomMessage.bind(this)
   }
 
@@ -93,7 +91,7 @@ class App {
       () => this.updateState(Date.now(), { daq2Connected: false }),
       (rate) => this.updateState(Date.now(), { daq2Kbps: rate }));
 
-    this.daq3 = new DAQ(this.port, '10.0.0.13', {
+    this.daq3 = new DAQ(this.port, '10.0.0.31', {
         daqBattVoltage: null,
         daqBattCurrent: null,
 
@@ -115,13 +113,41 @@ class App {
         loadCell2: null,
         loadCellSum: null,
 
-        capacitor1: 'daq3-fuel-capVal',
-        capacitor2: 'daq3-lox-capVal',
+        capacitor: 'lox-capVal',
       },
       () => this.updateState(Date.now(), { daq3Connected: true }),
       () => this.updateState(Date.now(), { daq3Connected: false }),
       (rate) => this.updateState(Date.now(), { daq3Kbps: rate })
     )
+
+    this.daq4 = new DAQ(this.port, '10.0.0.32', {
+      daqBattVoltage: null,
+      daqBattCurrent: null,
+
+      daqADC0: null,
+      daqADC1: null,
+      daqADC2: null,
+      daqADC3: null,
+      daqADC4: null,
+      daqADC5: null,
+      daqADC6: null,
+      daqADC7: null,
+
+      daqTC1: null,
+      daqTC2: null,
+      daqTC3: null,
+      daqTC4: null,
+
+      loadCell1: null,
+      loadCell2: null,
+      loadCellSum: null,
+
+      capacitor: 'fuel-capVal',
+    },
+    () => this.updateState(Date.now(), { daq4Connected: true }),
+    () => this.updateState(Date.now(), { daq4Connected: false }),
+    (rate) => this.updateState(Date.now(), { daq4Kbps: rate })
+  )
 
     this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
         acBattVoltage: 'ac1BattVoltage',
@@ -285,17 +311,6 @@ class App {
     this.webContents.splice(this.webContents.indexOf(webContents), 1);
   }
 
-  abort() { // feels like this should be done in the frontend, not the backend.
-    
-
-
-
-  }
-
-  hold() {
-    // TODO: implement hold
-  }
-
   addIPC(channel, handler, dbrecord = true) {
     ipcMain.handle(channel, (...args) => {
       const update = {
@@ -341,6 +356,7 @@ class App {
     this.addIPC('daq1-connected', () => this.daq1.isConnected);
     this.addIPC('daq2-connected', () => this.daq2.isConnected);
     this.addIPC('daq3-connected', () => this.daq3.isConnected);
+    this.addIPC('daq4-connected', () => this.daq4.isConnected);
     this.addIPC('actctrlr1-connected', () => this.actCtrlr1.isConnected);
     this.addIPC('actctrlr2-connected', () => this.actCtrlr2.isConnected);
 
@@ -364,6 +380,9 @@ class App {
 
     this.addIPC('activate-loxTankTopHtr', this.flightComputer.activateLoxTankTopHtr);
     this.addIPC('deactivate-loxTankTopHtr', this.flightComputer.deactivateLoxTankTopHtr);
+
+    this.addIPC('beginFlow', this.flightComputer.beginFlow);
+    this.addIPC('abort', this.flightComputer.abort);
 
     this.addIPC('enable-fastReadRate', this.flightComputer.enableFastReadRate);
     this.addIPC('disable-fastReadRate', this.flightComputer.disableFastReadRate);

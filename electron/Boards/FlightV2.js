@@ -25,6 +25,9 @@ class FlightV2 extends Board {
     this.activateLoxTankTopHtr = this.activateLoxTankTopHtr.bind(this);
     this.deactivateLoxTankTopHtr = this.deactivateLoxTankTopHtr.bind(this);
 
+    this.beginFlow = this.beginFlow.bind(this);
+    this.abort = this.abort.bind(this);
+
     this.enableFastReadRate = this.enableFastReadRate.bind(this);
     this.disableFastReadRate = this.disableFastReadRate.bind(this);
   }
@@ -49,6 +52,9 @@ class FlightV2 extends Board {
 
   activateLoxTankTopHtr() { return this.sendPacket(137, [1]); }
   deactivateLoxTankTopHtr() { return this.sendPacket(137, [0]); }
+
+  beginFlow() { return this.sendPacket(150, []); }
+  abort() { return this.sendPacket(151, []); }
 
   enableFastReadRate() { return this.sendPacket(140, [1]); }
   disableFastReadRate() { return this.sendPacket(140, [0]); }

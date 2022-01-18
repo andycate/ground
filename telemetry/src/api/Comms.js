@@ -28,6 +28,7 @@ class Comms {
     this.getDaq1Connected = this.getDaq1Connected.bind(this);
     this.getDaq2Connected = this.getDaq2Connected.bind(this);
     this.getDaq3Connected = this.getDaq3Connected.bind(this);
+    this.getDaq4Connected = this.getDaq4Connected.bind(this);
     this.getActCtrlr1Connected = this.getActCtrlr1Connected.bind(this);
     this.getActCtrlr2Connected = this.getActCtrlr2Connected.bind(this);
 
@@ -51,6 +52,9 @@ class Comms {
 
     this.activateLoxTankTopHtr = this.activateLoxTankTopHtr.bind(this);
     this.deactivateLoxTankTopHtr = this.deactivateLoxTankTopHtr.bind(this);
+
+    this.beginFlow = this.beginFlow.bind(this);
+    this.abort = this.abort.bind(this);
 
     this.enableFastRead = this.enableFastRead.bind(this);
     this.disableFastRead = this.disableFastRead.bind(this);
@@ -258,6 +262,10 @@ class Comms {
     return await this.ipc.invoke('daq3-connected');
   }
 
+  async getDaq4Connected() {
+    return await this.ipc.invoke('daq4-connected');
+  }
+
   async getActCtrlr1Connected() {
     return await this.ipc.invoke('actctrlr1-connected');
   }
@@ -296,6 +304,14 @@ class Comms {
 
   async deactivateIgniter() {
     return await this.ipc.invoke('deactivate-igniter');
+  }
+
+  async beginFlow() {
+    return await this.ipc.invoke('beginFlow');
+  }
+
+  async abort() {
+    return await this.ipc.invoke('abort');
   }
 
   async enableFastRead() {

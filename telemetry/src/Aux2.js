@@ -228,7 +228,7 @@ class Aux2 extends Component {
                   fields={
                     [
                       {
-                        name: 'daq3-lox-capVal',
+                        name: 'lox-capVal',
                         color: [70, 1, 155],
                         unit: 'pF',
                         precision: 3
@@ -243,7 +243,7 @@ class Aux2 extends Component {
                   fields={
                     [
                       {
-                        name: 'daq3-fuel-capVal',
+                        name: 'fuel-capVal',
                         color: [56, 44, 30],
                         unit: 'pF',
                         precision: 3

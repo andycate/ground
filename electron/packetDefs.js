@@ -213,9 +213,8 @@ const INBOUND_PACKET_DEFS = {
     ['loadCell2', asFloat],
     ['loadCellSum', asFloat],
   ],
-  121: [
-    ['capacitor1', asFloat],
-    ['capacitor2', asFloat],
+  220: [
+    ['capacitor', asFloat],
   ],
 }
 
@@ -233,6 +232,9 @@ const OUTBOUND_PACKET_DEFS = {
   137: [UINT8],
 
   140: [UINT8],
+
+  150: [],
+  151: [],
 
   // [170..199] Sent to Actuator Controller
   170: [UINT8, UINT32],
