@@ -51,9 +51,9 @@ class App {
         daqTC3: null,
         daqTC4: null,
 
-        loadCell1: null,
-        loadCell2: null,
-        loadCellSum: null,
+        loadCell1: 'thrust1',
+        loadCell2: 'thrust2',
+        loadCellSum: 'totalThrust',
 
         capacitor1: null,
         capacitor2: null,
