@@ -18,14 +18,15 @@ class SerPort {
     this.updateStateCallback = updateStateCallback;
 
     this.lineStream.on('data', (msg) => {
+      console.log(msg);
       this.board.updateRcvRate(msg.length);
       const packet = this.board.parseMsgBuf(msg);
 
-      if (packet) {
-        const update = this.board.processPacket(packet);
-        if (update === undefined) return;
-        this.updateStateCallback(packet.timestamp, update);
-      }
+      // if (packet) {
+      //   const update = this.board.processPacket(packet);
+      //   if (update === undefined) return;
+      //   this.updateStateCallback(packet.timestamp, update);
+      // }
     });
   }
 

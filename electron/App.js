@@ -31,7 +31,7 @@ class App {
    */
   initApp(){
     this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
-    this.port2 = new SerPort('/dev/yeet', 115200, this.updateState);
+    this.port2 = new SerPort('COM7', 115200, this.updateState);
 
     this.flightComputer = new FlightV2(this.port,
       '10.0.0.42',

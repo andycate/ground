@@ -15,20 +15,9 @@ const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES
 const INBOUND_PACKET_DEFS = {
   // [1..9] Sent by All Boards
   1: [
-    ['battVoltage', asFloat],
-    ['battCurrent', asFloat],
-    ['battPower', asFloat]
+    ['pressure_setpoint', asFloat],
   ],
-  2: [
-    ['supply12Voltage', asFloat],
-    ['supply12Current', asFloat],
-    ['supply12Power', asFloat]
-  ],
-  3: [
-    ['supply8Voltage', asFloat],
-    ['supply8Current', asFloat],
-    ['supply8Power', asFloat]
-  ],
+  
   // [10..59] Sent by Flight Computer
 }
 
