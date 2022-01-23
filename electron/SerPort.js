@@ -13,22 +13,65 @@ class SerPort {
       autoOpen: false
     });
 
-    this.lineStream = this.device.pipe(new Delimiter({ delimiter: "\n", includeDelimiter: false }));
+    this.lineStream = this.device.pipe(new Delimiter({ delimiter: "\n", includeDelimiter: true }));
     this.board = null;
     this.updateStateCallback = updateStateCallback;
 
-    this.lineStream.on('data', (msg) => {
-      console.log(msg);
-      this.board.updateRcvRate(msg.length);
-      const packet = this.board.parseMsgBuf(msg);
+    this.buf1 = Buffer.alloc(265);
+    this.buf_len = 0;
 
-      // if (packet) {
-      //   const update = this.board.processPacket(packet);
-      //   if (update === undefined) return;
-      //   this.updateStateCallback(packet.timestamp, update);
-      // }
+    this.lineStream.on('data', (msg) => {
+      let buf = Buffer.concat([this.buf1.slice(0, this.buf_len), msg])
+      // let buf = msg
+      // console.log(buf);
+      this.board.updateRcvRate(msg.length - 1);
+      let packet
+      let len
+      if(this.buf_len > 0) {
+        len = buf.readUInt8(1);
+      } else {
+        len = msg.readUInt8(1);
+      }
+      try {
+        if (buf.length-1 >= len + 8) {
+          packet = this.board.parseMsgBuf(buf);
+          this.buf_len = 0;
+        }
+        else {
+          // console.log("attempting to recover");
+          // add msg to buf1, including '\n' delimiter
+          msg.copy(this.buf1, this.buf_len);
+          this.buf_len += msg.length;
+        }
+      } catch(err) {
+        console.log("unknown error with receiving serial packets ¯\_(ツ)_/¯");
+        this.buf_len = 0;
+      }
+
+      if (packet) {
+        const update = this.board.processPacket(packet);
+        if (update === undefined) return;
+        this.updateStateCallback(packet.timestamp, update);
+      }
     });
   }
+
+  // receive(_, msg) {
+  //   console.log(msg.length);
+  //   this.board.updateRcvRate(msg.length);
+  //   let packet
+  //   try {
+  //     packet = this.board.parseMsgBuf(msg);
+  //   } catch(err) {
+  //     // ignore
+  //   }
+
+  //   if (packet) {
+  //     const update = this.board.processPacket(packet);
+  //     if (update === undefined) return;
+  //     this.updateStateCallback(packet.timestamp, update);
+  //   }
+  // }
 
   /**
    * Register a board to receive packets from the specified serial port path

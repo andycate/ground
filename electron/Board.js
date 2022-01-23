@@ -46,6 +46,7 @@ class Board {
    * @returns {number} the estimated timestamp at which the packet was sent (in ms)
    */
   calculateTimestamp(runTime) {
+    // This needs to be updated everytime a board gets disconnected and reconnected
     if (this.firstRecvTime < 0) {
       /* TODO: consider using multiple packet offsets to reduce likelihood of noise causing the first receive time to
       *   deviate too significantly */
@@ -77,7 +78,6 @@ class Board {
 
     // currently, data comes after the 2 bytes checksum (at offset 2) 2 + 2 = 4
     const dataOffset = 8;
-
     const dataBuf = buf.slice(dataOffset, dataOffset + len)
     const payloadBuf = buf.slice(0, 6)
     const sumBuf = Buffer.concat([payloadBuf, dataBuf])
@@ -86,6 +86,7 @@ class Board {
     if (checksum === expectedChecksum) {
       const values = []
       const packetDef = INBOUND_PACKET_DEFS[id]
+      if(!packetDef) return null;
 
       if (!packetDef) {
         console.debug(`inbound packet with id: ${id} has the correct checksum but is undefined in the PACKET_DEFS.`)
@@ -124,6 +125,7 @@ class Board {
   processPacket(packet) {
     const { id, values } = packet
     const packetDef = INBOUND_PACKET_DEFS[id];
+    if(!packetDef) return;
 
     const update = {};
 
