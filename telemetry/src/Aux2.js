@@ -228,7 +228,7 @@ class Aux2 extends Component {
                   fields={
                     [
                       {
-                        name: 'daq3-lox-capVal',
+                        name: 'lox-capVal',
                         color: [70, 1, 155],
                         unit: 'pF',
                         precision: 3
@@ -243,7 +243,7 @@ class Aux2 extends Component {
                   fields={
                     [
                       {
-                        name: 'daq3-fuel-capVal',
+                        name: 'fuel-capVal',
                         color: [56, 44, 30],
                         unit: 'pF',
                         precision: 3
@@ -357,21 +357,21 @@ class Aux2 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'LOX Tank Top Heater',
-                    field: 'loxTankTopHeaterCurrent',
+                    field: 'loxTankTopHtrCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field2={{
                     name: 'LOX Tank Mid Heater',
-                    field: 'loxTankMidHeaterCurrent',
+                    field: 'loxTankMidHtrCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3
                   }}
                   field3={{
                     name: 'LOX Tank Bottom Heater',
-                    field: 'loxTankBottomHeaterCurrent',
+                    field: 'loxTankBottomHtrCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.3

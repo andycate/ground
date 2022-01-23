@@ -7,7 +7,7 @@ const packets = {
 
 class LinearActuator extends Board {
   constructor(port, address, mapping, onConnect, onDisconnect, onRate) {
-    super(port, address, packets, mapping, onConnect, onDisconnect, onRate);
+    super(port, address, mapping, onConnect, onDisconnect, onRate);
   }
 }
 
