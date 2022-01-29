@@ -237,6 +237,27 @@ class Main extends Component {
                     ]
                   }
                 />
+                {/* <Graph
+                  fields={
+                    [
+                      {
+                        name: 'thrust1',
+                        color: [255, 51, 224],
+                        unit: 'LBS'
+                      },
+                      {
+                        name: 'thrust2', // prop PT temp
+                        color: [15, 202, 221],
+                        unit: 'LBS'
+                      },
+                      {
+                        name: 'totalThrust', // prop PT temp
+                        color: [238, 154, 7],
+                        unit: 'LBS'
+                      },
+                    ]
+                  }
+                /> */}
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph

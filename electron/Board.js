@@ -136,7 +136,6 @@ class Board {
         
       // }
       const [_fieldName, _, interpolator] = fieldDef
-      console.log([_fieldName, _, interpolator])
       let value
       if (interpolator) {
         value = interpolator(_value)

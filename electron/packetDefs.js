@@ -119,15 +119,15 @@ const INBOUND_PACKET_DEFS = {
   ],
 
   50: [
-    ['flowStgate', asUInt8],
+    ['flowState', asUInt8],
   ],
 
   152: [
-    ['autoLoxLead', asUInt32, true],
-    ['autoBurnTime', asUInt32, true],
-    ['autoIgniterAbortEnabled', asUInt8, true],
-    ['autoBreakwireAbortEnabled', asUInt8, true],
-    ['autoThrustAbortEnabled', asUInt8, true],
+    ['autoLoxLead', asUInt32],
+    ['autoBurnTime', asUInt32],
+    ['autoIgniterAbortEnabled', asUInt8],
+    ['autoBreakwireAbortEnabled', asUInt8],
+    ['autoThrustAbortEnabled', asUInt8],
   ],
 
   // [60:89] ACTUATOR CONTROLLERS
