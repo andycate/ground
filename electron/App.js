@@ -30,10 +30,15 @@ class App {
 
     this.flightComputer = new FlightV2(this.port,
       '10.0.0.42',
+      {
+        firmwareCommitHash: 'flightCommitHash',
+      },
       () => this.updateState(Date.now(), { flightConnected: true }),
       () => this.updateState(Date.now(), { flightConnected: false }),
       (rate) => this.updateState(Date.now(), { flightKbps: rate }));
     this.daq1 = new DAQ(this.port, '10.0.0.11', {
+        firmwareCommitHash: 'daq1CommitHash',
+
         daqBattVoltage: null,
         daqBattCurrent: null,
 
@@ -63,6 +68,8 @@ class App {
       (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
 
     this.daq2 = new DAQ(this.port, '10.0.0.12', {
+        firmwareCommitHash: 'daq2CommitHash',
+
         daqBattVoltage: null,
         daqBattCurrent: null,
 
@@ -92,6 +99,8 @@ class App {
       (rate) => this.updateState(Date.now(), { daq2Kbps: rate }));
 
     this.daq3 = new DAQ(this.port, '10.0.0.31', {
+        firmwareCommitHash: 'daq3CommitHash',
+
         daqBattVoltage: null,
         daqBattCurrent: null,
 
@@ -121,6 +130,8 @@ class App {
     )
 
     this.daq4 = new DAQ(this.port, '10.0.0.32', {
+      firmwareCommitHash: 'daq4CommitHash',
+
       daqBattVoltage: null,
       daqBattCurrent: null,
 
@@ -150,6 +161,8 @@ class App {
   )
 
     this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
+        firmwareCommitHash: 'ac1CommitHash',
+
         acBattVoltage: 'ac1BattVoltage',
         acBattCurrent: 'ac1BattCurrent',
         acSupply12Voltage: 'ac1Supply12Voltage',
@@ -199,6 +212,8 @@ class App {
       () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
       (rate) => this.updateState(Date.now(), { actCtrlr1Kbps: rate }));
     this.actCtrlr2 = new ActuatorController(this.port, '10.0.0.22', {
+        firmwareCommitHash: 'ac2CommitHash',
+
         acBattVoltage: 'ac2BattVoltage',
         acBattCurrent: 'ac2BattCurrent',
         acSupply12Voltage: 'ac2Supply12Voltage',

@@ -132,7 +132,11 @@ class Board {
 
     values.forEach((_value, idx) => {
       const fieldDef = packetDef[idx]
+      // if(id === 152) {
+        
+      // }
       const [_fieldName, _, interpolator] = fieldDef
+      console.log([_fieldName, _, interpolator])
       let value
       if (interpolator) {
         value = interpolator(_value)
@@ -157,7 +161,7 @@ class Board {
 
   resetWatchdog() {
     if (!this.isConnected) {
-      this.sendPacket(99, [0])
+      this.sendPacket(0, []);
       this.onConnect();
     }
     this.isConnected = true;

@@ -14,6 +14,9 @@ const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES
 /** @type {Object.<Number,Array.<[String,Parser,Interpolator|null]>|Array.<[String,Parser]>>} */
 const INBOUND_PACKET_DEFS = {
   // [1..59] Sent by Flight Computer
+  0: [
+    ['firmwareCommitHash', asASCIIString],
+  ],
   1: [
     ['flightBattVoltage', asFloat],
     ['flightBattCurrent', asFloat],
@@ -116,7 +119,15 @@ const INBOUND_PACKET_DEFS = {
   ],
 
   50: [
-    ['flowState', asUInt8],
+    ['flowStgate', asUInt8],
+  ],
+
+  152: [
+    ['autoLoxLead', asUInt32, true],
+    ['autoBurnTime', asUInt32, true],
+    ['autoIgniterAbortEnabled', asUInt8, true],
+    ['autoBreakwireAbortEnabled', asUInt8, true],
+    ['autoThrustAbortEnabled', asUInt8, true],
   ],
 
   // [60:89] ACTUATOR CONTROLLERS
@@ -238,6 +249,7 @@ const OUTBOUND_PACKET_DEFS = {
 
   150: [],
   151: [],
+  152: [],
 
   // [170..199] Sent to Actuator Controller
   170: [UINT8, UINT32],

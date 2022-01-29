@@ -216,7 +216,7 @@ class Main extends Component {
                 /> */}
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                {/* <Graph
+                <Graph
                   fields={
                     [
                       {
@@ -236,66 +236,40 @@ class Main extends Component {
                       }
                     ]
                   }
-                /> */}
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'engineTC1', // engine temp 1
-                        color: [221, 0, 0],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineTC2', // engine temp 2
-                        color: [0, 127, 254],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineTC3', // engine temp 3
-                        color: [0, 187, 0],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineTC4', // engine temp 3
-                        color: [0, 0, 187],
-                        unit: 'degC'
-                      },
-                    ]
-                  }
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph
                   fields={
-                    [
-                      {
-                        name: 'fuelTankBottomTC',
-                        color: [123, 35, 162],
-                        unit: 'ºC'
-                      }
-                    ]
                     // [
                     //   {
-                    //     name: 'engineTC1',
-                    //     color: [0, 126, 254],
-                    //     unit: 'ºC'
-                    //   },
-                    //   {
-                    //     name: 'engineTC2',
-                    //     color: [0, 187, 0],
-                    //     unit: 'ºC'
-                    //   },
-                    //   {
-                    //     name: 'engineTC3',
+                    //     name: 'fuelTankBottomTC',
                     //     color: [123, 35, 162],
                     //     unit: 'ºC'
-                    //   },
-                    //   {
-                    //     name: 'engineTC4',
-                    //     color: [35, 123, 162],
-                    //     unit: 'ºC'
-                    //   },
+                    //   }
                     // ]
+                    [
+                      {
+                        name: 'engineTC1',
+                        color: [0, 126, 254],
+                        unit: 'ºC'
+                      },
+                      {
+                        name: 'engineTC2',
+                        color: [0, 187, 0],
+                        unit: 'ºC'
+                      },
+                      {
+                        name: 'engineTC3',
+                        color: [123, 35, 162],
+                        unit: 'ºC'
+                      },
+                      {
+                        name: 'engineTC4',
+                        color: [35, 123, 162],
+                        unit: 'ºC'
+                      },
+                    ]
                   }
                 />
               </Grid>

@@ -1,8 +1,9 @@
 const Board = require('../Board');
 
 class FlightV2 extends Board {
-  constructor(port, address, onConnect, onDisconnect, onRate) {
-    super(port, address, {}, onConnect, onDisconnect, onRate);
+  constructor(port, address, mapping, onConnect, onDisconnect, onRate) {
+
+    super(port, address, mapping, () => { this.sendPacket(152, []); onConnect(); }, onDisconnect, onRate);
 
     this.openarmValve = this.openarmValve.bind(this);
     this.closearmValve = this.closearmValve.bind(this);
