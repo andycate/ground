@@ -188,7 +188,9 @@ class Main extends Component {
                 />
 
               </Grid>
-              
+              <Grid item={1} xs={4} className={classes.item}>
+                <MessageDisplaySquare/>
+              </Grid>
             </Grid>
           </Container>
         </Box>
