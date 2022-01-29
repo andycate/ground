@@ -41,8 +41,8 @@ class App {
         daqADC1: null,
         daqADC2: null,
         daqADC3: null,
-        daqADC4: null,
-        daqADC5: null,
+        daqADC4: 'fastThrust1',
+        daqADC5: 'fastThrust2',
         daqADC6: 'fuelDomePT',
         daqADC7: null,
 
@@ -78,7 +78,7 @@ class App {
         daqTC1: 'loxTankBottomTC',
         daqTC2: 'loxTankMidTC',
         daqTC3: 'loxTankTopTC',
-        daqTC4: 'fuelTankTopTC',
+        daqTC4: 'fuelTankBottomTC',
 
         loadCell1: null,
         loadCell2: null,

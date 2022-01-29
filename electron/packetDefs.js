@@ -29,6 +29,9 @@ const INBOUND_PACKET_DEFS = {
     ['flightSupply8Current', asFloat],
     ['flightSupply8Power', asFloat]
   ],
+  9: [
+    ['pressurantPTROC', asFloat],
+  ],
   // [10..59] Sent by Flight Computer
   10: [
     ['loxTankPT', asFloat],
