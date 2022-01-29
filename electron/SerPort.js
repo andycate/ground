@@ -44,7 +44,7 @@ class SerPort {
           this.buf_len += msg.length;
         }
       } catch(err) {
-        console.log("unknown error with receiving serial packets ¯\_(ツ)_/¯");
+        console.log("unknown error with receiving serial packets lol");
         this.buf_len = 0;
       }
 
