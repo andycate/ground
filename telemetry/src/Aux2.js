@@ -310,12 +310,12 @@ class Aux2 extends Component {
                   fields={
                     [
                       {
-                        name: 'newLoadCell1',
+                        name: 'fastThrust1',
                         color: [255, 51, 224],
                         unit: 'KGs'
                       },
                       {
-                        name: 'newLoadCell2', // prop PT temp
+                        name: 'fastThrust2', // prop PT temp
                         color: [15, 202, 221],
                         unit: 'KGs'
                       },

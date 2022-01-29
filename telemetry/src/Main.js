@@ -163,8 +163,8 @@ class Main extends Component {
                     unit: 'PSI'
                   }}
                   field6={{
-                    name: 'Δ PSI / 5 Seconds',
-                    field: 'dPressurantPT',
+                    name: 'Δ PSI / 1 Second',
+                    field: 'pressurantPTROC',
                     unit: 'PSI',
                     decimals: 2
                   }}
@@ -216,7 +216,7 @@ class Main extends Component {
                 /> */}
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                <Graph
+                {/* <Graph
                   fields={
                     [
                       {
@@ -236,6 +236,32 @@ class Main extends Component {
                       }
                     ]
                   }
+                /> */}
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'engineTC1', // engine temp 1
+                        color: [221, 0, 0],
+                        unit: 'degC'
+                      },
+                      {
+                        name: 'engineTC2', // engine temp 2
+                        color: [0, 127, 254],
+                        unit: 'degC'
+                      },
+                      {
+                        name: 'engineTC3', // engine temp 3
+                        color: [0, 187, 0],
+                        unit: 'degC'
+                      },
+                      {
+                        name: 'engineTC4', // engine temp 3
+                        color: [0, 0, 187],
+                        unit: 'degC'
+                      },
+                    ]
+                  }
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
@@ -243,7 +269,7 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'fuelTankTopTC',
+                        name: 'fuelTankBottomTC',
                         color: [123, 35, 162],
                         unit: 'ºC'
                       }
