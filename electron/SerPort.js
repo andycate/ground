@@ -106,8 +106,9 @@ class SerPort {
    */
   send(_, data, cb) {
     console.debug(`[${this.device.path}]: `);
-    console.debug(data.toString('hex').match(/../g).join(' '))
-    this.device.write(data, cb);
+    console.debug(data);
+    // console.debug(data.toString('hex').match(/../g).join(' '))
+    this.device.write(data.concat('\n'), "ascii", cb);
   }
 }
 

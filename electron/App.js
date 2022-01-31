@@ -29,7 +29,7 @@ class App {
    */
   initApp(){
     this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
-    this.port2 = new SerPort('COM7', 115200, this.updateState);
+    this.port2 = new SerPort('COM3', 115200, this.updateState);
 
     this.flightComputer = new FlightV2(this.port,
       '10.0.0.42',
@@ -335,6 +335,7 @@ class App {
         manualInput: true
       }).then(r => {
         // TODO: implement some sort of sent check
+        this.ereg.port.send(null, message, null);
       })
     }else{
       const destBoard = this[messageDestination]

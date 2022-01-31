@@ -3,7 +3,7 @@ import moment from 'moment';
 const { ipcRenderer } = window;
 
 class Comms {
-  constructor(ipc) {
+  constructor(ipc,serial) {
     this.subscribers = {};
     this.universalSubscribers = [];
     this.darkmodeListeners = [];
@@ -133,6 +133,8 @@ class Comms {
     this.closePurgeFlowRBV = this.closePurgeFlowRBV.bind(this);
     this.timePurgeFlowRBV = this.timePurgeFlowRBV.bind(this);
 
+    //-------e-Reg-------
+    this.serial = serial;
   }
 
   stateUpdate(event, payload) {
@@ -203,6 +205,9 @@ class Comms {
     this.ipc.removeListener('state-update', this.stateUpdate);
     this.ipc.removeListener('set-darkmode', this.darkmodeUpdate);
   }
+
+  //-------e-Reg-------
+  
 
   //----------Universal Parser--------
 

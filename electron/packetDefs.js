@@ -22,6 +22,8 @@ const INBOUND_PACKET_DEFS = {
     ['high_pressure', asFloat],
     ['low_pressure', asFloat],
     ['injector_pressure', asFloat],
+    ['pressure_derivative', asFloat],
+    ['pressure_integral', asFloat],
   ],
   
   // [10..59] Sent by Flight Computer
