@@ -91,6 +91,10 @@ const INBOUND_PACKET_DEFS = {
     ['loxTankTopHtrVoltage', asFloat],
     ['loxTankTopHtrCurrent', asFloat],
   ],
+  38: [
+    ['igniterEnableVoltage', asFloat],
+    ['igiterEnableCurrent', asFloat],
+  ],
 
   40: [
     ['armValveState', asUInt8],
@@ -112,6 +116,9 @@ const INBOUND_PACKET_DEFS = {
   ],
   47: [
     ['loxTankTopHtrState', asUInt8],
+  ],
+  48: [
+    ['igniterEnableState', asUInt8],
   ],
 
   49: [
@@ -244,6 +251,7 @@ const OUTBOUND_PACKET_DEFS = {
   135: [UINT8],
   136: [UINT8],
   137: [UINT8],
+  138: [UINT8],
 
   140: [UINT8],
 

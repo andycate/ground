@@ -306,9 +306,15 @@ class Control extends Component {
                       text='Fuel Prechill RBV'
                     />
                   </Grid>
-                </Grid>
-                <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={12}>
+                  <Grid item={1} xs={6}>
+                    <SwitchButton
+                      open={comms.enableIgniter}
+                      close={comms.disableIgniter}
+                      field='_'
+                      text='Igniter Enable'
+                    />
+                  </Grid>
+                  <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openPurgePrechillVentRBV}
                       close={comms.closePurgePrechillVentRBV}

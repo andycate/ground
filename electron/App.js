@@ -402,6 +402,9 @@ class App {
     this.addIPC('enable-fastReadRate', this.flightComputer.enableFastReadRate);
     this.addIPC('disable-fastReadRate', this.flightComputer.disableFastReadRate);
 
+    this.addIPC('enable-igniter', this.flightComputer.enableIgniter);
+    this.addIPC('disable-igniter', this.flightComputer.disableIgniter);
+
 
     // DAQ 1
 
