@@ -31,6 +31,9 @@ class FlightV2 extends Board {
 
     this.enableFastReadRate = this.enableFastReadRate.bind(this);
     this.disableFastReadRate = this.disableFastReadRate.bind(this);
+
+    this.enableIgniter = this.enableIgniter.bind(this);
+    this.disableIgniter = this.disableIgniter.bind(this);
   }
 
   openarmValve() { return this.sendPacket(130, [1]); }
@@ -59,6 +62,9 @@ class FlightV2 extends Board {
 
   enableFastReadRate() { return this.sendPacket(140, [1]); }
   disableFastReadRate() { return this.sendPacket(140, [0]); }
+
+  enableIgniter() { return this.sendPacket(138, [1]); }
+  disableIgniter() { return this.sendPacket(138, [0]); }
 
 }
 
