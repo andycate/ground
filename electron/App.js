@@ -122,7 +122,7 @@ class App {
         loadCell2: null,
         loadCellSum: null,
 
-        capacitor: 'lox-capVal',
+        capacitor: 'loxCapVal',
       },
       () => this.updateState(Date.now(), { daq3Connected: true }),
       () => this.updateState(Date.now(), { daq3Connected: false }),
@@ -153,7 +153,7 @@ class App {
       loadCell2: null,
       loadCellSum: null,
 
-      capacitor: 'fuel-capVal',
+      capacitor: 'fuelCapVal',
     },
     () => this.updateState(Date.now(), { daq4Connected: true }),
     () => this.updateState(Date.now(), { daq4Connected: false }),
