@@ -32,6 +32,18 @@ class Comms {
     this.getActCtrlr1Connected = this.getActCtrlr1Connected.bind(this);
     this.getActCtrlr2Connected = this.getActCtrlr2Connected.bind(this);
 
+    this.openloxGemsValve = this.openloxGemsValve.bind(this);
+    this.closeloxGemsValve = this.closeloxGemsValve.bind(this);
+
+    this.openfuelGemsValve = this.openfuelGemsValve.bind(this);
+    this.closefuelGemsValve = this.closefuelGemsValve.bind(this);
+
+    this.startToggleLoxGemsValve = this.startToggleLoxGemsValve.bind(this);
+    this.stopToggleLoxGemsValve = this.stopToggleLoxGemsValve.bind(this);
+
+    this.startToggleFuelGemsValve = this.startToggleFuelGemsValve.bind(this);
+    this.stopToggleFuelGemsValve = this.stopToggleFuelGemsValve.bind(this);
+
     this.openarmValve = this.openarmValve.bind(this);
     this.closearmValve = this.closearmValve.bind(this);
 
@@ -275,6 +287,38 @@ class Comms {
 
   async getActCtrlr2Connected() {
     return await this.ipc.invoke('actctrlr2-connected');
+  }
+
+  async openloxGemsValve() {
+    return await this.ipc.invoke('open-loxGemsValve');
+  }
+
+  async closeloxGemsValve() {
+    return await this.ipc.invoke('close-loxGemsValve');
+  }
+
+  async openfuelGemsValve() {
+    return await this.ipc.invoke('open-fuelGemsValve');
+  }
+
+  async closefuelGemsValve() {
+    return await this.ipc.invoke('close-fuelGemsValve');
+  }
+
+  async startToggleLoxGemsValve() {
+    return await this.ipc.invoke('start-toggleLoxGemsValve');
+  }
+
+  async stopToggleLoxGemsValve() {
+    return await this.ipc.invoke('stop-toggleLoxGemsValve');
+  }
+
+  async startToggleFuelGemsValve() {
+    return await this.ipc.invoke('start-toggleFuelGemsValve');
+  }
+
+  async stopToggleFuelGemsValve() {
+    return await this.ipc.invoke('stop-toggleFuelGemsValve');
   }
 
   async openarmValve() {

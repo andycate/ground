@@ -5,6 +5,18 @@ class FlightV2 extends Board {
 
     super(port, address, mapping, () => { this.sendPacket(152, []); onConnect(); }, onDisconnect, onRate);
 
+    this.openloxGemsValve = this.openloxGemsValve.bind(this);
+    this.closeloxGemsValve = this.closeloxGemsValve.bind(this);
+
+    this.openfuelGemsValve = this.openfuelGemsValve.bind(this);
+    this.closefuelGemsValve = this.closefuelGemsValve.bind(this);
+
+    this.startToggleLoxGemsValve = this.startToggleLoxGemsValve.bind(this);
+    this.stopToggleLoxGemsValve = this.stopToggleLoxGemsValve.bind(this);
+
+    this.startToggleFuelGemsValve = this.startToggleFuelGemsValve.bind(this);
+    this.stopToggleFuelGemsValve = this.stopToggleFuelGemsValve.bind(this);
+
     this.openarmValve = this.openarmValve.bind(this);
     this.closearmValve = this.closearmValve.bind(this);
 
@@ -35,6 +47,18 @@ class FlightV2 extends Board {
     this.enableIgniter = this.enableIgniter.bind(this);
     this.disableIgniter = this.disableIgniter.bind(this);
   }
+
+  openloxGemsValve() { return this.sendPacket(126, [1]); }
+  closeloxGemsValve() { return this.sendPacket(126, [0]); }
+
+  openfuelGemsValve() { return this.sendPacket(127, [1]); }
+  closefuelGemsValve() { return this.sendPacket(127, [0]); }
+
+  startToggleLoxGemsValve() { return this.sendPacket(128, [1]); }
+  stopToggleLoxGemsValve() { return this.sendPacket(128, [0]); }
+
+  startToggleFuelGemsValve() { return this.sendPacket(129, [1]); }
+  stopToggleFuelGemsValve() { return this.sendPacket(129, [0]); }
 
   openarmValve() { return this.sendPacket(130, [1]); }
   closearmValve() { return this.sendPacket(130, [0]); }

@@ -58,6 +58,14 @@ const INBOUND_PACKET_DEFS = {
     ['engineTC4', asFloat],
   ],
 
+  28: [
+    ['loxGemsVoltage', asFloat],
+    ['loxGemsCurrent', asFloat],
+  ],
+  29: [
+    ['fuelGemsVoltage', asFloat],
+    ['fuelGemsCurrent', asFloat],
+  ],
   30: [
     ['armValveVoltage', asFloat],
     ['armValveCurrent', asFloat],
@@ -93,7 +101,7 @@ const INBOUND_PACKET_DEFS = {
   ],
   38: [
     ['igniterEnableVoltage', asFloat],
-    ['igiterEnableCurrent', asFloat],
+    ['igniterEnableCurrent', asFloat],
   ],
 
   40: [
@@ -122,11 +130,20 @@ const INBOUND_PACKET_DEFS = {
   ],
 
   49: [
-    ['actuatorStates', asUInt8],
+    ['actuatorStates', asUInt16],
   ],
 
   50: [
     ['flowState', asUInt8],
+  ],
+  51: [
+    ['autoVentStatus', asUInt8],
+  ],
+  52: [
+    ['loxGemsValveState', asUInt8],
+  ],
+  53: [
+    ['fuelGemsValveState', asUInt8],
   ],
 
   152: [
@@ -234,6 +251,11 @@ const INBOUND_PACKET_DEFS = {
     ['loadCell2', asFloat],
     ['loadCellSum', asFloat],
   ],
+  121: [
+    ['fastLoadCell1', asFloat],
+    ['fastLoadCell2', asFloat],
+    // ['fastLoadCellSum', asFloat],
+  ],
   220: [
     ['capacitor', asFloat],
   ],
@@ -244,6 +266,10 @@ const OUTBOUND_PACKET_DEFS = {
   // Windows enable port packet
   0: [UINT8],
   // [130..169] Sent to Flight Computer
+  126: [UINT8], // Lox gems
+  127: [UINT8], // Fuel gems
+  128: [UINT8], // Lox gems toggle
+  129: [UINT8], // Fuel gems toggle
   130: [UINT8],
   131: [UINT8],
   132: [UINT8],

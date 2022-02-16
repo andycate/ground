@@ -46,8 +46,8 @@ class App {
         daqADC1: null,
         daqADC2: null,
         daqADC3: null,
-        daqADC4: 'fastThrust1',
-        daqADC5: 'fastThrust2',
+        daqADC4: null,
+        daqADC5: null,
         daqADC6: 'fuelDomePT',
         daqADC7: null,
 
@@ -59,6 +59,9 @@ class App {
         loadCell1: 'thrust1',
         loadCell2: 'thrust2',
         loadCellSum: 'totalThrust',
+
+        fastLoadCell1: 'fastThrust1',
+        fastLoadCell2: 'fastThrust2',
 
         capacitor1: null,
         capacitor2: null,
@@ -374,6 +377,18 @@ class App {
     this.addIPC('daq4-connected', () => this.daq4.isConnected);
     this.addIPC('actctrlr1-connected', () => this.actCtrlr1.isConnected);
     this.addIPC('actctrlr2-connected', () => this.actCtrlr2.isConnected);
+
+    this.addIPC('open-loxGemsValve', this.flightComputer.openloxGemsValve);
+    this.addIPC('close-loxGemsValve', this.flightComputer.closeloxGemsValve);
+
+    this.addIPC('open-fuelGemsValve', this.flightComputer.openfuelGemsValve);
+    this.addIPC('close-fuelGemsValve', this.flightComputer.closefuelGemsValve);
+
+    this.addIPC('start-toggleLoxGemsValve', this.flightComputer.startToggleLoxGemsValve);
+    this.addIPC('stop-toggleLoxGemsValve', this.flightComputer.stopToggleLoxGemsValve);
+
+    this.addIPC('start-toggleFuelGemsValve', this.flightComputer.startToggleFuelGemsValve);
+    this.addIPC('stop-toggleFuelGemsValve', this.flightComputer.stopToggleFuelGemsValve);
 
     this.addIPC('open-armValve', this.flightComputer.openarmValve);
     this.addIPC('close-armValve', this.flightComputer.closearmValve);

@@ -506,11 +506,43 @@ class Control extends Component {
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
                 <Grid container spacing={1} direction='column'>
-                  
+                  <Grid item>
+                    <ButtonGroup
+                      open={comms.openloxGemsValve}
+                      close={comms.closeloxGemsValve}
+                      field='loxGemsValveState'
+                      text='LOX Gems Valve'
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroup
+                      open={comms.startToggleLoxGemsValve}
+                      close={comms.stopToggleLoxGemsValve}
+                      field='loxGemsValveState'
+                      text='Toggle LOX Gems Valve'
+                    />
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
-                
+                <Grid container spacing={1} direction='column'>
+                  <Grid item>
+                    <ButtonGroup
+                      open={comms.openfuelGemsValve}
+                      close={comms.closefuelGemsValve}
+                      field='fuelGemsValveState'
+                      text='Fuel Gems Valve'
+                    />
+                  </Grid>
+                  <Grid item>
+                    <ButtonGroup
+                      open={comms.startToggleFuelGemsValve}
+                      close={comms.stopToggleFuelGemsValve}
+                      field='fuelGemsValveState'
+                      text='Toggle Fuel Gems Valve'
+                    />
+                  </Grid>
+                </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
                 
