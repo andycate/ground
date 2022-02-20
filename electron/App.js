@@ -48,7 +48,7 @@ class App {
         daqADC3: null,
         daqADC4: null,
         daqADC5: null,
-        daqADC6: 'fuelDomePT',
+        daqADC6: null,
         daqADC7: null,
 
         daqTC1: null,
@@ -183,17 +183,17 @@ class App {
         acLinAct3Voltage: 'loxPrechillRBVvoltage',
         acLinAct3Current: 'loxPrechillRBVcurrent',
 
-        acLinAct4State: null,
-        acLinAct4Voltage: null,
-        acLinAct4Current: null,
-
+        acLinAct4State: 'pressurantFillRBVstate',
+        acLinAct4Voltage: 'pressurantFillRBVvoltage',
+        acLinAct4Current: 'pressurantFillRBVcurrent',
+        
         acLinAct5State: 'purgePrechillVentRBVstate',
         acLinAct5Voltage: 'purgePrechillVentRBVvoltage',
         acLinAct5Current: 'purgePrechillVentRBVcurrent',
 
-        acLinAct6State: 'pressurantFillRBVstate',
-        acLinAct6Voltage: 'pressurantFillRBVvoltage',
-        acLinAct6Current: 'pressurantFillRBVcurrent',
+        acLinAct6State: null,
+        acLinAct6Voltage: null,
+        acLinAct6Current: null,
 
         acLinAct7State: null,
         acLinAct7Voltage: null,
@@ -443,9 +443,9 @@ class App {
     this.addIPC('close-purgePrechillVentRBV', this.actCtrlr1.closeActCh4);
     this.addIPC('time-purgePrechillVentRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
 
-    this.addIPC('open-pressurantFillRBV', this.actCtrlr1.openActCh5);
-    this.addIPC('close-pressurantFillRBV', this.actCtrlr1.closeActCh5);
-    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
+    this.addIPC('open-pressurantFillRBV', this.actCtrlr1.openActCh3);
+    this.addIPC('close-pressurantFillRBV', this.actCtrlr1.closeActCh3);
+    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
 
     // Actuator Controller 2
     this.addIPC('open-pressurantFlowRBV', this.actCtrlr2.openActCh0);

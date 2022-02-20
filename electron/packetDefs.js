@@ -43,6 +43,7 @@ const INBOUND_PACKET_DEFS = {
     ['fuelInjectorPT', asFloat],
     ['pressurantPT', asFloat],
     ['loxDomePT', asFloat],
+    ['fuelDomePT', asFloat]
   ],
 
   20: [
