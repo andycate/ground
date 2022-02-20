@@ -130,7 +130,7 @@ const INBOUND_PACKET_DEFS = {
   ],
 
   49: [
-    ['actuatorStates', asUInt16],
+    ['actuatorStates', asUInt8],
   ],
 
   50: [
