@@ -1,4 +1,4 @@
-const { ipcMain } = require('electron');
+const { ipcMain, TouchBar } = require('electron');
 
 // const { model } = require('./config');
 
@@ -16,16 +16,18 @@ class App {
     // this.state = new State(model);
     this.state = new State({});
     this.influxDB = new InfluxDB();
+    this.commandFuncs = {};
 
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
     this.handleSendCustomMessage = this.handleSendCustomMessage.bind(this)
+    this.addBackendFunc = this.addBackendFunc.bind(this);
   }
 
   /**
    * Separate init function from constructor to ensure WebContents are present before accepting IPC invocations
    */
-  initApp(){
+  initApp() {
     this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
 
     this.flightComputer = new FlightV2(this.port,
@@ -266,8 +268,23 @@ class App {
       () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
       (rate) => this.updateState(Date.now(), { actCtrlr2Kbps: rate }));
 
+    // Begin TouchBar
+    this.abort = this.addBackendFunc('abort', this.flightComputer.abort)
+    // End TouchBar
+
     this.setupIPC();
   }
+  
+  /**
+   * Creates a function that will log state update to influx
+   */
+  addBackendFunc(name, func) {
+    return () => {
+      this.updateState(Date.now(), {[name]: 'invoked'}, true)
+      func()
+    }
+  }
+    
 
   /**
    * Takes in an update to the state and sends it where it needs to go
@@ -330,13 +347,15 @@ class App {
   }
 
   addIPC(channel, handler, dbrecord = true) {
-    ipcMain.handle(channel, (...args) => {
+    let updateFunc = (...args) => {
       const update = {
         [channel]: args.length > 1 ? `invoked with arg(s): ${args.slice(1).join(", ")}` : 'invoked'
       };
       this.updateState(Date.now(), update, dbrecord)
       return handler(...args);
-    });
+    }
+    ipcMain.handle(channel, updateFunc);
+    this.commandFuncs[channel] = updateFunc
   }
 
   handleSendCustomMessage(e, messageDestination, message){

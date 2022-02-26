@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut, TouchBar } = require('electron');
+const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
@@ -21,6 +22,60 @@ function createWindow (isMain) {
     url2 = (isDev ? 'http://127.0.0.1:3000#/aux2' : `file://${path.join(__dirname, '../index.html#aux2')}`);
   }
 
+  // TouchBar Start
+
+  let selection = 'MainValves'
+  let selectionState = 'Closed'
+  const update = (text) => {
+    if (text == 'Open') {
+      stateText.label = 'Open  ';
+      stateText.textColor = '#6ab04c';
+    }
+    if (text == 'Closed') {
+      stateText.label = text;
+      stateText.textColor = '#E25241';
+    }
+    backendApp.commandFuncs['open-loxFillRBV']();
+  };
+  const abortButton = new TouchBarButton({
+    label: '‎                   ABORT                   ‎',
+    accessibilityLabel: 'Abort',
+    backgroundColor: '#E25241',
+    click: () => { backendApp.abort(); }
+  });
+  const selectionText = new TouchBarLabel({
+    label: `${selection}:`
+  });
+  const stateText = new TouchBarLabel({
+    label: 'Closed',
+    textColor: '#E25241'
+  });
+  const openButton = new TouchBarButton({
+    label: 'Open',
+    accessibilityLabel: 'Counter',
+    backgroundColor: '#6ab04c',
+    click: () => { update('Open'); }
+  });
+  const closeButton = new TouchBarButton({
+    label: 'Close',
+    accessibilityLabel: 'Counter',
+    backgroundColor: '#E25241',
+    click: () => { update('Closed'); }
+  });
+  const touchBar = new TouchBar({
+  items: [
+    abortButton, 
+    new TouchBarSpacer({size: 'large'}),
+    selectionText,
+    stateText,
+    new TouchBarSpacer({size: 'medium'}),
+    openButton,
+    closeButton,
+  ], 
+  });
+  
+  // TouchBar End
+
   window1 = new BrowserWindow({
     show: false,
     webPreferences: {
@@ -33,6 +88,7 @@ function createWindow (isMain) {
     window1.removeMenu();
   }
   window1.loadURL(url1);
+  window1.setTouchBar(touchBar)
   window1.on('closed', function () {
     backendApp.removeWebContents(window1.webContents);
     window1 = null;
@@ -59,6 +115,7 @@ function createWindow (isMain) {
     window2.removeMenu();
   }
   window2.loadURL(url2);
+  window2.setTouchBar(touchBar)
   window2.on('closed', function () {
     window2 = null;
   });
