@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, globalShortcut, TouchBar } = require('electron');
-const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
+const { TouchBarLabel, TouchBarButton, TouchBarSpacer, TouchBarPopover, TouchBarSegmentedControl, TouchBarScrubber } = TouchBar
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
@@ -23,57 +23,7 @@ function createWindow (isMain) {
   }
 
   // TouchBar Start
-
-  let selection = 'MainValves'
-  let selectionState = 'Closed'
-  const update = (text) => {
-    if (text == 'Open') {
-      stateText.label = 'Open  ';
-      stateText.textColor = '#6ab04c';
-    }
-    if (text == 'Closed') {
-      stateText.label = text;
-      stateText.textColor = '#E25241';
-    }
-    backendApp.commandFuncs['open-loxFillRBV']();
-  };
-  const abortButton = new TouchBarButton({
-    label: '‎                   ABORT                   ‎',
-    accessibilityLabel: 'Abort',
-    backgroundColor: '#E25241',
-    click: () => { backendApp.abort(); }
-  });
-  const selectionText = new TouchBarLabel({
-    label: `${selection}:`
-  });
-  const stateText = new TouchBarLabel({
-    label: 'Closed',
-    textColor: '#E25241'
-  });
-  const openButton = new TouchBarButton({
-    label: 'Open',
-    accessibilityLabel: 'Counter',
-    backgroundColor: '#6ab04c',
-    click: () => { update('Open'); }
-  });
-  const closeButton = new TouchBarButton({
-    label: 'Close',
-    accessibilityLabel: 'Counter',
-    backgroundColor: '#E25241',
-    click: () => { update('Closed'); }
-  });
-  const touchBar = new TouchBar({
-  items: [
-    abortButton, 
-    new TouchBarSpacer({size: 'large'}),
-    selectionText,
-    stateText,
-    new TouchBarSpacer({size: 'medium'}),
-    openButton,
-    closeButton,
-  ], 
-  });
-  
+  const touchBar = createTouchBar(backendApp);
   // TouchBar End
 
   window1 = new BrowserWindow({
@@ -202,3 +152,191 @@ ipcMain.handle('app-info', async (event) => {
     appVersion: app.getVersion(),
   };
 });
+
+
+function createTouchBar(backendApp) {
+  
+    let invis_char = '‎'
+  
+    let selection = 'armValve'
+    let selectionState = 'Closed'
+    
+    const updateState = (text) => {
+      let ch = ''
+      if (text == 'Open') {
+        stateText.label = 'Open  ' + invis_char,
+        stateText.textColor = '#67ac5b';
+        ch = 'open-' + selection
+      }
+      if (text == 'Closed') {
+        stateText.label = text;
+        stateText.textColor = '#E25241';
+        ch = 'close-' + selection
+      }
+      if ('50' == text.substr(1)) {
+        ch = 'time-' + selection
+        let val = text[0] == '+' ? 50 : -50
+        backendApp.commandFuncs[ch](val)
+        
+        stateText.label = 'Inbetween';
+        stateText.textColor = '#d18f26';
+      } else if (ch in backendApp.commandFuncs) {
+        backendApp.commandFuncs[ch]();
+      }
+    };
+    
+    const updateSelection = (name, channel) => {
+      
+      selection = channel
+      selectionText.label = name + ':';
+      console.log(channel);
+    }
+    
+    const abortButton = new TouchBarButton({
+      label: '‎              ABORT              ' + invis_char,
+      accessibilityLabel: 'Abort',
+      backgroundColor: '#E25241',
+      click: () => { backendApp.abort(); }
+    });
+    
+    const selectionText = new TouchBarLabel({
+      label: 'Arm Valve:'
+    });
+    
+    const stateText = new TouchBarLabel({
+      label: 'Closed',
+      textColor: '#E25241'
+    });
+    
+    const openButton = new TouchBarButton({
+      label: 'Open',
+      backgroundColor: '#67ac5b',
+      click: () => { updateState('Open'); }
+    });
+    
+    const closeButton = new TouchBarButton({
+      label: 'Close',
+      backgroundColor: '#E25241',
+      click: () => { updateState('Closed'); }
+    });
+    
+    const plus50 = new TouchBarButton({
+      label: '+50',
+      backgroundColor: '#324199',
+      click: () => { updateState('+50'); }
+    });
+    
+    const minus50 = new TouchBarButton({
+      label: '-50',
+      backgroundColor: '#324199',
+      click: () => { updateState('-50'); }
+    });
+    
+    /* Valve Selection touchBar */    
+    const valveSelectScrub = new TouchBarScrubber({
+      segmentStyle: 'automatic',
+      items: [
+        { label: 'Arm Valve', flag:'armValve'},
+        { label: 'Lox Main', flag:'loxMainValve' },
+        { label: 'Fuel Main', flag:'fuelMainValve' },
+        { label: 'Lox GEMS', flag:'loxGemsValve' },
+        { label: 'Fuel GEMS', flag:'fuelGemsValve' },
+      ],
+      selectedIndex: 0,
+      selectedStyle: 'outline',
+      mode: 'fixed',
+      showArrowButtons: false,
+      select: (selectedIndex) => {
+        let item = valveSelectScrub.items[selectedIndex]
+        updateSelection(item.label, item.flag)
+      },
+    });
+    
+    const valveSelectButton = new TouchBarPopover({
+      label: 'Valves',
+      showCloseButton: true,
+      items: new TouchBar({
+        items: [
+          valveSelectScrub,
+        ],
+      }),
+    })
+    
+    /* RBV Selection touchBar */
+    const RBVSelectScrub = new TouchBarScrubber({
+      segmentStyle: 'automatic',
+      items: [
+        { label: 'LOX Vent', flag:'loxTankVentRBV' },
+        { label: 'Fuel Vent', flag:'fuelTankVentRBV' },
+        { label: 'LOX Fill', flag:'loxFillRBV' },
+        { label: 'Fuel Fill', flag:'fuelFillRBV' },
+        { label: 'N2 Fill', flag:'pressurantFillRBV' },
+        { label: 'N2 Flow', flag:'pressurantFlowRBV' },
+      ],
+      selectedIndex: 0,
+      selectedStyle: 'outline',
+      mode: 'fixed',
+      showArrowButtons: false,
+      select: (selectedIndex) => {
+        let item = RBVSelectScrub.items[selectedIndex]
+        updateSelection(item.label, item.flag)
+      },
+    });
+    
+    const RBVSelectButton = new TouchBarPopover({
+      label: 'RBVs',
+      showCloseButton: true,
+      items: new TouchBar({
+        items: [
+          RBVSelectScrub,
+          plus50,
+          minus50,
+        ],
+      }),
+    })
+    
+    /* Heater Selection touchBar */    
+    const htrSelectScrub = new TouchBarScrubber({
+      segmentStyle: 'automatic',
+      items: [
+        { label: 'LOX Tank Bottom' },
+        { label: 'LOX Tank Mid' },
+        { label: 'LOX Tank Top' },
+      ],
+      selectedIndex: 0,
+      selectedStyle: 'outline',
+      mode: 'fixed',
+      showArrowButtons: false,
+      select: (selectedIndex) => {
+        console.log(htrSelectScrub.items[selectedIndex].label);
+      },
+    });
+    
+    const htrSelectButton = new TouchBarPopover({
+      label: 'Heaters',
+      showCloseButton: true,
+      items: new TouchBar({
+        items: [
+          htrSelectScrub,
+        ],
+      }),
+    })
+    
+    /* Main TouchBar */
+    const touchBar = new TouchBar({
+    items: [
+      abortButton, 
+      new TouchBarSpacer({size: 'large'}),
+      selectionText,
+      stateText,
+      new TouchBarSpacer({size: 'medium'}),
+      openButton,
+      closeButton,
+      new TouchBarSpacer({size: 'large'}),
+      valveSelectButton,
+      RBVSelectButton
+    ], 
+    });
+    
+    return touchBar;
+}
