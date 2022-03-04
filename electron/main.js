@@ -176,7 +176,7 @@ function createTouchBar(backendApp) {
       if ('50' == text.substr(1)) {
         ch = 'time-' + selection
         let val = text[0] == '+' ? 50 : -50
-        backendApp.commandFuncs[ch](val)
+        backendApp.commandFuncs[ch](0, val)
         
         stateText.label = 'Inbetween';
         stateText.textColor = '#d18f26';

@@ -176,14 +176,14 @@ class App {
         acLinAct1State: 'loxFillRBVstate',
         acLinAct1Voltage: 'loxFillRBVvoltage',
         acLinAct1Current: 'loxFillRBVcurrent',
-
-        acLinAct2State: 'loxTankVentRBVstate',
-        acLinAct2Voltage: 'loxTankVentRBVvoltage',
-        acLinAct2Current: 'loxTankVentRBVcurrent',
-
-        acLinAct3State: 'loxPrechillRBVstate',
-        acLinAct3Voltage: 'loxPrechillRBVvoltage',
-        acLinAct3Current: 'loxPrechillRBVcurrent',
+        
+        acLinAct2State: 'fuelFillRBVstate',
+        acLinAct2Voltage: 'fuelFillRBVvoltage',
+        acLinAct2Current: 'fuelFillRBVcurrent',
+        
+        acLinAct3State: 'pressurantFlowRBVstate',
+        acLinAct3Voltage: 'pressurantFlowRBVvoltage',
+        acLinAct3Current: 'pressurantFlowRBVcurrent',
 
         acLinAct4State: 'pressurantFillRBVstate',
         acLinAct4Voltage: 'pressurantFillRBVvoltage',
@@ -192,10 +192,10 @@ class App {
         acLinAct5State: 'purgePrechillVentRBVstate',
         acLinAct5Voltage: 'purgePrechillVentRBVvoltage',
         acLinAct5Current: 'purgePrechillVentRBVcurrent',
-
-        acLinAct6State: null,
-        acLinAct6Voltage: null,
-        acLinAct6Current: null,
+        
+        acLinAct6State: 'loxPrechillRBVstate',
+        acLinAct6Voltage: 'loxPrechillRBVvoltage',
+        acLinAct6Current: 'loxPrechillRBVcurrent',
 
         acLinAct7State: null,
         acLinAct7Voltage: null,
@@ -223,14 +223,14 @@ class App {
         acBattCurrent: 'ac2BattCurrent',
         acSupply12Voltage: 'ac2Supply12Voltage',
         acSupply12Current: 'ac2Supply12Current',
+        
+        acLinAct1State: 'loxTankVentRBVstate',
+        acLinAct1Voltage: 'loxTankVentRBVvoltage',
+        acLinAct1Current: 'loxTankVentRBVcurrent',
 
-        acLinAct1State: 'pressurantFlowRBVstate',
-        acLinAct1Voltage: 'pressurantFlowRBVvoltage',
-        acLinAct1Current: 'pressurantFlowRBVcurrent',
-
-        acLinAct2State: 'fuelFillRBVstate',
-        acLinAct2Voltage: 'fuelFillRBVvoltage',
-        acLinAct2Current: 'fuelFillRBVcurrent',
+        acLinAct2State: null,
+        acLinAct2Voltage: null,
+        acLinAct2Current: null,
 
         acLinAct3State: 'fuelTankVentRBVstate',
         acLinAct3Voltage: 'fuelTankVentRBVvoltage',
@@ -450,9 +450,9 @@ class App {
     this.addIPC('close-loxFillRBV', this.actCtrlr1.closeActCh0);
     this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
 
-    this.addIPC('open-loxTankVentRBV', this.actCtrlr1.openActCh1);
-    this.addIPC('close-loxTankVentRBV', this.actCtrlr1.closeActCh1);
-    this.addIPC('time-loxTankVentRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
+    this.addIPC('open-loxTankVentRBV', this.actCtrlr2.openActCh0);
+    this.addIPC('close-loxTankVentRBV', this.actCtrlr2.closeActCh0);
+    this.addIPC('time-loxTankVentRBV', (e, val) => this.actCtrlr2.actCh0ms(val));
 
     this.addIPC('open-loxPrechillRBV', this.actCtrlr1.openActCh2);
     this.addIPC('close-loxPrechillRBV', this.actCtrlr1.closeActCh2);
@@ -467,13 +467,14 @@ class App {
     this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
 
     // Actuator Controller 2
-    this.addIPC('open-pressurantFlowRBV', this.actCtrlr2.openActCh0);
-    this.addIPC('close-pressurantFlowRBV', this.actCtrlr2.closeActCh0);
-    this.addIPC('time-pressurantFlowRBV', (e, val) => this.actCtrlr2.actCh0ms(val));
+    // TODO: swap RBV wiring so code mapping doesn't have to be swapped
+    this.addIPC('open-pressurantFlowRBV', this.actCtrlr1.closeActCh2);
+    this.addIPC('close-pressurantFlowRBV', this.actCtrlr1.openActCh2);
+    this.addIPC('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh2ms(-val));
 
-    this.addIPC('open-fuelFillRBV', this.actCtrlr2.openActCh1);
-    this.addIPC('close-fuelFillRBV', this.actCtrlr2.closeActCh1);
-    this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr2.actCh1ms(val));
+    this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
+    this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
+    this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
     this.addIPC('open-fuelTankVentRBV', this.actCtrlr2.openActCh2);
     this.addIPC('close-fuelTankVentRBV', this.actCtrlr2.closeActCh2);
