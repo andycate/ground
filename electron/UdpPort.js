@@ -86,9 +86,11 @@ class UdpPort {
    * @param {Object} data
    * @param {Function} cb
     */
-  send(address, data, cb) {
-    console.debug(`[${address}]: `);
-    console.debug(data.toString('hex').match(/../g).join(' '))
+  send(address, data, print=true, cb) {
+    if (print) {
+      process.stdout.write(data.toString('hex').match(/../g).join(' '));
+    }
+    console.debug(` sent to [${address}] `);
     this.server.send(data, this.port, address, cb);
   }
 }
