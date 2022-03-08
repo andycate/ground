@@ -160,18 +160,24 @@ function createTouchBar(backendApp) {
   
     let selection = 'armValve'
     let selectionState = 'Closed'
+    let stateUpdateParams = {
+      openPrefix: 'open-',
+      closePrefix: 'close-',
+      openState: 'Open  ',
+      closedState: 'Closed'
+    }
     
     const updateState = (text) => {
       let ch = ''
       if (text == 'Open') {
-        stateText.label = 'Open  ' + invis_char,
+        stateText.label = stateUpdateParams.openState,
         stateText.textColor = '#67ac5b';
-        ch = 'open-' + selection
+        ch = stateUpdateParams.openPrefix + selection
       }
       if (text == 'Closed') {
-        stateText.label = text;
+        stateText.label = stateUpdateParams.closedState;
         stateText.textColor = '#E25241';
-        ch = 'close-' + selection
+        ch = stateUpdateParams.closePrefix + selection
       }
       if ('50' == text.substr(1)) {
         ch = 'time-' + selection
@@ -180,16 +186,46 @@ function createTouchBar(backendApp) {
         
         stateText.label = 'Inbetween';
         stateText.textColor = '#d18f26';
-      } else if (ch in backendApp.commandFuncs) {
-        backendApp.commandFuncs[ch]();
+      } else {
+        console.log(ch)
+        if (ch in backendApp.commandFuncs) {
+          backendApp.commandFuncs[ch]();
+        }
       }
     };
     
-    const updateSelection = (name, channel) => {
+    const updateSelection = (item) => {
       
-      selection = channel
-      selectionText.label = name + ':';
-      console.log(channel);
+      selection = item.channel
+      selectionText.label = item.label + ':';
+      console.log(item.channel)
+      
+      // If item doesn't use default naming of open/close, set buttons to 
+      // on/off, and change open/close prefixes appropriately. 
+      if (item.on && item.off) {
+        // Button labels
+        openButton.label = 'On'
+        closeButton.label = 'Off'
+        // Options for state
+        stateUpdateParams.openState = 'On'
+        stateUpdateParams.closedState = 'Off'
+        stateText.label = stateUpdateParams.closedState
+        // function prefixes
+        stateUpdateParams.openPrefix = item.on + '-'
+        stateUpdateParams.closePrefix = item.off + '-'
+      } else {
+        // Button labels
+        openButton.label = 'Open'
+        closeButton.label = 'Close'
+        // Options for state
+        stateUpdateParams.openState = 'Open  '
+        stateUpdateParams.closedState = 'Closed'
+        stateText.label = 'Closed'
+        // function prefixes
+        stateUpdateParams.openPrefix = 'open-'
+        stateUpdateParams.closePrefix = 'close-'
+      }
+      
     }
     
     const abortButton = new TouchBarButton({
@@ -236,11 +272,12 @@ function createTouchBar(backendApp) {
     const valveSelectScrub = new TouchBarScrubber({
       segmentStyle: 'automatic',
       items: [
-        { label: 'Arm Valve', flag:'armValve'},
-        { label: 'Lox Main', flag:'loxMainValve' },
-        { label: 'Fuel Main', flag:'fuelMainValve' },
-        { label: 'Lox GEMS', flag:'loxGemsValve' },
-        { label: 'Fuel GEMS', flag:'fuelGemsValve' },
+        { label: 'Arm Valve', channel:'armValve'},
+        { label: 'Lox Main', channel:'loxMainValve' },
+        { label: 'Fuel Main', channel:'fuelMainValve' },
+        { label: 'Lox GEMS', channel:'loxGemsValve' },
+        { label: 'Fuel GEMS', channel:'fuelGemsValve' },
+        { label: 'Igniter', channel:'igniter', on:'activate', off:'deactivate' },
       ],
       selectedIndex: 0,
       selectedStyle: 'outline',
@@ -248,7 +285,7 @@ function createTouchBar(backendApp) {
       showArrowButtons: false,
       select: (selectedIndex) => {
         let item = valveSelectScrub.items[selectedIndex]
-        updateSelection(item.label, item.flag)
+        updateSelection(item)
       },
     });
     
@@ -261,17 +298,18 @@ function createTouchBar(backendApp) {
         ],
       }),
     })
+    /* END Valve Select */
     
     /* RBV Selection touchBar */
     const RBVSelectScrub = new TouchBarScrubber({
       segmentStyle: 'automatic',
       items: [
-        { label: 'LOX Vent', flag:'loxTankVentRBV' },
-        { label: 'Fuel Vent', flag:'fuelTankVentRBV' },
-        { label: 'LOX Fill', flag:'loxFillRBV' },
-        { label: 'Fuel Fill', flag:'fuelFillRBV' },
-        { label: 'N2 Fill', flag:'pressurantFillRBV' },
-        { label: 'N2 Flow', flag:'pressurantFlowRBV' },
+        { label: 'LOX Vent', channel:'loxTankVentRBV' },
+        { label: 'Fuel Vent', channel:'fuelTankVentRBV' },
+        { label: 'LOX Fill', channel:'loxFillRBV' },
+        { label: 'Fuel Fill', channel:'fuelFillRBV' },
+        { label: 'N2 Fill', channel:'pressurantFillRBV' },
+        { label: 'N2 Flow', channel:'pressurantFlowRBV' },
       ],
       selectedIndex: 0,
       selectedStyle: 'outline',
@@ -279,7 +317,7 @@ function createTouchBar(backendApp) {
       showArrowButtons: false,
       select: (selectedIndex) => {
         let item = RBVSelectScrub.items[selectedIndex]
-        updateSelection(item.label, item.flag)
+        updateSelection(item)
       },
     });
     
@@ -294,6 +332,7 @@ function createTouchBar(backendApp) {
         ],
       }),
     })
+    /* END RBV Select */
     
     /* Heater Selection touchBar */    
     const htrSelectScrub = new TouchBarScrubber({
@@ -321,6 +360,7 @@ function createTouchBar(backendApp) {
         ],
       }),
     })
+    /* END Heater Select */
     
     /* Main TouchBar */
     const touchBar = new TouchBar({
@@ -330,8 +370,8 @@ function createTouchBar(backendApp) {
       selectionText,
       stateText,
       new TouchBarSpacer({size: 'medium'}),
-      openButton,
       closeButton,
+      openButton,
       new TouchBarSpacer({size: 'large'}),
       valveSelectButton,
       RBVSelectButton
