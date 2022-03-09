@@ -36,7 +36,9 @@ class Board {
       console.debug(`[id ${id}] Outbound packet's packet data typing definition could not be found. Not sent.`)
       return false
     }
-    this.port.send(this.address, buf);
+    // write string version of packet for debugging purposes, disable socket data print
+    process.stdout.write(p.stringify())
+    this.port.send(this.address, buf, false);
     return true;
   }
 
