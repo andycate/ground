@@ -259,7 +259,6 @@ const INBOUND_PACKET_DEFS = {
   ],
   220: [
     ['capacitor', asFloat],
-    ['capTemperature', asFloat],
   ],
 }
 
