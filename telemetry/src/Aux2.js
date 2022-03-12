@@ -228,7 +228,7 @@ class Aux2 extends Component {
                   fields={
                     [
                       {
-                        name: 'loxCapVal',
+                        name: 'loxCapValFiltered',
                         color: [0, 50, 98],
                         unit: 'pF',
                         precision: 3
@@ -243,7 +243,7 @@ class Aux2 extends Component {
                   fields={
                     [
                       {
-                        name: 'fuelCapVal',
+                        name: 'fuelCapValFiltered',
                         color: [196, 130, 14],
                         unit: 'pF',
                         precision: 3
