@@ -309,6 +309,7 @@ function createTouchBar(backendApp) {
         { label: 'LOX Fill', channel:'loxFillRBV' },
         { label: 'Fuel Fill', channel:'fuelFillRBV' },
         { label: 'N2 Fill', channel:'pressurantFillRBV' },
+        { label: 'N2 Fill Vent', channel:'pressurantFillVentRBV' },
         { label: 'N2 Flow', channel:'pressurantFlowRBV' },
       ],
       selectedIndex: 0,
