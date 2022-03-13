@@ -338,16 +338,17 @@ function createTouchBar(backendApp) {
     const htrSelectScrub = new TouchBarScrubber({
       segmentStyle: 'automatic',
       items: [
-        { label: 'LOX Tank Bottom' },
-        { label: 'LOX Tank Mid' },
-        { label: 'LOX Tank Top' },
+        { label: 'LOX Tank Bottom', channel:'loxTankBottomHtr', on:'activate', off:'deactivate' },
+        { label: 'LOX Tank Mid', channel:'loxTankMidHtr', on:'activate', off:'deactivate' },
+        { label: 'LOX Tank Top', channel:'loxTankTopHtr', on:'activate', off:'deactivate' },
       ],
       selectedIndex: 0,
       selectedStyle: 'outline',
       mode: 'fixed',
       showArrowButtons: false,
       select: (selectedIndex) => {
-        console.log(htrSelectScrub.items[selectedIndex].label);
+        let item = htrSelectScrub.items[selectedIndex]
+        updateSelection(item)
       },
     });
     
