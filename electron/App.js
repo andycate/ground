@@ -127,8 +127,9 @@ class App {
         loadCell2: null,
         loadCellSum: null,
 
-        capacitor: 'loxCapVal',
-        capTemperature: 'loxCapTemp',
+      capVal: 'loxCapVal',
+      capValFiltered: 'loxCapValFiltered',
+      capTemperature: 'loxCapTemp',
       },
       () => this.updateState(Date.now(), { daq3Connected: true }),
       () => this.updateState(Date.now(), { daq3Connected: false }),
@@ -159,7 +160,8 @@ class App {
       loadCell2: null,
       loadCellSum: null,
 
-      capacitor: 'fuelCapVal',
+      capVal: 'fuelCapVal',
+      capValFiltered: 'fuelCapValFiltered',
       capTemperature: 'fuelCapTemp',
     },
     () => this.updateState(Date.now(), { daq4Connected: true }),
