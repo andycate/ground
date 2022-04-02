@@ -92,8 +92,8 @@ class App {
         daqTC3: 'loxTankTopTC',
         daqTC4: 'fuelTankBottomTC',
 
-        loadCell1: null,
-        loadCell2: null,
+        loadCell1: 'thrust3',
+        loadCell2: 'thrust4',
         loadCellSum: null,
 
         capacitor1: null,
