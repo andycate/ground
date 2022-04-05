@@ -179,9 +179,23 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'injector_pressure',
+                        name: 'pressure_p_term',
                         color: [70, 1, 155],
-                        unit: 'PSI'
+                        unit: 'enc'
+                      }
+                    ]
+                  }
+                />
+
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'pressure_d_term',
+                        color: [70, 1, 155],
+                        unit: 'enc'
                       }
                     ]
                   }

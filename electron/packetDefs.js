@@ -21,9 +21,9 @@ const INBOUND_PACKET_DEFS = {
     ['motor_angle', asFloat],
     ['high_pressure', asFloat],
     ['low_pressure', asFloat],
-    ['injector_pressure', asFloat],
-    ['pressure_derivative', asFloat],
-    ['pressure_integral', asFloat],
+    ['pressure_p_term', asFloat],
+    ['pressure_d_term', asFloat],
+    ['pressure_i_term', asFloat],
   ],
   
   // [10..59] Sent by Flight Computer
