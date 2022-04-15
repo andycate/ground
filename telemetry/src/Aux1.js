@@ -133,38 +133,30 @@ class Aux1 extends Component {
                   }}
                 />
               </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
+              <Grid item={1} xs={8} className={classes.item}>
                 <Graph
                   fields={
                     [
                       {
-                        name: 'loxTankPTTemp', // lox PT temp
-                        color: [123, 35, 162],
+                        name: 'engineTC0', // engine temp 1
+                        color: [221, 0, 0],
                         unit: 'degC'
                       },
-                      // {
-                      //   name: 'loxGemsTemp', // lox gems temp
-                      //   color: [0, 126, 254],
-                      //   unit: 'degC'
-                      // },
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
                       {
-                        name: 'fuelTankPTTemp', // prop PT temp
-                        color: [0, 126, 254],
+                        name: 'engineTC1', // engine temp 2
+                        color: [0, 127, 254],
                         unit: 'degC'
                       },
-                      // {
-                      //   name: 'propGemsTemp', // prop gems temp
-                      //   color: [0, 187, 0],
-                      //   unit: 'degC'
-                      // },
+                      {
+                        name: 'engineTC2', // engine temp 3
+                        color: [0, 187, 0],
+                        unit: 'degC'
+                      },
+                      {
+                        name: 'engineTC3', // engine temp 3
+                        color: [245, 185, 66],
+                        unit: 'degC'
+                      },
                     ]
                   }
                 />
@@ -209,83 +201,30 @@ class Aux1 extends Component {
                   }}
                 />
               </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
+              <Grid item={1} xs={8} className={classes.item}>
                 <Graph
                   fields={
                     [
                       {
-                        name: 'loxInjectorPTTemp', // lox injector PT temp
-                        color: [0, 126, 254],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'fuelInjectorPTTemp', // prop injector PT temp
-                        color: [221, 0, 0],
-                        unit: 'degC'
-                      },
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <SixValueSquare
-                  field1={{
-                    name: 'LOx Tank PT Heater',
-                    field: 'loxTankPTHeaterVoltage',
-                    unit: 'V',
-                    decimals: 0
-                  }}
-                  field2={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 0
-                  }}
-                  field3={{
-                    name: 'LOX Inj PT Heater',
-                    field: 'loxInjectorPTHeaterVoltage',
-                    unit: 'V',
-                    decimals: 0
-                  }}
-                  field4={{
-                    name: 'Fuel Tank PT Heater',
-                    field: 'fuelTankPTHeaterVoltage',
-                    unit: 'V',
-                    decimals: 0
-                  }}
-                  field5={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 0
-                  }}
-                  field6={{
-                    name: 'Fuel Inj PT Heater',
-                    field: 'fuelInjectorPTHeaterVoltage',
-                    unit: 'V',
-                    decimals: 0
-                  }}
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'engineTC1', // engine temp 1
+                        name: 'engineTC4', // engine temp 1
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC2', // engine temp 2
+                        name: 'engineTC5', // engine temp 2
                         color: [0, 127, 254],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC3', // engine temp 3
+                        name: 'engineTC6', // engine temp 3
                         color: [0, 187, 0],
                         unit: 'degC'
                       },
+                      {
+                        name: 'engineTC7', // engine temp 3
+                        color: [245, 185, 66],
+                        unit: 'degC'
+                      },
                     ]
                   }
                 />
@@ -295,68 +234,45 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'engineTC4', // engine temp 4
+                        name: 'loxTankPTTemp', // lox PT temp
                         color: [123, 35, 162],
                         unit: 'degC'
                       },
-                      {
-                        name: 'engineTC5', // engine temp 5
-                        color: [221, 0, 0],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineTC6', // engine temp 6
-                        color: [0, 127, 254],
-                        unit: 'degC'
-                      },
+                      // {
+                      //   name: 'loxGemsTemp', // lox gems temp
+                      //   color: [0, 126, 254],
+                      //   unit: 'degC'
+                      // },
                     ]
                   }
                 />
               </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <SixValueSquare
-                  field1={{
-                    name: 'LOx Tank PT Heater',
-                    field: 'loxTankPTHeaterCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.2
-                  }}
-                  field2={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 2,
-                    threshold: 0.2
-                  }}
-                  field3={{
-                    name: 'LOX Inj PT Heater',
-                    field: 'loxInjectorPTHeaterCurrent',
-                    unit: '',
-                    decimals: 2,
-                    threshold: 0.2
-                  }}
-                  field4={{
-                    name: 'Fuel Tank PT Heater',
-                    field: 'fuelTankPTHeaterCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.2
-                  }}
-                  field5={{
-                    name: '_',
-                    field: '',
-                    unit: '',
-                    decimals: 2,
-                    threshold: 0.2
-                  }}
-                  field6={{
-                    name: 'Fuel Inj PT Heater',
-                    field: 'fuelInjectorPTHeaterCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.2
-                  }}
+              <Grid item={1} xs={8} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'engineTC8', // engine temp 1
+                        color: [221, 0, 0],
+                        unit: 'degC'
+                      },
+                      {
+                        name: 'engineTC9', // engine temp 2
+                        color: [0, 127, 254],
+                        unit: 'degC'
+                      },
+                      {
+                        name: 'engineTC10', // engine temp 3
+                        color: [0, 187, 0],
+                        unit: 'degC'
+                      },
+                      {
+                        name: 'engineTC11', // engine temp 3
+                        color: [245, 185, 66],
+                        unit: 'degC'
+                      },
+                    ]
+                  }
                 />
               </Grid>
             </Grid>

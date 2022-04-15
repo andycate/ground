@@ -89,12 +89,12 @@ const INBOUND_PACKET_DEFS = {
   ],
 
   35: [
-    ['loxTankBottomHtrVoltage', asFloat],
-    ['loxTankBottomHtrCurrent', asFloat],
+    ['RQDVoltage', asFloat],
+    ['RQDCurrent', asFloat],
   ],
   36: [
-    ['loxTankMidHtrVoltage', asFloat],
-    ['loxTankMidHtrCurrent', asFloat],
+    ['mainValveVentVoltage', asFloat],
+    ['mainValveVentCurrent', asFloat],
   ],
   37: [
     ['loxTankTopHtrVoltage', asFloat],
@@ -118,10 +118,10 @@ const INBOUND_PACKET_DEFS = {
     ['fuelMainValveState', asUInt8],
   ],
   45: [
-    ['loxTankBottomHtrState', asUInt8],
+    ['RQDState', asUInt8],
   ],
   46: [
-    ['loxTankMidHtrState', asUInt8],
+    ['mainValveVentState', asUInt8],
   ],
   47: [
     ['loxTankTopHtrState', asUInt8],

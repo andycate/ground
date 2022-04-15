@@ -91,15 +91,15 @@ class Aux2 extends Component {
                     threshold: 0.1
                   }}
                   field2={{
-                    name: 'Igniter Voltage',
-                    field: 'igniterVoltage',
-                    unit: 'V',
-                    decimals: 0,
-                    threshold: 3
+                    name: 'Igniter Arm',
+                    field: 'igniterArmCurrent',
+                    unit: 'A',
+                    decimals: 2,
+                    threshold: 0.05
                   }}
                   field3={{
-                    name: 'LED2',
-                    field: 'led2Current',
+                    name: 'Main Vent',
+                    field: 'mainValveVentCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.1
@@ -131,10 +131,11 @@ class Aux2 extends Component {
               <Grid item xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
-                    name: '_',
-                    field: '',
-                    unit: '',
+                    name: 'Igniter Voltage',
+                    field: 'igniterVoltage',
+                    unit: 'V',
                     decimals: 0,
+                    threshold: 3
                   }}
                   field2={{
                     name: 'Breakwire',
@@ -144,8 +145,8 @@ class Aux2 extends Component {
                     threshold: 3
                   }}
                   field3={{
-                    name: 'LED2',
-                    field: 'led2Voltage',
+                    name: 'Main Vent',
+                    field: 'mainValveVentVoltage',
                     unit: 'V',
                     decimals: 0,
                     threshold: 3
@@ -177,17 +178,17 @@ class Aux2 extends Component {
               <Grid item xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
-                    name: 'LOx Tank Vent',
-                    field: 'loxTankVentRBVcurrent',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.1
+                    name: 'RQD Voltage',
+                    field: 'RQDVoltage',
+                    unit: 'V',
+                    decimals: 0,
+                    threshold: 3
                   }}
                   field2={{
-                    name: 'Fuel Tank Vent',
-                    field: 'fuelTankVentRBVcurrent',
+                    name: 'RQD Current',
+                    field: 'RQDCurrent',
                     unit: 'A',
-                    decimals: 1,
+                    decimals: 2,
                     threshold: 0.1
                   }}
                   field3={{
@@ -341,7 +342,7 @@ class Aux2 extends Component {
                 />
               </Grid>
               
-              <Grid item xs={4} className={classes.item}>
+              <Grid item xs={8} className={classes.item}>
                 <Graph
                   fields={
                     [
@@ -365,60 +366,13 @@ class Aux2 extends Component {
                         color: [221, 202, 15],
                         unit: 'LBS'
                       },
-                      // {
-                      //   name: 'totalThrust', // prop PT temp
-                      //   color: [238, 154, 7],
-                      //   unit: 'LBS'
-                      // },
+                      {
+                        name: 'totalThrust', // prop PT temp
+                        color: [238, 154, 7],
+                        unit: 'LBS'
+                      },
                     ]
                   }
-                />
-              </Grid>
-              
-              <Grid item xs={4} className={classes.item}>
-                <SixValueSquare
-                  field1={{
-                    name: 'LOX Tank Top Heater',
-                    field: 'loxTankTopHtrCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.3
-                  }}
-                  field2={{
-                    name: 'LOX Tank Mid Heater',
-                    field: 'loxTankMidHtrCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.3
-                  }}
-                  field3={{
-                    name: 'LOX Tank Bottom Heater',
-                    field: 'loxTankBottomHtrCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.3
-                  }}
-                  field4={{
-                    name: 'Fuel Tank Top Heater',
-                    field: 'fuelTankTopHeaterCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.3
-                  }}
-                  field5={{
-                    name: 'Fuel Tank Mid Heater',
-                    field: 'fuelTankMidHeaterCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.3
-                  }}
-                  field6={{
-                    name: 'Fuel Tank Bottom Heater',
-                    field: 'fuelTankBottomHeaterCurrent',
-                    unit: 'A',
-                    decimals: 2,
-                    threshold: 0.3
-                  }}
                 />
               </Grid>
             </Grid>
