@@ -269,37 +269,38 @@ class Aux2 extends Component {
               <Grid item xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
-                    name: 'Purge/Pre-chill Vent',
-                    field: 'purgePrechillVentRBVcurrent',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.1
+                    name: 'LOX GEMS Voltage',
+                    field: 'loxGemsVoltage',
+                    unit: 'V',
+                    decimals: 0,
+                    threshold: 3
                   }}
                   field2={{
-                    name: 'Purge Flow',
-                    field: 'purgeFlowRBVcurrent',
+                    name: 'LOX GEMS Current',
+                    field: 'loxGemsCurrent',
                     unit: 'A',
-                    decimals: 1,
+                    decimals: 2,
                     threshold: 0.1
                   }}
                   field3={{
-                    name: 'Pre-Chill Flow',
-                    field: 'prechillFlowRBVcurrent',
-                    unit: 'A',
-                    decimals: 1,
-                    threshold: 0.1
-                  }}
-                  field4={{
-                    name: '_',
+                    name: '-',
                     field: '',
                     unit: '',
-                    decimals: 0
+                    decimals: 0,
+                    threshold: 3
+                  }}
+                  field4={{
+                    name: 'Fuel GEMS Voltage',
+                    field: 'fuelGemsVoltage',
+                    unit: 'V',
+                    decimals: 0,
+                    threshold: 3
                   }}
                   field5={{
-                    name: 'LOX Prechill',
-                    field: 'loxPrechillRBVcurrent',
+                    name: 'Fuel GEMS Current',
+                    field: 'fuelGemsCurrent',
                     unit: 'A',
-                    decimals: 1,
+                    decimals: 2,
                     threshold: 0.1
                   }}
                   field6={{
