@@ -231,29 +231,29 @@ class App {
         acSupply12Voltage: 'ac2Supply12Voltage',
         acSupply12Current: 'ac2Supply12Current',
         
-        acLinAct1State: null,
-        acLinAct1Voltage: null,
-        acLinAct1Current: null,
+        acLinAct1State: 'loxTankVentRBVstate',
+        acLinAct1Voltage: 'loxTankVentRBVvoltage',
+        acLinAct1Current: 'loxTankVentRBVcurrent',
 
         acLinAct2State: null,
         acLinAct2Voltage: null,
         acLinAct2Current: null,
 
-        acLinAct3State: null,
-        acLinAct3Voltage: null,
-        acLinAct3Current: null,
+        acLinAct3State: 'fuelTankVentRBVstate',
+        acLinAct3Voltage: 'fuelTankVentRBVvoltage',
+        acLinAct3Current: 'fuelTankVentRBVcurrent',
 
-        acLinAct4State: null,
-        acLinAct4Voltage: null,
-        acLinAct4Current: null,
+        acLinAct4State: 'fuelPrechillRBVstate',
+        acLinAct4Voltage: 'fuelPrechillRBVvoltage',
+        acLinAct4Current: 'fuelPrechillRBVcurrent',
 
-        acLinAct5State: null,
-        acLinAct5Voltage: null,
-        acLinAct5Current: null,
+        acLinAct5State: 'purgeFlowRBVstate',
+        acLinAct5Voltage: 'purgeFlowRBVvoltage',
+        acLinAct5Current: 'purgeFlowRBVcurrent',
 
-        acLinAct6State: null,
-        acLinAct6Voltage: null,
-        acLinAct6Current: null,
+        acLinAct6State: 'prechillFlowRBVstate',
+        acLinAct6Voltage: 'prechillFlowRBVvoltage',
+        acLinAct6Current: 'prechillFlowRBVcurrent',
 
         acLinAct7State: null,
         acLinAct7Voltage: null,
@@ -466,6 +466,18 @@ class App {
     this.addIPC('close-loxFillRBV', this.actCtrlr1.closeActCh0);
     this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
 
+    this.addIPC('open-loxTankVentRBV', this.actCtrlr2.openActCh0);
+    this.addIPC('close-loxTankVentRBV', this.actCtrlr2.closeActCh0);
+    this.addIPC('time-loxTankVentRBV', (e, val) => this.actCtrlr2.actCh0ms(val));
+
+    this.addIPC('open-loxPrechillRBV', this.actCtrlr1.openActCh2);
+    this.addIPC('close-loxPrechillRBV', this.actCtrlr1.closeActCh2);
+    this.addIPC('time-loxPrechillRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
+
+    this.addIPC('open-purgePrechillVentRBV', this.actCtrlr1.openActCh4);
+    this.addIPC('close-purgePrechillVentRBV', this.actCtrlr1.closeActCh4);
+    this.addIPC('time-purgePrechillVentRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
+
     this.addIPC('open-pressurantFillRBV', this.actCtrlr1.openActCh3);
     this.addIPC('close-pressurantFillRBV', this.actCtrlr1.closeActCh3);
     this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
@@ -474,16 +486,33 @@ class App {
     this.addIPC('close-pressurantFillVentRBV', this.actCtrlr1.closeActCh5);
     this.addIPC('time-pressurantFillVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
 
-    this.addIPC('open-pressurantFlowRBV', this.actCtrlr1.closeActCh2);
-    this.addIPC('close-pressurantFlowRBV', this.actCtrlr1.openActCh2);
-    this.addIPC('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh2ms(-val));
+    
+
+    // Actuator Controller 2
+    // TODO: swap RBV wiring so code mapping doesn't have to be swapped
+    this.addIPC('open-pressurantFlowRBV', this.actCtrlr1.openActCh2);
+    this.addIPC('close-pressurantFlowRBV', this.actCtrlr1.closeActCh2);
+    this.addIPC('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
 
     this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
     this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
     this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
-    // Actuator Controller 2
-    // TODO: swap RBV wiring so code mapping doesn't have to be swapped
+    this.addIPC('open-fuelTankVentRBV', this.actCtrlr2.openActCh2);
+    this.addIPC('close-fuelTankVentRBV', this.actCtrlr2.closeActCh2);
+    this.addIPC('time-fuelTankVentRBV', (e, val) => this.actCtrlr2.actCh2ms(val));
+
+    this.addIPC('open-fuelPrechillRBV', this.actCtrlr2.openActCh3);
+    this.addIPC('close-fuelPrechillRBV', this.actCtrlr2.closeActCh3);
+    this.addIPC('time-fuelPrechillRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
+
+    this.addIPC('open-purgeFlowRBV', this.actCtrlr2.openActCh4);
+    this.addIPC('close-purgeFlowRBV', this.actCtrlr2.closeActCh4);
+    this.addIPC('time-purgeFlowRBV', (e, val) => this.actCtrlr2.actCh4ms(val));
+
+    this.addIPC('open-prechillFlowRBV', this.actCtrlr2.openActCh5);
+    this.addIPC('close-prechillFlowRBV', this.actCtrlr2.closeActCh5);
+    this.addIPC('time-prechillFlowRBV', (e, val) => this.actCtrlr2.actCh5ms(val));
 
   }
 }
