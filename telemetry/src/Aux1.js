@@ -138,22 +138,22 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'engineTC0', // engine temp 1
+                        name: 'engineTop1TC', // engine temp 1
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC1', // engine temp 2
+                        name: 'engineTop2TC', // engine temp 2
                         color: [0, 127, 254],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC2', // engine temp 3
+                        name: 'engineBottom1TC', // engine temp 3
                         color: [0, 187, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC3', // engine temp 3
+                        name: 'engineBottom2TC', // engine temp 3
                         color: [245, 185, 66],
                         unit: 'degC'
                       },
@@ -206,22 +206,22 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'engineTC4', // engine temp 1
+                        name: 'injectorTC', // engine temp 1
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC5', // engine temp 2
+                        name: 'engineMid1TC', // engine temp 2
                         color: [0, 127, 254],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC6', // engine temp 3
+                        name: 'engineMid2TC', // engine temp 3
                         color: [0, 187, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC7', // engine temp 3
+                        name: 'engineTop3TC', // engine temp 3
                         color: [245, 185, 66],
                         unit: 'degC'
                       },
@@ -252,22 +252,22 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'engineTC8', // engine temp 1
+                        name: 'engineTop4TC', // engine temp 1
                         color: [221, 0, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC9', // engine temp 2
+                        name: 'engineBottom3TC', // engine temp 2
                         color: [0, 127, 254],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC10', // engine temp 3
+                        name: 'engineBottom4TC', // engine temp 3
                         color: [0, 187, 0],
                         unit: 'degC'
                       },
                       {
-                        name: 'engineTC11', // engine temp 3
+                        name: 'propTankTC', // engine temp 3
                         color: [245, 185, 66],
                         unit: 'degC'
                       },

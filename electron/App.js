@@ -56,10 +56,10 @@ class App {
         daqADC6: null,
         daqADC7: null,
 
-        daqTC1: 'engineTC4',
-        daqTC2: 'engineTC5',
-        daqTC3: 'engineTC6',
-        daqTC4: 'engineTC7',
+        daqTC1: 'injectorTC',
+        daqTC2: 'engineMid1TC',
+        daqTC3: 'engineMid2TC',
+        daqTC4: 'engineTop3TC',
 
         loadCell1: 'thrust1',
         loadCell2: 'thrust2',
@@ -90,10 +90,10 @@ class App {
         daqADC6: null,
         daqADC7: null,
 
-        daqTC1: 'engineTC8',
-        daqTC2: 'engineTC9',
-        daqTC3: 'engineTC10',
-        daqTC4: 'engineTC11',
+        daqTC1: 'engineTop4TC',
+        daqTC2: 'engineBottom3TC',
+        daqTC3: 'engineBottom4TC',
+        daqTC4: 'propTankTC',
 
         loadCell1: 'thrust3',
         loadCell2: 'thrust4',

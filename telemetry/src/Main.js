@@ -253,22 +253,22 @@ class Main extends Component {
                   fields={
                     [
                       {
-                        name: 'engineTC0',
+                        name: 'engineTop1TC',
                         color: [0, 126, 254],
                         unit: 'ºC'
                       },
                       {
-                        name: 'engineTC1',
+                        name: 'engineTop2TC',
                         color: [0, 187, 0],
                         unit: 'ºC'
                       },
                       {
-                        name: 'engineTC2',
+                        name: 'engineBottom1TC',
                         color: [123, 35, 162],
                         unit: 'ºC'
                       },
                       {
-                        name: 'engineTC3',
+                        name: 'engineBottom2TC',
                         color: [35, 123, 162],
                         unit: 'ºC'
                       },
