@@ -74,11 +74,11 @@ class Control extends Component {
 
   beginFlowAll() {
     this.startCountdown();
-    comms.closeloxTankVentRBV();
-    comms.closefuelTankVentRBV();
-    comms.closeloxPrechillRBV();
-    comms.closefuelPrechillRBV();
-    comms.closePurgeFlowRBV();
+    // comms.closeloxTankVentRBV();
+    // comms.closefuelTankVentRBV();
+    // comms.closeloxPrechillRBV();
+    // comms.closefuelPrechillRBV();
+    // comms.closePurgeFlowRBV();
 
     setTimeout(comms.beginFlow, 4000);
   }
@@ -86,11 +86,11 @@ class Control extends Component {
   abortAll() {
     comms.abort();
 
-    comms.openloxTankVentRBV();
-    comms.openfuelTankVentRBV();
-    comms.openPurgeFlowRBV();
-    comms.openloxPrechillRBV();
-    comms.openfuelPrechillRBV();
+    // comms.openloxTankVentRBV();
+    // comms.openfuelTankVentRBV();
+    // comms.openPurgeFlowRBV();
+    // comms.openloxPrechillRBV();
+    // comms.openfuelPrechillRBV();
 
     this.stopCountdown();
   }
