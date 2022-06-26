@@ -1,80 +1,130 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
-const comms = require('./comms');
-comms.init();
 
-let mainWindow, controlWindow;
-function createWindow () {
-  startUrls = {'graphs': '', 'control': ''};
+const App = require('./App');
 
-  for (var key in startUrls) {
-    // use process.env.ELECTRON_START_URL if in dev mode, path to index file otherwise
-    startUrls[key] = process.env.ELECTRON_START_URL ? process.env.ELECTRON_START_URL + '?' + key : url.format({
-      pathname: path.join(__dirname, '../index.html?' + key),
-      protocol: 'file:',
-      slashes: true,
-    });
+const isMainDev = (process.env.VARIANT === 'main');
+
+let backendApp = new App();
+let selector, window1, window2;
+function createWindow (isMain) {
+  let url1, url2;
+  if(isMain) {
+    // main windows
+    url1 = (isDev ? 'http://127.0.0.1:3000#/main' : `file://${path.join(__dirname, '../index.html#main')}`);
+    url2 = (isDev ? 'http://127.0.0.1:3000#/control' : `file://${path.join(__dirname, '../index.html#control')}`);
+  } else {
+    // aux windows
+    url1 = (isDev ? 'http://127.0.0.1:3000#/aux1' : `file://${path.join(__dirname, '../index.html#aux1')}`);
+    url2 = (isDev ? 'http://127.0.0.1:3000#/aux2' : `file://${path.join(__dirname, '../index.html#aux2')}`);
   }
 
-
-  mainWindow = new BrowserWindow({
+  window1 = new BrowserWindow({
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      // worldSafeExecuteJavaScript: true,
-      // contextIsolation: true
+      devTools: isDev,
     },
   });
-  mainWindow.maximize();
+  window1.maximize();
   if(!isDev) {
-    mainWindow.removeMenu();
+    window1.removeMenu();
   }
-  mainWindow.loadURL(startUrls['graphs']);
-  mainWindow.on('closed', function () {
-    mainWindow = null;
+  window1.loadURL(url1);
+  window1.on('closed', function () {
+    backendApp.removeWebContents(window1.webContents);
+    window1 = null;
   });
-  mainWindow.webContents.once('did-finish-load', () => {
-    comms.openWebCon(mainWindow.webContents);
+  window1.webContents.once('did-finish-load', () => {
+    backendApp.addWebContents(window1.webContents);
+    if(backendApp.webContents.length === 2){
+      backendApp.initApp()
+    }
   });
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show();
+  window1.once('ready-to-show', () => {
+    window1.show();
   });
 
-  // use process.env.ELECTRON_START_URL if in dev mode, path to index file otherwise
-  const controlStartUrl = process.env.ELECTRON_START_URL ? process.env.ELECTRON_START_URL + '?control' : url.format({
-    pathname: path.join(__dirname, '../index.html?control'),
-    protocol: 'file:',
-    slashes: true,
-  });
-  controlWindow = new BrowserWindow({
+  window2 = new BrowserWindow({
     show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      devTools: isDev,
     },
   });
-  controlWindow.maximize();
+  window2.maximize();
   if(!isDev) {
-    controlWindow.removeMenu();
+    window2.removeMenu();
   }
-  controlWindow.loadURL(controlStartUrl);
-  controlWindow.on('closed', function () {
-    controlWindow = null;
+  window2.loadURL(url2);
+  window2.on('closed', function () {
+    window2 = null;
   });
-  controlWindow.webContents.once('did-finish-load', () => {
-    comms.openControlWebCon(controlWindow.webContents);
+  window2.webContents.once('did-finish-load', () => {
+    backendApp.addWebContents(window2.webContents);
+    if(backendApp.webContents.length === 2){
+      backendApp.initApp()
+    }
   });
-  controlWindow.once('ready-to-show', () => {
-    controlWindow.show();
+  window2.once('ready-to-show', () => {
+    window2.show();
+  });
+}
+
+function createSelectorWindow() {
+  let selectorUrl = (isDev ? 'http://127.0.0.1:3000#/selector' : `file://${path.join(__dirname, '../index.html#selector')}`);
+  selector = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      devTools: isDev,
+    },
+  });
+  selector.setSize(200, 100);
+  selector.center();
+  selector.setTitle('Selector');
+  // selector.maximize();
+  if(!isDev) {
+    selector.removeMenu();
+  }
+  selector.loadURL(selectorUrl);
+  selector.on('closed', function () {
+    selector = null;
+  });
+  // selector.webContents.once('did-finish-load', () => {
+  //   backendApp.addWebContents(selector.webContents);
+  // });
+  selector.once('ready-to-show', () => {
+    selector.show();
   });
 
+  ipcMain.handleOnce('open-main-windows', (e) => {
+    selector.close();
+    createWindow(true);
+  });
+  ipcMain.handleOnce('open-aux-windows', (e) => {
+    selector.close();
+    createWindow(false);
+  });
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs
-app.on('ready', createWindow);
+app.on('ready', () => {
+  // createSelectorWindow();
+  const ret = globalShortcut.register('F17', () => {
+    backendApp.abort();
+  })
+
+  if(isDev) {
+    createWindow(isMainDev);
+  } else {
+    createSelectorWindow();
+  }
+});
 
 
 app.on('window-all-closed', function () {
@@ -83,10 +133,10 @@ app.on('window-all-closed', function () {
   }
 });
 
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow();
-  }
+app.on('before-quit', () => {
+  console.log('quitting');
+  backendApp.removeWebContents(window1.webContents);
+  backendApp.removeWebContents(window2.webContents);
 });
 
 ipcMain.handle('app-info', async (event) => {

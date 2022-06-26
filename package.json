@@ -3,24 +3,20 @@
   "productName": "Ground Station",
   "main": "electron/main.js",
   "version": "0.1.0",
-  "homepage": "./",
   "private": true,
   "dependencies": {
-    "electron-is-dev": "^1.2.0",
-    "express": "^4.17.1",
-    "influx": "^5.0.0-alpha.4",
-    "moment": "^2.29.1",
-    "sequelize": "^6.3.5",
-    "serialport": "^9.0.1",
-    "serve-static": "^1.14.1",
-    "sqlite3": "^5.0.0"
+    "circular-buffer": "~1.0.3",
+    "electron-is-dev": "~1.2.0",
+    "influx": "~5.9.2",
+    "lodash.throttle": "~4.1.1",
+    "moment": "~2.29.1"
   },
   "scripts": {
-    "start-electron": "cross-env ELECTRON_START_URL=http://localhost:3000 electron .",
-    "build-electron": "mkdir build/src && cp -r electron/. build/electron && cp -r src/shared/. build/src/shared",
+    "start-main": "cross-env VARIANT=main electron .",
+    "start-aux": "cross-env VARIANT=aux electron .",
+    "build-electron-main": "cp -r telemetry/build ./build && cp -r electron/. build/electron",
     "package": "electron-builder build --mac -c.extraMetadata.main=build/electron/main.js --publish never",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "mocha"
   },
   "build": {
     "files": [
@@ -29,14 +25,16 @@
     ],
     "publish": {
       "provider": "github",
-      "repo": "build",
-      "owner": "andycate"
+      "repo": "ground",
+      "owner": "Space-Enterprise-at-Berkeley"
     }
   },
   "devDependencies": {
+    "@types/serialport": "^8.0.2",
     "cross-env": "^7.0.2",
     "electron": "^10.1.3",
     "electron-builder": "^22.8.1",
-    "electron-rebuild": "^2.2.0"
+    "electron-rebuild": "^2.2.0",
+    "mocha": "^8.3.2"
   }
 }
