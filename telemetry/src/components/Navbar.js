@@ -30,6 +30,7 @@ class Navbar extends Component {
     super(props);
     this.state = {
       flightConnected: false,
+      groundConnected: false,
       daq1Connected: false,
       daq2Connected: false,
       daq3Connected: false,
@@ -38,6 +39,7 @@ class Navbar extends Component {
       actCtrlr2Connected: false,
 
       flightKbps: 0,
+      groundKbps: 0, 
       daq1Kbps: 0,
       daq2Kbps: 0,
       daq3Kbps: 0,
@@ -47,6 +49,7 @@ class Navbar extends Component {
     };
 
     this.updateFlightConnected = this.updateFlightConnected.bind(this);
+    this.updateGroundConnected = this.updateGroundConnected.bind(this);
     this.updateDaq1Connected = this.updateDaq1Connected.bind(this);
     this.updateDaq2Connected = this.updateDaq2Connected.bind(this);
     this.updateDaq3Connected = this.updateDaq3Connected.bind(this);
@@ -55,6 +58,7 @@ class Navbar extends Component {
     this.updateActCtrlr2Connected = this.updateActCtrlr2Connected.bind(this);
 
     this.updateFlightKbps = this.updateFlightKbps.bind(this);
+    this.updateGroundKbps = this.updateGroundtKbps.bind(this);
     this.updateDaq1Kbps = this.updateDaq1Kbps.bind(this);
     this.updateDaq2Kbps = this.updateDaq2Kbps.bind(this);
     this.updateDaq3Kbps = this.updateDaq3Kbps.bind(this);
@@ -64,6 +68,7 @@ class Navbar extends Component {
   }
 
   updateFlightConnected(timestamp, value) { this.setState({ flightConnected: value }); }
+  updateGroundConnected(timestamp, value) { this.setState({ groundConnected: value }); }
   updateDaq1Connected(timestamp, value) { this.setState({ daq1Connected: value }); }
   updateDaq2Connected(timestamp, value) { this.setState({ daq2Connected: value }); }
   updateDaq3Connected(timestamp, value) { this.setState({ daq3Connected: value }); }
@@ -72,6 +77,7 @@ class Navbar extends Component {
   updateActCtrlr2Connected(timestamp, value) { this.setState({ actCtrlr2Connected: value }); }
 
   updateFlightKbps(timestamp, value) { this.setState({ flightKbps: value }); }
+  updateGroundKbps(timestamp, value) { this.setState({ groundKbps: value }); }
   updateDaq1Kbps(timestamp, value) { this.setState({ daq1Kbps: value }); }
   updateDaq2Kbps(timestamp, value) { this.setState({ daq2Kbps: value }); }
   updateDaq3Kbps(timestamp, value) { this.setState({ daq3Kbps: value }); }
@@ -81,6 +87,7 @@ class Navbar extends Component {
 
   async componentDidMount() {
     comms.addSubscriber('flightConnected', this.updateFlightConnected);
+    comms.addSubscriber('groundConnected', this.updateGroundConnected);
     comms.addSubscriber('daq1Connected', this.updateDaq1Connected);
     comms.addSubscriber('daq2Connected', this.updateDaq2Connected);
     comms.addSubscriber('daq3Connected', this.updateDaq3Connected);
@@ -89,6 +96,7 @@ class Navbar extends Component {
     comms.addSubscriber('actCtrlr2Connected', this.updateActCtrlr2Connected);
 
     comms.addSubscriber('flightKbps', this.updateFlightKbps);
+    comms.addSubscriber('groundKbps', this.updateGroundKbps);
     comms.addSubscriber('daq1Kbps', this.updateDaq1Kbps);
     comms.addSubscriber('daq2Kbps', this.updateDaq2Kbps);
     comms.addSubscriber('daq3Kbps', this.updateDaq3Kbps);
@@ -98,6 +106,7 @@ class Navbar extends Component {
 
     this.setState({
       flightConnected: false,
+      groundConnected: false,
       daq1Connected: false,
       actCtrlr1Connected: false,
       actCtrlr2Connected: false,
@@ -106,6 +115,7 @@ class Navbar extends Component {
 
   componentWillUnmount() {
     comms.removeSubscriber('flightConnected', this.updateFlightConnected);
+    comms.removeSubscriber('groundConnected', this.updateGroundConnected);
     comms.removeSubscriber('daq1Connected', this.updateDaq1Connected);
     comms.removeSubscriber('daq2Connected', this.updateDaq2Connected);
     comms.removeSubscriber('daq3Connected', this.updateDaq3Connected);
@@ -114,6 +124,7 @@ class Navbar extends Component {
     comms.removeSubscriber('actCtrlr2Connected', this.updateActCtrlr2Connected);
 
     comms.removeSubscriber('flightKbps', this.updateFlightKbps);
+    comms.removeSubscriber('groundKbps', this.updateGroundKbps);
     comms.removeSubscriber('daq1Kbps', this.updateDaq1Kbps);
     comms.removeSubscriber('daq2Kbps', this.updateDaq2Kbps);
     comms.removeSubscriber('daq3Kbps', this.updateDaq3Kbps);
@@ -128,6 +139,7 @@ class Navbar extends Component {
             openSettings } = this.props;
 
     const { flightConnected,
+            groundConnected,
             daq1Connected,
             daq2Connected,
             daq3Connected,
@@ -147,6 +159,7 @@ class Navbar extends Component {
         <Toolbar variant="dense">
           <div className={classes.spacer}/>
           <Button className={flightConnected ? classes.connectedButton : classes.disconnectedButton}>Flight - {flightKbps} kbps</Button>
+          <Button className={groundConnected ? classes.connectedButton : classes.disconnectedButton}>Ground - {groundKbps} kbps</Button>
           <Button className={daq1Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ1 - {daq1Kbps} kbps</Button>
           <Button className={daq2Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ2 - {daq2Kbps} kbps</Button>
           <Button className={daq3Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ3 - {daq3Kbps} kbps</Button>

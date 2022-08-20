@@ -4,7 +4,8 @@ const { ipcMain, TouchBar } = require('electron');
 
 const State = require('./State');
 const UdpPort = require('./UdpPort');
-const FlightV2 = require('./Boards/FlightV2');
+const FlightV3 = require('./Boards/FlightV3');
+const Ground = require('./Boards/Ground')
 const DAQ = require('./Boards/DAQ');
 const DAQV3 = require('./Boards/DAQV3');
 const ActuatorController = require('./Boards/ActuatorController');
@@ -33,7 +34,7 @@ class App {
   initApp() {
     this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
 
-    this.flightComputer = new FlightV2(this.port,
+    this.flightComputer = new FlightV3(this.port,
       '10.0.0.42',
       {
         firmwareCommitHash: 'flightCommitHash',
@@ -41,6 +42,16 @@ class App {
       () => this.updateState(Date.now(), { flightConnected: true }),
       () => this.updateState(Date.now(), { flightConnected: false }),
       (rate) => this.updateState(Date.now(), { flightKbps: rate }));
+
+    this.groundComputer = new Ground(this.port,
+      '10.0.0.43',
+      {
+        firmwareCommitHash: 'groundCommitHash',
+      },
+      () => this.updateState(Date.now(), { groundConnected: true }),
+      () => this.updateState(Date.now(), { groundConnected: false }),
+      (rate) => this.updateState(Date.now(), { groundKbps: rate }));
+
     this.daq1 = new DAQ(this.port, '10.0.0.11', {
         firmwareCommitHash: 'daq1CommitHash',
 

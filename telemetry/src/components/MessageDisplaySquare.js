@@ -20,6 +20,7 @@ import { GENERIC_FILTERS, ROOT_OPTION_GROUPING } from "../config/textbox-display
 
 const BOARD_CONNECTION_FIELDS = [
   "flightConnected",
+  "groundConnected",
   "daq1Connected",
   "daq2Connected",
   "daq3Connected",
@@ -30,6 +31,7 @@ const BOARD_CONNECTION_FIELDS = [
 
 const BOARD_NAMES = {
   "flightConnected": "Flight Comp",
+  "groundConnected": "Ground Comp",
   "daq1Connected": "DAQ1",
   "daq2Connected": "DAQ2",
   "daq3Connected": "DAQ3",
@@ -41,6 +43,7 @@ const BOARD_NAMES = {
 const FORMAL_BOARD_NAMES = {
   "SysLog": "sys-log",
   "flightConnected": "flightComputer",
+  "groundConnected": "groundComputer",
   "daq1Connected": "daq1",
   "daq2Connected": "daq2",
   "daq3Connected": "daq3",

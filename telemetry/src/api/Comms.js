@@ -25,6 +25,7 @@ class Comms {
     //----------Flight Computer----------
 
     this.getFlightConnected = this.getFlightConnected.bind(this);
+    this.getGroundConnected = this.getGroundConnected.bind(this);
     this.getDaq1Connected = this.getDaq1Connected.bind(this);
     this.getDaq2Connected = this.getDaq2Connected.bind(this);
     this.getDaq3Connected = this.getDaq3Connected.bind(this);
@@ -267,6 +268,10 @@ class Comms {
 
   async getFlightConnected() {
     return await this.ipc.invoke('flight-connected');
+  }
+
+  async getGroundConnected() {
+    return await this.ipc.invoke('ground-connected');
   }
 
   async getDaq1Connected() {
