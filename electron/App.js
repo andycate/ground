@@ -1,13 +1,10 @@
 const { ipcMain, TouchBar } = require('electron');
 
-// const { model } = require('./config');
-
 const State = require('./State');
 const UdpPort = require('./UdpPort');
 const FlightV3 = require('./Boards/FlightV3');
-const Ground = require('./Boards/Ground')
+const Ground = require('./Boards/Ground');
 const DAQ = require('./Boards/DAQ');
-const DAQV3 = require('./Boards/DAQV3');
 const ActuatorController = require('./Boards/ActuatorController');
 const InfluxDB = require('./InfluxDB');
 
@@ -207,9 +204,9 @@ class App {
         acLinAct4Voltage: 'pressurantFillRBVvoltage',
         acLinAct4Current: 'pressurantFillRBVcurrent',
         
-        acLinAct5State: 'purgePrechillVentRBVstate',
-        acLinAct5Voltage: 'purgePrechillVentRBVvoltage',
-        acLinAct5Current: 'purgePrechillVentRBVcurrent',
+        acLinAct5State: null,
+        acLinAct5Voltage: null,
+        acLinAct5Current: null,
         
         acLinAct6State: 'pressurantFillVentRBVstate',
         acLinAct6Voltage: 'pressurantFillVentRBVvoltage',
@@ -234,60 +231,9 @@ class App {
       () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
       () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
       (rate) => this.updateState(Date.now(), { actCtrlr1Kbps: rate }));
-    this.actCtrlr2 = new ActuatorController(this.port, '10.0.0.22', {
-        firmwareCommitHash: 'ac2CommitHash',
-
-        acBattVoltage: 'ac2BattVoltage',
-        acBattCurrent: 'ac2BattCurrent',
-        acSupply12Voltage: 'ac2Supply12Voltage',
-        acSupply12Current: 'ac2Supply12Current',
-        
-        acLinAct1State: 'loxTankVentRBVstate',
-        acLinAct1Voltage: 'loxTankVentRBVvoltage',
-        acLinAct1Current: 'loxTankVentRBVcurrent',
-
-        acLinAct2State: null,
-        acLinAct2Voltage: null,
-        acLinAct2Current: null,
-
-        acLinAct3State: 'fuelTankVentRBVstate',
-        acLinAct3Voltage: 'fuelTankVentRBVvoltage',
-        acLinAct3Current: 'fuelTankVentRBVcurrent',
-
-        acLinAct4State: 'fuelPrechillRBVstate',
-        acLinAct4Voltage: 'fuelPrechillRBVvoltage',
-        acLinAct4Current: 'fuelPrechillRBVcurrent',
-
-        acLinAct5State: 'purgeFlowRBVstate',
-        acLinAct5Voltage: 'purgeFlowRBVvoltage',
-        acLinAct5Current: 'purgeFlowRBVcurrent',
-
-        acLinAct6State: 'prechillFlowRBVstate',
-        acLinAct6Voltage: 'prechillFlowRBVvoltage',
-        acLinAct6Current: 'prechillFlowRBVcurrent',
-
-        acLinAct7State: null,
-        acLinAct7Voltage: null,
-        acLinAct7Current: null,
-
-        acHeater1Voltage: null,
-        acHeater1Current: null,
-
-        acHeater2Voltage: null,
-        acHeater2Current: null,
-
-        acHeater3Voltage: null,
-        acHeater3Current: null,
-
-        acHeater4Voltage: null,
-        acHeater4Current: null,
-      },
-      () => this.updateState(Date.now(), { actCtrlr2Connected: true }),
-      () => this.updateState(Date.now(), { actCtrlr2Connected: false }),
-      (rate) => this.updateState(Date.now(), { actCtrlr2Kbps: rate }));
 
     // Begin TouchBar
-    this.abort = this.addBackendFunc('abort', this.flightComputer.abort)
+    this.abort = this.addBackendFunc('abort', this.groundComputer.abort)
     // End TouchBar
 
     this.setupIPC();
@@ -414,15 +360,16 @@ class App {
 
     this.addIPC('send-custom-message', this.handleSendCustomMessage, false)
 
-    // Flight Computer
 
     this.addIPC('flight-connected', () => this.flightComputer.isConnected);
+    this.addIPC('ground-connected', () => this.groundComputer.isConnected);
     this.addIPC('daq1-connected', () => this.daq1.isConnected);
     this.addIPC('daq2-connected', () => this.daq2.isConnected);
     this.addIPC('daq3-connected', () => this.daq3.isConnected);
     this.addIPC('daq4-connected', () => this.daq4.isConnected);
     this.addIPC('actctrlr1-connected', () => this.actCtrlr1.isConnected);
-    this.addIPC('actctrlr2-connected', () => this.actCtrlr2.isConnected);
+
+    // Flight Computer
 
     this.addIPC('open-loxGemsValve', this.flightComputer.openloxGemsValve);
     this.addIPC('close-loxGemsValve', this.flightComputer.closeloxGemsValve);
@@ -436,40 +383,38 @@ class App {
     this.addIPC('start-toggleFuelGemsValve', this.flightComputer.startToggleFuelGemsValve);
     this.addIPC('stop-toggleFuelGemsValve', this.flightComputer.stopToggleFuelGemsValve);
 
-    this.addIPC('open-armValve', this.flightComputer.openarmValve);
-    this.addIPC('close-armValve', this.flightComputer.closearmValve);
-
-    this.addIPC('activate-igniter', this.flightComputer.activateIgniter);
-    this.addIPC('deactivate-igniter', this.flightComputer.deactivateIgniter);
-
-    this.addIPC('open-loxMainValve', this.flightComputer.openloxMainValve);
-    this.addIPC('close-loxMainValve', this.flightComputer.closeloxMainValve);
-
-    this.addIPC('open-fuelMainValve', this.flightComputer.openfuelMainValve);
-    this.addIPC('close-fuelMainValve', this.flightComputer.closefuelMainValve);
-
-    this.addIPC('activate-loxTankBottomHtr', this.flightComputer.activateLoxTankBottomHtr);
-    this.addIPC('deactivate-loxTankBottomHtr', this.flightComputer.deactivateLoxTankBottomHtr);
-
-    this.addIPC('activate-loxTankMidHtr', this.flightComputer.activateLoxTankMidHtr);
-    this.addIPC('deactivate-loxTankMidHtr', this.flightComputer.deactivateLoxTankMidHtr);
-
-    this.addIPC('activate-loxTankTopHtr', this.flightComputer.activateLoxTankTopHtr);
-    this.addIPC('deactivate-loxTankTopHtr', this.flightComputer.deactivateLoxTankTopHtr);
-
-    this.addIPC('beginFlow', this.flightComputer.beginFlow);
-    this.addIPC('abort', this.flightComputer.abort);
+    this.addIPC('open-pressurantFlowRBV', this.flightComputer.openPressFlowRBV);
+    this.addIPC('close-pressurantFlowRBV', this.flightComputer.closePressFlowRBV);
+    this.addIPC('time-pressurantFlowRBV', (e, val) => this.flightComputer.pressFlowRBVms(val));
 
     this.addIPC('enable-fastReadRate', this.flightComputer.enableFastReadRate);
     this.addIPC('disable-fastReadRate', this.flightComputer.disableFastReadRate);
 
-    this.addIPC('enable-igniter', this.flightComputer.enableIgniter);
-    this.addIPC('disable-igniter', this.flightComputer.disableIgniter);
+    // Ground Computer
 
+    this.addIPC('open-armValve', this.groundComputer.openarmValve);
+    this.addIPC('close-armValve', this.groundComputer.closearmValve);
 
-    // DAQ 1
+    this.addIPC('activate-igniter', this.groundComputer.activateIgniter);
+    this.addIPC('deactivate-igniter', this.groundComputer.deactivateIgniter);
 
-    // DAQ 2
+    this.addIPC('open-loxMainValve', this.groundComputer.openloxMainValve);
+    this.addIPC('close-loxMainValve', this.groundComputer.closeloxMainValve);
+
+    this.addIPC('open-fuelMainValve', this.groundComputer.openfuelMainValve);
+    this.addIPC('close-fuelMainValve', this.groundComputer.closefuelMainValve);
+
+    this.addIPC('open-loxMainValveVent', this.groundComputer.openloxMainValveVent);
+    this.addIPC('close-loxMainValveVent', this.groundComputer.closeloxMainValveVent);
+
+    this.addIPC('open-fuelMainValveVent', this.groundComputer.openfuelMainValveVent);
+    this.addIPC('close-fuelMainValveVent', this.groundComputer.closefuelMainValveVent);
+
+    this.addIPC('beginFlow', this.groundComputer.beginFlow);
+    this.addIPC('abort', this.groundComputer.abort);
+
+    this.addIPC('enable-igniter', this.groundComputer.enableIgniter);
+    this.addIPC('disable-igniter', this.groundComputer.disableIgniter);
 
 
     // Actuator Controller 1
@@ -477,53 +422,17 @@ class App {
     this.addIPC('close-loxFillRBV', this.actCtrlr1.closeActCh0);
     this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
 
-    this.addIPC('open-loxTankVentRBV', this.actCtrlr2.openActCh0);
-    this.addIPC('close-loxTankVentRBV', this.actCtrlr2.closeActCh0);
-    this.addIPC('time-loxTankVentRBV', (e, val) => this.actCtrlr2.actCh0ms(val));
-
-    this.addIPC('open-loxPrechillRBV', this.actCtrlr1.openActCh2);
-    this.addIPC('close-loxPrechillRBV', this.actCtrlr1.closeActCh2);
-    this.addIPC('time-loxPrechillRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
-
-    this.addIPC('open-purgePrechillVentRBV', this.actCtrlr1.openActCh4);
-    this.addIPC('close-purgePrechillVentRBV', this.actCtrlr1.closeActCh4);
-    this.addIPC('time-purgePrechillVentRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
+    this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
+    this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
+    this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
     this.addIPC('open-pressurantFillRBV', this.actCtrlr1.openActCh3);
     this.addIPC('close-pressurantFillRBV', this.actCtrlr1.closeActCh3);
     this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
 
-    this.addIPC('open-pressurantFillVentRBV', this.actCtrlr1.openActCh5);
-    this.addIPC('close-pressurantFillVentRBV', this.actCtrlr1.closeActCh5);
-    this.addIPC('time-pressurantFillVentRBV', (e, val) => this.actCtrlr1.actCh5ms(val));
-
-    
-
-    // Actuator Controller 2
-    // TODO: swap RBV wiring so code mapping doesn't have to be swapped
-    this.addIPC('open-pressurantFlowRBV', this.flightComputer.openPressFlowRBV);
-    this.addIPC('close-pressurantFlowRBV', this.flightComputer.closePressFlowRBV);
-    this.addIPC('time-pressurantFlowRBV', (e, val) => this.flightComputer.pressFlowRBVms(val));
-
-    this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
-    this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
-    this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
-
-    this.addIPC('open-fuelTankVentRBV', this.actCtrlr2.openActCh2);
-    this.addIPC('close-fuelTankVentRBV', this.actCtrlr2.closeActCh2);
-    this.addIPC('time-fuelTankVentRBV', (e, val) => this.actCtrlr2.actCh2ms(val));
-
-    this.addIPC('open-fuelPrechillRBV', this.actCtrlr2.openActCh3);
-    this.addIPC('close-fuelPrechillRBV', this.actCtrlr2.closeActCh3);
-    this.addIPC('time-fuelPrechillRBV', (e, val) => this.actCtrlr2.actCh3ms(val));
-
-    this.addIPC('open-purgeFlowRBV', this.actCtrlr2.openActCh4);
-    this.addIPC('close-purgeFlowRBV', this.actCtrlr2.closeActCh4);
-    this.addIPC('time-purgeFlowRBV', (e, val) => this.actCtrlr2.actCh4ms(val));
-
-    this.addIPC('open-prechillFlowRBV', this.actCtrlr2.openActCh5);
-    this.addIPC('close-prechillFlowRBV', this.actCtrlr2.closeActCh5);
-    this.addIPC('time-prechillFlowRBV', (e, val) => this.actCtrlr2.actCh5ms(val));
+    this.addIPC('open-pressurantFillVentRBV', this.actCtrlr1.openActCh2);
+    this.addIPC('close-pressurantFillVentRBV', this.actCtrlr1.closeActCh2);
+    this.addIPC('time-pressurantFillVentRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
 
   }
 }

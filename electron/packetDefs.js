@@ -13,7 +13,7 @@ const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES
  */
 /** @type {Object.<Number,Array.<[String,Parser,Interpolator|null]>|Array.<[String,Parser]>>} */
 const INBOUND_PACKET_DEFS = {
-  // [1..59] Sent by Flight Computer
+  // [1..59] Sent by Ground Computer
   0: [
     ['firmwareCommitHash', asASCIIString],
   ],

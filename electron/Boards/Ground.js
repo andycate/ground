@@ -17,24 +17,19 @@ class Ground extends Board {
     this.openfuelMainValve = this.openfuelMainValve.bind(this);
     this.closefuelMainValve = this.closefuelMainValve.bind(this);
 
-    this.activateLoxTankBottomHtr = this.activateLoxTankBottomHtr.bind(this);
-    this.deactivateLoxTankBottomHtr = this.deactivateLoxTankBottomHtr.bind(this);
+    this.openloxMainValveVent = this.openloxMainValveVent.bind(this);
+    this.closeloxMainValveVent = this.closeloxMainValveVent.bind(this);
 
-    this.activateLoxTankMidHtr = this.activateLoxTankMidHtr.bind(this);
-    this.deactivateLoxTankMidHtr = this.deactivateLoxTankMidHtr.bind(this);
-
-    this.activateLoxTankTopHtr = this.activateLoxTankTopHtr.bind(this);
-    this.deactivateLoxTankTopHtr = this.deactivateLoxTankTopHtr.bind(this);
+    this.openfuelMainValveVent = this.openfuelMainValveVent.bind(this);
+    this.closefuelMainValveVent = this.closefuelMainValveVent.bind(this);
 
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
 
-    this.enableFastReadRate = this.enableFastReadRate.bind(this);
-    this.disableFastReadRate = this.disableFastReadRate.bind(this);
-
     this.enableIgniter = this.enableIgniter.bind(this);
     this.disableIgniter = this.disableIgniter.bind(this);
   }
+
 
   openarmValve() { return this.sendPacket(130, [1]); }
   closearmValve() { return this.sendPacket(130, [0]); }
@@ -48,20 +43,14 @@ class Ground extends Board {
   openfuelMainValve() { return this.sendPacket(133, [1]); }
   closefuelMainValve() { return this.sendPacket(133, [0]); }
 
-  activateLoxTankBottomHtr() { return this.sendPacket(135, [1]); }
-  deactivateLoxTankBottomHtr() { return this.sendPacket(135, [0]); }
+  openloxMainValveVent() { return this.sendPacket(132, [1]); }
+  closeloxMainValveVent() { return this.sendPacket(132, [0]); }
 
-  activateLoxTankMidHtr() { return this.sendPacket(136, [1]); }
-  deactivateLoxTankMidHtr() { return this.sendPacket(136, [0]); }
-
-  activateLoxTankTopHtr() { return this.sendPacket(137, [1]); }
-  deactivateLoxTankTopHtr() { return this.sendPacket(137, [0]); }
+  openfuelMainValveVent() { return this.sendPacket(133, [1]); }
+  closefuelMainValveVent() { return this.sendPacket(133, [0]); }
 
   beginFlow() { return this.sendPacket(150, []); }
   abort() { return this.sendPacket(151, []); }
-
-  enableFastReadRate() { return this.sendPacket(140, [1]); }
-  disableFastReadRate() { return this.sendPacket(140, [0]); }
 
   enableIgniter() { return this.sendPacket(138, [1]); }
   disableIgniter() { return this.sendPacket(138, [0]); }

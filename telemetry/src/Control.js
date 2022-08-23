@@ -162,26 +162,6 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openloxTankVentRBV}
-                      close={comms.closeloxTankVentRBV}
-                      time={comms.timeloxTankVentRBV}
-                      field='loxTankVentRBVstate'
-                      text='LOX Tank Vent RBV'
-                    />
-                  </Grid>
-                  <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openfuelTankVentRBV}
-                      close={comms.closefuelTankVentRBV}
-                      time={comms.timefuelTankVentRBV}
-                      field='fuelTankVentRBVstate'
-                      text='Fuel Tank Vent RBV'
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
                     <ButtonGroup
                       open={comms.openarmValve}
                       close={comms.closearmValve}
@@ -223,16 +203,24 @@ class Control extends Component {
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  {/* <Grid item={1} xs={6}>
-                    <ButtonGroupFlow
-                      open={comms.extendIgniterInserter}
-                      close={comms.retractIgniterInserter}
-                      field='igniterInserterState' // change this?
-                      text='Igniter Inserter'
-                      successText='Extend'
-                      failText='Retract'
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openloxMainValveVent}
+                      close={comms.closeloxMainValveVent}
+                      field='loxMainValveVentState'
+                      text='LOX Main Valve Vent'
                     />
-                  </Grid> */}
+                  </Grid>
+                  <Grid item={1} xs={6}>
+                    <ButtonGroup
+                      open={comms.openfuelMainValveVent}
+                      close={comms.closefuelMainValveVent}
+                      field='fuelMainValveVentState'
+                      text='Prop Main Valve Vent'
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroupFlow
                       open={comms.activateIgniter}
@@ -253,30 +241,10 @@ class Control extends Component {
                     />
                   </Grid>
                 </Grid>
-                {/* <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={12}>
-                    <ButtonGroupFlow
-                      open={comms.beginFlowAll}
-                      close={comms.endFlow}
-                      field='flowState' // change this?
-                      text='Begin Flow'
-                      disabled={!this.state.HPS_en}
-                    />
-                  </Grid>
-                </Grid> */}
               </Grid>
               {/* START OF SECOND BUTTON COLUMN */}
               <Grid item={1} xs={4} className={classes.item}>
                 <Grid container={true} spacing={1}>
-                  <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openPurgeFlowRBV}
-                      close={comms.closePurgeFlowRBV}
-                      time={comms.timePurgeFlowRBV}
-                      field='purgeFlowRBVstate'
-                      text='Purge Flow RBV'
-                    />
-                  </Grid>
                   <Grid item={1} xs={6}>
                     <ButtonGroupRBVTimed
                       open={comms.openPressurantFillVentRBV}
@@ -289,38 +257,11 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openPrechillFlowRBV}
-                      close={comms.closePrechillFlowRBV}
-                      time={comms.timePrechillFlowRBV}
-                      field='prechillFlowRBVstate'
-                      text='Prechill Flow RBV'
-                    />
-                  </Grid>
-                  <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openfuelPrechillRBV}
-                      close={comms.closefuelPrechillRBV}
-                      time={comms.timefuelPrechillRBV}
-                      field='fuelPrechillRBVstate'
-                      text='Fuel Prechill RBV'
-                    />
-                  </Grid>
-                  <Grid item={1} xs={6}>
                     <SwitchButton
                       open={comms.enableIgniter}
                       close={comms.disableIgniter}
                       field='_'
                       text='Igniter Enable'
-                    />
-                  </Grid>
-                  <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openPurgePrechillVentRBV}
-                      close={comms.closePurgePrechillVentRBV}
-                      time={comms.timePurgePrechillVentRBV}
-                      field='purgePrechillVentRBVstate'
-                      text='Purge Prechill Vent RBV'
                     />
                   </Grid>
                 </Grid>
@@ -332,14 +273,6 @@ class Control extends Component {
                       isRed
                     />
                   </Grid>
-                </Grid>
-                <Grid container={true} spacing={1}>
-                  {/* <Grid item={1} xs={12}>
-                    <BigButton
-                      onClick={comms.hold}
-                      text='Hold'
-                    />
-                  </Grid> */}
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
@@ -363,26 +296,8 @@ class Control extends Component {
                       text='N2 Fill RBV'
                     />
                   </Grid>
-                  {/* <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openPressurantFlowRBV}
-                      close={comms.closePressurantFlowRBV}
-                      time={comms.timePressurantFlowRBV}
-                      field='pressurantFlowRBVstate'
-                      text='Pressurant Flow RBV'
-                    />
-                  </Grid> */}
                 </Grid>
                 <Grid container={true} spacing={1}>
-                  {/* <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openloxTankVentRBV}
-                      close={comms.closeloxTankVentRBV}
-                      time={comms.timeloxTankVentRBV}
-                      field='loxTankVentRBVstate'
-                      text='LOX Tank Vent RBV'
-                    />
-                  </Grid> */}
                   <Grid item={1} xs={12}>
                     <ButtonGroupRBVTimed
                       open={comms.openloxFillRBV}
@@ -393,38 +308,8 @@ class Control extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid container={true} spacing={1}>
-                  {/* <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openLOxVentRBV}
-                      close={comms.closeLOxVentRBV}
-                      time={comms.timeLOxVentRBV}
-                      field='LOxVentRBVstate'
-                      text='LOX Vent RBV'
-                    />
-                  </Grid>
-                  <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openLOxRQD}
-                      close={comms.closeLOxRQD}
-                      time={comms.timeLOxRQD}
-                      field='LOxRQD1state'
-                      text='LOX RQD'
-                      noClose
-                    />
-                  </Grid> */}
-                </Grid>
 
                 <Grid container={true} spacing={1}>
-                  {/* <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openfuelTankVentRBV}
-                      close={comms.closefuelTankVentRBV}
-                      time={comms.timefuelTankVentRBV}
-                      field='fuelTankVentRBVstate'
-                      text='Prop Tank Vent RBV'
-                    />
-                  </Grid> */}
                   <Grid item={1} xs={12}>
                     <ButtonGroupRBVTimed
                       open={comms.openfuelFillRBV}
@@ -445,27 +330,6 @@ class Control extends Component {
                     />
                   </Grid>
                 </Grid>
-                <Grid container={true} spacing={1}>
-                  {/* <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openPropaneVentRBV}
-                      close={comms.closePropaneVentRBV}
-                      time={comms.timePropaneVentRBV}
-                      field='propaneVentRBVstate'
-                      text='Prop Vent RBV'
-                    />
-                  </Grid>
-                  <Grid item={1} xs={6}>
-                    <ButtonGroupRBVTimed
-                      open={comms.openPropaneRQD}
-                      close={comms.closePropaneRQD}
-                      time={comms.timePropaneRQD}
-                      field='PropaneRQD1state'
-                      text='Propane RQD'
-                      noClose
-                    />
-                  </Grid> */}
-                </Grid>
               </Grid>
               {/* START OF PROCEDURE COLUMN */}
               <Grid item={1} xs={2} className={classes.item}>
@@ -473,37 +337,8 @@ class Control extends Component {
                   <CountdownTimer setStartCountdownCallback={this.setStartCountdownCallback} setStopCountdownCallback={this.setStopCountdownCallback}/>
                 </Grid>
               </Grid>
-
-              {/* <Grid item={1} xs={3} className={classes.item}>
-                <Procedures />
-              </Grid> */}
             </Grid>
             <Grid container={true} spacing={1}>
-              <Grid item={1} xs={3} className={classes.item}>
-                <Grid container spacing={1} direction='column'>
-                  <Grid item>
-                    <ButtonGroupHeater
-                      text='LOX Tank Top Heater'
-                      activate={comms.activateLoxTankTopHtr}
-                      deactivate={comms.deactivateLoxTankTopHtr}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroupHeater
-                      text='LOX Tank Middle Heater'
-                      activate={comms.activateLoxTankMidHtr}
-                      deactivate={comms.deactivateLoxTankMidHtr}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroupHeater
-                      text='LOX Tank Bottom Heater'
-                      activate={comms.activateLoxTankBottomHtr}
-                      deactivate={comms.deactivateLoxTankBottomHtr}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
               <Grid item={1} xs={3} className={classes.item}>
                 <Grid container spacing={1} direction='column'>
                   <Grid item>
@@ -545,22 +380,7 @@ class Control extends Component {
                 </Grid>
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
-                <Grid container spacing={1} direction='column'>
-                  <Grid item>
-                    <ButtonGroup
-                      open={comms.activateLoxTankMidHtr}
-                      close={comms.deactivateLoxTankMidHtr}
-                      text='Main Valve Vent'
-                    />
-                  </Grid>
-                  <Grid item>
-                    <ButtonGroup
-                      open={comms.activateLoxTankBottomHtr}
-                      close={comms.deactivateLoxTankBottomHtr}
-                      text='RQD'
-                    />
-                  </Grid>
-                </Grid>
+            
               </Grid>
               <Grid item={1} xs={3} className={classes.item}>
                 

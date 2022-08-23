@@ -36,7 +36,6 @@ class Navbar extends Component {
       daq3Connected: false,
       daq4Connected: false,
       actCtrlr1Connected: false,
-      actCtrlr2Connected: false,
 
       flightKbps: 0,
       groundKbps: 0, 
@@ -45,7 +44,6 @@ class Navbar extends Component {
       daq3Kbps: 0,
       daq4Kbps: 0,
       actCtrlr1Kbps: 0,
-      actCtrlr2Kbps: 0,
     };
 
     this.updateFlightConnected = this.updateFlightConnected.bind(this);
@@ -55,7 +53,6 @@ class Navbar extends Component {
     this.updateDaq3Connected = this.updateDaq3Connected.bind(this);
     this.updateDaq4Connected = this.updateDaq4Connected.bind(this);
     this.updateActCtrlr1Connected = this.updateActCtrlr1Connected.bind(this);
-    this.updateActCtrlr2Connected = this.updateActCtrlr2Connected.bind(this);
 
     this.updateFlightKbps = this.updateFlightKbps.bind(this);
     this.updateGroundKbps = this.updateGroundKbps.bind(this);
@@ -64,7 +61,6 @@ class Navbar extends Component {
     this.updateDaq3Kbps = this.updateDaq3Kbps.bind(this);
     this.updateDaq4Kbps = this.updateDaq4Kbps.bind(this);
     this.updateActCtrlr1Kbps = this.updateActCtrlr1Kbps.bind(this);
-    this.updateActCtrlr2Kbps = this.updateActCtrlr2Kbps.bind(this);
   }
 
   updateFlightConnected(timestamp, value) { this.setState({ flightConnected: value }); }
@@ -74,7 +70,6 @@ class Navbar extends Component {
   updateDaq3Connected(timestamp, value) { this.setState({ daq3Connected: value }); }
   updateDaq4Connected(timestamp, value) { this.setState({ daq4Connected: value }); }
   updateActCtrlr1Connected(timestamp, value) { this.setState({ actCtrlr1Connected: value }); }
-  updateActCtrlr2Connected(timestamp, value) { this.setState({ actCtrlr2Connected: value }); }
 
   updateFlightKbps(timestamp, value) { this.setState({ flightKbps: value }); }
   updateGroundKbps(timestamp, value) { this.setState({ groundKbps: value }); }
@@ -83,7 +78,6 @@ class Navbar extends Component {
   updateDaq3Kbps(timestamp, value) { this.setState({ daq3Kbps: value }); }
   updateDaq4Kbps(timestamp, value) { this.setState({ daq4Kbps: value }); }
   updateActCtrlr1Kbps(timestamp, value) { this.setState({ actCtrlr1Kbps: value }); }
-  updateActCtrlr2Kbps(timestamp, value) { this.setState({ actCtrlr2Kbps: value }); }
 
   async componentDidMount() {
     comms.addSubscriber('flightConnected', this.updateFlightConnected);
@@ -93,7 +87,6 @@ class Navbar extends Component {
     comms.addSubscriber('daq3Connected', this.updateDaq3Connected);
     comms.addSubscriber('daq4Connected', this.updateDaq4Connected);
     comms.addSubscriber('actCtrlr1Connected', this.updateActCtrlr1Connected);
-    comms.addSubscriber('actCtrlr2Connected', this.updateActCtrlr2Connected);
 
     comms.addSubscriber('flightKbps', this.updateFlightKbps);
     comms.addSubscriber('groundKbps', this.updateGroundKbps);
@@ -102,14 +95,15 @@ class Navbar extends Component {
     comms.addSubscriber('daq3Kbps', this.updateDaq3Kbps);
     comms.addSubscriber('daq4Kbps', this.updateDaq4Kbps);
     comms.addSubscriber('actCtrlr1Kbps', this.updateActCtrlr1Kbps);
-    comms.addSubscriber('actCtrlr2Kbps', this.updateActCtrlr2Kbps);
 
     this.setState({
       flightConnected: false,
       groundConnected: false,
       daq1Connected: false,
+      daq2Connected: false,
+      daq3Connected: false,
+      daq4Connected: false,
       actCtrlr1Connected: false,
-      actCtrlr2Connected: false,
     });
   }
 
@@ -121,7 +115,6 @@ class Navbar extends Component {
     comms.removeSubscriber('daq3Connected', this.updateDaq3Connected);
     comms.removeSubscriber('daq4Connected', this.updateDaq4Connected);
     comms.removeSubscriber('actCtrlr1Connected', this.updateActCtrlr1Connected);
-    comms.removeSubscriber('actCtrlr2Connected', this.updateActCtrlr2Connected);
 
     comms.removeSubscriber('flightKbps', this.updateFlightKbps);
     comms.removeSubscriber('groundKbps', this.updateGroundKbps);
@@ -130,7 +123,6 @@ class Navbar extends Component {
     comms.removeSubscriber('daq3Kbps', this.updateDaq3Kbps);
     comms.removeSubscriber('daq4Kbps', this.updateDaq4Kbps);
     comms.removeSubscriber('actCtrlr1Kbps', this.updateActCtrlr1Kbps);
-    comms.removeSubscriber('actCtrlr2Kbps', this.updateActCtrlr2Kbps);
   }
 
   render() {
@@ -145,15 +137,13 @@ class Navbar extends Component {
             daq3Connected,
             daq4Connected,
             actCtrlr1Connected,
-            actCtrlr2Connected,
             flightKbps,
             groundKbps, 
             daq1Kbps,
             daq2Kbps,
             daq3Kbps,
             daq4Kbps,
-            actCtrlr1Kbps,
-            actCtrlr2Kbps } = this.state;
+            actCtrlr1Kbps } = this.state;
 
     return (
       <AppBar position="static" color="default" elevation={0} className={classes.bar}>
@@ -166,7 +156,6 @@ class Navbar extends Component {
           <Button className={daq3Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ3 - {daq3Kbps} kbps</Button>
           <Button className={daq4Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ4 - {daq4Kbps} kbps</Button>
           <Button className={actCtrlr1Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr1 - {actCtrlr1Kbps} kbps</Button>
-          <Button className={actCtrlr2Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr2 - {actCtrlr2Kbps} kbps</Button>
           <div className={classes.spacer}/>
           <Tooltip title='Toggle light/dark theme'>
             <IconButton
