@@ -199,9 +199,9 @@ class App {
         acLinAct2Voltage: 'fuelFillRBVvoltage',
         acLinAct2Current: 'fuelFillRBVcurrent',
         
-        acLinAct3State: 'pressurantFlowRBVstate',
-        acLinAct3Voltage: 'pressurantFlowRBVvoltage',
-        acLinAct3Current: 'pressurantFlowRBVcurrent',
+        acLinAct3State: null,
+        acLinAct3Voltage: null,
+        acLinAct3Current: null,
 
         acLinAct4State: 'pressurantFillRBVstate',
         acLinAct4Voltage: 'pressurantFillRBVvoltage',
@@ -501,9 +501,9 @@ class App {
 
     // Actuator Controller 2
     // TODO: swap RBV wiring so code mapping doesn't have to be swapped
-    this.addIPC('open-pressurantFlowRBV', this.actCtrlr1.openActCh2);
-    this.addIPC('close-pressurantFlowRBV', this.actCtrlr1.closeActCh2);
-    this.addIPC('time-pressurantFlowRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
+    this.addIPC('open-pressurantFlowRBV', this.flightComputer.openPressFlowRBV);
+    this.addIPC('close-pressurantFlowRBV', this.flightComputer.closePressFlowRBV);
+    this.addIPC('time-pressurantFlowRBV', (e, val) => this.flightComputer.pressFlowRBVms(val));
 
     this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
     this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);

@@ -32,9 +32,6 @@ const INBOUND_PACKET_DEFS = {
     ['flightSupply8Current', asFloat],
     ['flightSupply8Power', asFloat]
   ],
-  9: [
-    ['pressurantPTROC', asFloat],
-  ],
   // [10..59] Sent by Flight Computer
   10: [
     ['loxTankPT', asFloat],
@@ -104,6 +101,12 @@ const INBOUND_PACKET_DEFS = {
     ['igniterEnableVoltage', asFloat],
     ['igniterEnableCurrent', asFloat],
   ],
+
+  39: [
+    ['pressurantFlowRBVstate', asUInt8],
+    ['pressurantFlowRBVvoltage', asFloat],
+    ['pressurantFlowRBVcurrent', asFloat],
+  ], 
 
   40: [
     ['armValveState', asUInt8],
@@ -292,6 +295,7 @@ const OUTBOUND_PACKET_DEFS = {
   150: [],
   151: [],
   152: [],
+  169: [UINT8, UINT32], 
 
   // [170..199] Sent to Actuator Controller
   170: [UINT8, UINT32],
