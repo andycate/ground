@@ -17,11 +17,11 @@ class Ground extends Board {
     this.openfuelMainValve = this.openfuelMainValve.bind(this);
     this.closefuelMainValve = this.closefuelMainValve.bind(this);
 
-    this.openloxMainValveVent = this.openloxMainValveVent.bind(this);
-    this.closeloxMainValveVent = this.closeloxMainValveVent.bind(this);
+    this.openMainValveVent = this.openMainValveVent.bind(this);
+    this.closeMainValveVent = this.closeMainValveVent.bind(this);
 
-    this.openfuelMainValveVent = this.openfuelMainValveVent.bind(this);
-    this.closefuelMainValveVent = this.closefuelMainValveVent.bind(this);
+    this.openPressRQD = this.openPressRQD.bind(this);
+    this.closePressRQD = this.closePressRQD.bind(this);
 
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
@@ -43,11 +43,11 @@ class Ground extends Board {
   openfuelMainValve() { return this.sendPacket(133, [1]); }
   closefuelMainValve() { return this.sendPacket(133, [0]); }
 
-  openloxMainValveVent() { return this.sendPacket(132, [1]); }
-  closeloxMainValveVent() { return this.sendPacket(132, [0]); }
+  openMainValveVent() { return this.sendPacket(136, [1]); }
+  closeMainValveVent() { return this.sendPacket(136, [0]); }
 
-  openfuelMainValveVent() { return this.sendPacket(133, [1]); }
-  closefuelMainValveVent() { return this.sendPacket(133, [0]); }
+  openPressRQD() { return this.sendPacket(135, [1]); }
+  closePressRQD() { return this.sendPacket(135, [0]); }
 
   beginFlow() { return this.sendPacket(150, []); }
   abort() { return this.sendPacket(151, []); }

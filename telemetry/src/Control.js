@@ -205,18 +205,18 @@ class Control extends Component {
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
                     <ButtonGroup
-                      open={comms.openloxMainValveVent}
-                      close={comms.closeloxMainValveVent}
-                      field='loxMainValveVentState'
-                      text='LOX Main Valve Vent'
+                      open={comms.openMainValveVent}
+                      close={comms.closeMainValveVent}
+                      field='mainValveVentState'
+                      text='Main Valve Vent'
                     />
                   </Grid>
                   <Grid item={1} xs={6}>
                     <ButtonGroup
-                      open={comms.openfuelMainValveVent}
-                      close={comms.closefuelMainValveVent}
-                      field='fuelMainValveVentState'
-                      text='Prop Main Valve Vent'
+                      open={comms.openPressRQD}
+                      close={comms.closePressRQD}
+                      field='pressRQDState'
+                      text='Press RQD'
                     />
                   </Grid>
                 </Grid>

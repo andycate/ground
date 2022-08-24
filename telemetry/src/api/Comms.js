@@ -62,11 +62,11 @@ class Comms {
     this.openfuelMainValve = this.openfuelMainValve.bind(this);
     this.closefuelMainValve = this.closefuelMainValve.bind(this);
 
-    this.openloxMainValveVent = this.openloxMainValveVent.bind(this);
-    this.closeloxMainValveVent = this.closeloxMainValveVent.bind(this);
+    this.openMainValveVent = this.openMainValveVent.bind(this);
+    this.closeMainValveVent = this.closeMainValveVent.bind(this);
 
-    this.openfuelMainValveVent = this.openfuelMainValveVent.bind(this);
-    this.closefuelMainValveVent = this.closefuelMainValveVent.bind(this);
+    this.openPressRQD = this.openPressRQD.bind(this);
+    this.closePressRQD = this.closePressRQD.bind(this);
 
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
@@ -268,11 +268,11 @@ class Comms {
   async openfuelMainValve() { return await this.ipc.invoke('open-fuelMainValve'); }
   async closefuelMainValve() { return await this.ipc.invoke('close-fuelMainValve'); }
 
-  async openloxMainValveVent() { return await this.ipc.invoke('open-loxMainValveVent'); }
-  async closeloxMainValveVent() { return await this.ipc.invoke('close-loxMainValveVent'); }
+  async openMainValveVent() { return await this.ipc.invoke('open-mainValveVent'); }
+  async closeMainValveVent() { return await this.ipc.invoke('close-mainValveVent'); }
 
-  async openfuelMainValveVent() { return await this.ipc.invoke('open-fuelMainValveVent'); }
-  async closefuelMainValveVent() { return await this.ipc.invoke('close-fuelMainValveVent'); }
+  async openPressRQD() { return await this.ipc.invoke('open-pressRQD'); }
+  async closePressRQD() { return await this.ipc.invoke('close-pressRQD'); }
 
   async activateIgniter() { return await this.ipc.invoke('activate-igniter'); }
   async deactivateIgniter() { return await this.ipc.invoke('deactivate-igniter'); }

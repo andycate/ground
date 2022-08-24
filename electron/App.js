@@ -404,11 +404,11 @@ class App {
     this.addIPC('open-fuelMainValve', this.groundComputer.openfuelMainValve);
     this.addIPC('close-fuelMainValve', this.groundComputer.closefuelMainValve);
 
-    this.addIPC('open-loxMainValveVent', this.groundComputer.openloxMainValveVent);
-    this.addIPC('close-loxMainValveVent', this.groundComputer.closeloxMainValveVent);
+    this.addIPC('open-mainValveVent', this.groundComputer.openMainValveVent);
+    this.addIPC('close-mainValveVent', this.groundComputer.closeMainValveVent);
 
-    this.addIPC('open-fuelMainValveVent', this.groundComputer.openfuelMainValveVent);
-    this.addIPC('close-fuelMainValveVent', this.groundComputer.closefuelMainValveVent);
+    this.addIPC('open-pressRQD', this.groundComputer.openPressRQD);
+    this.addIPC('close-pressRQD', this.groundComputer.closePressRQD);
 
     this.addIPC('beginFlow', this.groundComputer.beginFlow);
     this.addIPC('abort', this.groundComputer.abort);
