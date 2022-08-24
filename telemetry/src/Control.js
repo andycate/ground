@@ -80,7 +80,7 @@ class Control extends Component {
     // comms.closefuelPrechillRBV();
     // comms.closePurgeFlowRBV();
 
-    setTimeout(comms.beginFlow, 4000);
+    this.sendFlowTimeout = setTimeout(comms.beginFlow, 4000);
   }
 
   abortAll() {
@@ -91,8 +91,9 @@ class Control extends Component {
     // comms.openPurgeFlowRBV();
     // comms.openloxPrechillRBV();
     // comms.openfuelPrechillRBV();
-
+    clearTimeout(this.sendFlowTimeout);
     this.stopCountdown();
+    
   }
 
   setStartCountdownCallback(callback) {
