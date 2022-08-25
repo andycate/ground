@@ -97,13 +97,13 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'FC',
-                    field: 'flightBattVoltage',
+                    field: 'flightSupplyVoltage',
                     unit: 'V',
                     decimals: 1
                   }}
                   field2={{
-                    name: 'AC 1',
-                    field: '_',
+                    name: 'GC',
+                    field: 'groundSupplyVoltage',
                     unit: 'V',
                     decimals: 1
                   }}
@@ -165,13 +165,13 @@ class Aux1 extends Component {
                 <SixValueSquare
                   field1={{
                     name: 'FC',
-                    field: 'flightBattCurrent',
+                    field: 'flightSupplyCurrent',
                     unit: 'A',
                     decimals: 1
                   }}
                   field2={{
-                    name: 'AC 1',
-                    field: '_',
+                    name: 'GC',
+                    field: 'groundSupplyCurrent',
                     unit: 'A',
                     decimals: 1
                   }}
@@ -230,7 +230,7 @@ class Aux1 extends Component {
                 />
               </Grid>
               <Grid item={1} xs={4} className={classes.item}>
-                <Graph
+                {/* <Graph
                   fields={
                     [
                       {
@@ -245,7 +245,7 @@ class Aux1 extends Component {
                       // },
                     ]
                   }
-                />
+                /> */}
               </Grid>
               <Grid item={1} xs={8} className={classes.item}>
                 <Graph

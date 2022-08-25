@@ -92,7 +92,7 @@ class Aux2 extends Component {
                   }}
                   field2={{
                     name: 'Igniter Arm',
-                    field: 'igniterArmCurrent',
+                    field: 'igniterEnableCurrent',
                     unit: 'A',
                     decimals: 2,
                     threshold: 0.05

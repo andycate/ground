@@ -143,13 +143,13 @@ class Main extends Component {
                     unit: 'PSI'
                   }}
                   field2={{
-                    name: 'LOX Expected Static',
-                    field: 'loxExpectedStatic',
+                    name: '_',
+                    field: '_',
                     unit: 'PSI'
                   }}
                   field3={{
-                    name: 'Pressurant Temp',
-                    field: 'pressurantTemp',
+                    name: '_',
+                    field: '_',
                     unit: 'ºC'
                   }}
                   field4={{
@@ -158,15 +158,14 @@ class Main extends Component {
                     unit: 'PSI'
                   }}
                   field5={{
-                    name: 'Fuel Expected Static',
+                    name: '_',
                     field: '_',
                     unit: 'PSI'
                   }}
                   field6={{
-                    name: 'Δ PSI / 1 Second',
-                    field: 'pressurantPTROC',
-                    unit: 'PSI',
-                    decimals: 2
+                    name: '_',
+                    field: '_',
+                    unit: 'PSI'
                   }}
                 />
               </Grid>

@@ -35,6 +35,18 @@ class App {
       '10.0.0.42',
       {
         firmwareCommitHash: 'flightCommitHash',
+
+        supplyVoltage: 'flightSupplyVoltage',
+        supplyCurrent: 'flightSupplyCurrent',
+        supplyPower: 'flightSupplyPower',
+
+        supply12Voltage: 'flightSupply12Voltage',
+        supply12Current: 'flightSupply12Current',
+        supply12Power: 'flightSupply12Power',
+
+        supply8Voltage: 'flightSupply8Voltage',
+        supply8Current: 'flightSupply8Current',
+        supply8Power: 'flightSupply8Power',
       },
       () => this.updateState(Date.now(), { flightConnected: true }),
       () => this.updateState(Date.now(), { flightConnected: false }),
@@ -44,6 +56,18 @@ class App {
       '10.0.0.43',
       {
         firmwareCommitHash: 'groundCommitHash',
+
+        supplyVoltage: 'groundSupplyVoltage',
+        supplyCurrent: 'groundSupplyCurrent',
+        supplyPower: 'groundSupplyPower',
+
+        supply12Voltage: 'groundSupply12Voltage',
+        supply12Current: 'groundSupply12Current',
+        supply12Power: 'groundSupply12Power',
+
+        supply8Voltage: 'groundSupply8Voltage',
+        supply8Current: 'groundSupply8Current',
+        supply8Power: 'groundSupply8Power',
       },
       () => this.updateState(Date.now(), { groundConnected: true }),
       () => this.updateState(Date.now(), { groundConnected: false }),

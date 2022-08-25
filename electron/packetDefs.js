@@ -18,19 +18,19 @@ const INBOUND_PACKET_DEFS = {
     ['firmwareCommitHash', asASCIIString],
   ],
   1: [
-    ['flightBattVoltage', asFloat],
-    ['flightBattCurrent', asFloat],
-    ['flightBattPower', asFloat]
+    ['supplyVoltage', asFloat],
+    ['supplyCurrent', asFloat],
+    ['supplyPower', asFloat]
   ],
   2: [
-    ['flightSupply12Voltage', asFloat],
-    ['flightSupply12Current', asFloat],
-    ['flightSupply12Power', asFloat]
+    ['supply12Voltage', asFloat],
+    ['supply12Current', asFloat],
+    ['supply12Power', asFloat]
   ],
   3: [
-    ['flightSupply8Voltage', asFloat],
-    ['flightSupply8Current', asFloat],
-    ['flightSupply8Power', asFloat]
+    ['supply8Voltage', asFloat],
+    ['supply8Current', asFloat],
+    ['supply8Power', asFloat]
   ],
   // [10..59] Sent by Flight Computer
   10: [
@@ -43,17 +43,8 @@ const INBOUND_PACKET_DEFS = {
     ['fuelDomePT', asFloat]
   ],
 
-  20: [
-    ['engineTop1TC', asFloat],
-  ],
-  21: [
-    ['engineTop2TC', asFloat],
-  ],
-  22: [
-    ['engineBottom1TC', asFloat],
-  ],
-  23: [
-    ['engineBottom2TC', asFloat],
+  11: [
+    ['flightOCEvent', asUInt8]
   ],
 
   28: [
@@ -93,10 +84,6 @@ const INBOUND_PACKET_DEFS = {
     ['mainValveVentVoltage', asFloat],
     ['mainValveVentCurrent', asFloat],
   ],
-  37: [
-    ['loxTankTopHtrVoltage', asFloat],
-    ['loxTankTopHtrCurrent', asFloat],
-  ],
   38: [
     ['igniterEnableVoltage', asFloat],
     ['igniterEnableCurrent', asFloat],
@@ -121,13 +108,10 @@ const INBOUND_PACKET_DEFS = {
     ['fuelMainValveState', asUInt8],
   ],
   45: [
-    ['RQDState', asUInt8],
+    ['pressRQDState', asUInt8],
   ],
   46: [
     ['mainValveVentState', asUInt8],
-  ],
-  47: [
-    ['loxTankTopHtrState', asUInt8],
   ],
   48: [
     ['igniterEnableState', asUInt8],
