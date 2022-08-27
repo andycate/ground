@@ -47,6 +47,21 @@ const INBOUND_PACKET_DEFS = {
     ['flightOCEvent', asUInt8]
   ],
 
+
+  20: [
+    ['engineTC0', asFloat],
+  ],
+  21: [
+    ['engineTC1', asFloat],
+  ],
+  22: [
+    ['engineTC2', asFloat],
+  ],
+  23: [
+    ['engineTC3', asFloat],
+  ],
+
+
   28: [
     ['loxGemsVoltage', asFloat],
     ['loxGemsCurrent', asFloat],
@@ -222,16 +237,16 @@ const INBOUND_PACKET_DEFS = {
   ],
 
   110: [
-    ['daqTC1', asFloat],
+    ['daqTC0', asFloat],
   ],
   111: [
-    ['daqTC2', asFloat],
+    ['daqTC1', asFloat],
   ],
   112: [
-    ['daqTC3', asFloat],
+    ['daqTC2', asFloat],
   ],
   113: [
-    ['daqTC4', asFloat],
+    ['daqTC3', asFloat],
   ],
 
   120: [

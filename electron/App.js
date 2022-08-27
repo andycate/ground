@@ -68,6 +68,11 @@ class App {
         supply8Voltage: 'groundSupply8Voltage',
         supply8Current: 'groundSupply8Current',
         supply8Power: 'groundSupply8Power',
+
+        engineTC0: 'engineTop1TC',
+        engineTC1: 'engineTop2TC',
+        engineTC2: 'engineBottom1TC',
+        engineTC3: 'engineBottom2TC',
       },
       () => this.updateState(Date.now(), { groundConnected: true }),
       () => this.updateState(Date.now(), { groundConnected: false }),
@@ -88,10 +93,10 @@ class App {
         daqADC6: null,
         daqADC7: null,
 
-        daqTC1: 'injectorTC',
-        daqTC2: 'engineMid1TC',
-        daqTC3: 'engineMid2TC',
-        daqTC4: 'engineTop3TC',
+        daqTC0: 'injectorTC',
+        daqTC1: 'engineMid1TC',
+        daqTC2: 'engineMid2TC',
+        daqTC3: 'engineTop3TC',
 
         loadCell1: 'thrust1',
         loadCell2: 'thrust2',
@@ -122,10 +127,10 @@ class App {
         daqADC6: null,
         daqADC7: null,
 
-        daqTC1: 'engineTop4TC',
-        daqTC2: 'engineBottom3TC',
-        daqTC3: 'engineBottom4TC',
-        daqTC4: 'propTankTC',
+        daqTC0: 'engineTop4TC',
+        daqTC1: 'engineBottom3TC',
+        daqTC2: 'engineBottom4TC',
+        daqTC3: 'propTankTC',
 
         loadCell1: 'thrust3',
         loadCell2: 'thrust4',
