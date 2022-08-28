@@ -153,8 +153,8 @@ class Navbar extends Component {
           <Button className={groundConnected ? classes.connectedButton : classes.disconnectedButton}>Ground - {groundKbps} kbps</Button>
           <Button className={daq1Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ1 - {daq1Kbps} kbps</Button>
           <Button className={daq2Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ2 - {daq2Kbps} kbps</Button>
-          <Button className={daq3Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ3 - {daq3Kbps} kbps</Button>
-          <Button className={daq4Connected ? classes.connectedButton : classes.disconnectedButton}>DAQ4 - {daq4Kbps} kbps</Button>
+          <Button className={daq3Connected ? classes.connectedButton : classes.disconnectedButton}>LOX CAP - {daq3Kbps} kbps</Button>
+          <Button className={daq4Connected ? classes.connectedButton : classes.disconnectedButton}>FUEL CAP - {daq4Kbps} kbps</Button>
           <Button className={actCtrlr1Connected ? classes.connectedButton : classes.disconnectedButton}>ActCtrlr1 - {actCtrlr1Kbps} kbps</Button>
           <div className={classes.spacer}/>
           <Tooltip title='Toggle light/dark theme'>
