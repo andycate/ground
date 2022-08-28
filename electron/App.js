@@ -225,9 +225,9 @@ class App {
         acLinAct2Voltage: 'fuelFillRBVvoltage',
         acLinAct2Current: 'fuelFillRBVcurrent',
         
-        acLinAct3State: null,
-        acLinAct3Voltage: null,
-        acLinAct3Current: null,
+        acLinAct3State: 'pressurantFillVentRBVstate',
+        acLinAct3Voltage: 'pressurantFillVentRBVvoltage',
+        acLinAct3Current: 'pressurantFillVentRBVcurrent',
 
         acLinAct4State: 'pressurantFillRBVstate',
         acLinAct4Voltage: 'pressurantFillRBVvoltage',
@@ -237,9 +237,9 @@ class App {
         acLinAct5Voltage: null,
         acLinAct5Current: null,
         
-        acLinAct6State: 'pressurantFillVentRBVstate',
-        acLinAct6Voltage: 'pressurantFillVentRBVvoltage',
-        acLinAct6Current: 'pressurantFillVentRBVcurrent',
+        acLinAct6State: null,
+        acLinAct6Voltage: null,
+        acLinAct6Current: null,
 
         acLinAct7State: null,
         acLinAct7Voltage: null,
