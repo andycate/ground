@@ -143,14 +143,14 @@ class Main extends Component {
                     unit: 'PSI'
                   }}
                   field2={{
-                    name: '_',
-                    field: '_',
+                    name: 'RQD Pressure',
+                    field: 'rqdPT',
                     unit: 'PSI'
                   }}
                   field3={{
                     name: '_',
                     field: '_',
-                    unit: 'ºC'
+                    unit: ''
                   }}
                   field4={{
                     name: 'Fuel DOME',
@@ -160,12 +160,12 @@ class Main extends Component {
                   field5={{
                     name: '_',
                     field: '_',
-                    unit: 'PSI'
+                    unit: ''
                   }}
                   field6={{
                     name: '_',
                     field: '_',
-                    unit: 'PSI'
+                    unit: ''
                   }}
                 />
               </Grid>

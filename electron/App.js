@@ -90,7 +90,7 @@ class App {
         daqADC3: null,
         daqADC4: null,
         daqADC5: null,
-        daqADC6: null,
+        daqADC6: 'rqdPT',
         daqADC7: null,
 
         daqTC0: 'injectorTC',
