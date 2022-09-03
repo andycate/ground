@@ -143,40 +143,40 @@ class App {
       () => this.updateState(Date.now(), { daq2Connected: false }),
       (rate) => this.updateState(Date.now(), { daq2Kbps: rate }));
 
-    this.daq3 = new DAQ(this.port, '10.0.0.32', {
-        firmwareCommitHash: 'daq3CommitHash',
+    // this.daq3 = new DAQ(this.port, '10.0.0.33', {
+    //     firmwareCommitHash: 'daq3CommitHash',
 
-        daqBattVoltage: null,
-        daqBattCurrent: null,
+    //     daqBattVoltage: null,
+    //     daqBattCurrent: null,
 
-        daqADC0: null,
-        daqADC1: null,
-        daqADC2: null,
-        daqADC3: null,
-        daqADC4: null,
-        daqADC5: null,
-        daqADC6: null,
-        daqADC7: null,
+    //     daqADC0: null,
+    //     daqADC1: null,
+    //     daqADC2: null,
+    //     daqADC3: null,
+    //     daqADC4: null,
+    //     daqADC5: null,
+    //     daqADC6: null,
+    //     daqADC7: null,
 
-        daqTC1: null,
-        daqTC2: null,
-        daqTC3: null,
-        daqTC4: null,
+    //     daqTC1: null,
+    //     daqTC2: null,
+    //     daqTC3: null,
+    //     daqTC4: null,
 
-        loadCell1: null,
-        loadCell2: null,
-        loadCellSum: null,
+    //     loadCell1: null,
+    //     loadCell2: null,
+    //     loadCellSum: null,
 
-      capVal: 'loxCapVal',
-      capValFiltered: 'loxCapValFiltered',
-      capTemperature: 'loxCapTemp',
-      },
-      () => this.updateState(Date.now(), { daq3Connected: true }),
-      () => this.updateState(Date.now(), { daq3Connected: false }),
-      (rate) => this.updateState(Date.now(), { daq3Kbps: rate })
-    )
+    //   capVal: 'loxCapVal',
+    //   capValFiltered: 'loxCapValFiltered',
+    //   capTemperature: 'loxCapTemp',
+    //   },
+    //   () => this.updateState(Date.now(), { daq3Connected: true }),
+    //   () => this.updateState(Date.now(), { daq3Connected: false }),
+    //   (rate) => this.updateState(Date.now(), { daq3Kbps: rate })
+    // )
 
-    this.daq4 = new DAQ(this.port, '10.0.0.31', {
+    this.daq4 = new DAQ(this.port, '10.0.0.33', {
       firmwareCommitHash: 'daq4CommitHash',
 
       daqBattVoltage: null,
@@ -199,10 +199,6 @@ class App {
       loadCell1: null,
       loadCell2: null,
       loadCellSum: null,
-
-      capVal: 'fuelCapVal',
-      capValFiltered: 'fuelCapValFiltered',
-      capTemperature: 'fuelCapTemp',
     },
     () => this.updateState(Date.now(), { daq4Connected: true }),
     () => this.updateState(Date.now(), { daq4Connected: false }),

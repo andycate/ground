@@ -260,14 +260,14 @@ const INBOUND_PACKET_DEFS = {
     // ['fastLoadCellSum', asFloat],
   ],
   221: [
-    ['capVal', asFloat],
-    ['capValFiltered', asFloat],
-    ['capTemperature', asFloat],
+    ['loxCapVal', asFloat],
+    ['loxCapValFiltered', asFloat],
+    ['loxCapTemp', asFloat],
   ],
   222: [
-    ['capVal', asFloat],
-    ['capValFiltered', asFloat],
-    ['capTemperature', asFloat],
+    ['fuelCapVal', asFloat],
+    ['fuelCapValFiltered', asFloat],
+    ['fuelCapTemp', asFloat],
   ],
 }
 
