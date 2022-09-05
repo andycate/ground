@@ -216,8 +216,8 @@ class Aux2 extends Component {
                     name: 'Pressurant Flow',
                     field: 'pressurantFlowRBVcurrent',
                     unit: 'A',
-                    decimals: 1,
-                    threshold: 0.1
+                    decimals: 2,
+                    threshold: 0.07
                   }}
                 />
               </Grid>
