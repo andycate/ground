@@ -443,9 +443,9 @@ class App {
 
 
     // Actuator Controller 1
-    this.addIPC('open-loxFillRBV', this.actCtrlr1.openActCh0);
-    this.addIPC('close-loxFillRBV', this.actCtrlr1.closeActCh0);
-    this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh0ms(val));
+    this.addIPC('open-loxFillRBV', this.actCtrlr1.closeActCh0);
+    this.addIPC('close-loxFillRBV', this.actCtrlr1.openActCh0);
+    this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh0ms(-val));
 
     this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
     this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
