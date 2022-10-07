@@ -14,6 +14,8 @@ import Settings from './components/Settings';
 import SixValueSquare from './components/SixValueSquare';
 import TankHeaterSquare from './components/TankHeaterSquare';
 import MessageDisplaySquare from "./components/MessageDisplaySquare";
+import RocketOrientation from "./components/RocketOrientation";
+import Map from "./components/Map";
 
 const PAGE_TITLE = "Telemetry: Main"
 
@@ -34,7 +36,7 @@ const styles = theme => ({
     height: '100%'
   },
   item: {
-    height: '33%'
+    height: '50%'
   },
   navbarGrid: {
     // height: theme.spacing(2)
@@ -96,227 +98,155 @@ class Main extends Component {
           />
           <Container maxWidth='xl' className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'pressurantPT',
-                        color: [70, 1, 155],
-                        unit: 'PSI'
-                      }
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'loxTankPT',
-                        color: [0, 126, 254],
-                        unit: 'PSI'
-                      }
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'fuelTankPT',
-                        color: [0, 187, 0],
-                        unit: 'PSI'
-                      }
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <SixValueSquare
+              <Grid item={1} xs={6} className={classes.item}>
+              <SixValueSquare
                   field1={{
-                    name: 'LOX DOME',
-                    field: 'loxDomePT',
-                    unit: 'PSI'
+                    name: 'Altitude',
+                    field: 'baroAltitude',
+                    unit: 'm',
+                    decimals: 2,
                   }}
                   field2={{
-                    name: 'RQD Pressure',
-                    field: 'rqdPT',
-                    unit: 'PSI'
+                    name: 'Pressure',
+                    field: 'baroPressure',
+                    unit: 'hPa',
+                    decimals: 2
                   }}
                   field3={{
-                    name: '_',
-                    field: '_',
-                    unit: ''
+                    name: 'Temperature',
+                    field: 'baroTemperature',
+                    unit: 'C',
+                    decimals: 2
                   }}
                   field4={{
-                    name: 'Fuel DOME',
-                    field: 'fuelDomePT',
-                    unit: 'PSI'
+                    name: 'X Accel',
+                    field: 'accelX',
+                    unit: 'g',
+                    decimals: 2
                   }}
                   field5={{
-                    name: '_',
-                    field: '_',
-                    unit: ''
+                    name: 'Y Accel',
+                    field: 'accelY',
+                    unit: 'g',
+                    decimals: 2
                   }}
                   field6={{
-                    name: '_',
-                    field: '_',
-                    unit: ''
+                    name: 'Z Accel',
+                    field: 'accelZ',
+                    unit: 'g',
+                    decimals: 2
                   }}
                 />
               </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'loxInjectorPT',
-                        color: [221, 0, 0],
-                        unit: 'PSI'
-                      }
-                    ]
-                  }
-                />
+              <Grid item={1} xs={6} className={classes.item}>
+                <Map fieldLat={"gpsLatitude"} fieldLong={"gpsLongitude"}/>
               </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'fuelInjectorPT',
-                        color: [70, 1, 155],
-                        unit: 'PSI'
-                      }
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <MessageDisplaySquare/>
-                {/* <Graph
-                  fields={
-                    [
-                      {
-                        name: 'loxGemsPT',
-                        color: [0, 126, 254],
-                        unit: 'psi'
-                      },
-                      {
-                        name: 'propGemsPT',
-                        color: [0, 187, 0],
-                        unit: 'psi'
-                      },
-                    ]
-                  }
-                /> */}
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'thrust1',
-                        color: [255, 51, 224],
-                        unit: 'LBS'
-                      },
-                      {
-                        name: 'thrust2', // prop PT temp
-                        color: [15, 202, 221],
-                        unit: 'LBS'
-                      },
-                      {
-                        name: 'thrust3', // prop PT temp
-                        color: [202, 15, 221],
-                        unit: 'LBS'
-                      },
-                      {
-                        name: 'thrust4', // prop PT temp
-                        color: [221, 202, 15],
-                        unit: 'LBS'
-                      },
-                      {
-                        name: 'totalThrust', // prop PT temp
-                        color: [238, 154, 7],
-                        unit: 'LBS'
-                      },
-                    ]
-                  }
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={
-                    [
-                      {
-                        name: 'engineTop1TC',
-                        color: [0, 126, 254],
-                        unit: 'ºC'
-                      },
-                      {
-                        name: 'engineTop2TC',
-                        color: [0, 187, 0],
-                        unit: 'ºC'
-                      },
-                      {
-                        name: 'engineBottom1TC',
-                        color: [123, 35, 162],
-                        unit: 'ºC'
-                      },
-                      {
-                        name: 'engineBottom2TC',
-                        color: [35, 123, 162],
-                        unit: 'ºC'
-                      },
+              <Grid item={1} xs={6} className={classes.item}>
+                <SixValueSquare
 
-                      // {
-                      //   name: 'engineTC4',
-                      //   color: [0, 126, 254],
-                      //   unit: 'ºC'
-                      // },
-                      // {
-                      //   name: 'engineTC5',
-                      //   color: [0, 187, 0],
-                      //   unit: 'ºC'
-                      // },
-                      // {
-                      //   name: 'engineTC6',
-                      //   color: [123, 35, 162],
-                      //   unit: 'ºC'
-                      // },
-                      // {
-                      //   name: 'engineTC7',
-                      //   color: [35, 123, 162],
-                      //   unit: 'ºC'
-                      // },
-
-                      // {
-                      //   name: 'engineTC8',
-                      //   color: [0, 126, 254],
-                      //   unit: 'ºC'
-                      // },
-                      // {
-                      //   name: 'engineTC9',
-                      //   color: [0, 187, 0],
-                      //   unit: 'ºC'
-                      // },
-                      // {
-                      //   name: 'engineTC10',
-                      //   color: [123, 35, 162],
-                      //   unit: 'ºC'
-                      // },
-                      // {
-                      //   name: 'engineTC11',
-                      //   color: [35, 123, 162],
-                      //   unit: 'ºC'
-                      // },
-                    ]
-                  }
+                  field1={{
+                    name: 'Written Data',
+                    field: 'writtenKiloBytes',
+                    unit: 'KB',
+                    decimals: 1,
+                  }}
+                  field2={{
+                    name: 'Breakwire 1',
+                    field: 'breakwire1',
+                    unit: 'V',
+                    decimals: 2,
+                    threshold: 1.5
+                  }}
+                  field3={{
+                    name: 'Breakwire 2',
+                    field: 'breakwire2',
+                    unit: 'V',
+                    decimals: 2,
+                    threshold: 1.5
+                  }}
+                  field4={{
+                    name: 'Apogee Time',
+                    field: 'apogeeTime',
+                    unit: 'uS',
+                    decimals: 0,
+                    threshold: 1
+                  }}
+                  field5={{
+                    name: 'Main Chute Deploy Time',
+                    field: 'mainChuteDeployTime',
+                    unit: 'uS',
+                    decimals: 0,
+                    threshold: 1
+                  }}
+                  field6={{
+                    name: '(really fake) RSSI',
+                    field: 'radioRSSI',
+                    unit: 'idk'
+                  }}
                 />
               </Grid>
+              <Grid item={1} xs={6} className={classes.item}>
+                <SixValueSquare
+                  field1={{
+                    name: 'GPS altitude',
+                    field: 'gpsAltitude',
+                    unit: 'm',
+                    decimals: 2,
+                  }}
+                  field2={{
+                    name: 'GPS speed',
+                    field: 'gpsSpeed',
+                    unit: 'm/s (?)',
+                    decimals: 2,
+                  }}
+                  field3={{
+                    name: 'some GPS number',
+                    field: 'numGpsSats',
+                    unit: '',
+                    decimals: 0,
+                    threshold: 0.5,
+                  }}
+                  field4={{
+                    name: 'Gyro X',
+                    field: 'gx',
+                    unit: '',
+                    decimals: 2
+                  }}
+                  field5={{
+                    name: 'Gyro Y',
+                    field: 'gy',
+                    unit: '',
+                    decimals: 2
+                  }}
+                  field6={{
+                    name: 'Gyro Z',
+                    field: 'gz',
+                    unit: '',
+                    decimals: 2
+                  }}
+                />
+              </Grid>
+              {/* <Grid item={1} xs={4} className={classes.item}>
+                
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                
+              </Grid> */}
+              {/* <Grid item={1} xs={4} className={classes.item}>
+                
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                
+              </Grid> */}
             </Grid>
           </Container>
         </Box>
