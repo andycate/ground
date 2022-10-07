@@ -91,72 +91,43 @@ class Aux1 extends Component {
             changeLightDark={this.changeLightDark}
             openSettings={this.openSettings}
           />
-          <Container maxWidth='xl' className={classes.container}>
+ <Container maxWidth='xl' className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
               <Grid item={1} xs={4} className={classes.item}>
-                <SixValueSquare
-                  field1={{
-                    name: 'FC',
-                    field: 'flightSupplyVoltage',
-                    unit: 'V',
-                    decimals: 1
-                  }}
-                  field2={{
-                    name: 'GC',
-                    field: 'groundSupplyVoltage',
-                    unit: 'V',
-                    decimals: 1
-                  }}
-                  field3={{
-                    name: 'AC 2',
-                    field: '_',
-                    unit: 'V',
-                    decimals: 1
-                  }}
-                  field4={{
-                    name: 'DAQ 1',
-                    field: 'daq1BattVoltage',
-                    unit: 'V',
-                    decimals: 1
-                  }}
-                  field5={{
-                    name: 'DAQ 2',
-                    field: 'daq2BattVoltage',
-                    unit: 'V',
-                    decimals: 1
-                  }}
-                  field6={{
-                    name: 'AC 3',
-                    field: 'ac3Voltage',
-                    unit: 'V',
-                    decimals: 1
-                  }}
-                />
-              </Grid>
-              <Grid item={1} xs={8} className={classes.item}>
                 <Graph
                   fields={
                     [
                       {
-                        name: 'engineTop1TC', // engine temp 1
-                        color: [221, 0, 0],
-                        unit: 'degC'
-                      },
+                        name: 'pressurantPT',
+                        color: [70, 1, 155],
+                        unit: 'PSI'
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
                       {
-                        name: 'engineTop2TC', // engine temp 2
-                        color: [0, 127, 254],
-                        unit: 'degC'
-                      },
+                        name: 'loxTankPT',
+                        color: [0, 126, 254],
+                        unit: 'PSI'
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
                       {
-                        name: 'engineBottom1TC', // engine temp 3
+                        name: 'fuelTankPT',
                         color: [0, 187, 0],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineBottom2TC', // engine temp 3
-                        color: [245, 185, 66],
-                        unit: 'degC'
-                      },
+                        unit: 'PSI'
+                      }
                     ]
                   }
                 />
@@ -164,67 +135,59 @@ class Aux1 extends Component {
               <Grid item={1} xs={4} className={classes.item}>
                 <SixValueSquare
                   field1={{
-                    name: 'FC',
-                    field: 'flightSupplyCurrent',
-                    unit: 'A',
-                    decimals: 1
+                    name: 'LOX DOME',
+                    field: 'loxDomePT',
+                    unit: 'PSI'
                   }}
                   field2={{
-                    name: 'GC',
-                    field: 'groundSupplyCurrent',
-                    unit: 'A',
-                    decimals: 1
+                    name: 'RQD Pressure',
+                    field: 'rqdPT',
+                    unit: 'PSI'
                   }}
                   field3={{
-                    name: 'AC 2',
+                    name: '_',
                     field: '_',
-                    unit: 'A',
-                    decimals: 1
+                    unit: ''
                   }}
                   field4={{
-                    name: 'DAQ 1',
-                    field: 'daq1CurrentDraw',
-                    unit: 'A',
-                    decimals: 1
+                    name: 'Fuel DOME',
+                    field: 'fuelDomePT',
+                    unit: 'PSI'
                   }}
                   field5={{
-                    name: 'DAQ 2',
-                    field: 'daq2CurrentDraw',
-                    unit: 'A',
-                    decimals: 1
+                    name: '_',
+                    field: '_',
+                    unit: ''
                   }}
                   field6={{
-                    name: 'AC 3',
-                    field: 'ac3CurrentDraw',
-                    unit: 'A',
-                    decimals: 1
+                    name: '_',
+                    field: '_',
+                    unit: ''
                   }}
                 />
               </Grid>
-              <Grid item={1} xs={8} className={classes.item}>
+              <Grid item={1} xs={4} className={classes.item}>
                 <Graph
                   fields={
                     [
                       {
-                        name: 'injectorTC', // engine temp 1
+                        name: 'loxInjectorPT',
                         color: [221, 0, 0],
-                        unit: 'degC'
-                      },
+                        unit: 'PSI'
+                      }
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
                       {
-                        name: 'engineMid1TC', // engine temp 2
-                        color: [0, 127, 254],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineMid2TC', // engine temp 3
-                        color: [0, 187, 0],
-                        unit: 'degC'
-                      },
-                      {
-                        name: 'engineTop3TC', // engine temp 3
-                        color: [245, 185, 66],
-                        unit: 'degC'
-                      },
+                        name: 'fuelInjectorPT',
+                        color: [70, 1, 155],
+                        unit: 'PSI'
+                      }
                     ]
                   }
                 />
@@ -234,43 +197,118 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'loxTankPTTemp', // lox PT temp
-                        color: [123, 35, 162],
-                        unit: 'degC'
+                        name: 'loxGemsPT',
+                        color: [0, 126, 254],
+                        unit: 'psi'
                       },
-                      // {
-                      //   name: 'loxGemsTemp', // lox gems temp
-                      //   color: [0, 126, 254],
-                      //   unit: 'degC'
-                      // },
+                      {
+                        name: 'propGemsPT',
+                        color: [0, 187, 0],
+                        unit: 'psi'
+                      },
                     ]
                   }
                 /> */}
               </Grid>
-              <Grid item={1} xs={8} className={classes.item}>
+              <Grid item={1} xs={4} className={classes.item}>
                 <Graph
                   fields={
                     [
                       {
-                        name: 'engineTop4TC', // engine temp 1
-                        color: [221, 0, 0],
-                        unit: 'degC'
+                        name: 'thrust1',
+                        color: [255, 51, 224],
+                        unit: 'LBS'
                       },
                       {
-                        name: 'engineBottom3TC', // engine temp 2
-                        color: [0, 127, 254],
-                        unit: 'degC'
+                        name: 'thrust2', // prop PT temp
+                        color: [15, 202, 221],
+                        unit: 'LBS'
                       },
                       {
-                        name: 'engineBottom4TC', // engine temp 3
+                        name: 'thrust3', // prop PT temp
+                        color: [202, 15, 221],
+                        unit: 'LBS'
+                      },
+                      {
+                        name: 'thrust4', // prop PT temp
+                        color: [221, 202, 15],
+                        unit: 'LBS'
+                      },
+                      {
+                        name: 'totalThrust', // prop PT temp
+                        color: [238, 154, 7],
+                        unit: 'LBS'
+                      },
+                    ]
+                  }
+                />
+              </Grid>
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph
+                  fields={
+                    [
+                      {
+                        name: 'engineTop1TC',
+                        color: [0, 126, 254],
+                        unit: 'ºC'
+                      },
+                      {
+                        name: 'engineTop2TC',
                         color: [0, 187, 0],
-                        unit: 'degC'
+                        unit: 'ºC'
                       },
                       {
-                        name: 'propTankTC', // engine temp 3
-                        color: [245, 185, 66],
-                        unit: 'degC'
+                        name: 'engineBottom1TC',
+                        color: [123, 35, 162],
+                        unit: 'ºC'
                       },
+                      {
+                        name: 'engineBottom2TC',
+                        color: [35, 123, 162],
+                        unit: 'ºC'
+                      },
+
+                      // {
+                      //   name: 'engineTC4',
+                      //   color: [0, 126, 254],
+                      //   unit: 'ºC'
+                      // },
+                      // {
+                      //   name: 'engineTC5',
+                      //   color: [0, 187, 0],
+                      //   unit: 'ºC'
+                      // },
+                      // {
+                      //   name: 'engineTC6',
+                      //   color: [123, 35, 162],
+                      //   unit: 'ºC'
+                      // },
+                      // {
+                      //   name: 'engineTC7',
+                      //   color: [35, 123, 162],
+                      //   unit: 'ºC'
+                      // },
+
+                      // {
+                      //   name: 'engineTC8',
+                      //   color: [0, 126, 254],
+                      //   unit: 'ºC'
+                      // },
+                      // {
+                      //   name: 'engineTC9',
+                      //   color: [0, 187, 0],
+                      //   unit: 'ºC'
+                      // },
+                      // {
+                      //   name: 'engineTC10',
+                      //   color: [123, 35, 162],
+                      //   unit: 'ºC'
+                      // },
+                      // {
+                      //   name: 'engineTC11',
+                      //   color: [35, 123, 162],
+                      //   unit: 'ºC'
+                      // },
                     ]
                   }
                 />

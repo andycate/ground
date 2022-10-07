@@ -12,7 +12,8 @@
     "moment": "~2.29.1"
   },
   "scripts": {
-    "launch": "npm --prefix ./telemetry start & npm run start-main",
+    "launch-main": "npm --prefix ./telemetry start & npm run start-main",
+    "launch-aux": "npm --prefix ./telemetry start & npm run start-aux",
     "start-main": "cross-env VARIANT=main electron .",
     "start-aux": "cross-env VARIANT=aux electron .",
     "build-electron-main": "cp -r telemetry/build ./build && cp -r electron/. build/electron",
