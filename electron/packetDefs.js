@@ -32,6 +32,39 @@ const INBOUND_PACKET_DEFS = {
     ['supply8Current', asFloat],
     ['supply8Power', asFloat]
   ],
+
+
+  // [4..6] Sensor breakouts, sent by Flight Computer
+
+  // IMU
+  4: [
+    ['qW', asFloat],
+    ['qX', asFloat],
+    ['qY', asFloat],
+    ['qZ', asFloat],
+    ['accelX', asFloat],
+    ['accelY', asFloat],
+    ['accelZ', asFloat],
+  ],
+
+  // Barometer
+  5: [
+    ['baroAltitude', asFloat],
+    ['baroPressure', asFloat],
+    ['baroTemperature', asFloat],
+  ],
+
+  // GPS
+  6: [
+    ['gpsLatitude', asFloat],
+    ['gpsLongitude', asFloat],
+    ['gpsAltitude', asFloat],
+    ['gpsSpeed', asFloat],
+    ['validGpsFix', asUInt8],
+    ['numGpsSats', asUInt8]
+  ],
+
+
   // [10..59] Sent by Flight Computer
   10: [
     ['loxTankPT', asFloat],
