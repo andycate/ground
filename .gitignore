@@ -32,3 +32,5 @@ persist
 
 # Lock file for pnpm manager
 pnpm-lock.yaml
+
+.vscode
