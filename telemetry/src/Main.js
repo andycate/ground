@@ -186,7 +186,8 @@ class Main extends Component {
                 />
               </Grid>
               <Grid item={1} xs={6} className={classes.item}>
-                <SixValueSquare
+                <RocketOrientation fieldQW={"qW"} fieldQX={"qX"} fieldQY={"qY"} fieldQZ={"qZ"}/>
+                {/* <SixValueSquare
                   field1={{
                     name: 'GPS altitude',
                     field: 'gpsAltitude',
@@ -200,7 +201,7 @@ class Main extends Component {
                     decimals: 2,
                   }}
                   field3={{
-                    name: 'some GPS number',
+                    name: 'GPS SIV',
                     field: 'numGpsSats',
                     unit: '',
                     decimals: 0,
@@ -224,7 +225,7 @@ class Main extends Component {
                     unit: '',
                     decimals: 2
                   }}
-                />
+                /> */}
               </Grid>
               {/* <Grid item={1} xs={4} className={classes.item}>
                 
