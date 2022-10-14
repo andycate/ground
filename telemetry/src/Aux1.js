@@ -145,9 +145,9 @@ class Aux1 extends Component {
                     unit: 'PSI'
                   }}
                   field3={{
-                    name: '_',
-                    field: '_',
-                    unit: ''
+                    name: 'Main Valve Bottle',
+                    field: 'mainValveBottlePT',
+                    unit: 'PSI'
                   }}
                   field4={{
                     name: 'Fuel DOME',
@@ -215,22 +215,22 @@ class Aux1 extends Component {
                   fields={
                     [
                       {
-                        name: 'thrust1',
+                        name: 'thrust0',
                         color: [255, 51, 224],
                         unit: 'LBS'
                       },
                       {
-                        name: 'thrust2', // prop PT temp
+                        name: 'thrust1', // prop PT temp
                         color: [15, 202, 221],
                         unit: 'LBS'
                       },
                       {
-                        name: 'thrust3', // prop PT temp
+                        name: 'thrust2', // prop PT temp
                         color: [202, 15, 221],
                         unit: 'LBS'
                       },
                       {
-                        name: 'thrust4', // prop PT temp
+                        name: 'thrust3', // prop PT temp
                         color: [221, 202, 15],
                         unit: 'LBS'
                       },

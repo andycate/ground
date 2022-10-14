@@ -32,9 +32,9 @@ export const ROOT_OPTION_GROUPING = {
         { key: 'flightConnected' },
         { key: 'groundConnected' },
         { key: 'daq1Connected' },
-        { key: 'daq2Connected' },
+        // { key: 'daq2Connected' },
         { key: 'actCtrlr1Connected' },
-        { key: 'actCtrlr2Connected' },
+        // { key: 'actCtrlr2Connected' },
       ]
     },
     {

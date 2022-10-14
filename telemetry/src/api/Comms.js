@@ -25,9 +25,9 @@ class Comms {
     this.getFlightConnected = this.getFlightConnected.bind(this);
     this.getGroundConnected = this.getGroundConnected.bind(this);
     this.getDaq1Connected = this.getDaq1Connected.bind(this);
-    this.getDaq2Connected = this.getDaq2Connected.bind(this);
-    this.getDaq3Connected = this.getDaq3Connected.bind(this);
-    this.getDaq4Connected = this.getDaq4Connected.bind(this);
+    // this.getDaq2Connected = this.getDaq2Connected.bind(this);
+    // this.getDaq3Connected = this.getDaq3Connected.bind(this);
+    // this.getDaq4Connected = this.getDaq4Connected.bind(this);
     this.getActCtrlr1Connected = this.getActCtrlr1Connected.bind(this);
 
     // Flight Computer
@@ -220,17 +220,17 @@ class Comms {
     return await this.ipc.invoke('daq1-connected');
   }
 
-  async getDaq2Connected() {
-    return await this.ipc.invoke('daq2-connected');
-  }
+  // async getDaq2Connected() {
+  //   return await this.ipc.invoke('daq2-connected');
+  // }
 
-  async getDaq3Connected() {
-    return await this.ipc.invoke('daq3-connected');
-  }
+  // async getDaq3Connected() {
+  //   return await this.ipc.invoke('daq3-connected');
+  // }
 
-  async getDaq4Connected() {
-    return await this.ipc.invoke('daq4-connected');
-  }
+  // async getDaq4Connected() {
+  //   return await this.ipc.invoke('daq4-connected');
+  // }
 
   async getActCtrlr1Connected() {
     return await this.ipc.invoke('actctrlr1-connected');

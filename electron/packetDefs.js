@@ -98,6 +98,11 @@ const INBOUND_PACKET_DEFS = {
     ['engineTC3', asFloat],
   ],
 
+  28: [
+    ['apogeeTime', asUInt32],
+    ['mainChuteDeployTime', asUInt32],
+  ],
+
   31: [
     ['loxGemsValveState', asUInt8],
   ],
@@ -122,6 +127,9 @@ const INBOUND_PACKET_DEFS = {
     ['flightOCEvent', asUInt8]
   ],
 
+  41: [
+    ['autoVentStatus', asUInt8],
+  ],
 
 
 // SENT BY GROUND COMPUTER  
@@ -200,9 +208,12 @@ const INBOUND_PACKET_DEFS = {
     ['flowState', asUInt8],
   ],
 
-  51: [
-    ['autoVentStatus', asUInt8],
-  ],
+  81: [
+    ['rqdPT', asFloat],
+    ['mainValveBottlePT', asFloat],
+  ],  
+
+
 
   152: [
     ['autoLoxLead', asUInt32],
@@ -310,6 +321,7 @@ const INBOUND_PACKET_DEFS = {
   ],
 
   116: [
+    ['loadCell0', asFloat],
     ['loadCell1', asFloat],
     ['loadCell2', asFloat],
     ['loadCell3', asFloat],
@@ -350,7 +362,7 @@ const OUTBOUND_PACKET_DEFS = {
   152: [], // Automation settings
 
   // Sent to Actuator Controller
-  
+
   170: [UINT8, UINT32],
   171: [UINT8, UINT32],
   172: [UINT8, UINT32],

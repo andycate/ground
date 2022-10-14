@@ -98,8 +98,10 @@ class App {
         daqTC2: 'engineMid2TC',
         daqTC3: 'engineTop3TC',
 
+        loadCell0: 'thrust0',
         loadCell1: 'thrust1',
         loadCell2: 'thrust2',
+        loadCell3: 'thrust3',
         loadCellSum: 'totalThrust12',
 
         fastLoadCell1: 'fastThrust1',
@@ -112,99 +114,6 @@ class App {
       () => this.updateState(Date.now(), { daq1Connected: false }),
       (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
 
-    this.daq2 = new DAQ(this.port, '10.0.0.12', {
-        firmwareCommitHash: 'daq2CommitHash',
-
-        daqBattVoltage: null,
-        daqBattCurrent: null,
-
-        daqADC0: null,
-        daqADC1: null,
-        daqADC2: null,
-        daqADC3: null,
-        daqADC4: null,
-        daqADC5: null,
-        daqADC6: null,
-        daqADC7: null,
-
-        daqTC0: 'engineTop4TC',
-        daqTC1: 'engineBottom3TC',
-        daqTC2: 'engineBottom4TC',
-        daqTC3: 'propTankTC',
-
-        loadCell1: 'thrust3',
-        loadCell2: 'thrust4',
-        loadCellSum: 'totalThrust34',
-
-        capacitor1: null,
-        capacitor2: null,
-      },
-      () => this.updateState(Date.now(), { daq2Connected: true }),
-      () => this.updateState(Date.now(), { daq2Connected: false }),
-      (rate) => this.updateState(Date.now(), { daq2Kbps: rate }));
-
-    // this.daq3 = new DAQ(this.port, '10.0.0.33', {
-    //     firmwareCommitHash: 'daq3CommitHash',
-
-    //     daqBattVoltage: null,
-    //     daqBattCurrent: null,
-
-    //     daqADC0: null,
-    //     daqADC1: null,
-    //     daqADC2: null,
-    //     daqADC3: null,
-    //     daqADC4: null,
-    //     daqADC5: null,
-    //     daqADC6: null,
-    //     daqADC7: null,
-
-    //     daqTC1: null,
-    //     daqTC2: null,
-    //     daqTC3: null,
-    //     daqTC4: null,
-
-    //     loadCell1: null,
-    //     loadCell2: null,
-    //     loadCellSum: null,
-
-    //   capVal: 'loxCapVal',
-    //   capValFiltered: 'loxCapValFiltered',
-    //   capTemperature: 'loxCapTemp',
-    //   },
-    //   () => this.updateState(Date.now(), { daq3Connected: true }),
-    //   () => this.updateState(Date.now(), { daq3Connected: false }),
-    //   (rate) => this.updateState(Date.now(), { daq3Kbps: rate })
-    // )
-
-    this.daq4 = new DAQ(this.port, '10.0.0.33', {
-      firmwareCommitHash: 'daq4CommitHash',
-
-      daqBattVoltage: null,
-      daqBattCurrent: null,
-
-      daqADC0: null,
-      daqADC1: null,
-      daqADC2: null,
-      daqADC3: null,
-      daqADC4: null,
-      daqADC5: null,
-      daqADC6: null,
-      daqADC7: null,
-
-      daqTC1: null,
-      daqTC2: null,
-      daqTC3: null,
-      daqTC4: null,
-
-      loadCell1: null,
-      loadCell2: null,
-      loadCellSum: null,
-    },
-    () => this.updateState(Date.now(), { daq4Connected: true }),
-    () => this.updateState(Date.now(), { daq4Connected: false }),
-    (rate) => this.updateState(Date.now(), { daq4Kbps: rate })
-  )
-
     this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
         firmwareCommitHash: 'ac1CommitHash',
 
@@ -213,9 +122,9 @@ class App {
         acSupply12Voltage: 'ac1Supply12Voltage',
         acSupply12Current: 'ac1Supply12Current',
 
-        acLinAct1State: 'loxFillRBVstate',
-        acLinAct1Voltage: 'loxFillRBVvoltage',
-        acLinAct1Current: 'loxFillRBVcurrent',
+        acLinAct1State: 'pressurantFillRBVstate',
+        acLinAct1Voltage: 'pressurantFillRBVvoltage',
+        acLinAct1Current: 'pressurantFillRBVcurrent',
         
         acLinAct2State: 'fuelFillRBVstate',
         acLinAct2Voltage: 'fuelFillRBVvoltage',
@@ -225,9 +134,9 @@ class App {
         acLinAct3Voltage: 'pressurantFillVentRBVvoltage',
         acLinAct3Current: 'pressurantFillVentRBVcurrent',
 
-        acLinAct4State: 'pressurantFillRBVstate',
-        acLinAct4Voltage: 'pressurantFillRBVvoltage',
-        acLinAct4Current: 'pressurantFillRBVcurrent',
+        acLinAct4State: null,
+        acLinAct4Voltage: null,
+        acLinAct4Current: null,
         
         acLinAct5State: null,
         acLinAct5Voltage: null,
@@ -389,9 +298,9 @@ class App {
     this.addIPC('flight-connected', () => this.flightComputer.isConnected);
     this.addIPC('ground-connected', () => this.groundComputer.isConnected);
     this.addIPC('daq1-connected', () => this.daq1.isConnected);
-    this.addIPC('daq2-connected', () => this.daq2.isConnected);
-    this.addIPC('daq3-connected', () => this.daq3.isConnected);
-    this.addIPC('daq4-connected', () => this.daq4.isConnected);
+    // this.addIPC('daq2-connected', () => this.daq2.isConnected);
+    // this.addIPC('daq3-connected', () => this.daq3.isConnected);
+    // this.addIPC('daq4-connected', () => this.daq4.isConnected);
     this.addIPC('actctrlr1-connected', () => this.actCtrlr1.isConnected);
 
     // Flight Computer
@@ -449,17 +358,17 @@ class App {
 
 
     // Actuator Controller 1
-    this.addIPC('open-loxFillRBV', this.actCtrlr1.closeActCh0);
-    this.addIPC('close-loxFillRBV', this.actCtrlr1.openActCh0);
-    this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh0ms(-val));
+    this.addIPC('open-pressurantFillRBV', this.actCtrlr1.closeActCh0);
+    this.addIPC('close-pressurantFillRBV', this.actCtrlr1.openActCh0);
+    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh0ms(-val));
 
     this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
     this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
     this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
-    this.addIPC('open-pressurantFillRBV', this.actCtrlr1.openActCh3);
-    this.addIPC('close-pressurantFillRBV', this.actCtrlr1.closeActCh3);
-    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
+    this.addIPC('open-loxFillRBV', this.actCtrlr1.openActCh3);
+    this.addIPC('close-loxFillRBV', this.actCtrlr1.closeActCh3);
+    this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh3ms(val));
 
     this.addIPC('open-pressurantFillVentRBV', this.actCtrlr1.openActCh2);
     this.addIPC('close-pressurantFillVentRBV', this.actCtrlr1.closeActCh2);
