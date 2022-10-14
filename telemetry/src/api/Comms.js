@@ -257,6 +257,9 @@ class Comms {
   async enableFastRead() { return await this.ipc.invoke('enable-fastReadRate'); }
   async disableFastRead() { return await this.ipc.invoke('disable-fastReadRate'); }
 
+  async enableFlightMode() { return await this.ipc.invoke('enable-flightMode'); }
+  async disableFlightMode() { return await this.ipc.invoke('disable-flightMode'); }
+
   // Ground Computer
 
   async openarmValve() { return await this.ipc.invoke('open-armValve'); }
@@ -273,6 +276,9 @@ class Comms {
 
   async openPressRQD() { return await this.ipc.invoke('open-pressRQD'); }
   async closePressRQD() { return await this.ipc.invoke('close-pressRQD'); }
+
+  async openMainValvePurge() { return await this.ipc.invoke('open-mainValvePurge'); }
+  async closeMainValvePurge() { return await this.ipc.invoke('close-mainValvePurge'); }
 
   async activateIgniter() { return await this.ipc.invoke('activate-igniter'); }
   async deactivateIgniter() { return await this.ipc.invoke('deactivate-igniter'); }

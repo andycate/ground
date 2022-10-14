@@ -415,6 +415,9 @@ class App {
     this.addIPC('enable-fastReadRate', this.flightComputer.enableFastReadRate);
     this.addIPC('disable-fastReadRate', this.flightComputer.disableFastReadRate);
 
+    this.addIPC('enable-flightMode', this.flightComputer.enableFlightMode);
+    this.addIPC('disable-flightMode', this.flightComputer.disableFlightMode);
+
     // Ground Computer
 
     this.addIPC('open-armValve', this.groundComputer.openarmValve);
@@ -434,6 +437,9 @@ class App {
 
     this.addIPC('open-pressRQD', this.groundComputer.openPressRQD);
     this.addIPC('close-pressRQD', this.groundComputer.closePressRQD);
+
+    this.addIPC('open-mainValvePurge', this.groundComputer.openmainValvePurge);
+    this.addIPC('close-mainValvePurge', this.groundComputer.closemainValvePurge);
 
     this.addIPC('beginFlow', this.groundComputer.beginFlow);
     this.addIPC('abort', this.groundComputer.abort);

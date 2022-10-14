@@ -241,6 +241,14 @@ class Control extends Component {
                       text='Begin Flow'
                     />
                   </Grid>
+                  <Grid item={1} xs={6}>
+                    <SwitchButton
+                        open={comms.enableIgniter}
+                        close={comms.disableIgniter}
+                        field='_'
+                        text='Igniter Enable'
+                      /> 
+                  </Grid>
                 </Grid>
               </Grid>
               {/* START OF SECOND BUTTON COLUMN */}
@@ -258,12 +266,12 @@ class Control extends Component {
                 </Grid>
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={6}>
-                    <SwitchButton
+                    {/* <SwitchButton
                       open={comms.enableIgniter}
                       close={comms.disableIgniter}
                       field='_'
                       text='Igniter Enable'
-                    />
+                    /> */}
                   </Grid>
                 </Grid>
                 <Grid container={true} spacing={1}>
@@ -284,6 +292,18 @@ class Control extends Component {
                     />
                   </Grid>
                 </Grid>
+
+                <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={6}>
+                  <ButtonGroup
+                      open={comms.openMainValvePurge}
+                      close={comms.closeMainValvePurge}
+                      field='mainValvePurgeState'
+                      text='N2 Purge'
+                    />
+                  </Grid>
+                </Grid>
+
               </Grid>
               {/* START OF THIRD BUTTON COLUMN */}
               <Grid item={1} xs={2} className={classes.item}>
@@ -321,16 +341,29 @@ class Control extends Component {
                     />
                   </Grid>
                 </Grid>
+                {/* <Grid container={true} spacing={1}>
+                  <Grid item={1} xs={12}>
+                    <SwitchButton
+                        open={comms.enableFlightMode}
+                        close={comms.disableFlightMode}
+                        field='_'
+                        text='Flight Mode' 
+                      />
+                  </Grid>
+                </Grid> */}
+
                 <Grid container={true} spacing={1}>
                   <Grid item={1} xs={12}>
                     <SwitchButton
-                      open={comms.enableFastRead}
-                      close={comms.disableFastRead}
+                      open={comms.enableFlightMode}
+                      close={comms.disableFlightMode}
                       field='_'
-                      text='Fast Read Rate'
+                      text='Launch Enable' 
                     />
                   </Grid>
                 </Grid>
+
+
               </Grid>
               {/* START OF PROCEDURE COLUMN */}
               <Grid item={1} xs={2} className={classes.item}>
