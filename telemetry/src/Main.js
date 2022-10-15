@@ -107,9 +107,9 @@ class Main extends Component {
                     decimals: 2,
                   }}
                   field2={{
-                    name: 'Pressure',
-                    field: 'baroPressure',
-                    unit: 'hPa',
+                    name: 'Ascent Speed',
+                    field: 'ascentSpeed',
+                    unit: 'm/s',
                     decimals: 2
                   }}
                   field3={{
@@ -143,45 +143,41 @@ class Main extends Component {
               </Grid>
               <Grid item={1} xs={6} className={classes.item}>
                 <SixValueSquare
-
                   field1={{
-                    name: 'Written Data',
-                    field: 'writtenKiloBytes',
+                    name: 'BBox Data Written',
+                    field: 'dataWritten',
                     unit: 'KB',
                     decimals: 1,
                   }}
                   field2={{
-                    name: 'Breakwire 1',
-                    field: 'breakwire1',
-                    unit: 'V',
-                    decimals: 2,
-                    threshold: 1.5
-                  }}
-                  field3={{
-                    name: 'Breakwire 2',
-                    field: 'breakwire2',
-                    unit: 'V',
-                    decimals: 2,
-                    threshold: 1.5
-                  }}
-                  field4={{
                     name: 'Apogee Time',
                     field: 'apogeeTime',
                     unit: 'uS',
                     decimals: 0,
                     threshold: 1
                   }}
+                  field3={{
+                    name: 'Radio RSSI',
+                    field: 'radioRSSI',
+                    unit: ''
+                  }}
+                  field4={{
+                    name: 'GPS Latitude',
+                    field: 'gpsLatitude',
+                    unit: '',
+                    decimals: 2,
+                  }}
                   field5={{
-                    name: 'Main Chute Deploy Time',
-                    field: 'mainChuteDeployTime',
-                    unit: 'uS',
-                    decimals: 0,
-                    threshold: 1
+                    name: 'GPS Longitude',
+                    field: 'gpsLongitude',
+                    unit: '',
+                    decimals: 2,
                   }}
                   field6={{
-                    name: '(really fake) RSSI',
-                    field: 'radioRSSI',
-                    unit: 'idk'
+                    name: 'GPS Sat Count',
+                    field: 'gpsSatCount',
+                    unit: '',
+                    decimals: 1,
                   }}
                 />
               </Grid>
@@ -197,7 +193,7 @@ class Main extends Component {
                   field2={{
                     name: 'GPS speed',
                     field: 'gpsSpeed',
-                    unit: 'm/s (?)',
+                    unit: 'm/s',
                     decimals: 2,
                   }}
                   field3={{
@@ -227,27 +223,6 @@ class Main extends Component {
                   }}
                 /> */}
               </Grid>
-              {/* <Grid item={1} xs={4} className={classes.item}>
-                
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                
-              </Grid> */}
-              {/* <Grid item={1} xs={4} className={classes.item}>
-                
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                
-              </Grid> */}
             </Grid>
           </Container>
         </Box>
