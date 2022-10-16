@@ -321,9 +321,6 @@ class App {
     this.addIPC('close-pressurantFlowRBV', this.flightComputer.closePressFlowRBV);
     this.addIPC('time-pressurantFlowRBV', (e, val) => this.flightComputer.pressFlowRBVms(val));
 
-    this.addIPC('enable-fastReadRate', this.flightComputer.enableFastReadRate);
-    this.addIPC('disable-fastReadRate', this.flightComputer.disableFastReadRate);
-
     this.addIPC('enable-flightMode', this.flightComputer.enableFlightMode);
     this.addIPC('disable-flightMode', this.flightComputer.disableFlightMode);
 
