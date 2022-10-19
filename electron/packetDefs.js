@@ -94,14 +94,26 @@ const INBOUND_PACKET_DEFS = {
   22: [
     ['engineTC2', asFloat],
   ],
-  23: [
-    ['engineTC3', asFloat],
-  ],
+  // 23: [
+  //   ['engineTC3', asFloat],
+  // ],
 
   28: [
+    // ['apogeeCheck', asUInt8],
     ['apogeeTime', asUInt32],
-    ['mainChuteDeployTime', asUInt32],
+    ['apogeeAltitude', asFloat],
+    // ['apogeesFound', asUInt8],
+    // ['mainChuteDeployTime', asUInt32],
   ],
+
+  29: [
+    ['vehicleState', asUInt8],
+  ],
+
+  30: [
+    ['storageUsed', asUInt32], 
+    ['isRecording', asUInt8],
+  ], 
 
   31: [
     ['loxGemsValveState', asUInt8],
@@ -360,6 +372,8 @@ const OUTBOUND_PACKET_DEFS = {
   150: [], // Begin Flow
   151: [], // Abort Flow
   152: [], // Automation settings
+
+  153: [UINT8], // erase black box
 
   // Sent to Actuator Controller
 

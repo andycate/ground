@@ -202,7 +202,7 @@ const Block2 = [
   },
   {
     name: "GPS Sat Count",
-    field: "gpsSatCount",
+    field: "numGpsSats",
     unit: "",
     decimals: 1,
   },
