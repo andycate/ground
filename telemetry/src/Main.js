@@ -7,21 +7,112 @@ import {
   ThemeProvider,
 } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+import { Box, Container, Grid } from "@material-ui/core";
+
+import Graph from "./components/Graph";
+import SixValueSquare from "./components/SixValueSquare";
 
 import comms from "./api/Comms";
-import Graph from "./components/Graph";
-import Navbar from "./components/Navbar";
-import Settings from "./components/Settings";
-import SixValueSquare from "./components/SixValueSquare";
-import TankHeaterSquare from "./components/TankHeaterSquare";
 import MessageDisplaySquare from "./components/MessageDisplaySquare";
-import RocketOrientation from "./components/RocketOrientation";
-import Map from "./components/Map";
 
 const PAGE_TITLE = "Telemetry: Main";
+
+const fields = [
+  [
+    {
+      name: "pressurantPT",
+      color: [70, 1, 155],
+      unit: "PSI",
+    },
+  ],
+  [
+    {
+      name: "loxTankPT",
+      color: [0, 126, 254],
+      unit: "PSI",
+    },
+    {
+      name: "fuelTankPT",
+      color: [0, 187, 0],
+      unit: "PSI",
+    },
+  ],
+  [
+    {
+      name: "loxFillCapFill", // double check this
+      color: [140, 140, 0],
+      unit: ""
+    }
+  ],
+  [
+    {
+      name: "loxInjectorPT",
+      color: [221, 0, 0],
+      unit: "PSI",
+    },
+    {
+      name: "fuelInjectorPT",
+      color: [70, 1, 155],
+      unit: "PSI",
+    },
+  ],
+  [
+    {
+      name: "fuelTankCapFill", // double check this
+      color: [0, 140, 140],
+      unit: ""
+    }
+  ],
+  [
+    {
+      name: "thrust0",
+      color: [255, 51, 224],
+      unit: "LBS",
+    },
+    {
+      name: "thrust1", // prop PT temp
+      color: [15, 202, 221],
+      unit: "LBS",
+    },
+    {
+      name: "thrust2", // prop PT temp
+      color: [202, 15, 221],
+      unit: "LBS",
+    },
+    {
+      name: "thrust3", // prop PT temp
+      color: [221, 202, 15],
+      unit: "LBS",
+    },
+    {
+      name: "totalThrust", // prop PT temp
+      color: [238, 154, 7],
+      unit: "LBS",
+    },
+  ],
+  [
+    {
+      name: "engineTop1TC",
+      color: [0, 126, 254],
+      unit: "ºC",
+    },
+    {
+      name: "engineTop2TC",
+      color: [0, 187, 0],
+      unit: "ºC",
+    },
+    {
+      name: "engineBottom1TC",
+      color: [123, 35, 162],
+      unit: "ºC",
+    },
+    {
+      name: "engineBottom2TC",
+      color: [35, 123, 162],
+      unit: "ºC",
+    },
+  ],
+];
 
 const styles = (theme) => ({
   root: {
@@ -40,7 +131,7 @@ const styles = (theme) => ({
     height: "100%",
   },
   item: {
-    height: "50%",
+    height: "33%",
   },
   navbarGrid: {
     // height: theme.spacing(2)
@@ -50,19 +141,6 @@ const styles = (theme) => ({
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isDark: false,
-      showSettings: false,
-    };
-
-    this.changeLightDark = this.changeLightDark.bind(this);
-    this.openSettings = this.openSettings.bind(this);
-    this.closeSettings = this.closeSettings.bind(this);
-  }
-
-  changeLightDark() {
-    comms.setDarkMode(!this.state.isDark);
-    this.setState({ isDark: !this.state.isDark });
   }
 
   openSettings() {
@@ -85,128 +163,50 @@ class Main extends Component {
 
   render() {
     const { classes } = this.props;
-    const theme = createTheme({
-      palette: {
-        type: this.state.isDark ? "dark" : "light",
-      },
-    });
-
     return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Box>
-          <Settings
-            open={this.state.showSettings}
-            closeSettings={this.closeSettings}
-          />
-          <Navbar
-            changeLightDark={this.changeLightDark}
-            openSettings={this.openSettings}
-          />
-          <Container maxWidth="xl" className={classes.container}>
-            <Grid container={true} spacing={1} className={classes.row}>
-              <Grid item={1} xs={6} className={classes.item}>
-                <SixValueSquare fields={Block1} />
+      <React.Fragment>
+        <Container maxWidth="xl" className={classes.container}>
+          <Grid container spacing={1} className={classes.row}>
+            {fields.slice(0, 3).map((field) => (
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph fields={field} />
               </Grid>
-              <Grid item={1} xs={6} className={classes.item}>
-                <Map fieldLat={"gpsLatitude"} fieldLong={"gpsLongitude"} />
-              </Grid>
-              <Grid item={1} xs={6} className={classes.item}>
-                <SixValueSquare fields={Block2} />
-              </Grid>
-              <Grid item={1} xs={6} className={classes.item}>
-                <RocketOrientation
-                  fieldQW={"qW"}
-                  fieldQX={"qX"}
-                  fieldQY={"qY"}
-                  fieldQZ={"qZ"}
-                />
-              </Grid>
+            ))}
+
+            <Grid item={1} xs={4} className={classes.item}>
+              <SixValueSquare
+                fields={[
+                  ["LOX DOME", "loxDomePT", "PSI"],
+                  ["RQD Pressure", "rqdPT", "PSI"],
+                  ["Main Valve Bottle", "mainValveBottlePT", "PSI"],
+                  ["Fuel DOME", "fuelDomePT", "PSI"],
+                  ["_", "", ""],
+                  ["_", "", ""],
+                  ["_", "", ""],
+                ]}
+              />
             </Grid>
-          </Container>
-        </Box>
-      </ThemeProvider>
+
+            {fields.slice(3, 6).map((field) => (
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph fields={field} />
+              </Grid>
+            ))}
+
+            <Grid item={1} xs={4} className={classes.item}>
+              <MessageDisplaySquare />
+            </Grid>
+            {fields.slice(6).map((field) => (
+              <Grid item={1} xs={4} className={classes.item}>
+                <Graph fields={field} />
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </React.Fragment>
     );
   }
 }
-
-const Block1 = [
-  {
-    name: "Altitude",
-    field: "baroAltitude",
-    unit: "m",
-    decimals: 2,
-  },
-  {
-    name: "Ascent Speed",
-    field: "ascentSpeed",
-    unit: "m/s",
-    decimals: 2,
-  },
-  {
-    name: "Temperature",
-    field: "baroTemperature",
-    unit: "C",
-    decimals: 2,
-  },
-  {
-    name: "X Accel",
-    field: "accelX",
-    unit: "g",
-    decimals: 2,
-  },
-  {
-    name: "Y Accel",
-    field: "accelY",
-    unit: "g",
-    decimals: 2,
-  },
-  {
-    name: "Z Accel",
-    field: "accelZ",
-    unit: "g",
-    decimals: 2,
-  },
-];
-
-const Block2 = [
-  {
-    name: "BBox Data Written",
-    field: "dataWritten",
-    unit: "KB",
-    decimals: 1,
-  },
-  {
-    name: "Apogee Time",
-    field: "apogeeTime",
-    unit: "uS",
-    decimals: 0,
-    threshold: 1,
-  },
-  {
-    name: "Radio RSSI",
-    field: "radioRSSI",
-    unit: "",
-  },
-  {
-    name: "GPS Latitude",
-    field: "gpsLatitude",
-    unit: "",
-    decimals: 2,
-  },
-  {
-    name: "GPS Longitude",
-    field: "gpsLongitude",
-    unit: "",
-    decimals: 2,
-  },
-  {
-    name: "GPS Sat Count",
-    field: "numGpsSats",
-    unit: "",
-    decimals: 1,
-  },
-];
 
 Main.propTypes = {
   classes: PropTypes.object.isRequired,

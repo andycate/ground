@@ -2,21 +2,24 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "@fontsource/roboto";
 import {
-  createTheme,
   withStyles,
-  ThemeProvider,
 } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Box, Container, Grid } from "@material-ui/core";
-
-import Settings from "./components/Settings";
-import Navbar from "./components/Navbar";
-import Graph from "./components/Graph";
-import SixValueSquare from "./components/SixValueSquare";
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
 
 import comms from "./api/Comms";
+import Graph from "./components/Graph";
+import Navbar from "./components/Navbar";
+import Settings from "./components/Settings";
+import SixValueSquare from "./components/SixValueSquare";
+import TankHeaterSquare from "./components/TankHeaterSquare";
+import MessageDisplaySquare from "./components/MessageDisplaySquare";
+import RocketOrientation from "./components/RocketOrientation";
+import Map from "./components/Map";
 
-const PAGE_TITLE = "Telemetry: Aux #1";
+const PAGE_TITLE = "Telemetry: Aux 1";
 
 const styles = (theme) => ({
   root: {
@@ -35,7 +38,7 @@ const styles = (theme) => ({
     height: "100%",
   },
   item: {
-    height: "33%",
+    height: "50%",
   },
   navbarGrid: {
     // height: theme.spacing(2)
@@ -45,27 +48,6 @@ const styles = (theme) => ({
 class Aux1 extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isDark: false,
-      showSettings: false,
-    };
-
-    this.changeLightDark = this.changeLightDark.bind(this);
-    this.openSettings = this.openSettings.bind(this);
-    this.closeSettings = this.closeSettings.bind(this);
-  }
-
-  changeLightDark() {
-    comms.setDarkMode(!this.state.isDark);
-    this.setState({ isDark: !this.state.isDark });
-  }
-
-  openSettings() {
-    this.setState({ showSettings: true });
-  }
-
-  closeSettings() {
-    this.setState({ showSettings: false });
   }
 
   componentDidMount() {
@@ -80,241 +62,55 @@ class Aux1 extends Component {
 
   render() {
     const { classes } = this.props;
-    const theme = createTheme({
-      palette: {
-        type: this.state.isDark ? "dark" : "light",
-      },
-    });
 
     return (
-      <ThemeProvider theme={theme}>
+      <React.Fragment>
         <CssBaseline />
         <Box>
-          <Settings
-            open={this.state.showSettings}
-            closeSettings={this.closeSettings}
-          />
-          <Navbar
-            changeLightDark={this.changeLightDark}
-            openSettings={this.openSettings}
-          />
           <Container maxWidth="xl" className={classes.container}>
             <Grid container={true} spacing={1} className={classes.row}>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
+              <Grid item={1} xs={6} className={classes.item}>
+                <SixValueSquare
                   fields={[
-                    {
-                      name: "pressurantPT",
-                      color: [70, 1, 155],
-                      unit: "PSI",
-                    },
+                    ["Altitude", "baroAltitude", "m", 2],
+                    ["Ascent Speed", "ascentSpeed", "m/s", 2],
+                    ["Temperature", "baroTemperature", "C", 2],
+                    ["X Accel", "accelX", "g", 2],
+                    ["Y Accel", "accelY", "g", 2],
+                    ["Z Accel", "accelZ", "g", 2],
                   ]}
                 />
               </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
+              <Grid item={1} xs={6} className={classes.item}>
+                <Map fieldLat={"gpsLatitude"} fieldLong={"gpsLongitude"} />
+              </Grid>
+              <Grid item={1} xs={6} className={classes.item}>
+                <SixValueSquare
                   fields={[
-                    {
-                      name: "loxTankPT",
-                      color: [0, 126, 254],
-                      unit: "PSI",
-                    },
+                    ["BBox Data Written", "dataWritten", "KB", 1],
+                    ["Apogee Time", "apogeeTime", "us", 0, 1],
+                    ["Radio RSSI", "radioRSSI", ""],
+                    ["GPS Latitude", "gpsLatitude", "", 2],
+                    ["GPS Longitude", "gpsLongitude", "", 2],
+                    ["GPS Sat Count", "numpGpsSats", "", 1],
                   ]}
                 />
               </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={[
-                    {
-                      name: "fuelTankPT",
-                      color: [0, 187, 0],
-                      unit: "PSI",
-                    },
-                  ]}
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <SixValueSquare fields={UpperLeft} />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={[
-                    {
-                      name: "loxInjectorPT",
-                      color: [221, 0, 0],
-                      unit: "PSI",
-                    },
-                  ]}
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={[
-                    {
-                      name: "fuelInjectorPT",
-                      color: [70, 1, 155],
-                      unit: "PSI",
-                    },
-                  ]}
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                {/* <Graph
-                  fields={
-                    [
-                      {
-                        name: 'loxGemsPT',
-                        color: [0, 126, 254],
-                        unit: 'psi'
-                      },
-                      {
-                        name: 'propGemsPT',
-                        color: [0, 187, 0],
-                        unit: 'psi'
-                      },
-                    ]
-                  }
-                /> */}
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={[
-                    {
-                      name: "thrust0",
-                      color: [255, 51, 224],
-                      unit: "LBS",
-                    },
-                    {
-                      name: "thrust1", // prop PT temp
-                      color: [15, 202, 221],
-                      unit: "LBS",
-                    },
-                    {
-                      name: "thrust2", // prop PT temp
-                      color: [202, 15, 221],
-                      unit: "LBS",
-                    },
-                    {
-                      name: "thrust3", // prop PT temp
-                      color: [221, 202, 15],
-                      unit: "LBS",
-                    },
-                    {
-                      name: "totalThrust", // prop PT temp
-                      color: [238, 154, 7],
-                      unit: "LBS",
-                    },
-                  ]}
-                />
-              </Grid>
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph
-                  fields={[
-                    {
-                      name: "engineTop1TC",
-                      color: [0, 126, 254],
-                      unit: "ºC",
-                    },
-                    {
-                      name: "engineTop2TC",
-                      color: [0, 187, 0],
-                      unit: "ºC",
-                    },
-                    {
-                      name: "engineBottom1TC",
-                      color: [123, 35, 162],
-                      unit: "ºC",
-                    },
-                    {
-                      name: "engineBottom2TC",
-                      color: [35, 123, 162],
-                      unit: "ºC",
-                    },
-
-                    // {
-                    //   name: 'engineTC4',
-                    //   color: [0, 126, 254],
-                    //   unit: 'ºC'
-                    // },
-                    // {
-                    //   name: 'engineTC5',
-                    //   color: [0, 187, 0],
-                    //   unit: 'ºC'
-                    // },
-                    // {
-                    //   name: 'engineTC6',
-                    //   color: [123, 35, 162],
-                    //   unit: 'ºC'
-                    // },
-                    // {
-                    //   name: 'engineTC7',
-                    //   color: [35, 123, 162],
-                    //   unit: 'ºC'
-                    // },
-
-                    // {
-                    //   name: 'engineTC8',
-                    //   color: [0, 126, 254],
-                    //   unit: 'ºC'
-                    // },
-                    // {
-                    //   name: 'engineTC9',
-                    //   color: [0, 187, 0],
-                    //   unit: 'ºC'
-                    // },
-                    // {
-                    //   name: 'engineTC10',
-                    //   color: [123, 35, 162],
-                    //   unit: 'ºC'
-                    // },
-                    // {
-                    //   name: 'engineTC11',
-                    //   color: [35, 123, 162],
-                    //   unit: 'ºC'
-                    // },
-                  ]}
+              <Grid item={1} xs={6} className={classes.item}>
+                <RocketOrientation
+                  fieldQW={"qW"}
+                  fieldQX={"qX"}
+                  fieldQY={"qY"}
+                  fieldQZ={"qZ"}
                 />
               </Grid>
             </Grid>
           </Container>
         </Box>
-      </ThemeProvider>
+      </React.Fragment>
     );
   }
 }
-
-const UpperLeft = [
-  {
-    name: "LOX DOME",
-    field: "loxDomePT",
-    unit: "PSI",
-  },
-  {
-    name: "RQD Pressure",
-    field: "rqdPT",
-    unit: "PSI",
-  },
-  {
-    name: "Main Valve Bottle",
-    field: "mainValveBottlePT",
-    unit: "PSI",
-  },
-  {
-    name: "Fuel DOME",
-    field: "fuelDomePT",
-    unit: "PSI",
-  },
-  {
-    name: "_",
-    field: "_",
-    unit: "",
-  },
-  {
-    name: "_",
-    field: "_",
-    unit: "",
-  },
-];
 
 Aux1.propTypes = {
   classes: PropTypes.object.isRequired,

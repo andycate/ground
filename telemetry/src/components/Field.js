@@ -73,7 +73,7 @@ class Field extends Component {
             <Typography variant='h3' className={classes.value} ref={this.valRef}>
               {(0).toFixed(this.decimals)}
             </Typography>
-            <Typography variant='h4' className={classes.unit}>
+            <Typography variant='h6' className={classes.unit}>
               {unit}
             </Typography>
           </div>

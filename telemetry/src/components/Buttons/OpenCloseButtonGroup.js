@@ -1,0 +1,81 @@
+import React from "react";
+import {
+  ButtonGroup as MaterialButtonGroup,
+  Button,
+  makeStyles,
+} from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  openButton: {
+    backgroundColor: theme.palette.success.main + " !important",
+    color: "#fff" + " !important",
+    transition: "none",
+	borderRadius: "1em",
+	fontWeight: "800"
+  },
+  openButtonOutline: {
+    color: theme.palette.text.primary + " !important",
+    borderColor: theme.palette.success.main + " !important",
+    transition: "none",
+	borderRadius: "1em",
+  },
+  closedButton: {
+    backgroundColor: theme.palette.error.main + " !important",
+    color: theme.palette.error.contrastText + " !important",
+    transition: "none",
+	borderRadius: "1em",
+	fontWeight: "800"
+  },
+  closedButtonOutline: {
+    color: theme.palette.text.primary + " !important",
+    transition: "none",
+	borderRadius: "1em",
+  },
+  openStatusBox: {
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.success.main,
+  },
+  closedStatusBox: {
+    padding: theme.spacing(1),
+    textAlign: "center",
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.error.main,
+  },
+}));
+
+export default function OpenCloseButtonGroup({
+  isOpen,
+  setClosed,
+  setOpen,
+  ...props
+}) {
+  const classes = useStyles();
+  return (
+    <div>
+      <Button
+        color="primary"
+        variant="text"
+        className={isOpen ? classes.closedButtonOutline : classes.closedButton}
+        onClick={setClosed}
+        disabled={props.disabled || false}
+        disableRipple
+        size="small"
+      >
+        {props.failText || "Close"}
+      </Button>
+      <Button
+        color="primary"
+        variant="text"
+        className={isOpen ? classes.openButton : classes.openButtonOutline}
+        onClick={setOpen}
+        disabled={props.disabled || false}
+        disableRipple
+        size="small"
+      >
+        {props.successText || "Open"}
+      </Button>
+    </div>
+  );
+}

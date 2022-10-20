@@ -12,16 +12,16 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 
 import comms from "./api/Comms";
-import ButtonGroup from "./components/ButtonGroup";
-import ButtonGroupFlow from "./components/ButtonGroupFlow";
-import ButtonGroupRBV from "./components/ButtonGroupRBV";
-import ButtonGroupRBVTimed from "./components/ButtonGroupRBVTimed";
-import ButtonGroupRQD from "./components/ButtonGroupRQD";
-import ButtonGroupHeater from "./components/ButtonGroupHeater";
-import ButtonGroupHeaterCtrlLoop from "./components/ButtonGroupHeaterCtrlLoop";
-import BigButton from "./components/BigButton";
+import ButtonGroup from "./components/Buttons/ButtonGroup";
+import ButtonGroupFlow from "./components/Buttons/ButtonGroupFlow";
+import ButtonGroupRBV from "./components/Buttons/ButtonGroupRBV";
+import ButtonGroupRBVTimed from "./components/Buttons/ButtonGroupRBVTimed";
+import ButtonGroupRQD from "./components/Buttons/ButtonGroupRQD";
+import ButtonGroupHeater from "./components/Buttons/ButtonGroupHeater";
+import ButtonGroupHeaterCtrlLoop from "./components/Buttons/ButtonGroupHeaterCtrlLoop";
+import BigButton from "./components/Buttons/BigButton";
 import Procedures from "./components/Procedures";
-import SwitchButton from "./components/SwitchButton";
+import SwitchButton from "./components/Buttons/SwitchButton";
 import StateWindow from "./components/StateWindow";
 
 import UpdogWav from "./media/updog.wav";
@@ -41,7 +41,7 @@ const styles = (theme) => ({
     padding: theme.spacing(1),
   },
   row: {
-    // height: '100%'
+    height: '100%',
     borderBottom: "0.5px solid",
     borderColor: theme.palette.text.primary,
   },
@@ -60,7 +60,6 @@ class Control extends Component {
       HPS_en: false,
     };
 
-    this.handleDarkMode = this.handleDarkMode.bind(this);
     this.playUpdog = this.playUpdog.bind(this);
     this.beginFlowAll = this.beginFlowAll.bind(this);
     this.abortAll = this.abortAll.bind(this);
@@ -68,10 +67,6 @@ class Control extends Component {
     this.setStopCountdownCallback = this.setStopCountdownCallback.bind(this);
     this.startCountdown = this.startCountdown.bind(this);
     this.stopCountdown = this.stopCountdown.bind(this);
-  }
-
-  handleDarkMode(isDark) {
-    this.setState({ isDark });
   }
 
   playUpdog() {
@@ -120,12 +115,12 @@ class Control extends Component {
   componentDidMount() {
     document.title = PAGE_TITLE;
     comms.connect();
-    comms.addDarkModeListener(this.handleDarkMode);
+    // comms.addDarkModeListener(this.handleDarkMode);
   }
 
   componentWillUnmount() {
     // make sure that when there's a hot reload, we disconnect comms before its connected again
-    comms.removeDarkModeListener(this.handleDarkMode);
+    // comms.removeDarkModeListener(this.handleDarkMode);
     comms.destroy();
   }
 
@@ -138,42 +133,40 @@ class Control extends Component {
     });
 
     return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Container maxWidth="xl" className={classes.container}>
-          <Grid container className={classes.row}>
-            {/* START OF FIRST BUTTON COLUMN */}
-            <Grid container columns={2} xs={4} className={classes.item}>
-              <Grid item xs={6}>
-                <ButtonGroupRBVTimed
-                  open={comms.openPressurantFlowRBV}
-                  close={comms.closePressurantFlowRBV}
-                  time={comms.timePressurantFlowRBV}
-                  field="pressurantFlowRBVstate"
-                  text="Pressurant Flow RBV"
-                  disabled={!this.state.HPS_en}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <SwitchButton
-                  text="Pressurant Enable"
-                  open={comms.doNothing}
-                  close={comms.doNothing}
-                  field="HPSEnable"
-                  change={(e) => {
-                    this.setState({ HPS_en: e.target.checked });
-                  }}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <ButtonGroup
-                  open={comms.openloxGemsValve}
-                  close={comms.closeloxGemsValve}
-                  field="loxGemsValveState"
-                  text="LOX Gems Valve"
-                />
-              </Grid>
-              {/* <Grid item>
+      <Container maxWidth="xl" className={classes.container}>
+        <Grid container className={classes.row}>
+          {/* START OF FIRST BUTTON COLUMN */}
+          <Grid container columns={2} xs={4} className={classes.item}>
+            <Grid item xs={6}>
+              <ButtonGroupRBVTimed
+                open={comms.openPressurantFlowRBV}
+                close={comms.closePressurantFlowRBV}
+                time={comms.timePressurantFlowRBV}
+                field="pressurantFlowRBVstate"
+                text="Pressurant Flow RBV"
+                disabled={!this.state.HPS_en}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <SwitchButton
+                text="Pressurant Enable"
+                open={comms.doNothing}
+                close={comms.doNothing}
+                field="HPSEnable"
+                change={(e) => {
+                  this.setState({ HPS_en: e.target.checked });
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <ButtonGroup
+                open={comms.openloxGemsValve}
+                close={comms.closeloxGemsValve}
+                field="loxGemsValveState"
+                text="LOX Gems Valve"
+              />
+            </Grid>
+            {/* <Grid item>
                     <ButtonGroup
                       open={comms.startToggleLoxGemsValve}
                       close={comms.stopToggleLoxGemsValve}
@@ -181,15 +174,15 @@ class Control extends Component {
                       text='Toggle LOX Gems Valve'
                     />
                   </Grid> */}
-              <Grid item xs={6}>
-                <ButtonGroup
-                  open={comms.openfuelGemsValve}
-                  close={comms.closefuelGemsValve}
-                  field="fuelGemsValveState"
-                  text="Fuel Gems Valve"
-                />
-              </Grid>
-              {/* <Grid item>
+            <Grid item xs={6}>
+              <ButtonGroup
+                open={comms.openfuelGemsValve}
+                close={comms.closefuelGemsValve}
+                field="fuelGemsValveState"
+                text="Fuel Gems Valve"
+              />
+            </Grid>
+            {/* <Grid item>
                     <ButtonGroup
                       open={comms.startToggleFuelGemsValve}
                       close={comms.stopToggleFuelGemsValve}
@@ -197,15 +190,15 @@ class Control extends Component {
                       text='Toggle Fuel Gems Valve'
                     />
                   </Grid> */}
-              <Grid item xs={6}>
-                <ButtonGroup
-                  open={comms.openarmValve}
-                  close={comms.closearmValve}
-                  field="armValveState"
-                  text="Arm Main Valves"
-                />
-              </Grid>
-              {/* <Grid item xs={6}>
+            <Grid item xs={6}>
+              <ButtonGroup
+                open={comms.openarmValve}
+                close={comms.closearmValve}
+                field="armValveState"
+                text="Arm Main Valves"
+              />
+            </Grid>
+            {/* <Grid item xs={6}>
                     <ButtonGroup
                       open={() => {
                         comms.openloxMainValve()
@@ -219,31 +212,31 @@ class Control extends Component {
                       text='Both Valves'
                     />
                   </Grid> */}
-              <Grid item xs={6}>
-                <ButtonGroup
-                  // open={comms.openarmValve}
-                  // close={comms.closearmValve}
-                  field="armVent"
-                  text="Arm Vent"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <ButtonGroup
-                  open={comms.openloxMainValve}
-                  close={comms.closeloxMainValve}
-                  field="loxMainValveState"
-                  text="LOX Main"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <ButtonGroup
-                  open={comms.openfuelMainValve}
-                  close={comms.closefuelMainValve}
-                  field="fuelMainValveState"
-                  text="Prop Main"
-                />
-              </Grid>
-              {/* <Grid item xs={6}>
+            <Grid item xs={6}>
+              <ButtonGroup
+                // open={comms.openarmValve}
+                // close={comms.closearmValve}
+                field="armVent"
+                text="Arm Vent"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <ButtonGroup
+                open={comms.openloxMainValve}
+                close={comms.closeloxMainValve}
+                field="loxMainValveState"
+                text="LOX Main"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <ButtonGroup
+                open={comms.openfuelMainValve}
+                close={comms.closefuelMainValve}
+                field="fuelMainValveState"
+                text="Prop Main"
+              />
+            </Grid>
+            {/* <Grid item xs={6}>
                     <ButtonGroup
                       open={comms.openMainValveVent}
                       close={comms.closeMainValveVent}
@@ -259,18 +252,18 @@ class Control extends Component {
                       text='Press RQD'
                     />
                   </Grid> */}
-              <Grid item xs={6}>
-                <ButtonGroupFlow
-                  open={comms.activateIgniter}
-                  close={comms.deactivateIgniter}
-                  field="igniterState"
-                  text="Igniter"
-                  successText="Activate"
-                  failText="Deactivate"
-                  onActuateCallback={this.playUpdog}
-                />
-              </Grid>
-              {/* <Grid item xs={6}>
+            <Grid item xs={6}>
+              <ButtonGroupFlow
+                open={comms.activateIgniter}
+                close={comms.deactivateIgniter}
+                field="igniterState"
+                text="Igniter"
+                successText="Activate"
+                failText="Deactivate"
+                onActuateCallback={this.playUpdog}
+              />
+            </Grid>
+            {/* <Grid item xs={6}>
                     <ButtonGroupFlow
                       open={this.beginFlowAll}
                       close={this.abortAll}
@@ -278,96 +271,96 @@ class Control extends Component {
                       text='Begin Flow'
                     />
                   </Grid> */}
-              <Grid item xs={6}>
-                <SwitchButton
-                  open={comms.enableIgniter}
-                  close={comms.disableIgniter}
-                  field="_"
-                  text="Igniter Enable"
-                />
-              </Grid>
+            <Grid item xs={6}>
+              <SwitchButton
+                open={comms.enableIgniter}
+                close={comms.disableIgniter}
+                field="_"
+                text="Igniter Enable"
+              />
             </Grid>
+          </Grid>
 
-            {/* START OF SECOND BUTTON COLUMN */}
-            <Grid container xs={6} className={classes.item}>
-              <Grid item xs={4}>
-                <ButtonGroupRBVTimed
-                  open={comms.openPressurantFillRBV}
-                  close={comms.closePressurantFillRBV}
-                  time={comms.timePressurantFillRBV}
-                  field="pressurantFillRBVstate"
-                  text="N2 Fill RBV"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <ButtonGroupRBVTimed
-                  open={comms.openPressurantFillVentRBV}
-                  close={comms.closePressurantFillVentRBV}
-                  time={comms.timePressurantFillVentRBV}
-                  field="pressurantFillVentRBVstate"
-                  text="N2 Fill Vent"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <ButtonGroup
-                  open={comms.openPressRQD}
-                  close={comms.closePressRQD}
-                  field="pressurantRQD"
-                  text="N2 RQD"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <ButtonGroupRBVTimed
-                  open={comms.openloxFillRBV}
-                  close={comms.closeloxFillRBV}
-                  time={comms.timeloxFillRBV}
-                  field="loxFillRBVstate"
-                  text="LOX Fill RBV"
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <ButtonGroupRBVTimed
-                  open={comms.openfuelFillRBV}
-                  close={comms.closefuelFillRBV}
-                  time={comms.timefuelFillRBV}
-                  field="fuelFillRBVstate"
-                  text="Fuel Fill RBV"
-                />
-              </Grid>
-              <Grid item xs={4}></Grid>
-              <Grid item xs={4}>
-                <ButtonGroup
-                  open={comms.openMainValvePurge}
-                  close={comms.closeMainValvePurge}
-                  field="mainValvePurgeState"
-                  text="N2 Purge"
-                />
-              </Grid>
-              <Grid item xs={4}></Grid>
-              <Grid item xs={4}>
-                <SwitchButton
-                  open={comms.enableFlightMode}
-                  close={comms.disableFlightMode}
-                  field="_"
-                  text="Launch Enable"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <BigButton
-                  // onClick ?
-                  text="Launch"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <BigButton
-                  onClick={() => {
-                    comms.abort();
-                  }}
-                  text="Abort"
-                  isRed
-                />
-              </Grid>
-              {/* <Grid item xs={6}>
+          {/* START OF SECOND BUTTON COLUMN */}
+          <Grid container xs={6} className={classes.item}>
+            <Grid item xs={4}>
+              <ButtonGroupRBVTimed
+                open={comms.openPressurantFillRBV}
+                close={comms.closePressurantFillRBV}
+                time={comms.timePressurantFillRBV}
+                field="pressurantFillRBVstate"
+                text="N2 Fill RBV"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <ButtonGroupRBVTimed
+                open={comms.openPressurantFillVentRBV}
+                close={comms.closePressurantFillVentRBV}
+                time={comms.timePressurantFillVentRBV}
+                field="pressurantFillVentRBVstate"
+                text="N2 Fill Vent"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <ButtonGroup
+                open={comms.openPressRQD}
+                close={comms.closePressRQD}
+                field="pressurantRQD"
+                text="N2 RQD"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <ButtonGroupRBVTimed
+                open={comms.openloxFillRBV}
+                close={comms.closeloxFillRBV}
+                time={comms.timeloxFillRBV}
+                field="loxFillRBVstate"
+                text="LOX Fill RBV"
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <ButtonGroupRBVTimed
+                open={comms.openfuelFillRBV}
+                close={comms.closefuelFillRBV}
+                time={comms.timefuelFillRBV}
+                field="fuelFillRBVstate"
+                text="Fuel Fill RBV"
+              />
+            </Grid>
+            <Grid item xs={4}></Grid>
+            <Grid item xs={4}>
+              <ButtonGroup
+                open={comms.openMainValvePurge}
+                close={comms.closeMainValvePurge}
+                field="mainValvePurgeState"
+                text="N2 Purge"
+              />
+            </Grid>
+            <Grid item xs={4}></Grid>
+            <Grid item xs={4}>
+              <SwitchButton
+                open={comms.enableFlightMode}
+                close={comms.disableFlightMode}
+                field="_"
+                text="Launch Enable"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <BigButton
+                // onClick ?
+                text="Launch"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <BigButton
+                onClick={() => {
+                  comms.abort();
+                }}
+                text="Abort"
+                isRed
+              />
+            </Grid>
+            {/* <Grid item xs={6}>
                     <SwitchButton
                       open={comms.enableIgniter}
                       close={comms.disableIgniter}
@@ -375,14 +368,14 @@ class Control extends Component {
                       text='Igniter Enable'
                     />
                   </Grid> */}
-              {/* <Grid item xs={12}>
+            {/* <Grid item xs={12}>
                     <StateWindow
                       onUpdate={comms.setProcedureState}
                       onState0Enter={comms.startCheckout}
                       onState0Exit={comms.endCheckout}
                     />
                   </Grid> */}
-              {/* <Grid item xs={12}>
+            {/* <Grid item xs={12}>
                     <SwitchButton
                         open={comms.enableFlightMode}
                         close={comms.disableFlightMode}
@@ -390,20 +383,19 @@ class Control extends Component {
                         text='Flight Mode' 
                       />
                   </Grid> */}
-            </Grid>
+          </Grid>
 
-            {/* START OF PROCEDURE COLUMN */}
-            <Grid item xs={2} className={classes.item}>
-              <Grid container={true} spacing>
-                <CountdownTimer
-                  setStartCountdownCallback={this.setStartCountdownCallback}
-                  setStopCountdownCallback={this.setStopCountdownCallback}
-                />
-              </Grid>
+          {/* START OF PROCEDURE COLUMN */}
+          <Grid item xs={2} className={classes.item}>
+            <Grid container={true} spacing>
+              <CountdownTimer
+                setStartCountdownCallback={this.setStartCountdownCallback}
+                setStopCountdownCallback={this.setStopCountdownCallback}
+              />
             </Grid>
           </Grid>
-        </Container>
-      </ThemeProvider>
+        </Grid>
+      </Container>
     );
   }
 }

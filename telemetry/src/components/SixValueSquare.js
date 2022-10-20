@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Card, CardContent, Grid } from "@material-ui/core";
+import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
 
 import Field from "./Field";
 
@@ -37,11 +37,11 @@ class SixValueSquare extends Component {
             {fields.map((obj) => (
               <Grid item xs={4} className={classes.item}>
                 <Field
-                  name={obj.name}
-                  field={obj.field}
-                  unit={obj.unit}
-                  decimals={obj.decimals}
-                  threshold={obj.threshold}
+                  name={obj[0]}
+                  field={obj[1]}
+                  unit={obj[2] || ""}
+                  decimals={obj[3] || 2}
+                  threshold={obj[4] || 1}
                 />
               </Grid>
             ))}

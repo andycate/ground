@@ -12,7 +12,7 @@ const styles = theme => ({
     transition: 'none',
   },
   thiccGreen: {
-    backgroundColor: '#296e01' + '!important',
+    backgroundColor: theme.palette.success.main + '!important',
     color: theme.palette.text.main + '!important',
     width: '100%',
     fontSize: '3rem',
