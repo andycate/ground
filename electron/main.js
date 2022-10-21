@@ -32,6 +32,7 @@ function createWindow (isMain) {
       preload: path.join(__dirname, 'preload.js'),
       devTools: isDev,
     },
+    icon: __dirname + '/Icons/Icons.icns'
   });
   window1.maximize();
   if(!isDev) {
@@ -59,6 +60,7 @@ function createWindow (isMain) {
       preload: path.join(__dirname, 'preload.js'),
       devTools: isDev,
     },
+    icon: __dirname + '/Icons/Icons.icns'
   });
   window2.maximize();
   if(!isDev) {
@@ -88,6 +90,7 @@ function createSelectorWindow() {
       preload: path.join(__dirname, 'preload.js'),
       devTools: isDev,
     },
+    icon: __dirname + '/Icons/Icons.icns'
   });
   selector.setSize(200, 100);
   selector.center();
