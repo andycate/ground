@@ -21,6 +21,9 @@ class FlightV3 extends Board {
     this.closePressFlowRBV = this.closePressFlowRBV.bind(this);
     this.pressFlowRBVms = this.pressFlowRBVms.bind(this);
 
+    this.enableFlightMode = this.enableFlightMode.bind(this);
+    this.disableFlightMode = this.disableFlightMode.bind(this);
+
     // this.enableFastReadRate = this.enableFastReadRate.bind(this);
     // this.disableFastReadRate = this.disableFastReadRate.bind(this);
   }

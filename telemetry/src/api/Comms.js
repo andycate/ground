@@ -47,6 +47,10 @@ class Comms {
     this.openPressurantFlowRBV = this.openPressurantFlowRBV.bind(this);
     this.closePressurantFlowRBV = this.closePressurantFlowRBV.bind(this);
     this.timePressurantFlowRBV = this.timePressurantFlowRBV.bind(this);
+    
+    this.enableFlightMode = this.enableFlightMode.bind(this);
+    this.disableFlightMode = this.disableFlightMode.bind(this);
+
 
     // Ground Computer
 
@@ -71,8 +75,8 @@ class Comms {
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
 
-    this.enableFastRead = this.enableFastRead.bind(this);
-    this.disableFastRead = this.disableFastRead.bind(this);
+    // this.enableFastRead = this.enableFastRead.bind(this);
+    // this.disableFastRead = this.disableFastRead.bind(this);
 
     this.enableIgniter = this.enableIgniter.bind(this);
     this.disableIgniter = this.disableIgniter.bind(this);
@@ -254,8 +258,8 @@ class Comms {
   async closePressurantFlowRBV() { return await this.ipc.invoke('close-pressurantFlowRBV'); }
   async timePressurantFlowRBV(val) { return await this.ipc.invoke('time-pressurantFlowRBV', val); }
 
-  async enableFastRead() { return await this.ipc.invoke('enable-fastReadRate'); }
-  async disableFastRead() { return await this.ipc.invoke('disable-fastReadRate'); }
+  // async enableFastRead() { return await this.ipc.invoke('enable-fastReadRate'); }
+  // async disableFastRead() { return await this.ipc.invoke('disable-fastReadRate'); }
 
   async enableFlightMode() { return await this.ipc.invoke('enable-flightMode'); }
   async disableFlightMode() { return await this.ipc.invoke('disable-flightMode'); }
