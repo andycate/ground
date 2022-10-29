@@ -39,10 +39,17 @@ const fields = [
   ],
   [
     {
-      name: "loxFillCapFill", // double check this
-      color: [140, 140, 0],
-      unit: ""
-    }
+      name: "loxCapVal",
+      color: [59, 126, 161],
+      unit: "pF",
+      precision: 3,
+    },
+    {
+      name: "loxCapValFiltered",
+      color: [0, 50, 98],
+      unit: "pF",
+      precision: 3,
+    },
   ],
   [
     {
@@ -57,11 +64,18 @@ const fields = [
     },
   ],
   [
-    {
-      name: "fuelTankCapFill", // double check this
-      color: [0, 140, 140],
-      unit: ""
-    }
+      {
+        name: "fuelCapVal",
+        color: [253, 181, 21],
+        unit: "pF",
+        precision: 3,
+      },
+      {
+        name: "fuelCapValFiltered",
+        color: [196, 130, 14],
+        unit: "pF",
+        precision: 3,
+      },
   ],
   [
     {
