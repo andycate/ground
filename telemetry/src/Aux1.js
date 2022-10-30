@@ -90,9 +90,9 @@ class Aux1 extends Component {
                     ["BBox Data Written", "dataWritten", "KB", 1],
                     ["Apogee Time", "apogeeTime", "us", 0, 1],
                     ["Radio RSSI", "radioRSSI", ""],
-                    ["GPS Latitude", "gpsLatitude", "", 2],
-                    ["GPS Longitude", "gpsLongitude", "", 2],
-                    ["GPS Sat Count", "numpGpsSats", "", 1],
+                    ["GPS Latitude", "gpsLatitude", "", 4],
+                    ["GPS Longitude", "gpsLongitude", "", 4],
+                    ["GPS Sat Count", "numGpsSats", "", 1],
                   ]}
                 />
               </Grid>
