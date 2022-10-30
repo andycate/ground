@@ -341,7 +341,7 @@ class Control extends Component {
                 <SwitchButton
                   open={comms.enableFlightMode}
                   close={comms.disableFlightMode}
-                  field="_"
+                  field="flightEnable"
                   text="Flight Mode"
                 />
               </Grid>
@@ -349,7 +349,7 @@ class Control extends Component {
                 <SwitchButton
                   open={comms.enablelaunchMode}
                   close={comms.disablelaunchMode}
-                  field="flightEnable"
+                  field="_"
                   text="Launch Enable"
                 />
               </Grid>
