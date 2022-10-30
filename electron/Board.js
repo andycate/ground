@@ -155,6 +155,9 @@ class Board {
       } else if (fieldName !== null) {
         update[fieldName] = value
       }
+
+
+
     })
 
     return update

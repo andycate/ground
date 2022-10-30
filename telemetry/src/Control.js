@@ -58,10 +58,11 @@ class Control extends Component {
       isDark: false,
       showSettings: false,
       HPS_en: false,
+      launchDisabled: true
     };
 
     this.playUpdog = this.playUpdog.bind(this);
-    this.beginFlowAll = this.beginFlowAll.bind(this);
+    this.beginLaunchSequence = this.beginLaunchSequence.bind(this);
     this.abortAll = this.abortAll.bind(this);
     this.setStartCountdownCallback = this.setStartCountdownCallback.bind(this);
     this.setStopCountdownCallback = this.setStopCountdownCallback.bind(this);
@@ -73,7 +74,7 @@ class Control extends Component {
     new Audio(UpdogWav).play();
   }
 
-  beginFlowAll() {
+  beginLaunchSequence() {
     this.startCountdown();
     // comms.closeloxTankVentRBV();
     // comms.closefuelTankVentRBV();
@@ -81,10 +82,12 @@ class Control extends Component {
     // comms.closefuelPrechillRBV();
     // comms.closePurgeFlowRBV();
 
-    this.sendFlowTimeout = setTimeout(comms.beginFlow, 4000);
+    this.sendFlowTimeout = setTimeout(comms.beginFlow, 7310);
   }
 
   abortAll() {
+    clearTimeout(this.sendFlowTimeout);
+      
     comms.abort();
 
     // comms.openloxTankVentRBV();
@@ -92,7 +95,6 @@ class Control extends Component {
     // comms.openPurgeFlowRBV();
     // comms.openloxPrechillRBV();
     // comms.openfuelPrechillRBV();
-    clearTimeout(this.sendFlowTimeout);
     this.stopCountdown();
   }
 
@@ -341,29 +343,28 @@ class Control extends Component {
                 <SwitchButton
                   open={comms.enableFlightMode}
                   close={comms.disableFlightMode}
-                  field="_"
+                  field="flightMode"
                   text="Flight Mode"
                 />
               </Grid>
               <Grid item xs={4}>
                 <SwitchButton
-                  open={comms.enablelaunchMode}
-                  close={comms.disablelaunchMode}
-                  field="flightEnable"
+                  open={() => {comms.enableLaunch(); this.setState({launchDisabled: false})}}
+                  close={() => {comms.disableLaunch(); this.setState({launchDisabled: true})}}
+                  field="launchEnable"
                   text="Launch Enable"
                 />
               </Grid>
               <Grid item xs={12}>
                 <BigButton
-                  // onClick ?
+                  disabled={this.state.launchDisabled}
+                  onClick={this.beginLaunchSequence}
                   text="Launch"
                 />
               </Grid>
               <Grid item xs={12}>
                 <BigButton
-                  onClick={() => {
-                    comms.abort();
-                  }}
+                  onClick={this.abortAll}
                   text="Abort"
                   isRed
                 />

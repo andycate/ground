@@ -75,6 +75,9 @@ class Comms {
     this.beginFlow = this.beginFlow.bind(this);
     this.abort = this.abort.bind(this);
 
+    this.enableLaunch = this.enableLaunch.bind(this);
+    this.disableLaunch = this.disableLaunch.bind(this);
+
     // this.enableFastRead = this.enableFastRead.bind(this);
     // this.disableFastRead = this.disableFastRead.bind(this);
 
@@ -258,6 +261,7 @@ class Comms {
   async closePressurantFlowRBV() { return await this.ipc.invoke('close-pressurantFlowRBV'); }
   async timePressurantFlowRBV(val) { return await this.ipc.invoke('time-pressurantFlowRBV', val); }
 
+
   // async enableFastRead() { return await this.ipc.invoke('enable-fastReadRate'); }
   // async disableFastRead() { return await this.ipc.invoke('disable-fastReadRate'); }
 
@@ -292,6 +296,9 @@ class Comms {
 
   async enableIgniter() { return await this.ipc.invoke('enable-igniter'); }
   async disableIgniter() { return await this.ipc.invoke('disable-igniter'); }
+
+  async enableLaunch() { return await this.ipc.invoke('enable-launchMode'); }
+  async disableLaunch() { return await this.ipc.invoke('disable-launchMode'); }
 
   //-------Actuator Controller 1-------
 

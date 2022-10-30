@@ -22,9 +22,9 @@ const styles = theme => ({
 
 class BigButton extends Component {
   render() {
-    const { classes, theme, text, onClick, isRed } = this.props;
+    const { classes, theme, text, onClick, isRed, disabled } = this.props;
     return (
-      <Button onClick={onClick} color='primary' variant='contained' disableRipple className={isRed ? classes.thiccRed : classes.thiccGreen}>{text}</Button>
+      <Button onClick={onClick} disabled={disabled || false} color='primary' variant='contained' disableRipple className={isRed ? classes.thiccRed : classes.thiccGreen}>{text}</Button>
     );
   }
 }
