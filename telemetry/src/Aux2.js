@@ -110,12 +110,12 @@ class Aux2 extends Component {
                 fields={[
                   ["Breakwire Voltage", "breakwireVoltage", "V", 0, 3],
                   ["RQD Voltage", "RQDVoltage", "V", 0, 3],
-                  ["Press Fill Voltage", "acLinAct1Voltage", "V", 0, 3],
+                  ["Press Fill Voltage", "pressurantFillRBVvoltage", "V", 0, 3],
                   ["Breakwire Current", "breakwireCurrent", "A", 2, 0.1],
                   ["RQD Current", "RQDCurrent", "A", 2, 0.1],
                   [
                     "Press Fill Current",
-                    "acLinAct1Current",
+                    "pressurantFillRBVcurrent",
                     "A",
                     2,
                     0.1,
@@ -131,22 +131,22 @@ class Aux2 extends Component {
                 fields={[
                   [
                     "Press Fill Vent Voltage",
-                    "acLinAct3Voltage",
+                    "pressurantFillVentRBVvoltage",
                     "V",
                     0,
                     3,
                   ],
-                  ["LOX Fill Voltage", "acLinAct5Voltage", "V", 0, 3],
-                  ["Fuel Fill Voltage", "acLinAct2Voltage", "V", 0, 3],
+                  ["LOX Fill Voltage", "loxFillRBVvoltage", "V", 0, 3],
+                  ["Fuel Fill Voltage", "fuelFillRBVvoltage", "V", 0, 3],
                   [
                     "Press Fill Vent Current",
-                    "acLinAct3Current",
+                    "pressurantFillVentRBVcurrent",
                     "A",
                     2,
                     0.1,
                   ],
-                  ["LOX Fill Current", "acLinAct5Current", "A", 2, 0.1],
-                  ["Fuel Fill Current", "acLinAct2Current", "A", 2, 0.1],
+                  ["LOX Fill Current", "loxFillRBVcurrent", "A", 2, 0.1],
+                  ["Fuel Fill Current", "fuelFillRBVcurrent", "A", 2, 0.1],
                 ]}
               />
             </Grid>
