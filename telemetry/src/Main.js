@@ -93,11 +93,11 @@ const fields = [
       color: [202, 15, 221],
       unit: "LBS",
     },
-    {
-      name: "thrust3", // prop PT temp
-      color: [221, 202, 15],
-      unit: "LBS",
-    },
+    // {
+    //   name: "thrust3", // prop PT temp
+    //   color: [221, 202, 15],
+    //   unit: "LBS",
+    // },
     {
       name: "totalThrust", // prop PT temp
       color: [238, 154, 7],

@@ -9,7 +9,7 @@ const ActuatorController = require('./Boards/ActuatorController');
 const InfluxDB = require('./InfluxDB');
 
 let lastThrust12 = 0.0;
-let lastThrust34 = 0.0;
+// let lastThrust34 = 0.0;
 
 class App {
   constructor() {
@@ -73,6 +73,8 @@ class App {
         supply8Voltage: 'groundSupply8Voltage',
         supply8Current: 'groundSupply8Current',
         supply8Power: 'groundSupply8Power',
+
+        
       },
       () => this.updateState(Date.now(), { groundConnected: true }),
       () => this.updateState(Date.now(), { groundConnected: false }),
@@ -90,7 +92,7 @@ class App {
         daqADC3: null,
         daqADC4: null,
         daqADC5: null,
-        daqADC6: 'rqdPT',
+        daqADC6: null,
         daqADC7: null,
 
         daqTC0: 'injectorTC',
@@ -101,11 +103,7 @@ class App {
         loadCell0: 'thrust0',
         loadCell1: 'thrust1',
         loadCell2: 'thrust2',
-        loadCell3: 'thrust3',
         loadCellSum: 'totalThrust12',
-
-        fastLoadCell1: 'fastThrust1',
-        fastLoadCell2: 'fastThrust2',
 
         capacitor1: null,
         capacitor2: null,
@@ -210,12 +208,12 @@ class App {
 
     if(Object.keys(update).includes("totalThrust12")) {
       lastThrust12 = update['totalThrust12']; // update total thrust value
-      this.updateState(timestamp, {"totalThrust": lastThrust12 + lastThrust34});
+      this.updateState(timestamp, {"totalThrust": lastThrust12});
     }
-    if(Object.keys(update).includes("totalThrust34")) {
-      lastThrust34 = update['totalThrust34'];
-      this.updateState(timestamp, {"totalThrust": lastThrust12 + lastThrust34});
-    }
+    // if(Object.keys(update).includes("totalThrust34")) {
+    //   lastThrust34 = update['totalThrust34'];
+    //   this.updateState(timestamp, {"totalThrust": lastThrust12 + lastThrust34});
+    // }
   }
 
   /**

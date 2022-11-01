@@ -23,7 +23,11 @@ const styles = (theme) => ({
     height: "100vh",
   },
   container: {
-    height: "100%",
+    flexGrow: 1,
+    position: "absolute",
+    top: theme.spacing(6),
+    // height: '100vh',
+    bottom: "0px",
     padding: theme.spacing(1),
   },
   row: {
@@ -32,16 +36,11 @@ const styles = (theme) => ({
   item: {
     height: "33%",
   },
-  itemBig: {
-    height: "33%",
-  },
-  twoThirds: {
-    height: "100%",
-  },
-  oneThird: {
-    height: "100%",
+  navbarGrid: {
+    // height: theme.spacing(2)
   },
 });
+
 
 class Aux2 extends Component {
   constructor(props) {
@@ -111,12 +110,12 @@ class Aux2 extends Component {
                 fields={[
                   ["Breakwire Voltage", "breakwireVoltage", "V", 0, 3],
                   ["RQD Voltage", "RQDVoltage", "V", 0, 3],
-                  ["Press Fill Voltage", "pressurantFillRBVVoltage", "V", 0, 3],
+                  ["Press Fill Voltage", "acLinAct1Voltage", "V", 0, 3],
                   ["Breakwire Current", "breakwireCurrent", "A", 2, 0.1],
                   ["RQD Current", "RQDCurrent", "A", 2, 0.1],
                   [
                     "Press Fill Current",
-                    "pressurantFillRBVCurrent",
+                    "acLinAct1Current",
                     "A",
                     2,
                     0.1,
@@ -132,28 +131,26 @@ class Aux2 extends Component {
                 fields={[
                   [
                     "Press Fill Vent Voltage",
-                    "pressFillVentVoltage",
+                    "acLinAct3Voltage",
                     "V",
                     0,
                     3,
                   ],
-                  ["LOX Fill Voltage", "loxFillVoltge", "V", 0, 3],
-                  ["Fuel Fill Voltage", "fuelFillVoltage", "V", 0, 3],
+                  ["LOX Fill Voltage", "acLinAct5Voltage", "V", 0, 3],
+                  ["Fuel Fill Voltage", "acLinAct2Voltage", "V", 0, 3],
                   [
                     "Press Fill Vent Current",
-                    "pressFillVentCurrent",
+                    "acLinAct3Current",
                     "A",
                     2,
                     0.1,
                   ],
-                  ["LOX Fill Current", "loxFillCurrent", "A", 2, 0.1],
-                  ["Fuel Fill Current", "fuelFillCurrent", "A", 2, 0.1],
+                  ["LOX Fill Current", "acLinAct5Current", "A", 2, 0.1],
+                  ["Fuel Fill Current", "acLinAct2Current", "A", 2, 0.1],
                 ]}
               />
             </Grid>
-            <Grid item xs={4} className={classes.item}>
-              <MessageDisplaySquare />
-            </Grid>
+
 
             {/* START OF ROW 3 */}
 
@@ -173,6 +170,10 @@ class Aux2 extends Component {
             </Grid>
 
             <Grid item xs={8} className={classes.item}></Grid>
+
+            <Grid item xs={4} className={classes.item}>
+              <MessageDisplaySquare />
+            </Grid>
           </Grid>
         </Container>
       </React.Fragment>

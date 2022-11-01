@@ -250,27 +250,27 @@ const INBOUND_PACKET_DEFS = {
     ['acSupply12Current', asFloat],
   ],
   90: [
-    ['acLinAct1State', asUInt8],
+    ['acLinAct1State', asUInt8], //0
     ['acLinAct1Voltage', asFloat],
     ['acLinAct1Current', asFloat],
   ],
   91: [
-    ['acLinAct2State', asUInt8],
+    ['acLinAct2State', asUInt8], //1
     ['acLinAct2Voltage', asFloat],
     ['acLinAct2Current', asFloat],
   ],
   92: [
-    ['acLinAct3State', asUInt8],
+    ['acLinAct3State', asUInt8], //2
     ['acLinAct3Voltage', asFloat],
     ['acLinAct3Current', asFloat],
   ],
   93: [
-    ['acLinAct4State', asUInt8],
+    ['acLinAct4State', asUInt8], //3
     ['acLinAct4Voltage', asFloat],
     ['acLinAct4Current', asFloat],
   ],
   94: [
-    ['acLinAct5State', asUInt8],
+    ['acLinAct5State', asUInt8], //4
     ['acLinAct5Voltage', asFloat],
     ['acLinAct5Current', asFloat],
   ],
@@ -338,7 +338,6 @@ const INBOUND_PACKET_DEFS = {
     ['loadCell0', asFloat],
     ['loadCell1', asFloat],
     ['loadCell2', asFloat],
-    ['loadCell3', asFloat],
     ['loadCellSum', asFloat],
   ],
 
