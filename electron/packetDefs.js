@@ -226,7 +226,7 @@ const INBOUND_PACKET_DEFS = {
 
   81: [
     ['rqdPT', asFloat],
-    ['mainValveBottlePT', asFloat],
+    ['purgePT', asFloat],
   ],
 
 
