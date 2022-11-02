@@ -31,9 +31,23 @@ const fields = [
       color: [0, 126, 254],
       unit: "PSI",
     },
+  ],
+  [
     {
       name: "fuelTankPT",
       color: [0, 187, 0],
+      unit: "PSI",
+    },
+  ],
+  [
+    {
+      name: "loxInjectorPT",
+      color: [221, 0, 0],
+      unit: "PSI",
+    },
+    {
+      name: "fuelInjectorPT",
+      color: [70, 1, 155],
       unit: "PSI",
     },
   ],
@@ -50,31 +64,17 @@ const fields = [
       unit: "pF",
       precision: 3,
     },
-  ],
-  [
     {
-      name: "loxInjectorPT",
-      color: [221, 0, 0],
-      unit: "PSI",
+      name: "fuelCapVal",
+      color: [253, 181, 21],
+      unit: "pF",
+      precision: 3,
     },
     {
-      name: "fuelInjectorPT",
-      color: [70, 1, 155],
-      unit: "PSI",
-    },
-  ],
-  [
-      {
-        name: "fuelCapVal",
-        color: [253, 181, 21],
-        unit: "pF",
-        precision: 3,
-      },
-      {
-        name: "fuelCapValFiltered",
-        color: [196, 130, 14],
-        unit: "pF",
-        precision: 3,
+      name: "fuelCapValFiltered",
+      color: [196, 130, 14],
+      unit: "pF",
+      precision: 3,
       },
   ],
   [

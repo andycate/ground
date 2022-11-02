@@ -36,8 +36,9 @@ const styles = (theme) => ({
   },
   container: {
     flexGrow: 1,
-    height: "100vh",
     position: "absolute",
+    top: theme.spacing(6),
+    bottom: "0px",
     padding: theme.spacing(1),
   },
   row: {
