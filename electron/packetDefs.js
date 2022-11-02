@@ -364,8 +364,8 @@ const OUTBOUND_PACKET_DEFS = {
   131: [UINT8], // Igniter
   132: [UINT8], // Lox main valve
   133: [UINT8], // Fuel main valve
-  135: [UINT8], // Main valve vent
-  136: [UINT8], // Press RQD
+  135: [UINT8], // Press RQD
+  136: [UINT8], // Main valve vent
   137: [UINT8], // Enable igniter relay
 
   // 140: [UINT8], // Formerly Fast Read Rate, now deprecated

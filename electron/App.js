@@ -136,9 +136,9 @@ class App {
         acLinAct4Voltage: null,
         acLinAct4Current: null,
         
-        acLinAct5State: null,
-        acLinAct5Voltage: null,
-        acLinAct5Current: null,
+        acLinAct5State: 'loxFillRBVstate',
+        acLinAct5Voltage: 'loxFillRBVvoltage',
+        acLinAct5Current: 'loxFillRBVcurrent',
         
         acLinAct6State: null,
         acLinAct6Voltage: null,
