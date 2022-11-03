@@ -94,11 +94,6 @@ const fields = [
       color: [202, 15, 221],
       unit: "LBS",
     },
-    // {
-    //   name: "thrust3", // prop PT temp
-    //   color: [221, 202, 15],
-    //   unit: "LBS",
-    // },
     {
       name: "totalThrust", // prop PT temp
       color: [238, 154, 7],
@@ -197,7 +192,7 @@ class Main extends Component {
                 fields={[
                   ["LOX DOME", "loxDomePT", "PSI"],
                   ["RQD Pressure", "rqdPT", "PSI"],
-                  ["Main Valve Bottle", "mainValveBottlePT", "PSI"],
+                  ["Purge Bottle", "purgePT", "PSI"],
                   ["Fuel DOME", "fuelDomePT", "PSI"],
                   ["PressPT Roc", "pressurantPT", "PSI/ms", 2, 1, this.calcPressRoc],
                 ]}
