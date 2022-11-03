@@ -34,7 +34,8 @@ class Field extends Component {
   }
 
   handleValueUpdate(timestamp, value) {
-    this.value = value;
+    const { modifyValue } = this.props;
+    this.value = modifyValue ? modifyValue(value) : value;
     if(this.animationID === null) {
       this.animationID = requestAnimationFrame(this.updateDisplay);
     }

@@ -7,13 +7,14 @@ import {
   ThemeProvider,
 } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Box, Container, Grid } from "@material-ui/core";
+import {Box, Container, Grid, Typography} from "@material-ui/core";
 
 import Graph from "./components/Graph";
 import SixValueSquare from "./components/SixValueSquare";
 
 import comms from "./api/Comms";
 import MessageDisplaySquare from "./components/MessageDisplaySquare";
+import Field from "./components/Field";
 
 const PAGE_TITLE = "Telemetry: Main";
 
@@ -155,14 +156,10 @@ const styles = (theme) => ({
 class Main extends Component {
   constructor(props) {
     super(props);
-  }
-
-  openSettings() {
-    this.setState({ showSettings: true });
-  }
-
-  closeSettings() {
-    this.setState({ showSettings: false });
+    this.state = {
+      lastPressRocTime: window.performance.now(),
+      lastPressRocValue: 0
+    }
   }
 
   componentDidMount() {
@@ -173,6 +170,14 @@ class Main extends Component {
   componentWillUnmount() {
     // make sure that when there's a hot reload, we disconnect comms before its connected again
     comms.destroy();
+  }
+
+  calcPressRoc(value) {
+    const {lastPressRocValue, lastPressRocTime} = this.state;
+    const currentPressRocTime = window.performance.now();
+    const delta_press_roc = (value - lastPressRocValue) / (currentPressRocTime - lastPressRocTime);
+    this.setState({ lastPressRocTime: currentPressRocTime, lastPressRocValue: value});
+    return delta_press_roc;
   }
 
   render() {
@@ -194,9 +199,7 @@ class Main extends Component {
                   ["RQD Pressure", "rqdPT", "PSI"],
                   ["Main Valve Bottle", "mainValveBottlePT", "PSI"],
                   ["Fuel DOME", "fuelDomePT", "PSI"],
-                  ["_", "", ""],
-                  ["_", "", ""],
-                  ["_", "", ""],
+                  ["PressPT Roc", "pressurantPT", "PSI/ms", 2, 1, this.calcPressRoc],
                 ]}
               />
             </Grid>

@@ -29,7 +29,7 @@ class SixValueSquare extends Component {
   }
 
   render() {
-    const { classes, fields } = this.props;
+    const { children, classes, fields } = this.props;
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
@@ -37,14 +37,17 @@ class SixValueSquare extends Component {
             {fields.map((obj) => (
               <Grid item xs={4} className={classes.item}>
                 <Field
-                  name={obj[0]}
-                  field={obj[1]}
-                  unit={obj[2] || ""}
-                  decimals={obj[3] || 2}
-                  threshold={obj[4] || 1}
+                    key={obj[0]}
+                    name={obj[0]}
+                    field={obj[1]}
+                    unit={obj[2] || ""}
+                    decimals={obj[3] || 2}
+                    threshold={obj[4] || 1}
+                    modifyValue={obj[5] || null}
                 />
               </Grid>
             ))}
+            {children}
           </Grid>
         </CardContent>
       </Card>
