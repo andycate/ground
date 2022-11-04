@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
 	fontWeight: "800"
   },
   openButtonOutline: {
-    color: theme.palette.text.primary + " !important",
-    borderColor: theme.palette.success.main + " !important",
+    color: theme.palette.success.main + " !important",
+    border: "1px solid " + theme.palette.success.main + " !important",
     transition: "none",
-	borderRadius: "1em",
+	  borderRadius: "1em",
   },
   closedButton: {
     backgroundColor: theme.palette.error.main + " !important",
@@ -27,9 +27,10 @@ const useStyles = makeStyles((theme) => ({
 	fontWeight: "800"
   },
   closedButtonOutline: {
-    color: theme.palette.text.primary + " !important",
+    color: theme.palette.error.main + " !important",
+    border: "1px solid " + theme.palette.error.main + " !important",
     transition: "none",
-	borderRadius: "1em",
+	  borderRadius: "1em",
   },
   openStatusBox: {
     padding: theme.spacing(1),
