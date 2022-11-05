@@ -158,6 +158,7 @@ class Main extends Component {
       lastPressRocTime: window.performance.now(),
       lastPressRocValue: 0
     }
+    this.rocValues = [];
   }
 
   componentDidMount() {
@@ -172,10 +173,21 @@ class Main extends Component {
 
   calcPressRoc(value) {
     const {lastPressRocValue, lastPressRocTime} = this.state;
+    
     const currentPressRocTime = window.performance.now();
     const delta_press_roc = (value - lastPressRocValue) / (currentPressRocTime - lastPressRocTime);
+    
+    this.rocValues.push(delta_press_roc);
+    if (this.rocValues.length > 30) {
+      this.rocValues.pop(0);
+    }
     this.setState({ lastPressRocTime: currentPressRocTime, lastPressRocValue: value});
-    return delta_press_roc;
+
+    let sum = 0;
+    for (let rocVal in this.rocValues) {
+      sum += Number(rocVal);
+    }
+    return sum / this.rocValues.length;
   }
 
   render() {
