@@ -155,10 +155,12 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastPressRocTime: window.performance.now(),
-      lastPressRocValue: 0
     }
+    this.lastPressRocValue = 0;
+    this.lastPressRocTime = window.performance.now();
     this.rocValues = [];
+
+    this.calcPressRoc = this.calcPressRoc.bind(this);
   }
 
   componentDidMount() {
@@ -172,19 +174,19 @@ class Main extends Component {
   }
 
   calcPressRoc(value) {
-    const {lastPressRocValue, lastPressRocTime} = this.state;
     
     const currentPressRocTime = window.performance.now();
-    const delta_press_roc = (value - lastPressRocValue) / (currentPressRocTime - lastPressRocTime);
+    const delta_press_roc = (value - this.lastPressRocValue) / (currentPressRocTime - this.lastPressRocTime);
     
     this.rocValues.push(delta_press_roc);
     if (this.rocValues.length > 30) {
-      this.rocValues.pop(0);
+      this.rocValues.pop();
     }
-    this.setState({ lastPressRocTime: currentPressRocTime, lastPressRocValue: value});
+    this.lastPressRocTime = currentPressRocTime;
+    this.lastPressRocValue = value;
 
     let sum = 0;
-    for (let rocVal in this.rocValues) {
+    for (let rocVal of this.rocValues) {
       sum += Number(rocVal);
     }
     return sum / this.rocValues.length;

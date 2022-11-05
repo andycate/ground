@@ -98,11 +98,11 @@ class Aux2 extends Component {
               <SixValueSquare
                 fields={[
                   ["LOX GEMS Voltage", "loxGemsVoltage", "V", 0, 3],
-                  ["Fuel GEMS Voltage", "fuelGemsCurrent", "A", 2, 0.1],
+                  ["Fuel GEMS Voltage", "fuelGemsVoltage", "V", 0, 3],
                   ["Press Flow Voltage", "pressFlowVoltage", "V", 0, 3],
                   ["LOX GEMS Current", "loxGemsCurrent", "A", 2, 0.1],
                   ["Fuel Gems Current", "fuelGemsCurrent", "A", 2, 0.1],
-                  ["Press Flow Current", "pressFlowCurrent", "A", 2, 0.1],
+                  ["Press Flow Current", "pressFlowCurrent", "A", 2, 0.05],
                 ]}
               />
             </Grid>
