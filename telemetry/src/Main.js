@@ -210,6 +210,7 @@ class Main extends Component {
                   ["Purge Bottle", "purgePT", "PSI"],
                   ["Fuel DOME", "fuelDomePT", "PSI"],
                   ["PressPT Roc", "pressurantPT", "PSI/ms", 2, 1, this.calcPressRoc],
+                  ["Main Valve PT", "mainValvePT", "PSI"],
                 ]}
               />
             </Grid>
