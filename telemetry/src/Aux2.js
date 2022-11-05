@@ -17,6 +17,7 @@ import MessageDisplaySquare from "./components/MessageDisplaySquare";
 
 const PAGE_TITLE = "Telemetry: Aux #2";
 
+
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
@@ -168,8 +169,19 @@ class Aux2 extends Component {
                 ]}
               />
             </Grid>
+            
+            <Grid xs={4} className={classes.item}>
+              <Graph fields={
+                [ { name: "engineTop1TC", color: [0, 126, 254], unit: "ºC", },
+                  { name: "engineTop2TC", color: [0, 187, 0], unit: "ºC", },
+                  { name: "engineBottom1TC", color: [123, 35, 162], unit: "ºC", },
+                  { name: "engineBottom2TC", color: [35, 123, 162], unit: "ºC", } ]}>
+              </Graph>
+            </Grid>
+            
+            <Grid item xs={4} className={classes.item}>
 
-            <Grid item xs={8} className={classes.item}></Grid>
+            </Grid>
 
             <Grid item xs={4} className={classes.item}>
               <MessageDisplaySquare />

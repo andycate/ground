@@ -65,18 +65,7 @@ const fields = [
       unit: "pF",
       precision: 3,
     },
-    {
-      name: "fuelCapVal",
-      color: [253, 181, 21],
-      unit: "pF",
-      precision: 3,
-    },
-    {
-      name: "fuelCapValFiltered",
-      color: [196, 130, 14],
-      unit: "pF",
-      precision: 3,
-      },
+    
   ],
   [
     {
@@ -102,26 +91,40 @@ const fields = [
   ],
   [
     {
-      name: "engineTop1TC",
-      color: [0, 126, 254],
-      unit: "ºC",
+      name: "fuelCapVal",
+      color: [253, 181, 21],
+      unit: "pF",
+      precision: 3,
     },
     {
-      name: "engineTop2TC",
-      color: [0, 187, 0],
-      unit: "ºC",
-    },
-    {
-      name: "engineBottom1TC",
-      color: [123, 35, 162],
-      unit: "ºC",
-    },
-    {
-      name: "engineBottom2TC",
-      color: [35, 123, 162],
-      unit: "ºC",
-    },
+      name: "fuelCapValFiltered",
+      color: [196, 130, 14],
+      unit: "pF",
+      precision: 3,
+      },
   ],
+  // [
+  //   {
+  //     name: "engineTop1TC",
+  //     color: [0, 126, 254],
+  //     unit: "ºC",
+  //   },
+  //   {
+  //     name: "engineTop2TC",
+  //     color: [0, 187, 0],
+  //     unit: "ºC",
+  //   },
+  //   {
+  //     name: "engineBottom1TC",
+  //     color: [123, 35, 162],
+  //     unit: "ºC",
+  //   },
+  //   {
+  //     name: "engineBottom2TC",
+  //     color: [35, 123, 162],
+  //     unit: "ºC",
+  //   },
+  // ],
 ];
 
 const styles = (theme) => ({
