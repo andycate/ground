@@ -99,10 +99,10 @@ class Aux2 extends Component {
                 fields={[
                   ["LOX GEMS Continuity", "loxGemsVoltage", "V", 0, 3],
                   ["Fuel GEMS Continuity", "fuelGemsVoltage", "V", 0, 3],
-                  ["Press Flow Continuity", "pressFlowVoltage", "V", 0, 3],
+                  ["Press Flow Continuity", "pressurantFlowRBVvoltage", "V", 0, 3],
                   ["LOX GEMS Current", "loxGemsCurrent", "A", 2, 0.1],
                   ["Fuel Gems Current", "fuelGemsCurrent", "A", 2, 0.1],
-                  ["Press Flow Current", "pressFlowCurrent", "A", 2, 0.05],
+                  ["Press Flow Current", "pressurantFlowRBVcurrent", "A", 2, 0.05],
                 ]}
               />
             </Grid>
