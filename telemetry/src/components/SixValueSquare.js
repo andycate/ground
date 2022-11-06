@@ -41,8 +41,8 @@ class SixValueSquare extends Component {
                     name={obj[0]}
                     field={obj[1]}
                     unit={obj[2] || ""}
-                    decimals={obj[3] || 2}
-                    threshold={obj[4] || 1}
+                    decimals={obj[3] || 1}
+                    threshold={obj[4] || null}
                     modifyValue={obj[5] || null}
                 />
               </Grid>
