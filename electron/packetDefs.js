@@ -342,6 +342,10 @@ const INBOUND_PACKET_DEFS = {
     ['loadCellSum', asFloat],
   ],
 
+  153: [
+    ['dataWritten', asUInt32],
+  ]
+
 }
 
 /** @type {Object.<Number,Array.<Number>>} */

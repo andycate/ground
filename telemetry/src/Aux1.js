@@ -87,7 +87,7 @@ class Aux1 extends Component {
               <Grid item={1} xs={6} className={classes.item}>
                 <SixValueSquare
                   fields={[
-                    ["BBox Data Written", "dataWritten", "KB", 1],
+                    ["BBox Data Written", "dataWritten", "KB", 1, 1],
                     ["Apogee Time", "apogeeTime", "us", 0, 1],
                     ["Radio RSSI", "radioRSSI", ""],
                     ["GPS Latitude", "gpsLatitude", "", 4],
