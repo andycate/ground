@@ -176,9 +176,9 @@ class Main extends Component {
   calcPressRoc(value) {
     
     const currentPressRocTime = window.performance.now();
-    const delta_press_roc = (value - this.lastPressRocValue) / (currentPressRocTime - this.lastPressRocTime);
+    const delta_press_roc = (value - this.lastPressRocValue) * 1000.0 / (currentPressRocTime - this.lastPressRocTime);
     
-    this.rocValues.push(delta_press_roc);
+    this.rocValues.unshift(delta_press_roc);
     if (this.rocValues.length > 30) {
       this.rocValues.pop();
     }
@@ -211,7 +211,7 @@ class Main extends Component {
                   ["RQD Pressure", "rqdPT", "PSI"],
                   ["Purge Bottle", "purgePT", "PSI"],
                   ["Fuel DOME", "fuelDomePT", "PSI"],
-                  ["PressPT Roc", "pressurantPT", "PSI/ms", 1, 1, this.calcPressRoc],
+                  ["PressPT Roc", "pressurantPT", "PSI/S", 1, null, this.calcPressRoc],
                   ["Main Valve PT", "mainValvePT", "PSI"],
                 ]}
               />
