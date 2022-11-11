@@ -1,6 +1,6 @@
 const Interpolation = require("./Interpolation");
 
-const { asASCIIString, asFloat, asUInt8, asUInt16, asUInt32 } = Interpolation
+const { asASCIIString, asFloat, asUInt8, asUInt16, asUInt32, asUInt32fromustos} = Interpolation
 const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES
 
 /**
@@ -233,8 +233,8 @@ const INBOUND_PACKET_DEFS = {
 
 
   152: [
-    ['autoLoxLead', asUInt32],
-    ['autoBurnTime', asUInt32],
+    ['autoLoxLead', asUInt32fromustos],
+    ['autoBurnTime', asUInt32fromustos],
     ['autoIgniterAbortEnabled', asUInt8],
     ['autoBreakwireAbortEnabled', asUInt8],
   ],

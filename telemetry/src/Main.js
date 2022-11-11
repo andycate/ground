@@ -67,28 +67,28 @@ const fields = [
     },
     
   ],
-  [
-    {
-      name: "thrust0",
-      color: [255, 51, 224],
-      unit: "LBS",
-    },
-    {
-      name: "thrust1", // prop PT temp
-      color: [15, 202, 221],
-      unit: "LBS",
-    },
-    {
-      name: "thrust2", // prop PT temp
-      color: [202, 15, 221],
-      unit: "LBS",
-    },
-    {
-      name: "totalThrust", // prop PT temp
-      color: [238, 154, 7],
-      unit: "LBS",
-    },
-  ],
+  // [
+  //   {
+  //     name: "thrust0",
+  //     color: [255, 51, 224],
+  //     unit: "LBS",
+  //   },
+  //   {
+  //     name: "thrust1", // prop PT temp
+  //     color: [15, 202, 221],
+  //     unit: "LBS",
+  //   },
+  //   {
+  //     name: "thrust2", // prop PT temp
+  //     color: [202, 15, 221],
+  //     unit: "LBS",
+  //   },
+  //   {
+  //     name: "totalThrust", // prop PT temp
+  //     color: [238, 154, 7],
+  //     unit: "LBS",
+  //   },
+  // ],
   [
     {
       name: "fuelCapVal",
@@ -211,8 +211,19 @@ class Main extends Component {
                   ["RQD Pressure", "rqdPT", "PSI"],
                   ["Purge Bottle", "purgePT", "PSI"],
                   ["Fuel DOME", "fuelDomePT", "PSI"],
-                  ["PressPT Roc", "pressurantPT", "PSI/S", 1, 35, this.calcPressRoc, '#E25241'],
+                  ["PressPT ROC", "pressurantPT", "PSI/S", 1, 35, this.calcPressRoc, '#E25241'],
                   ["Main Valve PT", "mainValvePT", "PSI"],
+                ]}
+              />
+            </Grid>
+
+            <Grid item={1} xs={4} className={classes.item}>
+              <SixValueSquare
+                fields={[
+                  ["Burn Time", "autoBurnTime", "us", 2],
+                  ["LOx Lead", "autoLoxLead", "us", 2],
+                  ["Igniter Abort Enable", "autoIgniterAbortEnabled", "", 0, 1],
+                  ["Breakwire Abort Enable", "autoBreakwireAbortEnabled", "", 0, 1],
                 ]}
               />
             </Grid>
@@ -223,14 +234,17 @@ class Main extends Component {
               </Grid>
             ))}
 
-            <Grid item={1} xs={4} className={classes.item}>
-              <MessageDisplaySquare />
-            </Grid>
+            
             {fields.slice(6).map((field) => (
               <Grid item={1} xs={4} className={classes.item}>
                 <Graph fields={field} />
               </Grid>
             ))}
+
+            <Grid item={1} xs={4} className={classes.item}>
+              <MessageDisplaySquare />
+            </Grid>
+
           </Grid>
         </Container>
       </React.Fragment>

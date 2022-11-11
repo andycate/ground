@@ -128,28 +128,12 @@ class Aux2 extends Component {
             {/* START OF ROW 2 */}
 
             <Grid item xs={4} className={classes.item}>
-              <SixValueSquare
-                fields={[
-                  [
-                    "Press Fill Vent Voltage",
-                    "pressurantFillVentRBVvoltage",
-                    "V",
-                    0,
-                    3,
-                  ],
-                  ["LOX Fill Voltage", "loxFillRBVvoltage", "V", 0, 3],
-                  ["Fuel Fill Voltage", "fuelFillRBVvoltage", "V", 0, 3],
-                  [
-                    "Press Fill Vent Current",
-                    "pressurantFillVentRBVcurrent",
-                    "A",
-                    2,
-                    0.1,
-                  ],
-                  ["LOX Fill Current", "loxFillRBVcurrent", "A", 2, 0.1],
-                  ["Fuel Fill Current", "fuelFillRBVcurrent", "A", 2, 0.1],
-                ]}
-              />
+              <Graph fields={[
+                  { name: "fuelCapVal", color: [253, 181, 21], unit: "pF", },
+                  { name: "fuelCapValFiltered", color: [196, 130, 14], unit: "pF", }, 
+                  { name: "loxCapVal", color: [59, 126, 161], unit: "pF", },
+                  { name: "loxCapValFiltered", color: [0, 50, 98], unit: "pF", } ]}> 
+                </Graph>
             </Grid>
 
 
@@ -158,29 +142,37 @@ class Aux2 extends Component {
             <Grid item xs={4} className={classes.item}>
               <SixValueSquare
                 fields={[
-                  ["Igniter Abort Enabled", "igniterAbortEnabled", ""],
-                  ["Breakwire Abort Enabled", "breakwireAbortEnabled", ""],
-                  [
-                    "Main Valve Current Abort Enabled",
-                    "mainValveCurrentAbortEnabled",
-                    "",
-                  ],
-                  ["Flight Mode Enabled", "flightModeEnabled", ""],
+                  ["Igniter Abort Enabled", "autoIgniterAbortEnabled", ""],
+                  ["Breakwire Abort Enabled", "autoBreakwireAbortEnabled", ""],
+                  // [
+                  //   "Main Valve Current Abort Enabled",
+                  //   "mainValveCurrentAbortEnabled",
+                  //   "",
+                  // ],
+                  ["Flight Mode Enabled", "flightEnable", ""],
+                  ["LOX Fill Current", "loxFillRBVcurrent", "A", 2, 0.1],
+                  ["Fuel Fill Current", "fuelFillRBVcurrent", "A", 2, 0.1],
+                  ["Press Fill Vent Current", "pressurantFillVentRBVcurrent", "A", 2, 0.1],
                 ]}
               />
             </Grid>
             
             <Grid xs={4} className={classes.item}>
               <Graph fields={
-                [ { name: "engineTop1TC", color: [0, 126, 254], unit: "ºC", },
-                  { name: "engineTop2TC", color: [0, 187, 0], unit: "ºC", },
-                  { name: "engineBottom1TC", color: [123, 35, 162], unit: "ºC", },
-                  { name: "engineBottom2TC", color: [35, 123, 162], unit: "ºC", } ]}>
+                [ { name: "TC0", color: [0, 126, 254], unit: "ºC", },
+                  { name: "TC1", color: [0, 187, 0], unit: "ºC", }, 
+                  { name: "TC2", color: [123, 35, 162], unit: "ºC", },
+                  { name: "TC3", color: [35, 123, 162], unit: "ºC", } ]}> 
               </Graph>
             </Grid>
             
             <Grid item xs={4} className={classes.item}>
-
+              <Graph fields={
+                [ { name: "thrust0", color: [255, 51, 224], unit: "LBS", },
+                { name: "thrust1", color: [15, 202, 221], unit: "LBS", }, 
+                { name: "thrust2", color: [202, 15, 221], unit: "LBS", },
+                { name: "totalThrust", color: [238, 154, 7], unit: "LBS", } ]}> 
+              </Graph>
             </Grid>
 
             <Grid item xs={4} className={classes.item}>
