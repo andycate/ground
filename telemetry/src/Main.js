@@ -211,7 +211,7 @@ class Main extends Component {
                   ["RQD Pressure", "rqdPT", "PSI"],
                   ["Purge Bottle", "purgePT", "PSI"],
                   ["Fuel DOME", "fuelDomePT", "PSI"],
-                  ["PressPT Roc", "pressurantPT", "PSI/ms", 1, 35, this.calcPressRoc, '#E25241'],
+                  ["PressPT Roc", "pressurantPT", "PSI/S", 1, 35, this.calcPressRoc, '#E25241'],
                   ["Main Valve PT", "mainValvePT", "PSI"],
                 ]}
               />
