@@ -48,6 +48,11 @@ const styles = (theme) => ({
 class Aux1 extends Component {
   constructor(props) {
     super(props);
+    this.lastAscentSpeedValue = 0;
+    this.lastAscentSpeedTime = window.performance.now();
+    this.rocValues = [];
+
+    this.calcAscentSpeed = this.calcAscentSpeed.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +63,25 @@ class Aux1 extends Component {
   componentWillUnmount() {
     // make sure that when there's a hot reload, we disconnect comms before its connected again
     comms.destroy();
+  }
+
+  calcAscentSpeed(value) {
+    
+    const currentAscentSpeedTime = window.performance.now();
+    const delta_altitude_roc = (value - this.lastAscentSpeedValue) * 1000.0 / (currentAscentSpeedTime - this.lastAscentSpeedTime);
+    
+    this.rocValues.unshift(delta_altitude_roc);
+    if (this.rocValues.length > 30) {
+      this.rocValues.pop();
+    }
+    this.lastAscentSpeedTime = currentAscentSpeedTime;
+    this.lastAscentSpeedValue = value;
+
+    let sum = 0;
+    for (let rocVal of this.rocValues) {
+      sum += Number(rocVal);
+    }
+    return sum / this.rocValues.length;
   }
 
   render() {
@@ -73,7 +97,7 @@ class Aux1 extends Component {
                 <SixValueSquare
                   fields={[
                     ["Altitude", "baroAltitude", "m", 2],
-                    ["Ascent Speed", "ascentSpeed", "m/s", 2],
+                    ["Ascent Speed", "baroAltitude", "m/s", 2, null, this.calcAscentSpeed],
                     ["Temperature", "baroTemperature", "C", 2],
                     ["X Accel", "accelX", "g", 2],
                     ["Y Accel", "accelY", "g", 2],
