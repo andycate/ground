@@ -45,7 +45,7 @@ class Field extends Component {
     this.animationID = null;
     this.valRef.current.innerHTML = this.value.toFixed(this.decimals);
     if(this.value > this.props.threshold && this.props.threshold !== null) {
-      this.colorRef.current.style.backgroundColor = '#27AE60';
+      this.colorRef.current.style.backgroundColor = this.props.thresholdColor;
     } else {
       this.colorRef.current.style.backgroundColor = '';
     }
