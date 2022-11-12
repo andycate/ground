@@ -97,8 +97,8 @@ class Aux1 extends Component {
                 <SixValueSquare
                   fields={[
                     ["Altitude", "baroAltitude", "m", 2],
-                    ["Ascent Speed", "baroAltitude", "m/s", 2, null, this.calcAscentSpeed],
-                    ["Temperature", "baroTemperature", "C", 2],
+                    ["Velocity", "baroAltitude", "m/s", 2, null, this.calcAscentSpeed],
+                    ["Apogee Time", "apogeeTime", "us", 0, 1],
                     ["X Accel", "accelX", "g", 2],
                     ["Y Accel", "accelY", "g", 2],
                     ["Z Accel", "accelZ", "g", 2],
@@ -112,8 +112,8 @@ class Aux1 extends Component {
                 <SixValueSquare
                   fields={[
                     ["BBox Data Written", "dataWritten", "KB", 1, 1],
-                    ["Apogee Time", "apogeeTime", "us", 0, 1],
-                    ["Radio RSSI", "radioRSSI", ""],
+                    ["BreakWire1", "breakWire1Voltage", null, 0, 0.5],
+                    ["BreakWire2", "breakWire2Voltage", null, 0, 0.5],
                     ["GPS Latitude", "gpsLatitude", "", 4],
                     ["GPS Longitude", "gpsLongitude", "", 4],
                     ["GPS Sat Count", "numGpsSats", "", 1],

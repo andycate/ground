@@ -123,6 +123,16 @@ const INBOUND_PACKET_DEFS = {
     ['fuelGemsValveState', asUInt8],
   ],
 
+  34: [
+    ['breakWire1Voltage', asFloat], 
+    ['breakWire1Current', asFloat], // not used, we only care about continuity reading
+  ], 
+
+  35: [
+    ['breakWire2Voltage', asFloat],
+    ['breakWire2Current', asFloat], // not used, we only care about continuity reading
+  ], 
+
   38: [
     ['loxCapVal', asFloat],
     ['loxCapValFiltered', asFloat],
