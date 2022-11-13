@@ -72,10 +72,10 @@ class Aux2 extends Component {
               <SixValueSquare
                 fields={[
                   ["Igniter Voltage", "igniterVoltage", "V", 0, 3],
-                  ["Igniter Arm Voltage", "igniterArmVoltage", "V", 0, 3],
+                  ["Igniter Arm Voltage", "igniterEnableVoltage", "V", 0, 3],
                   ["Main Arm Voltage", "armValveVoltage", "V", 0, 3],
                   ["Igniter Current", "igniterCurrent", "A", 2, 0.1],
-                  ["Igniter Arm", "igniterEnableCurrent", "A", 2, 0.05],
+                  ["Igniter Arm Current", "igniterEnableCurrent", "A", 2, 0.05],
                   ["Arm Valve Current", "armValveCurrent", "A", 2, 0.1],
                 ]}
               />
