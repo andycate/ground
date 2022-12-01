@@ -160,6 +160,22 @@ const INBOUND_PACKET_DEFS = {
     ['flightEnable', asUInt8],
   ],
 
+  56: [
+    ['domeTC0', asFloat],
+  ],
+
+  57: [
+    ['domeTC1', asFloat],
+  ],
+
+  58: [
+    ['domeTC2', asFloat],
+  ],
+
+  59: [
+    ['domeTC3', asFloat],
+  ],
+
   60: [
     ['armValveVoltage', asFloat],
     ['armValveCurrent', asFloat],

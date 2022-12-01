@@ -129,10 +129,11 @@ class Aux2 extends Component {
 
             <Grid item xs={4} className={classes.item}>
               <Graph fields={[
-                  { name: "fuelCapVal", color: [253, 181, 21], unit: "pF", },
-                  { name: "fuelCapValFiltered", color: [196, 130, 14], unit: "pF", }, 
-                  { name: "loxCapVal", color: [59, 126, 161], unit: "pF", },
-                  { name: "loxCapValFiltered", color: [0, 50, 98], unit: "pF", } ]}> 
+                  { name: "domeTC0", color: [252, 186, 3], unit: "ºC", }, //fuel side
+                  { name: "domeTC1", color: [13, 255, 158], unit: "ºC", }, // fuel top
+                  { name: "domeTC2", color: [255, 0, 174], unit: "ºC", }, // lox top
+                  { name: "domeTC3", color: [22, 131, 240], unit: "ºC", } // lox side
+                  , ]}>  
                 </Graph>
             </Grid>
 
