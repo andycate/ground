@@ -154,11 +154,11 @@ class App {
         acHeater2Voltage: null,
         acHeater2Current: null,
 
-        acHeater3Voltage: null,
-        acHeater3Current: null,
+        loxDomeHeaterVoltage: 'loxDomeHeaterVoltage',
+        loxDomeHeaterCurrent: 'loxDomeHeaterCurrent',
 
-        acHeater4Voltage: null,
-        acHeater4Current: null,
+        fuelDomeHeaterVoltage: 'fuelDomeHeaterVoltage',
+        fuelDomeHeaterCurrent: 'fuelDomeHeaterCurrent',
       },
       () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
       () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
@@ -368,6 +368,12 @@ class App {
     this.addIPC('open-pressurantFillVentRBV', this.actCtrlr1.openActCh2);
     this.addIPC('close-pressurantFillVentRBV', this.actCtrlr1.closeActCh2);
     this.addIPC('time-pressurantFillVentRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
+
+    this.addIPC('open-loxDomeHeater', this.actCtrlr1.openLoxDomeHeater);
+    this.addIPC('close-loxDomeHeater', this.actCtrlr1.closeLoxDomeHeater);
+
+    this.addIPC('open-fuelDomeHeater', this.actCtrlr1.openFuelDomeHeater);
+    this.addIPC('close-fuelDomeHeater', this.actCtrlr1.closeFuelDomeHeater);
 
   }
 }

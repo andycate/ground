@@ -161,19 +161,19 @@ const INBOUND_PACKET_DEFS = {
   ],
 
   56: [
-    ['domeTC0', asFloat],
+    ['loxDSideTC', asFloat], //dometc0
   ],
 
   57: [
-    ['domeTC1', asFloat],
+    ['loxDTopTC', asFloat], //dometc1
   ],
 
   58: [
-    ['domeTC2', asFloat],
+    ['fuelDTopTC', asFloat], //dometc2
   ],
 
   59: [
-    ['domeTC3', asFloat],
+    ['fuelDSideTC', asFloat], //dometc3
   ],
 
   60: [
@@ -321,12 +321,18 @@ const INBOUND_PACKET_DEFS = {
     ['acHeater2Current', asFloat],
   ],
   102: [
-    ['acHeater3Voltage', asFloat],
-    ['acHeater3Current', asFloat],
+    ['loxDomeHeaterVoltage', asFloat],
+    ['loxDomeHeaterCurrent', asFloat],
   ],
   103: [
-    ['acHeater4Voltage', asFloat],
-    ['acHeater4Current', asFloat],
+    ['fuelDomeHeaterVoltage', asFloat],
+    ['fuelDomeHeaterCurrent', asFloat],
+  ],
+  104: [
+    ['loxDomeHeaterState', asUInt8],
+  ],
+  105: [
+    ['fuelDomeHeaterState', asUInt8],
   ],
 
 

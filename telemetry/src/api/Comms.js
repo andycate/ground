@@ -102,6 +102,12 @@ class Comms {
     this.closefuelFillRBV = this.closefuelFillRBV.bind(this);
     this.timefuelFillRBV = this.timefuelFillRBV.bind(this);
 
+    this.openLoxDomeHeater = this.openLoxDomeHeater.bind(this);
+    this.closeLoxDomeHeater = this.closeLoxDomeHeater.bind(this);
+
+    this.openFuelDomeHeater = this.openFuelDomeHeater.bind(this);
+    this.closeFuelDomeHeater = this.closeFuelDomeHeater.bind(this);
+
   }
 
   stateUpdate(event, payload) {
@@ -317,6 +323,13 @@ class Comms {
   async openfuelFillRBV() { return await this.ipc.invoke('open-fuelFillRBV'); }
   async closefuelFillRBV() { return await this.ipc.invoke('close-fuelFillRBV'); }
   async timefuelFillRBV(val) { return await this.ipc.invoke('time-fuelFillRBV', val); }
+
+  // todo add heaters
+  async openLoxDomeHeater() { return await this.ipc.invoke('open-loxDomeHeater'); }
+  async closeLoxDomeHeater() { return await this.ipc.invoke('close-loxDomeHeater'); }
+  
+  async openFuelDomeHeater() { return await this.ipc.invoke('open-fuelDomeHeater'); }
+  async closeFuelDomeHeater() { return await this.ipc.invoke('close-fuelDomeHeater'); }
 
 }
 

@@ -129,10 +129,10 @@ class Aux2 extends Component {
 
             <Grid item xs={4} className={classes.item}>
               <Graph fields={[
-                  { name: "domeTC0", color: [252, 186, 3], unit: "ºC", }, //fuel side
-                  { name: "domeTC1", color: [13, 255, 158], unit: "ºC", }, // fuel top
-                  { name: "domeTC2", color: [255, 0, 174], unit: "ºC", }, // lox top
-                  { name: "domeTC3", color: [22, 131, 240], unit: "ºC", } // lox side
+                  { name: "fuelDSideTC", color: [252, 186, 3], unit: "ºC", }, //fuel side, dometc0
+                  { name: "fuelDTopTC", color: [13, 255, 158], unit: "ºC", }, // fuel top, dometc1
+                  { name: "loxDSideTC", color: [22, 131, 240], unit: "ºC", }, // lox side, dometc3
+                  { name: "loxDTopTC", color: [255, 0, 174], unit: "ºC", } // lox top, dometc2
                   , ]}>  
                 </Graph>
             </Grid>
@@ -143,8 +143,10 @@ class Aux2 extends Component {
             <Grid item xs={4} className={classes.item}>
               <SixValueSquare
                 fields={[
-                  ["Igniter Abort Enabled", "autoIgniterAbortEnabled", ""],
-                  ["Breakwire Abort Enabled", "autoBreakwireAbortEnabled", ""],
+                  // ["Igniter Abort Enabled", "autoIgniterAbortEnabled", ""],
+                  // ["Breakwire Abort Enabled", "autoBreakwireAbortEnabled", ""],
+                  ["LOx Dome Heater Current", "loxDomeHeaterCurrent", "A", 2, 0.1], 
+                  ["Fuel Dome Heater Current", "fuelDomeHeatercurrent", "A", 2, 0.1],
                   // [
                   //   "Main Valve Current Abort Enabled",
                   //   "mainValveCurrentAbortEnabled",

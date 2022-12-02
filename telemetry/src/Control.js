@@ -239,22 +239,22 @@ class Control extends Component {
                   text="Fuel Main"
                 />
               </Grid>
-              {/* <Grid item xs={6}>
+              <Grid item xs={6}> 
                     <ButtonGroup
-                      open={comms.openMainValveVent}
-                      close={comms.closeMainValveVent}
-                      field='mainValveVentState'
-                      text='Main Valve Vent'
+                      open={comms.openLoxDomeHeater} //todo remap
+                      close={comms.closeLoxDomeHeater}
+                      field='loxDomeHeaterState'
+                      text='LOx Dome Heater'
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <ButtonGroup
-                      open={comms.openPressRQD}
-                      close={comms.closePressRQD}
-                      field='pressRQDState'
-                      text='Press RQD'
+                      open={comms.openFuelDomeHeater} //todo remap
+                      close={comms.closeFuelDomeHeater}
+                      field='fuelDomeHeaterState'
+                      text='Fuel Dome Heater'
                     />
-                  </Grid> */}
+                  </Grid>
             <Grid item xs={6}>
               <ButtonGroupFlow
                 open={comms.activateIgniter}
@@ -312,6 +312,20 @@ class Control extends Component {
                   text="N2 RQD"
                 />
               </Grid>
+              {/* <Grid item xs={4}>
+                <ButtonGroup
+                  open={comms.openPressRQD} //todo remap
+                  close={comms.closePressRQD}
+                  field="pressRQDState"
+                  text="LOx Dome Heater"
+                />
+                <ButtonGroup
+                  open={comms.openPressRQD} //todo remap
+                  close={comms.closePressRQD}
+                  field="pressRQDState"
+                  text="Fuel Dome Heater"
+                />
+              </Grid> */}
               <Grid item xs={4}>
                 <ButtonGroupRBVTimed
                   open={comms.openloxFillRBV}

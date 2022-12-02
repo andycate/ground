@@ -10,12 +10,6 @@ class ActuatorController extends Board {
     this.open12vCh1 = this.open12vCh1.bind(this);
     this.close12vCh1 = this.close12vCh1.bind(this);
 
-    this.open24vCh0 = this.open24vCh0.bind(this);
-    this.close24vCh0 = this.close24vCh0.bind(this);
-
-    this.open24vCh1 = this.open24vCh1.bind(this);
-    this.close24vCh1 = this.close24vCh1.bind(this);
-
     this.openActCh0 = this.openActCh0.bind(this);
     this.closeActCh0 = this.closeActCh0.bind(this);
     this.actCh0ms = this.actCh0ms.bind(this);
@@ -44,7 +38,11 @@ class ActuatorController extends Board {
     this.closeActCh6 = this.closeActCh6.bind(this);
     this.actCh6ms = this.actCh6ms.bind(this);
 
+    this.openLoxDomeHeater = this.openLoxDomeHeater.bind(this);
+    this.closeLoxDomeHeater = this.closeLoxDomeHeater.bind(this);
 
+    this.openFuelDomeHeater = this.openFuelDomeHeater.bind(this);
+    this.closeFuelDomeHeater = this.closeFuelDomeHeater.bind(this);
   }
 
   open12vCh0() { return this.sendPacket(180, [1]); }
@@ -53,11 +51,11 @@ class ActuatorController extends Board {
   open12vCh1() { return this.sendPacket(181, [1]); }
   close12vCh1() { return this.sendPacket(181, [0]); }
 
-  open24vCh0() { return this.sendPacket(182, [1]); }
-  close24vCh0() { return this.sendPacket(182, [0]); }
+  openLoxDomeHeater() { return this.sendPacket(182, [1]); }
+  closeLoxDomeHeater() { return this.sendPacket(182, [0]); }
 
-  open24vCh1() { return this.sendPacket(183, [1]); }
-  close24vCh1() { return this.sendPacket(183, [0]); }
+  openFuelDomeHeater() { return this.sendPacket(183, [1]); }
+  closeFuelDomeHeater() { return this.sendPacket(183, [0]); }
 
   openActCh0() { return this.sendPacket(170, [0, 0.0]); }
   closeActCh0() { return this.sendPacket(170, [1, 0.0]); }
