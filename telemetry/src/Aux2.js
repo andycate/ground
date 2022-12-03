@@ -162,7 +162,7 @@ class Aux2 extends Component {
             
             <Grid xs={4} className={classes.item}>
               <Graph fields={
-                [ { name: "TC0", color: [0, 126, 254], unit: "ºC", },
+                [ { name: "loxDomeTC", color: [0, 126, 254], unit: "ºC", },
                   { name: "TC1", color: [0, 187, 0], unit: "ºC", }, 
                   { name: "TC2", color: [123, 35, 162], unit: "ºC", },
                   { name: "TC3", color: [35, 123, 162], unit: "ºC", } ]}> 

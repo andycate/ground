@@ -48,7 +48,7 @@ class App {
         supply8Current: 'flightSupply8Current',
         supply8Power: 'flightSupply8Power',
 
-        engineTC0: 'TC0', // 'engineTop1TC',
+        engineTC0: 'loxDomeTC', // 'engineTop1TC',
         engineTC1: 'TC1', //'engineTop2TC',
         engineTC2: 'TC2', //'engineBottom1TC',
         engineTC3: 'TC3', //'engineBottom2TC',
