@@ -328,8 +328,8 @@ class Control extends Component {
               </Grid> */}
               <Grid item xs={4}>
                 <ButtonGroupRBVTimed
-                  open={comms.openloxFillRBV}
-                  close={comms.closeloxFillRBV}
+                  open={comms.closeloxFillRBV}
+                  close={comms.openloxFillRBV}
                   time={comms.timeloxFillRBV}
                   field="loxFillRBVstate"
                   text="LOX Fill RBV"
