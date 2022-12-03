@@ -143,15 +143,8 @@ class Aux2 extends Component {
             <Grid item xs={4} className={classes.item}>
               <SixValueSquare
                 fields={[
-                  // ["Igniter Abort Enabled", "autoIgniterAbortEnabled", ""],
-                  // ["Breakwire Abort Enabled", "autoBreakwireAbortEnabled", ""],
                   ["LOx Dome Heater Current", "loxDomeHeaterCurrent", "A", 2, 0.1], 
-                  ["Fuel Dome Heater Current", "fuelDomeHeatercurrent", "A", 2, 0.1],
-                  // [
-                  //   "Main Valve Current Abort Enabled",
-                  //   "mainValveCurrentAbortEnabled",
-                  //   "",
-                  // ],
+                  ["Fuel Dome Heater Current", "fuelDomeHeaterCurrent", "A", 2, 0.1],
                   ["Flight Mode Enabled", "flightEnable", ""],
                   ["LOX Fill Current", "loxFillRBVcurrent", "A", 2, 0.1],
                   ["Fuel Fill Current", "fuelFillRBVcurrent", "A", 2, 0.1],
