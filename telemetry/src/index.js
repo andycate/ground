@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route, useLocation, Router, BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
 import "./index.css";
 import WindowSelector from "./WindowSelector";
@@ -7,9 +7,11 @@ import Main from "./Main";
 import Control from "./Control";
 import Aux1 from "./Aux1";
 import Aux2 from "./Aux2";
-import { ThemeProvider, createTheme, CssBaseline } from "@material-ui/core";
+import { ThemeProvider, createTheme, CssBaseline, Typography } from "@material-ui/core";
 import Settings from "./components/Settings";
 import Navbar from "./components/Navbar";
+import comms from "./api/Comms";
+import LayoutSwitch from "./components/LayoutSwitch";
 
 class App extends Component {
   constructor() {
@@ -17,11 +19,13 @@ class App extends Component {
     this.state = {
       isDark: false,
       showSettings: false,
+      config: {}
     };
 
     this.changeLightDark = this.changeLightDark.bind(this);
     this.openSettings = this.openSettings.bind(this);
     this.closeSettings = this.closeSettings.bind(this);
+    this.updateConfig = this.updateConfig.bind(this);
   }
 
   changeLightDark() {
@@ -34,6 +38,16 @@ class App extends Component {
 
   closeSettings() {
     this.setState({ showSettings: false });
+  }
+
+  updateConfig(config) {
+    this.setState({ config: config })
+    this.forceUpdate();
+    console.log(config);
+  }
+
+  componentDidMount() {
+    comms.setConfigListener(this.updateConfig)
   }
 
   render() {
@@ -73,7 +87,10 @@ class App extends Component {
           changeLightDark={this.changeLightDark}
           openSettings={this.openSettings}
         />
-        <HashRouter>
+        <BrowserRouter>
+          <LayoutSwitch config={this.state.config}></LayoutSwitch>
+        </BrowserRouter>
+        {/* <HashRouter>
           <Switch>
             <Route path="/selector" exact component={WindowSelector} />
             <Route path="/main" exact component={Main} />
@@ -81,7 +98,7 @@ class App extends Component {
             <Route path="/aux1" exact component={Aux1} />
             <Route path="/aux2" exact component={Aux2} />
           </Switch>
-        </HashRouter>
+        </HashRouter> */}
       </ThemeProvider>
     );
   }

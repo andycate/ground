@@ -18,6 +18,7 @@ class App {
     this.state = new State({});
     this.influxDB = new InfluxDB();
     this.commandFuncs = {};
+    this.config = {};
 
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);

@@ -1,0 +1,207 @@
+{
+	"boards": {
+		"flight": "flightV4",
+		"pt": "pt",
+		"tc": "tc",
+		"lc": "lc",
+		"ac": "ac"
+	},
+	"windows": {
+		"main": {
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "graph",
+					"values": [
+						{
+							"type": "pt",
+							"board": "flight",
+							"number": 0,
+							"name": "Flight PT 0",
+							"units": "PSI",
+							"color": "#f00"
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"type": "pt",
+							"board": "flight",
+							"number": 1,
+							"name": "Flight PT 1",
+							"units": "PSI",
+							"color": "#0f0"
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"type": "pt",
+							"board": "flight",
+							"number": 2,
+							"name": "Flight PT 2",
+							"units": "PSI",
+							"color": "#00f"
+						}
+					]
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"type": "pt",
+							"board": "pt",
+							"number": 0,
+							"name": "Ground PT 0",
+							"units": "PSI"
+						},
+						{
+							"type": "pt",
+							"board": "pt",
+							"number": 1,
+							"name": "Ground PT 0",
+							"units": "PSI"
+						},
+						{
+							"type": "pt",
+							"board": "pt",
+							"number": 2,
+							"name": "Ground PT 0",
+							"units": "PSI"
+						},
+						{
+							"type": "pt",
+							"board": "pt",
+							"number": 3,
+							"name": "Ground PT 0",
+							"units": "PSI"
+						},
+						{
+							"type": "pt",
+							"board": "pt",
+							"number": 4,
+							"name": "Ground PT 0",
+							"units": "PSI"
+						},
+						{
+							"type": "pt",
+							"board": "pt",
+							"number": 5,
+							"name": "Ground PT 0",
+							"units": "PSI"
+						}
+					]
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"type": "tc",
+							"board": "tc",
+							"number": 0,
+							"name": "Ground TC 0",
+							"units": "?"
+						},
+						{
+							"type": "tc",
+							"board": "tc",
+							"number": 1,
+							"name": "Ground TC 0",
+							"units": "?"
+						},
+						{
+							"type": "tc",
+							"board": "tc",
+							"number": 2,
+							"name": "Ground TC 0",
+							"units": "?"
+						},
+						{
+							"type": "tc",
+							"board": "tc",
+							"number": 3,
+							"name": "Ground TC 0",
+							"units": "?"
+						},
+						{
+							"type": "empty"
+						},
+						{
+							"type": "empty"
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"type": "pt",
+							"board": "flight",
+							"number": 3,
+							"name": "Flight PT 3",
+							"units": "PSI",
+							"color": "#ff0"
+						},
+						{
+							"type": "pt",
+							"board": "flight",
+							"number": 4,
+							"name": "Flight PT 4",
+							"units": "PSI",
+							"color": "#0ff"
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"type": "cap-lox",
+							"board": "flight",
+							"number": 3,
+							"name": "LOX Cap Fill",
+							"units": "pF",
+							"color": "#f0f"
+						},
+						{
+							"type": "cap-lox-filtered",
+							"board": "flight",
+							"number": 3,
+							"name": "LOX Cap Fill (Filtered)",
+							"units": "pF",
+							"color": "#f0f"
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"type": "cap-fuel",
+							"board": "flight",
+							"number": 4,
+							"name": "Fuel Cap Fill",
+							"units": "pF",
+							"color": "#f70"
+						},
+						{
+							"type": "cap-fuel-filtered",
+							"board": "flight",
+							"number": 4,
+							"name": "Fuel Cap Fill (Filtered)",
+							"units": "pF",
+							"color": "#f70"
+						}
+					]
+				},
+				{
+					"type": "logs"
+				}
+			]
+		}
+	}
+}

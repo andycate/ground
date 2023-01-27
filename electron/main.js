@@ -3,6 +3,7 @@ const { TouchBarLabel, TouchBarButton, TouchBarSpacer, TouchBarPopover, TouchBar
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
 
 const App = require('./App');
 
@@ -10,76 +11,54 @@ const isMainDev = (process.env.VARIANT === 'main');
 
 let backendApp = new App();
 let selector, window1, window2;
-function createWindow (isMain) {
-  let url1, url2;
-  if(isMain) {
-    // main windows
-    url1 = (isDev ? 'http://127.0.0.1:3000#/main' : `file://${path.join(__dirname, '../index.html#main')}`);
-    url2 = (isDev ? 'http://127.0.0.1:3000#/control' : `file://${path.join(__dirname, '../index.html#control')}`);
-  } else {
-    // aux windows
-    url1 = (isDev ? 'http://127.0.0.1:3000#/aux1' : `file://${path.join(__dirname, '../index.html#aux1')}`);
-    url2 = (isDev ? 'http://127.0.0.1:3000#/aux2' : `file://${path.join(__dirname, '../index.html#aux2')}`);
-  }
+function createWindow (config) {
+  // let url1, url2;
+  // if(isMain) {
+  //   // main windows
+  //   url1 = (isDev ? 'http://127.0.0.1:3000#/main' : `file://${path.join(__dirname, '../index.html#main')}`);
+  //   url2 = (isDev ? 'http://127.0.0.1:3000#/control' : `file://${path.join(__dirname, '../index.html#control')}`);
+  // } else {
+  //   // aux windows
+  //   url1 = (isDev ? 'http://127.0.0.1:3000#/aux1' : `file://${path.join(__dirname, '../index.html#aux1')}`);
+  //   url2 = (isDev ? 'http://127.0.0.1:3000#/aux2' : `file://${path.join(__dirname, '../index.html#aux2')}`);
+  // }
 
   // TouchBar Start
   const touchBar = createTouchBar(backendApp);
   // TouchBar End
 
-  window1 = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      devTools: isDev,
-    },
-    icon: __dirname + '/Icons/Icons.icns'
-  });
-  window1.maximize();
-  if(!isDev) {
-    window1.removeMenu();
-  }
-  window1.loadURL(url1);
-  window1.setTouchBar(touchBar)
-  window1.on('closed', function () {
-    backendApp.removeWebContents(window1.webContents);
-    window1 = null;
-  });
-  window1.webContents.once('did-finish-load', () => {
-    backendApp.addWebContents(window1.webContents);
-    if(backendApp.webContents.length === 2){
-      backendApp.initApp()
+  for (let windowName in config.windows) {
+    let url = (isDev ? `http://127.0.0.1:3000#/${windowName}` : `file://${path.join(__dirname, `../index.html#${windowName}`)}`);
+    let window = new BrowserWindow({
+      show: false,
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js'),
+        devTools: isDev
+      },
+      icon: __dirname + '/Icons/Icons.icns'
+    });
+    window.maximize();
+    if(!isDev) {
+      window.removeMenu();
     }
-  });
-  window1.once('ready-to-show', () => {
-    window1.show();
-  });
+    window.loadURL(url);
+    window.setTouchBar(touchBar)
+    window.on('closed', function () {
+      backendApp.removeWebContents(window.webContents);
+      window = null;
+    });
+    window.webContents.once('did-finish-load', () => {
+      backendApp.addWebContents(window.webContents);
+      if(backendApp.webContents.length === Object.keys(config.windows).length){
+        backendApp.initApp()
+      }
+    });
+    window.once('ready-to-show', () => {
+      window.show();
+      window.send('config-update', config);
+    });
+  }
 
-  window2 = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      devTools: isDev,
-    },
-    icon: __dirname + '/Icons/Icons.icns'
-  });
-  window2.maximize();
-  if(!isDev) {
-    window2.removeMenu();
-  }
-  window2.loadURL(url2);
-  window2.setTouchBar(touchBar)
-  window2.on('closed', function () {
-    window2 = null;
-  });
-  window2.webContents.once('did-finish-load', () => {
-    backendApp.addWebContents(window2.webContents);
-    if(backendApp.webContents.length === 2){
-      backendApp.initApp()
-    }
-  });
-  window2.once('ready-to-show', () => {
-    window2.show();
-  });
 }
 
 function createSelectorWindow() {
@@ -129,11 +108,15 @@ app.on('ready', () => {
     backendApp.abort();
   })
 
-  if(isDev) {
-    createWindow(isMainDev);
-  } else {
-    createSelectorWindow();
-  }
+  backendApp.config = JSON.parse(fs.readFileSync("config.json").toString());
+
+  createWindow(backendApp.config)
+
+  // if(isDev) {
+  //   createWindow(isMainDev);
+  // } else {
+  //   createSelectorWindow();
+  // }
 });
 
 
