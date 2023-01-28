@@ -39,12 +39,14 @@ class SixValueSquare extends Component {
                 <Field
                     key={obj[0]}
                     name={obj[0]}
-                    field={obj[1]}
-                    unit={obj[2] || ""}
-                    decimals={obj[3] || 1}
-                    threshold={obj[4] || null}
-                    modifyValue={obj[5] || null}
-                    thresholdColor={obj[6] || '#27AE60'}
+                    type={obj[1]}
+                    board={obj[2]}
+                    number={obj[3] || 0}
+                    unit={obj[4] || ""}
+                    decimals={obj[5] || 1}
+                    threshold={obj[6] || null}
+                    modifyValue={obj[7] || null}
+                    thresholdColor={obj[8] || '#27AE60'}
                 />
               </Grid>
             ))}

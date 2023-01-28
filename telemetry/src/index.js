@@ -12,20 +12,19 @@ import Settings from "./components/Settings";
 import Navbar from "./components/Navbar";
 import comms from "./api/Comms";
 import LayoutSwitch from "./components/LayoutSwitch";
+import config from "./config.json";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       isDark: false,
-      showSettings: false,
-      config: {}
+      showSettings: false
     };
 
     this.changeLightDark = this.changeLightDark.bind(this);
     this.openSettings = this.openSettings.bind(this);
     this.closeSettings = this.closeSettings.bind(this);
-    this.updateConfig = this.updateConfig.bind(this);
   }
 
   changeLightDark() {
@@ -40,14 +39,13 @@ class App extends Component {
     this.setState({ showSettings: false });
   }
 
-  updateConfig(config) {
-    this.setState({ config: config })
-    this.forceUpdate();
-    console.log(config);
+  componentDidMount() {
+    document.title = "Telemetry: Configurable (if it says this in production I forgot to change it)";
+    comms.connect();
   }
 
-  componentDidMount() {
-    comms.setConfigListener(this.updateConfig)
+  componentWillUnmount() {
+    comms.destroy();
   }
 
   render() {
@@ -88,7 +86,7 @@ class App extends Component {
           openSettings={this.openSettings}
         />
         <BrowserRouter>
-          <LayoutSwitch config={this.state.config}></LayoutSwitch>
+          <LayoutSwitch />
         </BrowserRouter>
         {/* <HashRouter>
           <Switch>

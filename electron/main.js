@@ -8,10 +8,11 @@ const fs = require('fs');
 const App = require('./App');
 
 const isMainDev = (process.env.VARIANT === 'main');
+const config = require("../telemetry/src/config.json")
 
 let backendApp = new App();
 let selector, window1, window2;
-function createWindow (config) {
+function createWindow () {
   // let url1, url2;
   // if(isMain) {
   //   // main windows
@@ -55,7 +56,6 @@ function createWindow (config) {
     });
     window.once('ready-to-show', () => {
       window.show();
-      window.send('config-update', config);
     });
   }
 
@@ -108,9 +108,7 @@ app.on('ready', () => {
     backendApp.abort();
   })
 
-  backendApp.config = JSON.parse(fs.readFileSync("config.json").toString());
-
-  createWindow(backendApp.config)
+  createWindow()
 
   // if(isDev) {
   //   createWindow(isMainDev);

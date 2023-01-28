@@ -7,11 +7,9 @@ class Comms {
     this.subscribers = {};
     this.universalSubscribers = [];
     this.darkmodeListeners = [];
-    this.configListener = null;
     this.ipc = ipc;
     this.stateUpdate = this.stateUpdate.bind(this);
     this.darkmodeUpdate = this.darkmodeUpdate.bind(this);
-    this.configUpdate = this.configUpdate.bind(this);
 
     this.openMainWindows = this.openMainWindows.bind(this);
     this.openAuxWindows = this.openAuxWindows.bind(this);
@@ -165,16 +163,6 @@ class Comms {
     }
   }
 
-  setConfigListener(listener) {
-    this.configListener = listener;
-  }
-
-  configUpdate(event, config) {
-    if (this.configListener != null) {
-      this.configListener(config);
-    }
-  }
-
   removeDarkModeListener(listener) {
     const index = this.darkmodeListeners.indexOf(listener);
     if (index === -1) return;
@@ -184,13 +172,11 @@ class Comms {
   connect() {
     this.ipc.on('state-update', this.stateUpdate);
     this.ipc.on('set-darkmode', this.darkmodeUpdate);
-    this.ipc.on('config-update', this.configUpdate);
   }
 
   destroy() {
     this.ipc.removeListener('state-update', this.stateUpdate);
     this.ipc.removeListener('set-darkmode', this.darkmodeUpdate);
-    this.ipc.removeListener('config-update', this.configUpdate);
   }
 
   //----------Universal Parser--------
