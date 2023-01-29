@@ -10,19 +10,9 @@ const App = require('./App');
 const isMainDev = (process.env.VARIANT === 'main');
 const config = require("../telemetry/src/config.json")
 
-let backendApp = new App();
+let backendApp = new App(config);
 let selector, window1, window2;
 function createWindow () {
-  // let url1, url2;
-  // if(isMain) {
-  //   // main windows
-  //   url1 = (isDev ? 'http://127.0.0.1:3000#/main' : `file://${path.join(__dirname, '../index.html#main')}`);
-  //   url2 = (isDev ? 'http://127.0.0.1:3000#/control' : `file://${path.join(__dirname, '../index.html#control')}`);
-  // } else {
-  //   // aux windows
-  //   url1 = (isDev ? 'http://127.0.0.1:3000#/aux1' : `file://${path.join(__dirname, '../index.html#aux1')}`);
-  //   url2 = (isDev ? 'http://127.0.0.1:3000#/aux2' : `file://${path.join(__dirname, '../index.html#aux2')}`);
-  // }
 
   // TouchBar Start
   const touchBar = createTouchBar(backendApp);

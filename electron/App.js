@@ -7,18 +7,24 @@ const Ground = require('./Boards/Ground');
 const DAQ = require('./Boards/DAQ');
 const ActuatorController = require('./Boards/ActuatorController');
 const InfluxDB = require('./InfluxDB');
+const FlightV4 = require('./Boards/FlightV4');
+const PTBoard = require('./Boards/PTBoard');
+const TCBoard = require('./Boards/TCBoard');
+const LCBoard = require('./Boards/LCBoard');
+const ACBoard = require('./Boards/ACBoard');
 
 let lastThrust12 = 0.0;
 // let lastThrust34 = 0.0;
 
 class App {
-  constructor() {
+  constructor(config) {
     this.webContents = [];
     // this.state = new State(model);
     this.state = new State({});
     this.influxDB = new InfluxDB();
     this.commandFuncs = {};
-    this.config = {};
+    this.config = config;
+    this.boards = {};
 
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
@@ -32,138 +38,36 @@ class App {
   initApp() {
     this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
 
-    this.flightComputer = new FlightV3(this.port,
-      '10.0.0.42',
-      {
-        firmwareCommitHash: 'flightCommitHash',
+    const boardTypes = {
+      "flightV4": FlightV4,
+      "pt": PTBoard,
+      "tc": TCBoard,
+      "lc": LCBoard,
+      "ac": ACBoard
+    };
 
-        // supplyVoltage: 'flightSupplyVoltage',
-        // supplyCurrent: 'flightSupplyCurrent',
-        // supplyPower: 'flightSupplyPower',
-
-        // supply12Voltage: 'flightSupply12Voltage',
-        // supply12Current: 'flightSupply12Current',
-        // supply12Power: 'flightSupply12Power',
-
-        supply8Voltage: 'flightSupply8Voltage',
-        supply8Current: 'flightSupply8Current',
-        supply8Power: 'flightSupply8Power',
-
-        engineTC0: 'loxDomeTC', // 'engineTop1TC',
-        engineTC1: 'TC1', //'engineTop2TC',
-        engineTC2: 'TC2', //'engineBottom1TC',
-        engineTC3: 'TC3', //'engineBottom2TC',
-      },
-      () => this.updateState(Date.now(), { flightConnected: true }),
-      () => this.updateState(Date.now(), { flightConnected: false }),
-      (rate) => this.updateState(Date.now(), { flightKbps: rate }));
-
-    this.groundComputer = new Ground(this.port,
-      '10.0.0.43',
-      {
-        firmwareCommitHash: 'groundCommitHash',
-
-        supplyVoltage: 'groundSupplyVoltage',
-        supplyCurrent: 'groundSupplyCurrent',
-        supplyPower: 'groundSupplyPower',
-
-        supply12Voltage: 'groundSupply12Voltage',
-        supply12Current: 'groundSupply12Current',
-        supply12Power: 'groundSupply12Power',
-
-        supply8Voltage: 'groundSupply8Voltage',
-        supply8Current: 'groundSupply8Current',
-        supply8Power: 'groundSupply8Power',
-
-        
-      },
-      () => this.updateState(Date.now(), { groundConnected: true }),
-      () => this.updateState(Date.now(), { groundConnected: false }),
-      (rate) => this.updateState(Date.now(), { groundKbps: rate }));
-
-    this.daq1 = new DAQ(this.port, '10.0.0.11', {
-        firmwareCommitHash: 'daq1CommitHash',
-
-        daqBattVoltage: null,
-        daqBattCurrent: null,
-
-        daqADC0: null,
-        daqADC1: null,
-        daqADC2: null,
-        daqADC3: null,
-        daqADC4: null,
-        daqADC5: null,
-        daqADC6: null,
-        daqADC7: null,
-
-        daqTC0: 'injectorTC',
-        daqTC1: 'engineMid1TC',
-        daqTC2: 'engineMid2TC',
-        daqTC3: 'engineTop3TC',
-
-        loadCell0: 'thrust0',
-        loadCell1: 'thrust1',
-        loadCell2: 'thrust2',
-        loadCellSum: 'totalThrust12',
-
-        capacitor1: null,
-        capacitor2: null,
-      },
-      () => this.updateState(Date.now(), { daq1Connected: true }),
-      () => this.updateState(Date.now(), { daq1Connected: false }),
-      (rate) => this.updateState(Date.now(), { daq1Kbps: rate }));
-
-    this.actCtrlr1 = new ActuatorController(this.port, '10.0.0.21', {
-        firmwareCommitHash: 'ac1CommitHash',
-
-        acBattVoltage: 'ac1BattVoltage',
-        acBattCurrent: 'ac1BattCurrent',
-        acSupply12Voltage: 'ac1Supply12Voltage',
-        acSupply12Current: 'ac1Supply12Current',
-
-        acLinAct1State: 'pressurantFillRBVstate',
-        acLinAct1Voltage: 'pressurantFillRBVvoltage',
-        acLinAct1Current: 'pressurantFillRBVcurrent',
-        
-        acLinAct2State: 'fuelFillRBVstate',
-        acLinAct2Voltage: 'fuelFillRBVvoltage',
-        acLinAct2Current: 'fuelFillRBVcurrent',
-        
-        acLinAct3State: 'pressurantFillVentRBVstate',
-        acLinAct3Voltage: 'pressurantFillVentRBVvoltage',
-        acLinAct3Current: 'pressurantFillVentRBVcurrent',
-
-        acLinAct4State: null,
-        acLinAct4Voltage: null,
-        acLinAct4Current: null,
-        
-        acLinAct5State: 'loxFillRBVstate',
-        acLinAct5Voltage: 'loxFillRBVvoltage',
-        acLinAct5Current: 'loxFillRBVcurrent',
-        
-        acLinAct6State: null,
-        acLinAct6Voltage: null,
-        acLinAct6Current: null,
-
-        acLinAct7State: null,
-        acLinAct7Voltage: null,
-        acLinAct7Current: null,
-
-        acHeater1Voltage: null,
-        acHeater1Current: null,
-
-        acHeater2Voltage: null,
-        acHeater2Current: null,
-
-        loxDomeHeaterVoltage: 'loxDomeHeaterVoltage',
-        loxDomeHeaterCurrent: 'loxDomeHeaterCurrent',
-
-        fuelDomeHeaterVoltage: 'fuelDomeHeaterVoltage',
-        fuelDomeHeaterCurrent: 'fuelDomeHeaterCurrent',
-      },
-      () => this.updateState(Date.now(), { actCtrlr1Connected: true }),
-      () => this.updateState(Date.now(), { actCtrlr1Connected: false }),
-      (rate) => this.updateState(Date.now(), { actCtrlr1Kbps: rate }));
+    for (let boardName in this.config.boards) {
+      this.boards[boardName] = new boardTypes[this.config.boards[boardName].type](
+        this.port,
+        this.config.boards[boardName].address,
+        boardName,
+        () => {
+          let packet = {};
+          packet[boardName + ".boardConnected"] = true;
+          this.updateState(Date.now(), packet);
+        },
+        () => {
+          let packet = {};
+          packet[boardName + ".boardConnected"] = false;
+          this.updateState(Date.now(), packet);
+        },
+        (rate) => {
+          let packet = {};
+          packet[boardName + ".boardKbps"] = rate;
+          this.updateState(Date.now(), packet);
+        }
+      );
+    }
 
     // Begin TouchBar
     this.abort = this.addBackendFunc('abort', this.groundComputer.abort)

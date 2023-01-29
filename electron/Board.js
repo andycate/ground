@@ -1,17 +1,17 @@
 const Packet = require('./Packet');
 
-const { INBOUND_PACKET_DEFS } = require("./packetDefs");
-
 class Board {
-  constructor(port, address, mapping, onConnect, onDisconnect, onRate) {
+  constructor(port, address, name, mapping, onConnect, onDisconnect, onRate) {
     this.isConnected = false;
     this.watchdog = null;
     this.port = port;
     this.address = address;
+    this.name = name;
     this.mapping = mapping;
     this.onConnect = onConnect;
     this.onDisconnect = onDisconnect;
     this.onRate = onRate;
+    this.inboundPacketDefs = {};
     this.port.register(this.address, this);
     /** @type {Number} the local time (in ms) at which the first packet was received from this board */
     this.firstRecvTime = -1;
@@ -88,7 +88,7 @@ class Board {
 
     if (checksum === expectedChecksum) {
       const values = []
-      const packetDef = INBOUND_PACKET_DEFS[id]
+      const packetDef = this.inboundPacketDefs[id]
       if(!packetDef) return null;
 
       if (!packetDef) {
@@ -127,10 +127,18 @@ class Board {
    */
   processPacket(packet) {
     const { id, values } = packet
-    const packetDef = INBOUND_PACKET_DEFS[id];
+    const packetDef = this.inboundPacketDefs[id];
     if(!packetDef) return;
 
     const update = {};
+
+    let numberSuffix = "";
+    for (let i = 0; i < packetDef.length; i ++) {
+      if (packetDef[i][0] === "#") {
+        numberSuffix = "." + values[i];
+        break;
+      }
+    }
 
     values.forEach((_value, idx) => {
       const fieldDef = packetDef[idx]
@@ -151,9 +159,9 @@ class Board {
       }
       const fieldName = this.mapping[_fieldName]
       if (fieldName === undefined) {
-        update[_fieldName] = value
+        update[this.name + "." + _fieldName + numberSuffix] = value
       } else if (fieldName !== null) {
-        update[fieldName] = value
+        update[this.name + "." + fieldName + numberSuffix] = value
       }
 
 
