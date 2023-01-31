@@ -1,5 +1,5 @@
 const Board = require('../Board');
-const Interpolation = require("./Interpolation");
+const Interpolation = require("../Interpolation");
 
 const { asASCIIString, asFloat, asUInt8, asUInt16, asUInt32, asUInt32fromustos} = Interpolation;
 const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES;

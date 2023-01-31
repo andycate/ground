@@ -44,7 +44,6 @@ class UdpPort {
       if(!board) return;
       board.updateRcvRate(msg.length);
       const packet = board.parseMsgBuf(msg);
-
       if (packet) {
         const update = board.processPacket(packet);
         if (update === undefined) return;

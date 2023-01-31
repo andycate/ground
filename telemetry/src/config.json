@@ -23,13 +23,14 @@
 	},
 	"windows": {
 		"main": {
+			"name": "Main",
 			"layout": "9-grid",
 			"slots": [
 				{
 					"type": "graph",
 					"values": [
 						{
-							"field": "flight.pt.0",
+							"field": "flight.ptValue.0",
 							"name": "Flight PT 0",
 							"units": "PSI",
 							"color": [255, 0, 0]
@@ -40,7 +41,7 @@
 					"type": "graph",
 					"values": [
 						{
-							"field": "flight.pt.1",
+							"field": "flight.ptValue.1",
 							"name": "Flight PT 1",
 							"units": "PSI",
 							"color": [0, 255, 0]
@@ -51,7 +52,7 @@
 					"type": "graph",
 					"values": [
 						{
-							"field": "flight.pt.2",
+							"field": "flight.ptValue.2",
 							"name": "Flight PT 2",
 							"units": "PSI",
 							"color": [0, 0, 255]
@@ -128,13 +129,13 @@
 					"type": "graph",
 					"values": [
 						{
-							"field": "pt.ptValue.3",
+							"field": "flight.ptValue.3",
 							"name": "Flight PT 3",
 							"units": "PSI",
 							"color": [255, 255, 0]
 						},
 						{
-							"field": "pt.ptValue.4",
+							"field": "flight.ptValue.4",
 							"name": "Flight PT 4",
 							"units": "PSI",
 							"color": [0, 255, 255]

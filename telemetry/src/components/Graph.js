@@ -165,7 +165,7 @@ class Graph extends Component {
       this.webglp.addLine(newLine);
       const subscriber = this.createUpdateHandler(i);
       this.subscribers.push(subscriber);
-      comms.addSubscriber(field.name, subscriber);
+      comms.addSubscriber(field.field, subscriber);
     }
 
     this.updateGraph();
@@ -174,7 +174,7 @@ class Graph extends Component {
   componentWillUnmount() {
     for(let i = 0; i < this.numFields; i++) {
       const field = this.props.fields[i];
-      comms.removeSubscriber(field.name, this.subscribers[i]);
+      comms.removeSubscriber(field.field, this.subscribers[i]);
     }
     cancelAnimationFrame(this.animationID);
   }

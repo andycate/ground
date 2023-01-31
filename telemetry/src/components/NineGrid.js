@@ -152,10 +152,8 @@ class NineGrid extends Component {
                           return (
                             <SixValueSquare fields={
                               field.values.map(value => [
+                                value.field,
                                 value.name,
-                                value.type,
-                                value.board,
-                                value.number,
                                 value.units
                               ])}
                             />
@@ -164,6 +162,7 @@ class NineGrid extends Component {
                           return (
                             <Graph fields={
                               field.values.map(value => ({
+                                field: value.field,
                                 name: value.name,
                                 color: value.color,
                                 unit: value.units

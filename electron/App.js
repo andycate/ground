@@ -70,7 +70,7 @@ class App {
     }
 
     // Begin TouchBar
-    this.abort = this.addBackendFunc('abort', this.groundComputer.abort)
+    // this.abort = this.addBackendFunc('abort', this.groundComputer.abort)
     // End TouchBar
 
     this.setupIPC();
@@ -198,87 +198,87 @@ class App {
     this.addIPC('send-custom-message', this.handleSendCustomMessage, false)
 
 
-    this.addIPC('flight-connected', () => this.flightComputer.isConnected);
-    this.addIPC('ground-connected', () => this.groundComputer.isConnected);
-    this.addIPC('daq1-connected', () => this.daq1.isConnected);
-    // this.addIPC('daq2-connected', () => this.daq2.isConnected);
-    // this.addIPC('daq3-connected', () => this.daq3.isConnected);
-    // this.addIPC('daq4-connected', () => this.daq4.isConnected);
-    this.addIPC('actctrlr1-connected', () => this.actCtrlr1.isConnected);
+    // this.addIPC('flight-connected', () => this.flightComputer.isConnected);
+    // this.addIPC('ground-connected', () => this.groundComputer.isConnected);
+    // this.addIPC('daq1-connected', () => this.daq1.isConnected);
+    // // this.addIPC('daq2-connected', () => this.daq2.isConnected);
+    // // this.addIPC('daq3-connected', () => this.daq3.isConnected);
+    // // this.addIPC('daq4-connected', () => this.daq4.isConnected);
+    // this.addIPC('actctrlr1-connected', () => this.actCtrlr1.isConnected);
 
-    // Flight Computer
+    // // Flight Computer
 
-    this.addIPC('open-loxGemsValve', this.flightComputer.openloxGemsValve);
-    this.addIPC('close-loxGemsValve', this.flightComputer.closeloxGemsValve);
+    // this.addIPC('open-loxGemsValve', this.flightComputer.openloxGemsValve);
+    // this.addIPC('close-loxGemsValve', this.flightComputer.closeloxGemsValve);
 
-    this.addIPC('open-fuelGemsValve', this.flightComputer.openfuelGemsValve);
-    this.addIPC('close-fuelGemsValve', this.flightComputer.closefuelGemsValve);
+    // this.addIPC('open-fuelGemsValve', this.flightComputer.openfuelGemsValve);
+    // this.addIPC('close-fuelGemsValve', this.flightComputer.closefuelGemsValve);
 
-    this.addIPC('start-toggleLoxGemsValve', this.flightComputer.startToggleLoxGemsValve);
-    this.addIPC('stop-toggleLoxGemsValve', this.flightComputer.stopToggleLoxGemsValve);
+    // this.addIPC('start-toggleLoxGemsValve', this.flightComputer.startToggleLoxGemsValve);
+    // this.addIPC('stop-toggleLoxGemsValve', this.flightComputer.stopToggleLoxGemsValve);
 
-    this.addIPC('start-toggleFuelGemsValve', this.flightComputer.startToggleFuelGemsValve);
-    this.addIPC('stop-toggleFuelGemsValve', this.flightComputer.stopToggleFuelGemsValve);
+    // this.addIPC('start-toggleFuelGemsValve', this.flightComputer.startToggleFuelGemsValve);
+    // this.addIPC('stop-toggleFuelGemsValve', this.flightComputer.stopToggleFuelGemsValve);
 
-    this.addIPC('open-pressurantFlowRBV', this.flightComputer.openPressFlowRBV);
-    this.addIPC('close-pressurantFlowRBV', this.flightComputer.closePressFlowRBV);
-    this.addIPC('time-pressurantFlowRBV', (e, val) => this.flightComputer.pressFlowRBVms(val));
+    // this.addIPC('open-pressurantFlowRBV', this.flightComputer.openPressFlowRBV);
+    // this.addIPC('close-pressurantFlowRBV', this.flightComputer.closePressFlowRBV);
+    // this.addIPC('time-pressurantFlowRBV', (e, val) => this.flightComputer.pressFlowRBVms(val));
 
-    this.addIPC('enable-flightMode', this.flightComputer.enableFlightMode);
-    this.addIPC('disable-flightMode', this.flightComputer.disableFlightMode);
+    // this.addIPC('enable-flightMode', this.flightComputer.enableFlightMode);
+    // this.addIPC('disable-flightMode', this.flightComputer.disableFlightMode);
 
-    // Ground Computer
+    // // Ground Computer
 
-    this.addIPC('enable-launchMode', this.groundComputer.enablelaunchMode);
-    this.addIPC('disable-launchMode', this.groundComputer.disablelaunchMode);
+    // this.addIPC('enable-launchMode', this.groundComputer.enablelaunchMode);
+    // this.addIPC('disable-launchMode', this.groundComputer.disablelaunchMode);
 
-    this.addIPC('open-armValve', this.groundComputer.openarmValve);
-    this.addIPC('close-armValve', this.groundComputer.closearmValve);
+    // this.addIPC('open-armValve', this.groundComputer.openarmValve);
+    // this.addIPC('close-armValve', this.groundComputer.closearmValve);
 
-    this.addIPC('activate-igniter', this.groundComputer.activateIgniter);
-    this.addIPC('deactivate-igniter', this.groundComputer.deactivateIgniter);
+    // this.addIPC('activate-igniter', this.groundComputer.activateIgniter);
+    // this.addIPC('deactivate-igniter', this.groundComputer.deactivateIgniter);
 
-    this.addIPC('open-loxMainValve', this.groundComputer.openloxMainValve);
-    this.addIPC('close-loxMainValve', this.groundComputer.closeloxMainValve);
+    // this.addIPC('open-loxMainValve', this.groundComputer.openloxMainValve);
+    // this.addIPC('close-loxMainValve', this.groundComputer.closeloxMainValve);
 
-    this.addIPC('open-fuelMainValve', this.groundComputer.openfuelMainValve);
-    this.addIPC('close-fuelMainValve', this.groundComputer.closefuelMainValve);
+    // this.addIPC('open-fuelMainValve', this.groundComputer.openfuelMainValve);
+    // this.addIPC('close-fuelMainValve', this.groundComputer.closefuelMainValve);
 
-    this.addIPC('open-mainValveVent', this.groundComputer.openMainValveVent);
-    this.addIPC('close-mainValveVent', this.groundComputer.closeMainValveVent);
+    // this.addIPC('open-mainValveVent', this.groundComputer.openMainValveVent);
+    // this.addIPC('close-mainValveVent', this.groundComputer.closeMainValveVent);
 
-    this.addIPC('open-pressRQD', this.groundComputer.openPressRQD);
-    this.addIPC('close-pressRQD', this.groundComputer.closePressRQD);
+    // this.addIPC('open-pressRQD', this.groundComputer.openPressRQD);
+    // this.addIPC('close-pressRQD', this.groundComputer.closePressRQD);
 
-    this.addIPC('beginFlow', this.groundComputer.beginFlow);
-    this.addIPC('abort', this.groundComputer.abort);
+    // this.addIPC('beginFlow', this.groundComputer.beginFlow);
+    // this.addIPC('abort', this.groundComputer.abort);
 
-    this.addIPC('enable-igniter', this.groundComputer.enableIgniter);
-    this.addIPC('disable-igniter', this.groundComputer.disableIgniter);
+    // this.addIPC('enable-igniter', this.groundComputer.enableIgniter);
+    // this.addIPC('disable-igniter', this.groundComputer.disableIgniter);
 
 
-    // Actuator Controller 1
-    this.addIPC('open-pressurantFillRBV', this.actCtrlr1.closeActCh0);
-    this.addIPC('close-pressurantFillRBV', this.actCtrlr1.openActCh0);
-    this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh0ms(-val));
+    // // Actuator Controller 1
+    // this.addIPC('open-pressurantFillRBV', this.actCtrlr1.closeActCh0);
+    // this.addIPC('close-pressurantFillRBV', this.actCtrlr1.openActCh0);
+    // this.addIPC('time-pressurantFillRBV', (e, val) => this.actCtrlr1.actCh0ms(-val));
 
-    this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
-    this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
-    this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
+    // this.addIPC('open-fuelFillRBV', this.actCtrlr1.openActCh1);
+    // this.addIPC('close-fuelFillRBV', this.actCtrlr1.closeActCh1);
+    // this.addIPC('time-fuelFillRBV', (e, val) => this.actCtrlr1.actCh1ms(val));
 
-    this.addIPC('open-loxFillRBV', this.actCtrlr1.openActCh4);
-    this.addIPC('close-loxFillRBV', this.actCtrlr1.closeActCh4);
-    this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
+    // this.addIPC('open-loxFillRBV', this.actCtrlr1.openActCh4);
+    // this.addIPC('close-loxFillRBV', this.actCtrlr1.closeActCh4);
+    // this.addIPC('time-loxFillRBV', (e, val) => this.actCtrlr1.actCh4ms(val));
 
-    this.addIPC('open-pressurantFillVentRBV', this.actCtrlr1.openActCh2);
-    this.addIPC('close-pressurantFillVentRBV', this.actCtrlr1.closeActCh2);
-    this.addIPC('time-pressurantFillVentRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
+    // this.addIPC('open-pressurantFillVentRBV', this.actCtrlr1.openActCh2);
+    // this.addIPC('close-pressurantFillVentRBV', this.actCtrlr1.closeActCh2);
+    // this.addIPC('time-pressurantFillVentRBV', (e, val) => this.actCtrlr1.actCh2ms(val));
 
-    this.addIPC('open-loxDomeHeater', this.actCtrlr1.openLoxDomeHeater);
-    this.addIPC('close-loxDomeHeater', this.actCtrlr1.closeLoxDomeHeater);
+    // this.addIPC('open-loxDomeHeater', this.actCtrlr1.openLoxDomeHeater);
+    // this.addIPC('close-loxDomeHeater', this.actCtrlr1.closeLoxDomeHeater);
 
-    this.addIPC('open-fuelDomeHeater', this.actCtrlr1.openFuelDomeHeater);
-    this.addIPC('close-fuelDomeHeater', this.actCtrlr1.closeFuelDomeHeater);
+    // this.addIPC('open-fuelDomeHeater', this.actCtrlr1.openFuelDomeHeater);
+    // this.addIPC('close-fuelDomeHeater', this.actCtrlr1.closeFuelDomeHeater);
 
   }
 }

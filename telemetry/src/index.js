@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    document.title = "Telemetry: Configurable (if it says this in production I forgot to change it)";
+    document.title = `Telemetry: ${config.windows[window.location.hash.substring(2)].name}`;
     comms.connect();
   }
 
@@ -88,15 +88,6 @@ class App extends Component {
         <BrowserRouter>
           <LayoutSwitch />
         </BrowserRouter>
-        {/* <HashRouter>
-          <Switch>
-            <Route path="/selector" exact component={WindowSelector} />
-            <Route path="/main" exact component={Main} />
-            <Route path="/control" exact component={Control} />
-            <Route path="/aux1" exact component={Aux1} />
-            <Route path="/aux2" exact component={Aux2} />
-          </Switch>
-        </HashRouter> */}
       </ThemeProvider>
     );
   }

@@ -63,7 +63,7 @@ class Field extends Component {
   }
 
   render() {
-    const { classes, name, unit } = this.props;
+    const { classes, field, name, unit } = this.props;
     return (
       <Grid container spacing={1} alignItems='center' className={classes.root}>
         <Grid item xs={12}>
@@ -72,7 +72,7 @@ class Field extends Component {
               {name}
             </Typography>
             <Typography variant='h3' className={classes.value} ref={this.valRef}>
-              {(0).toFixed(this.decimals)}
+              {field === null ? "" : (0).toFixed(this.decimals)}
             </Typography>
             <Typography variant='h6' className={classes.unit}>
               {unit}

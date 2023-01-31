@@ -16,7 +16,6 @@ class LayoutSwitch extends Component {
   render() {
     const { hash } = this.state;
     let window = config.windows[hash.substring(2)];
-    console.log(window);
     if (window === undefined) {
       return (
         <Typography variant='h6'>
