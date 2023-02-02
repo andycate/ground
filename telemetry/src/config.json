@@ -22,6 +22,37 @@
 		}
 	},
 	"windows": {
+		"controls": {
+			"name": "Controls",
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "pressFlow",
+							"type": "timed",
+							"name": "Press Flow RBV"
+						},
+						{
+							"id": "pressFlowSwitch",
+							"type": "switch",
+							"name": "Press Flow Enable"
+						},
+						{
+							"id": "loxGems",
+							"type": "valve",
+							"name": "LOX GEMS Valve"
+						},
+						{
+							"id": "fuelGems",
+							"type": "valve",
+							"name": "Fuel GEMS Valve"
+						}
+					]
+				}
+			]
+		},
 		"main": {
 			"name": "Main",
 			"layout": "9-grid",

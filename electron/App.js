@@ -2,10 +2,6 @@ const { ipcMain, TouchBar } = require('electron');
 
 const State = require('./State');
 const UdpPort = require('./UdpPort');
-const FlightV3 = require('./Boards/FlightV3');
-const Ground = require('./Boards/Ground');
-const DAQ = require('./Boards/DAQ');
-const ActuatorController = require('./Boards/ActuatorController');
 const InfluxDB = require('./InfluxDB');
 const FlightV4 = require('./Boards/FlightV4');
 const PTBoard = require('./Boards/PTBoard');

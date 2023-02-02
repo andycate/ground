@@ -4,6 +4,8 @@ import { withStyles, withTheme } from "@material-ui/core/styles";
 import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
 
 import Field from "./Field";
+import ButtonGroup from "./Buttons/ButtonGroup";
+import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";
 
 const styles = (theme) => ({
   root: {
@@ -23,7 +25,7 @@ const styles = (theme) => ({
   },
 });
 
-class SixValueSquare extends Component {
+class FourButton extends Component {
   constructor(props) {
     super(props);
   }
@@ -34,7 +36,33 @@ class SixValueSquare extends Component {
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
           <Grid container spacing={1} className={classes.container}>
-            {fields.map((obj) => (
+            {
+              fields.map((obj) => (
+                <Grid item xs={6} className={classes.item}>
+                  {
+                    (() => {
+                      switch (obj[1]) {
+                        case "valve":
+                          return (
+                            <ButtonGroup
+                              open=""
+                            />
+                          )
+                        case "timed":
+                          return (
+                            <ButtonGroupRBVTimed
+                              
+                            />
+                          )
+                        default:
+                          return `Button type "${obj[1]}" not found`
+                      }
+                    })()
+                  }
+                </Grid>
+              ))
+            }
+            {/* {fields.map((obj) => (
               <Grid item xs={4} className={classes.item}>
                 <Field
                     field={obj[0]}
@@ -46,7 +74,7 @@ class SixValueSquare extends Component {
                     thresholdColor={obj[8] || '#27AE60'}
                 />
               </Grid>
-            ))}
+            ))} */}
             {children}
           </Grid>
         </CardContent>
@@ -55,4 +83,4 @@ class SixValueSquare extends Component {
   }
 }
 
-export default withTheme(withStyles(styles)(SixValueSquare));
+export default withTheme(withStyles(styles)(FourButton));

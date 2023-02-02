@@ -16,6 +16,7 @@ import comms from "../api/Comms";
 import MessageDisplaySquare from "./MessageDisplaySquare";
 import Field from "./Field";
 import ErrorSquare from "./ErrorSquare";
+import FourButtonSquare from "./FourButtonSquare";
 
 // const fields = [
 //   [
@@ -167,6 +168,16 @@ class NineGrid extends Component {
                                 color: value.color,
                                 unit: value.units
                               }))}
+                            />
+                          )
+                        case "four-button":
+                          return (
+                            <FourButtonSquare fields={
+                              field.buttons.map(value => [
+                                value.id,
+                                value.type,
+                                value.name
+                              ])}
                             />
                           )
                         default:

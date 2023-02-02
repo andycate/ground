@@ -2,6 +2,7 @@ import { Typography } from '@material-ui/core';
 import { Component, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import config from '../config.json';
+import Control from '../Control';
 import NineGrid from './NineGrid';
 
 
