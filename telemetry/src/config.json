@@ -32,22 +32,77 @@
 						{
 							"id": "pressFlow",
 							"type": "timed",
-							"name": "Press Flow RBV"
+							"name": "Press Flow RBV",
+							"field": "flight.pressurantFlowRBVstate",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "flight",
+									"packet": 6
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "flight",
+									"packet": 6
+								},
+								"timed": {
+									"type": "actuate-timed",
+									"board": "flight",
+									"packet": 6
+								}
+							}
 						},
 						{
 							"id": "pressFlowSwitch",
 							"type": "switch",
-							"name": "Press Flow Enable"
+							"name": "Press Flow Enable",
+							"field": "",
+							"actions": {
+								"enable": {
+									"type": "enable",
+									"id": "pressFlow"
+								},
+								"disable": {
+									"type": "disable",
+									"id": "pressFlow"
+								}
+							}
 						},
 						{
 							"id": "loxGems",
 							"type": "valve",
-							"name": "LOX GEMS Valve"
+							"name": "LOX GEMS Valve",
+							"field": "flight.loxGEMSstate",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "flight",
+									"packet": 4
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "flight",
+									"packet": 4
+								}
+							}
 						},
 						{
 							"id": "fuelGems",
 							"type": "valve",
-							"name": "Fuel GEMS Valve"
+							"name": "Fuel GEMS Valve",
+							"field": "flight.fuelGEMSstate",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "flight",
+									"packet": 5
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "flight",
+									"packet": 5
+								}
+							}
 						}
 					]
 				}

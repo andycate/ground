@@ -176,7 +176,9 @@ class NineGrid extends Component {
                               field.buttons.map(value => [
                                 value.id,
                                 value.type,
-                                value.name
+                                value.name,
+                                value.field,
+                                value.actions
                               ])}
                             />
                           )

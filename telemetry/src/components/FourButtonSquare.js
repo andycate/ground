@@ -6,6 +6,8 @@ import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
 import Field from "./Field";
 import ButtonGroup from "./Buttons/ButtonGroup";
 import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";
+import { buttonAction } from "../util";
+import SwitchButton from "./Buttons/SwitchButton";
 
 const styles = (theme) => ({
   root: {
@@ -45,13 +47,27 @@ class FourButton extends Component {
                         case "valve":
                           return (
                             <ButtonGroup
-                              open=""
+                              open={buttonAction(obj[4].enable)}
+                              close={buttonAction(obj[4].disable)}
+                              field={obj[3]}
+                              text={obj[2]}
                             />
                           )
                         case "timed":
                           return (
                             <ButtonGroupRBVTimed
-                              
+                              open={buttonAction(obj[4].enable)}
+                              close={buttonAction(obj[4].disable)}
+                              time={buttonAction(obj[4].timed)}
+                              text={obj[2]}
+                            />
+                          )
+                        case "switch":
+                          return (
+                            <SwitchButton
+                              open={buttonAction(obj[4].enable)}
+                              close={buttonAction(obj[4].disable)}
+                              text={obj[2]}
                             />
                           )
                         default:

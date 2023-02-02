@@ -8,6 +8,7 @@ const PTBoard = require('./Boards/PTBoard');
 const TCBoard = require('./Boards/TCBoard');
 const LCBoard = require('./Boards/LCBoard');
 const ACBoard = require('./Boards/ACBoard');
+const { initTime, fletcher16Partitioned } = require('./Packet');
 
 let lastThrust12 = 0.0;
 // let lastThrust34 = 0.0;
@@ -26,6 +27,7 @@ class App {
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
     this.handleSendCustomMessage = this.handleSendCustomMessage.bind(this)
     this.addBackendFunc = this.addBackendFunc.bind(this);
+    this.sendPacket = this.sendPacket.bind(this);
   }
 
   /**
@@ -193,6 +195,7 @@ class App {
 
     this.addIPC('send-custom-message', this.handleSendCustomMessage, false)
 
+    this.addIPC('send-packet', this.sendPacket)
 
     // this.addIPC('flight-connected', () => this.flightComputer.isConnected);
     // this.addIPC('ground-connected', () => this.groundComputer.isConnected);
@@ -276,6 +279,38 @@ class App {
     // this.addIPC('open-fuelDomeHeater', this.actCtrlr1.openFuelDomeHeater);
     // this.addIPC('close-fuelDomeHeater', this.actCtrlr1.closeFuelDomeHeater);
 
+  }
+
+  sendPacket(_, board, packet, number, command, time) {
+    let buf = App.generateActuatorPacket(packet, number, command, time).toString("hex").match(/.{1,2}/g).join(" ");
+    // this.port.send(this.boards[board].address, buf, false);
+    this.port.server.send(buf, 42070, this.boards[board].address);
+  }
+
+  static generateActuatorPacket(id, number, command, time) {
+    let idBuf = Buffer.alloc(1);
+    idBuf.writeUInt8(id);
+    let len = 5
+    let values = [];
+    if (number !== -1) {
+      len ++;
+      let numberBuf = Buffer.alloc(1);
+      numberBuf.writeUInt8(number);
+      values.push(numberBuf);
+    }
+    let commandBuf = Buffer.alloc(1);
+    commandBuf.writeUInt8(command);
+    values.push(commandBuf);
+    let timeBuf = Buffer.alloc(4);
+    timeBuf.writeUInt32LE(time);
+    values.push(timeBuf);
+    let lenBuf = Buffer.alloc(1);
+    lenBuf.writeUInt8(len);
+    let tsOffsetBuf = Buffer.alloc(4)
+    tsOffsetBuf.writeUInt32LE(Date.now() - initTime);
+    let checksumBuf = Buffer.alloc(2);
+    checksumBuf.writeUInt16LE(fletcher16Partitioned([idBuf, lenBuf, tsOffsetBuf, ...values]));
+    return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...values]);
   }
 }
 

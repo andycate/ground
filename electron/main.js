@@ -41,7 +41,7 @@ function createWindow () {
     window.webContents.once('did-finish-load', () => {
       backendApp.addWebContents(window.webContents);
       if(backendApp.webContents.length === Object.keys(config.windows).length){
-        backendApp.initApp()
+        // backendApp.initApp()
       }
     });
     window.once('ready-to-show', () => {
@@ -97,6 +97,8 @@ app.on('ready', () => {
   const ret = globalShortcut.register('F17', () => {
     backendApp.abort();
   })
+
+  backendApp.initApp()
 
   createWindow()
 

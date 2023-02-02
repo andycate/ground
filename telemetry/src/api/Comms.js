@@ -22,91 +22,91 @@ class Comms {
     this.setProcedureState = this.setProcedureState.bind(this);
     this.doNothing = this.doNothing.bind(this);
 
-    this.getFlightConnected = this.getFlightConnected.bind(this);
-    this.getGroundConnected = this.getGroundConnected.bind(this);
-    this.getDaq1Connected = this.getDaq1Connected.bind(this);
+    // this.getFlightConnected = this.getFlightConnected.bind(this);
+    // this.getGroundConnected = this.getGroundConnected.bind(this);
+    // this.getDaq1Connected = this.getDaq1Connected.bind(this);
     // this.getDaq2Connected = this.getDaq2Connected.bind(this);
     // this.getDaq3Connected = this.getDaq3Connected.bind(this);
     // this.getDaq4Connected = this.getDaq4Connected.bind(this);
-    this.getActCtrlr1Connected = this.getActCtrlr1Connected.bind(this);
+    // this.getActCtrlr1Connected = this.getActCtrlr1Connected.bind(this);
 
     // Flight Computer
 
-    this.openloxGemsValve = this.openloxGemsValve.bind(this);
-    this.closeloxGemsValve = this.closeloxGemsValve.bind(this);
+    // this.openloxGemsValve = this.openloxGemsValve.bind(this);
+    // this.closeloxGemsValve = this.closeloxGemsValve.bind(this);
 
-    this.openfuelGemsValve = this.openfuelGemsValve.bind(this);
-    this.closefuelGemsValve = this.closefuelGemsValve.bind(this);
+    // this.openfuelGemsValve = this.openfuelGemsValve.bind(this);
+    // this.closefuelGemsValve = this.closefuelGemsValve.bind(this);
 
-    this.startToggleLoxGemsValve = this.startToggleLoxGemsValve.bind(this);
-    this.stopToggleLoxGemsValve = this.stopToggleLoxGemsValve.bind(this);
+    // this.startToggleLoxGemsValve = this.startToggleLoxGemsValve.bind(this);
+    // this.stopToggleLoxGemsValve = this.stopToggleLoxGemsValve.bind(this);
 
-    this.startToggleFuelGemsValve = this.startToggleFuelGemsValve.bind(this);
-    this.stopToggleFuelGemsValve = this.stopToggleFuelGemsValve.bind(this);
+    // this.startToggleFuelGemsValve = this.startToggleFuelGemsValve.bind(this);
+    // this.stopToggleFuelGemsValve = this.stopToggleFuelGemsValve.bind(this);
 
-    this.openPressurantFlowRBV = this.openPressurantFlowRBV.bind(this);
-    this.closePressurantFlowRBV = this.closePressurantFlowRBV.bind(this);
-    this.timePressurantFlowRBV = this.timePressurantFlowRBV.bind(this);
+    // this.openPressurantFlowRBV = this.openPressurantFlowRBV.bind(this);
+    // this.closePressurantFlowRBV = this.closePressurantFlowRBV.bind(this);
+    // this.timePressurantFlowRBV = this.timePressurantFlowRBV.bind(this);
     
-    this.enableFlightMode = this.enableFlightMode.bind(this);
-    this.disableFlightMode = this.disableFlightMode.bind(this);
+    // this.enableFlightMode = this.enableFlightMode.bind(this);
+    // this.disableFlightMode = this.disableFlightMode.bind(this);
 
 
     // Ground Computer
 
-    this.openarmValve = this.openarmValve.bind(this);
-    this.closearmValve = this.closearmValve.bind(this);
+    // this.openarmValve = this.openarmValve.bind(this);
+    // this.closearmValve = this.closearmValve.bind(this);
 
-    this.activateIgniter = this.activateIgniter.bind(this);
-    this.deactivateIgniter = this.deactivateIgniter.bind(this);
+    // this.activateIgniter = this.activateIgniter.bind(this);
+    // this.deactivateIgniter = this.deactivateIgniter.bind(this);
 
-    this.openloxMainValve = this.openloxMainValve.bind(this);
-    this.closeloxMainValve = this.closeloxMainValve.bind(this);
+    // this.openloxMainValve = this.openloxMainValve.bind(this);
+    // this.closeloxMainValve = this.closeloxMainValve.bind(this);
 
-    this.openfuelMainValve = this.openfuelMainValve.bind(this);
-    this.closefuelMainValve = this.closefuelMainValve.bind(this);
+    // this.openfuelMainValve = this.openfuelMainValve.bind(this);
+    // this.closefuelMainValve = this.closefuelMainValve.bind(this);
 
-    this.openMainValveVent = this.openMainValveVent.bind(this);
-    this.closeMainValveVent = this.closeMainValveVent.bind(this);
+    // this.openMainValveVent = this.openMainValveVent.bind(this);
+    // this.closeMainValveVent = this.closeMainValveVent.bind(this);
 
-    this.openPressRQD = this.openPressRQD.bind(this);
-    this.closePressRQD = this.closePressRQD.bind(this);
+    // this.openPressRQD = this.openPressRQD.bind(this);
+    // this.closePressRQD = this.closePressRQD.bind(this);
 
-    this.beginFlow = this.beginFlow.bind(this);
-    this.abort = this.abort.bind(this);
+    // this.beginFlow = this.beginFlow.bind(this);
+    // this.abort = this.abort.bind(this);
 
-    this.enableLaunch = this.enableLaunch.bind(this);
-    this.disableLaunch = this.disableLaunch.bind(this);
+    // this.enableLaunch = this.enableLaunch.bind(this);
+    // this.disableLaunch = this.disableLaunch.bind(this);
 
     // this.enableFastRead = this.enableFastRead.bind(this);
     // this.disableFastRead = this.disableFastRead.bind(this);
 
-    this.enableIgniter = this.enableIgniter.bind(this);
-    this.disableIgniter = this.disableIgniter.bind(this);
+    // this.enableIgniter = this.enableIgniter.bind(this);
+    // this.disableIgniter = this.disableIgniter.bind(this);
 
     //-------Actuator Controller 1-------
 
-    this.openPressurantFillRBV = this.openPressurantFillRBV.bind(this);
-    this.closePressurantFillRBV = this.closePressurantFillRBV.bind(this);
-    this.timePressurantFillRBV = this.timePressurantFillRBV.bind(this);
+    // this.openPressurantFillRBV = this.openPressurantFillRBV.bind(this);
+    // this.closePressurantFillRBV = this.closePressurantFillRBV.bind(this);
+    // this.timePressurantFillRBV = this.timePressurantFillRBV.bind(this);
 
-    this.openPressurantFillVentRBV = this.openPressurantFillVentRBV.bind(this);
-    this.closePressurantFillVentRBV = this.closePressurantFillVentRBV.bind(this);
-    this.timePressurantFillVentRBV = this.timePressurantFillVentRBV.bind(this);
+    // this.openPressurantFillVentRBV = this.openPressurantFillVentRBV.bind(this);
+    // this.closePressurantFillVentRBV = this.closePressurantFillVentRBV.bind(this);
+    // this.timePressurantFillVentRBV = this.timePressurantFillVentRBV.bind(this);
 
-    this.openloxFillRBV = this.openloxFillRBV.bind(this);
-    this.closeloxFillRBV = this.closeloxFillRBV.bind(this);
-    this.timeloxFillRBV = this.timeloxFillRBV.bind(this);
+    // this.openloxFillRBV = this.openloxFillRBV.bind(this);
+    // this.closeloxFillRBV = this.closeloxFillRBV.bind(this);
+    // this.timeloxFillRBV = this.timeloxFillRBV.bind(this);
 
-    this.openfuelFillRBV = this.openfuelFillRBV.bind(this);
-    this.closefuelFillRBV = this.closefuelFillRBV.bind(this);
-    this.timefuelFillRBV = this.timefuelFillRBV.bind(this);
+    // this.openfuelFillRBV = this.openfuelFillRBV.bind(this);
+    // this.closefuelFillRBV = this.closefuelFillRBV.bind(this);
+    // this.timefuelFillRBV = this.timefuelFillRBV.bind(this);
 
-    this.openLoxDomeHeater = this.openLoxDomeHeater.bind(this);
-    this.closeLoxDomeHeater = this.closeLoxDomeHeater.bind(this);
+    // this.openLoxDomeHeater = this.openLoxDomeHeater.bind(this);
+    // this.closeLoxDomeHeater = this.closeLoxDomeHeater.bind(this);
 
-    this.openFuelDomeHeater = this.openFuelDomeHeater.bind(this);
-    this.closeFuelDomeHeater = this.closeFuelDomeHeater.bind(this);
+    // this.openFuelDomeHeater = this.openFuelDomeHeater.bind(this);
+    // this.closeFuelDomeHeater = this.closeFuelDomeHeater.bind(this);
 
   }
 
@@ -221,17 +221,31 @@ class Comms {
     return await this.ipc.invoke('set-darkmode', isDark);
   }
 
-  async getFlightConnected() {
-    return await this.ipc.invoke('flight-connected');
+  // ------------ Controls ------------
+
+  async sendPacket(board, packet, number, command, time) {
+    return await this.ipc.invoke('send-packet', board, packet, number, command, time);
   }
 
-  async getGroundConnected() {
-    return await this.ipc.invoke('ground-connected');
-  }
 
-  async getDaq1Connected() {
-    return await this.ipc.invoke('daq1-connected');
-  }
+
+
+
+
+
+  // ------------ Old Stuff (to be deleted) ------------
+
+  // async getFlightConnected() {
+  //   return await this.ipc.invoke('flight-connected');
+  // }
+
+  // async getGroundConnected() {
+  //   return await this.ipc.invoke('ground-connected');
+  // }
+
+  // async getDaq1Connected() {
+  //   return await this.ipc.invoke('daq1-connected');
+  // }
 
   // async getDaq2Connected() {
   //   return await this.ipc.invoke('daq2-connected');
@@ -245,91 +259,91 @@ class Comms {
   //   return await this.ipc.invoke('daq4-connected');
   // }
 
-  async getActCtrlr1Connected() {
-    return await this.ipc.invoke('actctrlr1-connected');
-  }
+  // async getActCtrlr1Connected() {
+  //   return await this.ipc.invoke('actctrlr1-connected');
+  // }
 
   // Flight Computer
 
-  async openloxGemsValve() { return await this.ipc.invoke('open-loxGemsValve'); }
-  async closeloxGemsValve() { return await this.ipc.invoke('close-loxGemsValve'); }
+  // async openloxGemsValve() { return await this.ipc.invoke('open-loxGemsValve'); }
+  // async closeloxGemsValve() { return await this.ipc.invoke('close-loxGemsValve'); }
 
-  async openfuelGemsValve() { return await this.ipc.invoke('open-fuelGemsValve'); }
-  async closefuelGemsValve() { return await this.ipc.invoke('close-fuelGemsValve'); }
+  // async openfuelGemsValve() { return await this.ipc.invoke('open-fuelGemsValve'); }
+  // async closefuelGemsValve() { return await this.ipc.invoke('close-fuelGemsValve'); }
 
-  async startToggleLoxGemsValve() { return await this.ipc.invoke('start-toggleLoxGemsValve'); }
-  async stopToggleLoxGemsValve() { return await this.ipc.invoke('stop-toggleLoxGemsValve'); }
+  // async startToggleLoxGemsValve() { return await this.ipc.invoke('start-toggleLoxGemsValve'); }
+  // async stopToggleLoxGemsValve() { return await this.ipc.invoke('stop-toggleLoxGemsValve'); }
 
-  async startToggleFuelGemsValve() { return await this.ipc.invoke('start-toggleFuelGemsValve'); }
-  async stopToggleFuelGemsValve() { return await this.ipc.invoke('stop-toggleFuelGemsValve'); }
+  // async startToggleFuelGemsValve() { return await this.ipc.invoke('start-toggleFuelGemsValve'); }
+  // async stopToggleFuelGemsValve() { return await this.ipc.invoke('stop-toggleFuelGemsValve'); }
 
-  async openPressurantFlowRBV() { return await this.ipc.invoke('open-pressurantFlowRBV'); }
-  async closePressurantFlowRBV() { return await this.ipc.invoke('close-pressurantFlowRBV'); }
-  async timePressurantFlowRBV(val) { return await this.ipc.invoke('time-pressurantFlowRBV', val); }
+  // async openPressurantFlowRBV() { return await this.ipc.invoke('open-pressurantFlowRBV'); }
+  // async closePressurantFlowRBV() { return await this.ipc.invoke('close-pressurantFlowRBV'); }
+  // async timePressurantFlowRBV(val) { return await this.ipc.invoke('time-pressurantFlowRBV', val); }
 
 
   // async enableFastRead() { return await this.ipc.invoke('enable-fastReadRate'); }
   // async disableFastRead() { return await this.ipc.invoke('disable-fastReadRate'); }
 
-  async enableFlightMode() { return await this.ipc.invoke('enable-flightMode'); }
-  async disableFlightMode() { return await this.ipc.invoke('disable-flightMode'); }
+  // async enableFlightMode() { return await this.ipc.invoke('enable-flightMode'); }
+  // async disableFlightMode() { return await this.ipc.invoke('disable-flightMode'); }
 
   // Ground Computer
 
-  async openarmValve() { return await this.ipc.invoke('open-armValve'); }
-  async closearmValve() { return await this.ipc.invoke('close-armValve'); }
+  // async openarmValve() { return await this.ipc.invoke('open-armValve'); }
+  // async closearmValve() { return await this.ipc.invoke('close-armValve'); }
 
-  async openloxMainValve() { return await this.ipc.invoke('open-loxMainValve'); }
-  async closeloxMainValve() { return await this.ipc.invoke('close-loxMainValve'); }
+  // async openloxMainValve() { return await this.ipc.invoke('open-loxMainValve'); }
+  // async closeloxMainValve() { return await this.ipc.invoke('close-loxMainValve'); }
 
-  async openfuelMainValve() { return await this.ipc.invoke('open-fuelMainValve'); }
-  async closefuelMainValve() { return await this.ipc.invoke('close-fuelMainValve'); }
+  // async openfuelMainValve() { return await this.ipc.invoke('open-fuelMainValve'); }
+  // async closefuelMainValve() { return await this.ipc.invoke('close-fuelMainValve'); }
 
-  async openMainValveVent() { return await this.ipc.invoke('open-mainValveVent'); }
-  async closeMainValveVent() { return await this.ipc.invoke('close-mainValveVent'); }
+  // async openMainValveVent() { return await this.ipc.invoke('open-mainValveVent'); }
+  // async closeMainValveVent() { return await this.ipc.invoke('close-mainValveVent'); }
 
-  async openPressRQD() { return await this.ipc.invoke('open-pressRQD'); }
-  async closePressRQD() { return await this.ipc.invoke('close-pressRQD'); }
+  // async openPressRQD() { return await this.ipc.invoke('open-pressRQD'); }
+  // async closePressRQD() { return await this.ipc.invoke('close-pressRQD'); }
 
-  async openMainValvePurge() { return await this.ipc.invoke('open-mainValvePurge'); }
-  async closeMainValvePurge() { return await this.ipc.invoke('close-mainValvePurge'); }
+  // async openMainValvePurge() { return await this.ipc.invoke('open-mainValvePurge'); }
+  // async closeMainValvePurge() { return await this.ipc.invoke('close-mainValvePurge'); }
 
-  async activateIgniter() { return await this.ipc.invoke('activate-igniter'); }
-  async deactivateIgniter() { return await this.ipc.invoke('deactivate-igniter'); }
+  // async activateIgniter() { return await this.ipc.invoke('activate-igniter'); }
+  // async deactivateIgniter() { return await this.ipc.invoke('deactivate-igniter'); }
 
-  async beginFlow() { return await this.ipc.invoke('beginFlow'); }
-  async abort() { return await this.ipc.invoke('abort'); }
+  // async beginFlow() { return await this.ipc.invoke('beginFlow'); }
+  // async abort() { return await this.ipc.invoke('abort'); }
 
-  async enableIgniter() { return await this.ipc.invoke('enable-igniter'); }
-  async disableIgniter() { return await this.ipc.invoke('disable-igniter'); }
+  // async enableIgniter() { return await this.ipc.invoke('enable-igniter'); }
+  // async disableIgniter() { return await this.ipc.invoke('disable-igniter'); }
 
-  async enableLaunch() { return await this.ipc.invoke('enable-launchMode'); }
-  async disableLaunch() { return await this.ipc.invoke('disable-launchMode'); }
+  // async enableLaunch() { return await this.ipc.invoke('enable-launchMode'); }
+  // async disableLaunch() { return await this.ipc.invoke('disable-launchMode'); }
 
   //-------Actuator Controller 1-------
 
-  async openPressurantFillRBV() { return await this.ipc.invoke('open-pressurantFillRBV'); }
-  async closePressurantFillRBV() { return await this.ipc.invoke('close-pressurantFillRBV'); }
-  async timePressurantFillRBV(val) { return await this.ipc.invoke('time-pressurantFillRBV', val); }
+  // async openPressurantFillRBV() { return await this.ipc.invoke('open-pressurantFillRBV'); }
+  // async closePressurantFillRBV() { return await this.ipc.invoke('close-pressurantFillRBV'); }
+  // async timePressurantFillRBV(val) { return await this.ipc.invoke('time-pressurantFillRBV', val); }
 
-  async openPressurantFillVentRBV() { return await this.ipc.invoke('open-pressurantFillVentRBV'); }
-  async closePressurantFillVentRBV() { return await this.ipc.invoke('close-pressurantFillVentRBV'); }
-  async timePressurantFillVentRBV(val) { return await this.ipc.invoke('time-pressurantFillVentRBV', val); }
+  // async openPressurantFillVentRBV() { return await this.ipc.invoke('open-pressurantFillVentRBV'); }
+  // async closePressurantFillVentRBV() { return await this.ipc.invoke('close-pressurantFillVentRBV'); }
+  // async timePressurantFillVentRBV(val) { return await this.ipc.invoke('time-pressurantFillVentRBV', val); }
 
-  async openloxFillRBV() { return await this.ipc.invoke('open-loxFillRBV'); }
-  async closeloxFillRBV() { return await this.ipc.invoke('close-loxFillRBV'); }
-  async timeloxFillRBV(val) { return await this.ipc.invoke('time-loxFillRBV', val); }
+  // async openloxFillRBV() { return await this.ipc.invoke('open-loxFillRBV'); }
+  // async closeloxFillRBV() { return await this.ipc.invoke('close-loxFillRBV'); }
+  // async timeloxFillRBV(val) { return await this.ipc.invoke('time-loxFillRBV', val); }
 
-  async openfuelFillRBV() { return await this.ipc.invoke('open-fuelFillRBV'); }
-  async closefuelFillRBV() { return await this.ipc.invoke('close-fuelFillRBV'); }
-  async timefuelFillRBV(val) { return await this.ipc.invoke('time-fuelFillRBV', val); }
+  // async openfuelFillRBV() { return await this.ipc.invoke('open-fuelFillRBV'); }
+  // async closefuelFillRBV() { return await this.ipc.invoke('close-fuelFillRBV'); }
+  // async timefuelFillRBV(val) { return await this.ipc.invoke('time-fuelFillRBV', val); }
 
   // todo add heaters
-  async openLoxDomeHeater() { return await this.ipc.invoke('open-loxDomeHeater'); }
-  async closeLoxDomeHeater() { return await this.ipc.invoke('close-loxDomeHeater'); }
+  // async openLoxDomeHeater() { return await this.ipc.invoke('open-loxDomeHeater'); }
+  // async closeLoxDomeHeater() { return await this.ipc.invoke('close-loxDomeHeater'); }
   
-  async openFuelDomeHeater() { return await this.ipc.invoke('open-fuelDomeHeater'); }
-  async closeFuelDomeHeater() { return await this.ipc.invoke('close-fuelDomeHeater'); }
+  // async openFuelDomeHeater() { return await this.ipc.invoke('open-fuelDomeHeater'); }
+  // async closeFuelDomeHeater() { return await this.ipc.invoke('close-fuelDomeHeater'); }
 
 }
 
