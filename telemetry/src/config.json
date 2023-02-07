@@ -2,7 +2,8 @@
 	"boards": {
 		"flight": {
 			"type": "flightV4",
-			"address": "10.0.0.42"
+			"address": "127.0.0.1",
+			"address_": "10.0.0.42"
 		},
 		"pt": {
 			"type": "pt",
@@ -26,6 +27,72 @@
 			"name": "Controls",
 			"layout": "9-grid",
 			"slots": [
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "pressFlow",
+							"type": "timed",
+							"name": "Press Flow RBV",
+							"field": "flight.pressurantFlowRBVstate",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "flight",
+									"packet": 6
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "flight",
+									"packet": 6
+								},
+								"timed": {
+									"type": "actuate-timed",
+									"board": "flight",
+									"packet": 6
+								}
+							}
+						},
+						{
+							"id": "pressFlowSwitch",
+							"type": "switch",
+							"name": "Press Flow Enable",
+							"field": "",
+							"actions": {
+								"enable": {
+									"type": "enable",
+									"id": "pressFlow"
+								},
+								"disable": {
+									"type": "disable",
+									"id": "pressFlow"
+								}
+							}
+						},
+						{
+							"type": null
+						},
+						{
+							"id": "rqd",
+							"type": "valve",
+							"name": "N2 RQD",
+							"field": "ac.actuatorState0",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac",
+									"packet": 5
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac",
+									"packet": 1,
+									"number": 0
+								}
+							}
+						}
+					]
+				},
 				{
 					"type": "four-button",
 					"buttons": [

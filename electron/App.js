@@ -282,7 +282,7 @@ class App {
   }
 
   sendPacket(_, board, packet, number, command, time) {
-    let buf = App.generateActuatorPacket(packet, number, command, time).toString("hex").match(/.{1,2}/g).join(" ");
+    let buf = App.generateActuatorPacket(packet, number, command, time);
     // this.port.send(this.boards[board].address, buf, false);
     this.port.server.send(buf, 42070, this.boards[board].address);
   }

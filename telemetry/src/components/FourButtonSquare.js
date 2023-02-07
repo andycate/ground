@@ -44,6 +44,8 @@ class FourButton extends Component {
                   {
                     (() => {
                       switch (obj[1]) {
+                        case null:
+                          return ""
                         case "valve":
                           return (
                             <ButtonGroup
