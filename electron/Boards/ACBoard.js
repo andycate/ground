@@ -22,12 +22,40 @@ class ACBoard extends Board {
         ["acSupply24Power", asFloat]
       ],
 
-      // Actuator IV
+      // Actuator States
       2: [
-        ["#", asUInt8],
-        ["actuatorState", asUInt8],
-        ["actuatorContinuity", asFloat]
-        ["actuatorCurrent", asFloat]
+        ["actuatorState0", asUInt8],
+        ["actuatorState1", asUInt8],
+        ["actuatorState2", asUInt8],
+        ["actuatorState3", asUInt8],
+        ["actuatorState4", asUInt8],
+        ["actuatorState5", asUInt8],
+        ["actuatorState6", asUInt8],
+        ["actuatorState7", asUInt8]
+      ],
+
+      // Actuator Continuities
+      3: [
+        ["actuatorContinuity0", asFloat],
+        ["actuatorContinuity1", asFloat],
+        ["actuatorContinuity2", asFloat],
+        ["actuatorContinuity3", asFloat],
+        ["actuatorContinuity4", asFloat],
+        ["actuatorContinuity5", asFloat],
+        ["actuatorContinuity6", asFloat],
+        ["actuatorContinuity7", asFloat]
+      ],
+
+      // Actuator Currents
+      4: [
+        ["actuatorCurrent0", asFloat],
+        ["actuatorCurrent1", asFloat],
+        ["actuatorCurrent2", asFloat],
+        ["actuatorCurrent3", asFloat],
+        ["actuatorCurrent4", asFloat],
+        ["actuatorCurrent5", asFloat],
+        ["actuatorCurrent6", asFloat],
+        ["actuatorCurrent7", asFloat]
       ]
     }
   }

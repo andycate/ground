@@ -24,8 +24,14 @@ class TCBoard extends Board {
 
       // TC Value
       2: [
-        ["#", asUInt8],
-        ["tcValue", asFloat]
+        ["tcValue0", asFloat],
+        ["tcValue1", asFloat],
+        ["tcValue2", asFloat],
+        ["tcValue3", asFloat],
+        ["tcValue4", asFloat],
+        ["tcValue5", asFloat],
+        ["tcValue6", asFloat],
+        ["tcValue7", asFloat]
       ]
     }
   }

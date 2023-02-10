@@ -2,8 +2,8 @@
 	"boards": {
 		"flight": {
 			"type": "flightV4",
-			"address": "127.0.0.1",
-			"address_": "10.0.0.42"
+			"address_": "127.0.0.1",
+			"address": "10.0.0.42"
 		},
 		"pt": {
 			"type": "pt",
@@ -23,6 +23,143 @@
 		}
 	},
 	"windows": {
+		"main": {
+			"name": "Main",
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "pt.ptValue0",
+							"name": "PT 0",
+							"units": "PSI",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "pt.ptValue1",
+							"name": "PT 1",
+							"units": "PSI",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "tc.tcValue0",
+							"name": "TC 0",
+							"units": "ºC",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "tc.tcValue1",
+							"name": "TC 1",
+							"units": "ºC",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "lc.lcValue0",
+							"name": "LC 0",
+							"units": "?",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "lc.lcValue1",
+							"name": "LC 1",
+							"units": "?",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "ac0",
+							"type": "valve",
+							"name": "Actuator 0 (RBV)",
+							"field": "ac.actuatorState0",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac",
+									"packet": 1,
+									"number": 0
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac",
+									"packet": 1,
+									"number": 0
+								}
+							}
+						},
+						{
+							"id": "ac1",
+							"type": "valve",
+							"name": "Actuator 1 (Solenoid)",
+							"field": "ac.actuatorState1",
+							"actions": {
+								"enable": {
+									"type": "on",
+									"board": "ac",
+									"packet": 1,
+									"number": 1
+								},
+								"disable": {
+									"type": "off",
+									"board": "ac",
+									"packet": 1,
+									"number": 1
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "logs"
+				},
+				{
+					"type": "logs"
+				},
+				{
+					"type": "logs"
+				}
+			]
+		}
+	},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	"comment": "================================== Ignore all the stuff below this ==================================",
+	"windows_dev": {
 		"controls": {
 			"name": "Controls",
 			"layout": "9-grid",

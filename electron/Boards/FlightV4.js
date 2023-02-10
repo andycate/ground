@@ -136,14 +136,22 @@ class FlightV4 extends Board {
 
       // PT Value
       19: [
-        ["#", asUInt8],
-        ["ptValue", asFloat]
+        ["ptValue1", asFloat],
+        ["ptValue2", asFloat],
+        ["ptValue0", asFloat],
+        ["ptValue3", asFloat],
+        ["ptValue4", asFloat],
+        ["ptValue5", asFloat],
+        ["ptValue6", asFloat],
+        ["ptValue7", asFloat]
       ],
 
       // TC Value
       20: [
-        ["#", asUInt8],
-        ["tcValue", asFloat]
+        ["tcValue0", asFloat],
+        ["tcValue1", asFloat],
+        ["tcValue2", asFloat],
+        ["tcValue3", asFloat]
       ]
     }
   }

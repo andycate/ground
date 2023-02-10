@@ -24,8 +24,14 @@ class LCBoard extends Board {
 
       // LC Value
       2: [
-        ["#", asUInt8],
-        ["lcValue", asFloat]
+        ["lcValue0", asFloat],
+        ["lcValue1", asFloat],
+        ["lcValue2", asFloat],
+        ["lcValue3", asFloat],
+        ["lcValue4", asFloat],
+        ["lcValue5", asFloat],
+        ["lcValue6", asFloat],
+        ["lcValue7", asFloat]
       ]
     }
   }
