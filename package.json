@@ -12,6 +12,7 @@
     "moment": "~2.29.1"
   },
   "scripts": {
+    "start": "cross-env electron .",
     "start-main": "cross-env VARIANT=main electron .",
     "start-aux": "cross-env VARIANT=aux electron .",
     "build-electron-main": "cp -r telemetry/build ./build && cp -r electron/. build/electron",

@@ -78,14 +78,16 @@ class FlightV4 extends Board {
       9: [
         ["loxCapVal", asFloat],
         ["loxCapAvg", asFloat],
-        ["loxCapTemperature", asFloat]
+        ["loxCapTemperature", asFloat],
+        ["loxCapRefVal", asFloat]
       ],
 
       // Fuel Cap Fill
       10: [
         ["fuelCapVal", asFloat],
         ["fuelCapAvg", asFloat],
-        ["fuelCapTemperature", asFloat]
+        ["fuelCapTemperature", asFloat],
+        ["fuelCapRefVal", asFloat]
       ],
 
       // Press Flow RBV

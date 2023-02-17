@@ -6,6 +6,7 @@ import Switch from '@material-ui/core/Switch';
 
 import comms from '../../api/Comms';
 import GroupLabel from './GroupLabel';
+import { buttonAction } from '../../util';
 
 const styles = theme => ({
   switchBase: {
@@ -74,6 +75,7 @@ class ButtonGroupRBV extends Component {
   componentDidMount() {
     const { field } = this.props;
     comms.addSubscriber(field, this.updateStatus);
+    setTimeout(this.setClosed, 10);
   }
 
   componentWillUnmount() {

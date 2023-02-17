@@ -7,8 +7,7 @@ const fs = require('fs');
 
 const App = require('./App');
 
-const isMainDev = (process.env.VARIANT === 'main');
-const config = require("../telemetry/src/config.json")
+const config = JSON.parse(fs.readFileSync(process.argv[2]));
 
 let backendApp = new App(config);
 let selector, window1, window2;
@@ -19,7 +18,8 @@ function createWindow () {
   // TouchBar End
 
   for (let windowName in config.windows) {
-    let url = (isDev ? `http://127.0.0.1:3000#/${windowName}` : `file://${path.join(__dirname, `../index.html#${windowName}`)}`);
+    let b64config = Buffer.from(JSON.stringify(config)).toString("base64");
+    let url = (isDev ? `http://127.0.0.1:3000#/${windowName}&${b64config}` : `file://${path.join(__dirname, `../index.html#${windowName}&${b64config}`)}`);
     let window = new BrowserWindow({
       show: false,
       webPreferences: {

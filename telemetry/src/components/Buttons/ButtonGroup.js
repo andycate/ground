@@ -12,6 +12,7 @@ import {
 import comms from "../../api/Comms";
 import OpenCloseButtonGroup from "./OpenCloseButtonGroup";
 import GroupLabel from "./GroupLabel";
+import { addButtonEnabledListener, removeButtonEnabledListener } from "../../util";
 
 class ButtonGroup extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class ButtonGroup extends Component {
     this.state = {
       commsOpenReading: false,
       btnOpen: false,
+      disabled: false
     };
 
     this.updateOpen = this.updateOpen.bind(this);
@@ -47,16 +49,20 @@ class ButtonGroup extends Component {
   componentDidMount() {
     const { field } = this.props;
     comms.addSubscriber(field, this.updateOpen);
+    addButtonEnabledListener(this.props.buttonId, (enabled) => {
+      this.setState({ disabled: !enabled });
+    });
   }
 
   componentWillUnmount() {
     const { field } = this.props;
     comms.removeSubscriber(field, this.updateOpen);
+    removeButtonEnabledListener(this.props.buttonId);
   }
 
   render() {
     const { classes, theme, text, children } = this.props;
-    const { commsOpenReading, btnOpen } = this.state;
+    const { commsOpenReading, btnOpen, disabled } = this.state;
     return (
       <GroupLabel
         text={text}
@@ -71,6 +77,7 @@ class ButtonGroup extends Component {
             isOpen={btnOpen}
             setClosed={this.setClosed}
             setOpen={this.setOpen}
+            disabled={disabled}
           />
         </Grid>
       </GroupLabel>

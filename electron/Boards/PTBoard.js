@@ -24,9 +24,9 @@ class PTBoard extends Board {
 
       // PT Value
       2: [
+        ["ptValue0", asFloat],
         ["ptValue1", asFloat],
         ["ptValue2", asFloat],
-        ["ptValue0", asFloat],
         ["ptValue3", asFloat],
         ["ptValue4", asFloat],
         ["ptValue5", asFloat],

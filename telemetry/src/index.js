@@ -12,7 +12,6 @@ import Settings from "./components/Settings";
 import Navbar from "./components/Navbar";
 import comms from "./api/Comms";
 import LayoutSwitch from "./components/LayoutSwitch";
-import config from "./config.json";
 
 class App extends Component {
   constructor() {
@@ -40,7 +39,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    document.title = `Telemetry: ${config.windows[window.location.hash.substring(2)].name}`;
+    let config = JSON.parse(atob(window.location.hash.split("&")[1]));
+    document.title = `Telemetry: ${config.windows[window.location.hash.split("&")[0].substring(2)].name}`;
     comms.connect();
   }
 
@@ -81,11 +81,12 @@ class App extends Component {
           open={this.state.showSettings}
           closeSettings={this.closeSettings}
         />
-        <Navbar
-          changeLightDark={this.changeLightDark}
-          openSettings={this.openSettings}
-        />
         <BrowserRouter>
+          <Navbar
+            changeLightDark={this.changeLightDark}
+            openSettings={this.openSettings}
+            config={JSON.parse(atob(window.location.hash.split("&")[1]))}
+          />
           <LayoutSwitch />
         </BrowserRouter>
       </ThemeProvider>

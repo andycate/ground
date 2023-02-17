@@ -106,7 +106,7 @@ class Board {
 
       return new Packet(id, values, timestamp);
     } else {
-      console.debug(`check sum check failed for packet id: ${id} from board ip: ${this.address}`)
+      console.debug(`check sum check failed for packet id: ${id} from board ip: ${this.address} contents: ${buf.toString("hex").match(/.{1,2}/g).join(" ")}`)
       return null
     }
   }

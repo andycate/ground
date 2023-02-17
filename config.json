@@ -1,0 +1,976 @@
+{
+	"boards": {
+		"cap-fill": {
+			"type": "flightV4",
+			"address": "10.0.0.42"
+		},
+		"ac1": {
+			"type": "ac",
+			"address": "10.0.0.11"
+		},
+		"ac2": {
+			"type": "ac",
+			"address": "10.0.0.12"
+		},
+		"tc": {
+			"type": "tc",
+			"address": "10.0.0.51"
+		},
+		"pt": {
+			"type": "pt",
+			"address": "10.0.0.31"
+		},
+		"lc": {
+			"type": "lc",
+			"address": "10.0.0.21"
+		}
+	},
+	"windows": {
+		"display1": {
+			"name": "Display 1",
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "ereg (graph)",
+					"values": [
+						{
+							"field": "pt.ptValue0",
+							"name": "PT 0",
+							"units": "PSI",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "pt.ptValue1",
+							"name": "PT 1",
+							"units": "PSI",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "ereg (graph)",
+					"values": [
+						{
+							"field": "tc.tcValue0",
+							"name": "TC 0",
+							"units": "C",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "tc.tcValue1",
+							"name": "TC 1",
+							"units": "C",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "ereg (graph)",
+					"values": [
+						{
+							"field": "lc.lcValue0",
+							"name": "LC 0",
+							"units": "lbs",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "lc.lcValue1",
+							"name": "LC 1",
+							"units": "lbs",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "ereg (six-square)",
+					"values": [
+						{
+							"field": "pt.ptSupply24Voltage",
+							"name": "PT Voltage",
+							"units": "V"
+						},
+						{
+							"field": "pt.ptSupply24Current",
+							"name": "PT Current",
+							"units": "mA"
+						},
+						{
+							"field": "pt.ptSupply24Power",
+							"name": "PT Power",
+							"units": "mW"
+						},
+						{
+							"field": null
+						},
+						{
+							"field": null
+						},
+						{
+							"field": null
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "pt.ptValue0",
+							"name": "LOX Injector PT",
+							"units": "PSI",
+							"color": [255, 0, 0]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "pt.ptValue1",
+							"name": "Fuel Injector PT",
+							"units": "PSI",
+							"color": [255, 0, 0]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "cap-fill.loxCapVal",
+							"name": "LOX Cap Fill Value",
+							"units": "pF",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "cap-fill.fuelCapVal",
+							"name": "Fuel Cap Fill Value",
+							"units": "pF",
+							"color": [0, 255, 0]
+						}
+					]
+				},
+				{
+					"type": "ereg (graph)",
+					"values": [
+						{
+							"field": "pt.ptValue0",
+							"name": "PT 0",
+							"units": "PSI",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "pt.ptValue1",
+							"name": "PT 1",
+							"units": "PSI",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "ereg (graph)",
+					"values": [
+						{
+							"field": "pt.ptValue0",
+							"name": "PT 0",
+							"units": "PSI",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "pt.ptValue1",
+							"name": "PT 1",
+							"units": "PSI",
+							"color": [0, 0, 255]
+						}
+					]
+				}
+			]
+		},
+		"display3": {
+			"name": "Display 3",
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "ac1.actuatorContinuity0",
+							"name": "N2 Flow",
+							"units": "V"
+						},
+						{
+							"field": "ac1.actuatorContinuity1",
+							"name": "LOX GEMS",
+							"units": "V"
+						},
+						{
+							"field": "ac1.actuatorContinuity2",
+							"name": "Fuel GEMS",
+							"units": "V"
+						},
+						{
+							"field": "ac1.actuatorContinuity3",
+							"name": "ARM",
+							"units": "V"
+						},
+						{
+							"field": "ac1.actuatorContinuity4",
+							"name": "LOX Main",
+							"units": "V"
+						},
+						{
+							"field": "ac1.actuatorContinuity5",
+							"name": "Fuel Main",
+							"units": "V"
+						}
+					]
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "ac2.actuatorContinuity0",
+							"name": "N2 Fill",
+							"units": "V"
+						},
+						{
+							"field": "ac2.actuatorContinuity1",
+							"name": "N2 Vent",
+							"units": "V"
+						},
+						{
+							"field": "ac2.actuatorContinuity2",
+							"name": "Igniter",
+							"units": "V"
+						},
+						{
+							"field": "ac2.actuatorContinuity3",
+							"name": "LOX Vent",
+							"units": "V"
+						},
+						{
+							"field": "ac2.actuatorContinuity4",
+							"name": "Fuel Vent",
+							"units": "V"
+						},
+						{
+							"field": "ac2.actuatorContinuity5",
+							"name": "Igniter Relay",
+							"units": "V"
+						}
+					]
+				},
+				{
+					"type": "ereg (graph)",
+					"values": [
+						{
+							"field": "tc.tcValue0",
+							"name": "TC 0",
+							"units": "C",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "tc.tcValue1",
+							"name": "TC 1",
+							"units": "C",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "ac1.actuatorCurrent0",
+							"name": "N2 Flow",
+							"units": "A"
+						},
+						{
+							"field": "ac1.actuatorCurrent1",
+							"name": "LOX GEMS",
+							"units": "A"
+						},
+						{
+							"field": "ac1.actuatorCurrent2",
+							"name": "Fuel GEMS",
+							"units": "A"
+						},
+						{
+							"field": "ac1.actuatorCurrent3",
+							"name": "ARM",
+							"units": "A"
+						},
+						{
+							"field": "ac1.actuatorCurrent4",
+							"name": "LOX Main",
+							"units": "A"
+						},
+						{
+							"field": "ac1.actuatorCurrent5",
+							"name": "Fuel Main",
+							"units": "A"
+						}
+					]
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "ac2.actuatorCurrent0",
+							"name": "N2 Fill",
+							"units": "A"
+						},
+						{
+							"field": "ac2.actuatorCurrent1",
+							"name": "N2 Vent",
+							"units": "A"
+						},
+						{
+							"field": "ac2.actuatorCurrent2",
+							"name": "Igniter",
+							"units": "A"
+						},
+						{
+							"field": "ac2.actuatorCurrent3",
+							"name": "LOX Vent",
+							"units": "A"
+						},
+						{
+							"field": "ac2.actuatorCurrent4",
+							"name": "Fuel Vent",
+							"units": "A"
+						},
+						{
+							"field": "ac2.actuatorCurrent5",
+							"name": "Igniter Relay",
+							"units": "A"
+						}
+					]
+				},
+				{
+					"type": "ereg (graph)",
+					"values": [
+						{
+							"field": "lc.lcValue0",
+							"name": "LC 0",
+							"units": "lbs",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "lc.lcValue1",
+							"name": "LC 1",
+							"units": "lbs",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "lc.lcValue0",
+							"name": "LC 0",
+							"units": "lbs",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "lc.lcValue1",
+							"name": "LC 1",
+							"units": "lbs",
+							"color": [0, 255, 0]
+						},
+						{
+							"field": "lc.lcValue2",
+							"name": "LC 2",
+							"units": "lbs",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "tc.tcValue0",
+							"name": "Engn TC 0",
+							"units": "C",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "tc.tcValue1",
+							"name": "Engn TC 1",
+							"units": "C",
+							"color": [0, 255, 0]
+						},
+						{
+							"field": "tc.tcValue2",
+							"name": "Engn TC 2",
+							"units": "C",
+							"color": [0, 0, 255]
+						},
+						{
+							"field": "tc.tcValue3",
+							"name": "Engn TC 3",
+							"units": "C",
+							"color": [255, 0, 255]
+						},
+						{
+							"field": "tc.tcValue4",
+							"name": "Engn TC 4",
+							"units": "C",
+							"color": [200, 200, 0]
+						},
+						{
+							"field": "tc.tcValue5",
+							"name": "Engn TC 5",
+							"units": "C",
+							"color": [0, 255, 255]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "tc.tcValue6",
+							"name": "LOX Tank TC",
+							"units": "C",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "tc.tcValue7",
+							"name": "Fuel Tank TC",
+							"units": "C",
+							"color": [0, 255, 0]
+						}
+					]
+				}
+			]
+		},
+		"controls": {
+			"name": "Controls",
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "n2flow",
+							"type": "timed",
+							"name": "N2 Flow",
+							"field": "ac1.actuatorState0",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac1",
+									"packet": 100,
+									"number": 0
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac1",
+									"packet": 100,
+									"number": 0
+								},
+								"enable-timed": {
+									"type": "extend-timed",
+									"board": "ac1",
+									"packet": 100,
+									"number": 0
+								},
+								"disable-timed": {
+									"type": "retract-timed",
+									"board": "ac1",
+									"packet": 100,
+									"number": 0
+								}
+							}
+						},
+						{
+							"id": "loxGems",
+							"type": "valve",
+							"name": "LOX GEMS",
+							"field": "ac1.actuatorState1",
+							"actions": {
+								"enable": {
+									"type": "on",
+									"board": "ac1",
+									"packet": 100,
+									"number": 1
+								},
+								"disable": {
+									"type": "off",
+									"board": "ac1",
+									"packet": 100,
+									"number": 1
+								}
+							}
+						},
+						{
+							"type": null
+						},
+						{
+							"type": null
+						}
+					]
+				},
+				{
+					"type": "logs"
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "ac1.actuatorState0",
+							"name": "N2 Flow State",
+							"units": ""
+						},
+						{
+							"field": "ac1.actuatorState1",
+							"name": "LOX GEMS State",
+							"units": ""
+						},
+						{
+							"field": "ac2.actuatorState0",
+							"name": "N2 Fill State",
+							"units": ""
+						},
+						{
+							"field": "ac2.actuatorState1",
+							"name": "N2 Vent State",
+							"units": ""
+						},
+						{
+							"field": "ac1.acSupply24Voltage",
+							"name": "AC 1 Voltage",
+							"units": "V"
+						},
+						{
+							"field": "ac1.acSupply24Current",
+							"name": "AC 1 Current",
+							"units": "mA"
+						}
+					]
+				}
+			]
+		}
+	},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	"comment": "================================== Ignore all the stuff below this ==================================",
+	"windows_dev": {
+		"controls": {
+			"name": "Controls",
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "logs"
+				},
+				{
+					"type": "launch"
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "ac0",
+							"type": "timed",
+							"name": "Actuator 0 (Timed RBV)",
+							"field": "ac.actuatorState0",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac",
+									"packet": 1,
+									"number": 0
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac",
+									"packet": 1,
+									"number": 0
+								},
+								"enable-timed": {
+									"type": "extend-timed",
+									"board": "ac",
+									"packet": 1,
+									"number": 0
+								},
+								"disable-timed": {
+									"type": "retract-timed",
+									"board": "ac",
+									"packet": 1,
+									"number": 0
+								}
+							}
+						},
+						{
+							"id": "ac0Switch",
+							"type": "switch",
+							"name": "AC 0 Enable",
+							"field": "",
+							"actions": {
+								"enable": {
+									"type": "enable",
+									"id": "ac0"
+								},
+								"disable": {
+									"type": "disable",
+									"id": "ac0"
+								}
+							}
+						},
+						{
+							"type": null
+						},
+						{
+							"id": "ac1",
+							"type": "valve",
+							"name": "Actuator 1 (Solenoid)",
+							"field": "ac.actuatorState1",
+							"actions": {
+								"enable": {
+									"type": "on",
+									"board": "ac",
+									"packet": 1,
+									"number": 1
+								},
+								"disable": {
+									"type": "off",
+									"board": "ac",
+									"packet": 1,
+									"number": 1
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "pressFlow",
+							"type": "timed",
+							"name": "Press Flow RBV",
+							"field": "flight.pressurantFlowRBVstate",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "flight",
+									"packet": 6
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "flight",
+									"packet": 6
+								},
+								"timed": {
+									"type": "actuate-timed",
+									"board": "flight",
+									"packet": 6
+								}
+							}
+						},
+						{
+							"id": "pressFlowSwitch",
+							"type": "switch",
+							"name": "Press Flow Enable",
+							"field": "",
+							"actions": {
+								"enable": {
+									"type": "enable",
+									"id": "pressFlow"
+								},
+								"disable": {
+									"type": "disable",
+									"id": "pressFlow"
+								}
+							}
+						},
+						{
+							"type": null
+						},
+						{
+							"id": "rqd",
+							"type": "valve",
+							"name": "N2 RQD",
+							"field": "ac.actuatorState0",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac",
+									"packet": 5
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac",
+									"packet": 1,
+									"number": 0
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "pressFlow",
+							"type": "timed",
+							"name": "Press Flow RBV",
+							"field": "flight.pressurantFlowRBVstate",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "flight",
+									"packet": 6
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "flight",
+									"packet": 6
+								},
+								"timed": {
+									"type": "actuate-timed",
+									"board": "flight",
+									"packet": 6
+								}
+							}
+						},
+						{
+							"id": "pressFlowSwitch",
+							"type": "switch",
+							"name": "Press Flow Enable",
+							"field": "",
+							"actions": {
+								"enable": {
+									"type": "enable",
+									"id": "pressFlow"
+								},
+								"disable": {
+									"type": "disable",
+									"id": "pressFlow"
+								}
+							}
+						},
+						{
+							"id": "loxGems",
+							"type": "valve",
+							"name": "LOX GEMS Valve",
+							"field": "flight.loxGEMSstate",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "flight",
+									"packet": 4
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "flight",
+									"packet": 4
+								}
+							}
+						},
+						{
+							"id": "fuelGems",
+							"type": "valve",
+							"name": "Fuel GEMS Valve",
+							"field": "flight.fuelGEMSstate",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "flight",
+									"packet": 5
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "flight",
+									"packet": 5
+								}
+							}
+						}
+					]
+				}
+			]
+		},
+		"main": {
+			"name": "Main",
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "flight.ptValue.0",
+							"name": "Flight PT 0",
+							"units": "PSI",
+							"color": [255, 0, 0]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "flight.ptValue.1",
+							"name": "Flight PT 1",
+							"units": "PSI",
+							"color": [0, 255, 0]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "flight.ptValue.2",
+							"name": "Flight PT 2",
+							"units": "PSI",
+							"color": [0, 0, 255]
+						}
+					]
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "pt.ptValue.0",
+							"name": "Ground PT 0",
+							"units": "PSI"
+						},
+						{
+							"field": "pt.ptValue.1",
+							"name": "Ground PT 1",
+							"units": "PSI"
+						},
+						{
+							"field": "pt.ptValue.2",
+							"name": "Ground PT 2",
+							"units": "PSI"
+						},
+						{
+							"field": "pt.ptValue.3",
+							"name": "Ground PT 3",
+							"units": "PSI"
+						},
+						{
+							"field": "pt.ptValue.4",
+							"name": "Ground PT 4",
+							"units": "PSI"
+						},
+						{
+							"field": "pt.ptValue.5",
+							"name": "Ground PT 5",
+							"units": "PSI"
+						}
+					]
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "tc.tcValue.0",
+							"name": "Ground TC 0",
+							"units": "ºC"
+						},
+						{
+							"field": "tc.tcValue.0",
+							"name": "Ground TC 0",
+							"units": "ºC"
+						},
+						{
+							"field": "tc.tcValue.0",
+							"name": "Ground TC 0",
+							"units": "ºC"
+						},
+						{
+							"field": "tc.tcValue.0",
+							"name": "Ground TC 0",
+							"units": "ºC"
+						},
+						{
+							"field": null
+						},
+						{
+							"field": null
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "flight.ptValue.3",
+							"name": "Flight PT 3",
+							"units": "PSI",
+							"color": [255, 255, 0]
+						},
+						{
+							"field": "flight.ptValue.4",
+							"name": "Flight PT 4",
+							"units": "PSI",
+							"color": [0, 255, 255]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "flight.loxCapVal",
+							"name": "LOX Cap Fill",
+							"units": "pF",
+							"color": [255, 0, 255]
+						},
+						{
+							"field": "flight.loxCapAvg",
+							"name": "LOX Cap Fill (Filtered)",
+							"units": "pF",
+							"color": [255, 127, 255]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "flight.fuelCapVal",
+							"name": "Fuel Cap Fill",
+							"units": "pF",
+							"color": [255, 127, 0]
+						},
+						{
+							"field": "flight.fuelCapAvg",
+							"name": "Fuel Cap Fill (Filtered)",
+							"units": "pF",
+							"color": [255, 0, 127]
+						}
+					]
+				},
+				{
+					"type": "logs"
+				}
+			]
+		}
+	}
+}

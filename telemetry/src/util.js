@@ -20,7 +20,7 @@ export function calcPressRoc(value) {
 }
 
 export function buttonAction(action) {
-  return () => {
+  return (...args) => {
     switch (action.type) {
       case "retract-full":
         comms.sendPacket(action.board, action.packet, action.number || -1, 0, 0);
@@ -29,10 +29,10 @@ export function buttonAction(action) {
         comms.sendPacket(action.board, action.packet, action.number || -1, 1, 0);
         break;
       case "extend-timed":
-        comms.sendPacket(action.board, action.packet, action.number || -1, 2, 0);
+        comms.sendPacket(action.board, action.packet, action.number || -1, 2, args[0]);
         break;
       case "retract-timed":
-        comms.sendPacket(action.board, action.packet, action.number || -1, 3, 0);
+        comms.sendPacket(action.board, action.packet, action.number || -1, 3, args[0]);
         break;
       case "on":
         comms.sendPacket(action.board, action.packet, action.number || -1, 4, 0);
@@ -40,8 +40,31 @@ export function buttonAction(action) {
       case "off":
         comms.sendPacket(action.board, action.packet, action.number || -1, 5, 0);
         break;
+      case "enable":
+        console.log(buttonEnabledManager);
+        let enableButton = buttonEnabledManager[action.id];
+        if (enableButton !== undefined) {
+          enableButton(true);
+        }
+        break;
+      case "disable":
+        let disableButton = buttonEnabledManager[action.id];
+        if (disableButton !== undefined) {
+          disableButton(false);
+        }
+        break;
       default:
         return;
     }
   }
+}
+
+export const buttonEnabledManager = {};
+
+export function addButtonEnabledListener(name, callback) {
+  buttonEnabledManager[name] = callback;
+}
+
+export function removeButtonEnabledListener(name) {
+  delete buttonEnabledManager[name];
 }

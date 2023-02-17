@@ -17,6 +17,7 @@ import MessageDisplaySquare from "./MessageDisplaySquare";
 import Field from "./Field";
 import ErrorSquare from "./ErrorSquare";
 import FourButtonSquare from "./FourButtonSquare";
+import LaunchButton from "./LaunchButton";
 
 // const fields = [
 //   [
@@ -181,6 +182,10 @@ class NineGrid extends Component {
                                 value.actions
                               ])}
                             />
+                          )
+                        case "launch":
+                          return (
+                            <LaunchButton />
                           )
                         default:
                           return (

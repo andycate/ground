@@ -5,7 +5,6 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import comms from '../api/Comms';
-import config from '../config.json';
 
 const styles = theme => ({
   spacer: {
@@ -30,9 +29,10 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.config = props.config;
     this.boardConnectedCallbacks = {};
     this.boardKbpsCallbacks = {};
-    for (let boardName in config.boards) {
+    for (let boardName in this.config.boards) {
       let boardState = {};
       boardState[boardName + ".connected"] = false;
       boardState[boardName + ".kbps"] = 0;
@@ -62,12 +62,12 @@ class Navbar extends Component {
   }
 
   async componentDidMount() {
-    for (let boardName in config.boards) {
+    for (let boardName in this.config.boards) {
       comms.addSubscriber(boardName + ".boardConnected", this.boardConnectedCallbacks[boardName]);
       comms.addSubscriber(boardName + ".boardKbps", this.boardKbpsCallbacks[boardName]);
     }
 
-    for (let boardName in config.boards) {
+    for (let boardName in this.config.boards) {
       let boardState = {};
       boardState[boardName + ".connected"] = false;
       boardState[boardName + ".kbps"] = 0;
@@ -76,7 +76,7 @@ class Navbar extends Component {
   }
 
   componentWillUnmount() {
-    for (let boardName in config.boards) {
+    for (let boardName in this.config.boards) {
       comms.removeSubscriber(boardName + ".boardConnected", this.boardConnectedCallbacks[boardName]);
       comms.removeSubscriber(boardName + ".boardKbps", this.boardKbpsCallbacks[boardName]);
     }
@@ -92,7 +92,7 @@ class Navbar extends Component {
         <Toolbar variant="dense">
           <div className={classes.spacer}/>
           {
-            Object.keys(config.boards).map(boardName => (
+            Object.keys(this.config.boards).map(boardName => (
               <Button className={this.state[boardName + ".connected"] ? classes.connectedButton : classes.disconnectedButton}>{boardName} - {this.state[boardName + ".kbps"]} kbps</Button>
             ))
           }

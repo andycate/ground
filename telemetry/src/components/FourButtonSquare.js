@@ -49,6 +49,7 @@ class FourButton extends Component {
                         case "valve":
                           return (
                             <ButtonGroup
+                              buttonId={obj[0]}
                               open={buttonAction(obj[4].enable)}
                               close={buttonAction(obj[4].disable)}
                               field={obj[3]}
@@ -58,9 +59,11 @@ class FourButton extends Component {
                         case "timed":
                           return (
                             <ButtonGroupRBVTimed
+                              buttonId={obj[0]}
                               open={buttonAction(obj[4].enable)}
                               close={buttonAction(obj[4].disable)}
-                              time={buttonAction(obj[4].timed)}
+                              timed_open={buttonAction(obj[4]["enable-timed"])}
+                              timed_close={buttonAction(obj[4]["disable-timed"])}
                               text={obj[2]}
                             />
                           )

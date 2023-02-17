@@ -283,8 +283,8 @@ class App {
 
   sendPacket(_, board, packet, number, command, time) {
     let buf = App.generateActuatorPacket(packet, number, command, time);
-    // this.port.send(this.boards[board].address, buf, false);
-    this.port.server.send(buf, 42070, this.boards[board].address);
+    this.port.send(this.boards[board].address, buf, false);
+    // this.port.server.send(buf, 42070, this.boards[board].address);
   }
 
   static generateActuatorPacket(id, number, command, time) {
