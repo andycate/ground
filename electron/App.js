@@ -28,6 +28,8 @@ class App {
     this.handleSendCustomMessage = this.handleSendCustomMessage.bind(this)
     this.addBackendFunc = this.addBackendFunc.bind(this);
     this.sendPacket = this.sendPacket.bind(this);
+    this.launch = this.launch.bind(this);
+    this.abort = this.abort.bind(this);
   }
 
   /**
@@ -193,9 +195,11 @@ class App {
     this.addIPC('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark), false);
     this.addIPC('set-procedure-state', (e, procState) => this.influxDB.setProcedureStep(procState));
 
-    this.addIPC('send-custom-message', this.handleSendCustomMessage, false)
+    this.addIPC('send-custom-message', this.handleSendCustomMessage, false);
 
-    this.addIPC('send-packet', this.sendPacket)
+    this.addIPC('send-packet', this.sendPacket);
+    this.addIPC('launch', this.launch);
+    this.addIPC('abort', this.abort);
 
     // this.addIPC('flight-connected', () => this.flightComputer.isConnected);
     // this.addIPC('ground-connected', () => this.groundComputer.isConnected);
@@ -283,14 +287,14 @@ class App {
 
   sendPacket(_, board, packet, number, command, time) {
     let buf = App.generateActuatorPacket(packet, number, command, time);
-    this.port.send(this.boards[board].address, buf, false);
+    this.port.send(this.boards[board].address, buf);
     // this.port.server.send(buf, 42070, this.boards[board].address);
   }
 
   static generateActuatorPacket(id, number, command, time) {
     let idBuf = Buffer.alloc(1);
     idBuf.writeUInt8(id);
-    let len = 5
+    let len = 5;
     let values = [];
     if (number !== -1) {
       len ++;
@@ -311,6 +315,14 @@ class App {
     let checksumBuf = Buffer.alloc(2);
     checksumBuf.writeUInt16LE(fletcher16Partitioned([idBuf, lenBuf, tsOffsetBuf, ...values]));
     return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...values]);
+  }
+
+  launch() {
+    console.log("launch");
+  }
+
+  abort() {
+    console.log("abort");
   }
 }
 

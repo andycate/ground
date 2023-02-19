@@ -6,9 +6,10 @@ import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
 import Field from "./Field";
 import ButtonGroup from "./Buttons/ButtonGroup";
 import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";
-import { buttonAction } from "../util";
+import { addButtonEnabledListener, buttonAction, removeButtonEnabledListener } from "../util";
 import SwitchButton from "./Buttons/SwitchButton";
 import BigButton from "./Buttons/BigButton";
+import comms from "../api/Comms";
 
 const styles = (theme) => ({
   root: {
@@ -31,6 +32,31 @@ const styles = (theme) => ({
 class LaunchButton extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      disabled: true
+    }
+    this.beginLaunchSequence = this.beginLaunchSequence.bind(this);
+    this.abortAll = this.abortAll.bind(this);
+  }
+
+  beginLaunchSequence() {
+    comms.beginLaunchSequence();
+  }
+
+  abortAll() {
+    comms.abortAll();
+  }
+
+  componentDidMount() {
+    addButtonEnabledListener("launch", (enabled) => {
+      this.setState({ disabled: !enabled });
+    });
+  }
+
+  componentWillUnmount() {
+    removeButtonEnabledListener("launch", (enabled) => {
+      this.setState({ disabled: !enabled });
+    });
   }
 
   render() {
@@ -41,7 +67,7 @@ class LaunchButton extends Component {
           <Grid container spacing={1} className={classes.container}>
 		  <Grid item xs={12}>
 			<BigButton
-				disabled={this.launchDisabled}
+				disabled={this.state.disabled}
 				onClick={this.beginLaunchSequence}
 				text="Launch"
 			/>

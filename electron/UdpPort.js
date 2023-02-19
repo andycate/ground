@@ -89,7 +89,7 @@ class UdpPort {
     if (print) {
       process.stdout.write(data.toString('hex').match(/../g).join(' '));
     }
-    console.debug(` sent to [${address}] `);
+    console.log(` sent to [${address}] `);
     this.server.send(data, this.port, address, cb);
   }
 }

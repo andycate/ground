@@ -227,7 +227,13 @@ class Comms {
     return await this.ipc.invoke('send-packet', board, packet, number, command, time);
   }
 
+  async beginLaunchSequence() {
+    return await this.ipc.invoke('launch');
+  }
 
+  async abortAll() {
+    return await this.ipc.invoke('abort');
+  }
 
 
 

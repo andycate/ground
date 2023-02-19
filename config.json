@@ -185,6 +185,82 @@
 				}
 			]
 		},
+		"display2": {
+			"name": "Display 2",
+			"layout": "9-grid",
+			"slots": [
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "cap-fill.flightSupply8Voltage",
+							"name": "CF",
+							"units": "V"
+						},
+						{
+							"field": "ac1.acSupply24Voltage",
+							"name": "AC1",
+							"units": "V"
+						},
+						{
+							"field": "ac2.acSupply24Voltage",
+							"name": "AC2",
+							"units": "V"
+						},
+						{
+							"field": "tc.tcSupply24Voltage",
+							"name": "TC",
+							"units": "V"
+						},
+						{
+							"field": "lc.lcSupply24Voltage",
+							"name": "LC",
+							"units": "V"
+						},
+						{
+							"field": "pt.ptSupply24Voltage",
+							"name": "PT",
+							"units": "V"
+						}
+					]
+				},
+				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "cap-fill.flightSupply8Current",
+							"name": "CF",
+							"units": "mA"
+						},
+						{
+							"field": "ac1.acSupply24Current",
+							"name": "AC1",
+							"units": "mA"
+						},
+						{
+							"field": "ac2.acSupply24Current",
+							"name": "AC2",
+							"units": "mA"
+						},
+						{
+							"field": "tc.tcSupply24Current",
+							"name": "TC",
+							"units": "mA"
+						},
+						{
+							"field": "lc.lcSupply24Current",
+							"name": "LC",
+							"units": "mA"
+						},
+						{
+							"field": "pt.ptSupply24Current",
+							"name": "PT",
+							"units": "mA"
+						}
+					]
+				}
+			]
+		},
 		"display3": {
 			"name": "Display 3",
 			"layout": "9-grid",
@@ -454,9 +530,9 @@
 					"type": "four-button",
 					"buttons": [
 						{
-							"id": "n2flow",
+							"id": "press",
 							"type": "timed",
-							"name": "N2 Flow",
+							"name": "Pressurant",
 							"field": "ac1.actuatorState0",
 							"actions": {
 								"enable": {
@@ -486,6 +562,128 @@
 							}
 						},
 						{
+							"id": "pressSwitch",
+							"type": "switch",
+							"name": "Press Enable",
+							"field": "",
+							"actions": {
+								"enable": {
+									"type": "enable",
+									"id": "press"
+								},
+								"disable": {
+									"type": "disable",
+									"id": "press"
+								}
+							}
+						},
+						{
+							"type": null
+						},
+						{
+							"id": "arm",
+							"type": "valve",
+							"name": "ARM",
+							"field": "ac1.actuatorState3",
+							"actions": {
+								"enable": {
+									"type": "on",
+									"board": "ac1",
+									"packet": 100,
+									"number": 3
+								},
+								"disable": {
+									"type": "off",
+									"board": "ac1",
+									"packet": 100,
+									"number": 3
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "loxVent",
+							"type": "timed",
+							"name": "LOX Vent RBV",
+							"field": "ac2.actuatorState3",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 3
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 3
+								},
+								"enable-timed": {
+									"type": "extend-timed",
+									"board": "ac2",
+									"packet": 100,
+									"number": 3
+								},
+								"disable-timed": {
+									"type": "retract-timed",
+									"board": "ac2",
+									"packet": 100,
+									"number": 3
+								}
+							}
+						},
+						{
+							"id": "fuelVent",
+							"type": "timed",
+							"name": "Fuel Vent RBV",
+							"field": "ac2.actuatorState4",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 4
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 4
+								},
+								"enable-timed": {
+									"type": "extend-timed",
+									"board": "ac2",
+									"packet": 100,
+									"number": 4
+								},
+								"disable-timed": {
+									"type": "retract-timed",
+									"board": "ac2",
+									"packet": 100,
+									"number": 4
+								}
+							}
+						},
+						{
+							"type": null
+						},
+						{
+							"type": null
+						}
+					]
+				},
+				{
+					"type": "procedures"
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
 							"id": "loxGems",
 							"type": "valve",
 							"name": "LOX GEMS",
@@ -506,6 +704,135 @@
 							}
 						},
 						{
+							"id": "fuelGems",
+							"type": "valve",
+							"name": "Prop GEMS",
+							"field": "ac1.actuatorState2",
+							"actions": {
+								"enable": {
+									"type": "on",
+									"board": "ac1",
+									"packet": 100,
+									"number": 2
+								},
+								"disable": {
+									"type": "off",
+									"board": "ac1",
+									"packet": 100,
+									"number": 2
+								}
+							}
+						},
+						{
+							"id": "loxMain",
+							"type": "valve",
+							"name": "LOX Main",
+							"field": "ac1.actuatorState4",
+							"actions": {
+								"enable": {
+									"type": "on",
+									"board": "ac1",
+									"packet": 100,
+									"number": 4
+								},
+								"disable": {
+									"type": "off",
+									"board": "ac1",
+									"packet": 100,
+									"number": 4
+								}
+							}
+						},
+						{
+							"id": "propMain",
+							"type": "valve",
+							"name": "Prop Main",
+							"field": "ac1.actuatorState5",
+							"actions": {
+								"enable": {
+									"type": "on",
+									"board": "ac1",
+									"packet": 100,
+									"number": 5
+								},
+								"disable": {
+									"type": "off",
+									"board": "ac1",
+									"packet": 100,
+									"number": 5
+								}
+							}
+						}
+					]
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "pressFill",
+							"type": "timed",
+							"name": "Press Fill RBV",
+							"field": "ac2.actuatorState0",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 0
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 0
+								},
+								"enable-timed": {
+									"type": "extend-timed",
+									"board": "ac2",
+									"packet": 100,
+									"number": 0
+								},
+								"disable-timed": {
+									"type": "retract-timed",
+									"board": "ac2",
+									"packet": 100,
+									"number": 0
+								}
+							}
+						},
+						{
+							"id": "pressVent",
+							"type": "timed",
+							"name": "Press Vent RBV",
+							"field": "ac2.actuatorState1",
+							"actions": {
+								"enable": {
+									"type": "extend-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 1
+								},
+								"disable": {
+									"type": "retract-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 1
+								},
+								"enable-timed": {
+									"type": "extend-timed",
+									"board": "ac2",
+									"packet": 100,
+									"number": 1
+								},
+								"disable-timed": {
+									"type": "retract-timed",
+									"board": "ac2",
+									"packet": 100,
+									"number": 1
+								}
+							}
+						},
+						{
 							"type": null
 						},
 						{
@@ -517,39 +844,37 @@
 					"type": "logs"
 				},
 				{
-					"type": "six-square",
-					"values": [
+					"type": "four-button",
+					"buttons": [
 						{
-							"field": "ac1.actuatorState0",
-							"name": "N2 Flow State",
-							"units": ""
+							"id": "launchEnable",
+							"type": "switch",
+							"name": "Launch Enable",
+							"field": "",
+							"actions": {
+								"enable": {
+									"type": "enable",
+									"id": "launch"
+								},
+								"disable": {
+									"type": "disable",
+									"id": "launch"
+								}
+							}
 						},
 						{
-							"field": "ac1.actuatorState1",
-							"name": "LOX GEMS State",
-							"units": ""
+							"type": null
 						},
 						{
-							"field": "ac2.actuatorState0",
-							"name": "N2 Fill State",
-							"units": ""
+							"type": null
 						},
 						{
-							"field": "ac2.actuatorState1",
-							"name": "N2 Vent State",
-							"units": ""
-						},
-						{
-							"field": "ac1.acSupply24Voltage",
-							"name": "AC 1 Voltage",
-							"units": "V"
-						},
-						{
-							"field": "ac1.acSupply24Current",
-							"name": "AC 1 Current",
-							"units": "mA"
+							"type": null
 						}
 					]
+				},
+				{
+					"type": "launch"
 				}
 			]
 		}

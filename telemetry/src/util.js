@@ -23,22 +23,22 @@ export function buttonAction(action) {
   return (...args) => {
     switch (action.type) {
       case "retract-full":
-        comms.sendPacket(action.board, action.packet, action.number || -1, 0, 0);
+        comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 0, 0);
         break;
       case "extend-full":
-        comms.sendPacket(action.board, action.packet, action.number || -1, 1, 0);
+        comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 1, 0);
         break;
       case "extend-timed":
-        comms.sendPacket(action.board, action.packet, action.number || -1, 2, args[0]);
+        comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 2, args[0]);
         break;
       case "retract-timed":
-        comms.sendPacket(action.board, action.packet, action.number || -1, 3, args[0]);
+        comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 3, args[0]);
         break;
       case "on":
-        comms.sendPacket(action.board, action.packet, action.number || -1, 4, 0);
+        comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 4, 0);
         break;
       case "off":
-        comms.sendPacket(action.board, action.packet, action.number || -1, 5, 0);
+        comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 5, 0);
         break;
       case "enable":
         console.log(buttonEnabledManager);
