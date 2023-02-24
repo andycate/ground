@@ -28,10 +28,10 @@ export function buttonAction(action) {
       case "extend-full":
         comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 1, 0);
         break;
-      case "extend-timed":
+      case "retract-timed":
         comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 2, args[0]);
         break;
-      case "retract-timed":
+      case "extend-timed":
         comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 3, args[0]);
         break;
       case "on":

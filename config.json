@@ -320,6 +320,17 @@
 							"color": [0, 255, 0]
 						}
 					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "ac2.actuatorCurrent3",
+							"name": "LOX Vent Current",
+							"units": "mA",
+							"color": [255, 0, 0]
+						}
+					]
 				}
 			]
 		},
@@ -336,12 +347,12 @@
 							"units": "V"
 						},
 						{
-							"field": "ac1.actuatorContinuity1",
+							"field": "ac2.actuatorContinuity6",
 							"name": "LOX GEMS",
 							"units": "V"
 						},
 						{
-							"field": "ac1.actuatorContinuity2",
+							"field": "ac2.actuatorContinuity7",
 							"name": "Fuel GEMS",
 							"units": "V"
 						},
@@ -444,32 +455,32 @@
 						{
 							"field": "ac1.actuatorCurrent0",
 							"name": "N2 Flow",
-							"units": "A"
+							"units": "mA"
 						},
 						{
-							"field": "ac1.actuatorCurrent1",
+							"field": "ac2.actuatorCurrent6",
 							"name": "LOX GEMS",
-							"units": "A"
+							"units": "mA"
 						},
 						{
-							"field": "ac1.actuatorCurrent2",
+							"field": "ac2.actuatorCurrent7",
 							"name": "Fuel GEMS",
-							"units": "A"
+							"units": "mA"
 						},
 						{
 							"field": "ac1.actuatorCurrent3",
 							"name": "ARM",
-							"units": "A"
+							"units": "mA"
 						},
 						{
 							"field": "ac1.actuatorCurrent4",
 							"name": "LOX Main",
-							"units": "A"
+							"units": "mA"
 						},
 						{
 							"field": "ac1.actuatorCurrent5",
 							"name": "Fuel Main",
-							"units": "A"
+							"units": "mA"
 						}
 					]
 				},
@@ -479,32 +490,32 @@
 						{
 							"field": "ac2.actuatorCurrent0",
 							"name": "N2 Fill",
-							"units": "A"
+							"units": "mA"
 						},
 						{
 							"field": "ac2.actuatorCurrent1",
 							"name": "N2 Vent",
-							"units": "A"
+							"units": "mA"
 						},
 						{
 							"field": "ac2.actuatorCurrent2",
 							"name": "Igniter",
-							"units": "A"
+							"units": "mA"
 						},
 						{
 							"field": "ac2.actuatorCurrent3",
 							"name": "LOX Vent",
-							"units": "A"
+							"units": "mA"
 						},
 						{
 							"field": "ac2.actuatorCurrent4",
 							"name": "Fuel Vent",
-							"units": "A"
+							"units": "mA"
 						},
 						{
 							"field": "ac2.actuatorCurrent5",
 							"name": "Igniter Relay",
-							"units": "A"
+							"units": "mA"
 						}
 					]
 				},
@@ -797,19 +808,19 @@
 							"id": "loxGems",
 							"type": "valve",
 							"name": "LOX GEMS",
-							"field": "ac1.actuatorState1",
+							"field": "ac2.actuatorState6",
 							"actions": {
 								"enable": {
 									"type": "on",
-									"board": "ac1",
+									"board": "ac2",
 									"packet": 100,
-									"number": 1
+									"number": 6
 								},
 								"disable": {
 									"type": "off",
-									"board": "ac1",
+									"board": "ac2",
 									"packet": 100,
-									"number": 1
+									"number": 6
 								}
 							}
 						},
@@ -817,19 +828,19 @@
 							"id": "fuelGems",
 							"type": "valve",
 							"name": "Prop GEMS",
-							"field": "ac1.actuatorState2",
+							"field": "ac2.actuatorState7",
 							"actions": {
 								"enable": {
 									"type": "on",
-									"board": "ac1",
+									"board": "ac2",
 									"packet": 100,
-									"number": 2
+									"number": 7
 								},
 								"disable": {
 									"type": "off",
-									"board": "ac1",
+									"board": "ac2",
 									"packet": 100,
-									"number": 2
+									"number": 7
 								}
 							}
 						},
