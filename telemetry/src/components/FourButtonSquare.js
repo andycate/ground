@@ -8,6 +8,8 @@ import ButtonGroup from "./Buttons/ButtonGroup";
 import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";
 import { buttonAction } from "../util";
 import SwitchButton from "./Buttons/SwitchButton";
+import ButtonGroupEreg from "./Buttons/ButtonGroupEreg";
+import ButtonGroupEregTimed from "./Buttons/ButtonGroupEregTimed";
 
 const styles = (theme) => ({
   root: {
@@ -72,6 +74,27 @@ class FourButton extends Component {
                             <SwitchButton
                               open={buttonAction(obj[4].enable)}
                               close={buttonAction(obj[4].disable)}
+                              text={obj[2]}
+                            />
+                          )
+                        case "ereg":
+                          return (
+                            <ButtonGroupEreg
+                              buttonId={obj[0]}
+                              fuel={buttonAction(obj[4].fuel)}
+                              lox={buttonAction(obj[4].lox)}
+                              field={obj[3]}
+                              text={obj[2]}
+                            />
+                          )
+                        case "ereg-timed":
+                          return (
+                            <ButtonGroupEregTimed
+                              buttonId={obj[0]}
+                              // open={buttonAction(obj[4].enable)}
+                              // close={buttonAction(obj[4].disable)}
+                              timed_fuel={buttonAction(obj[4]["fuel-timed"])}
+                              timed_lox={buttonAction(obj[4]["lox-timed"])}
                               text={obj[2]}
                             />
                           )

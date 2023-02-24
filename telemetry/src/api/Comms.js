@@ -227,6 +227,14 @@ class Comms {
     return await this.ipc.invoke('send-packet', board, packet, number, command, time);
   }
 
+  async sendSignalPacket(board, packet) {
+    return await this.ipc.invoke('send-signal-packet', board, packet);
+  }
+
+  async sendSignalPacketTimed(board, packet, time) {
+    return await this.ipc.invoke('send-signal-timed-packet', board, packet, time);
+  }
+
   async beginLaunchSequence() {
     return await this.ipc.invoke('launch');
   }

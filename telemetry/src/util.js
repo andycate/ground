@@ -53,6 +53,12 @@ export function buttonAction(action) {
           disableButton(false);
         }
         break;
+      case "signal":
+        comms.sendSignalPacket(action.board, action.packet);
+        break;
+      case "signal-timed":
+        comms.sendSignalPacketTimed(action.board, action.packet, args[0]);
+        break;
       default:
         return;
     }

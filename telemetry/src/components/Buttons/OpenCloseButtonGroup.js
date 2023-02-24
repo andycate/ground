@@ -64,7 +64,7 @@ export default function OpenCloseButtonGroup({
         disableRipple
         size="small"
       >
-        {props.failText || "Close"}
+        {props.ereg ? "O-Reg" : (props.failText || "Close")}
       </Button>
       <Button
         color="primary"
@@ -75,7 +75,7 @@ export default function OpenCloseButtonGroup({
         disableRipple
         size="small"
       >
-        {props.successText || "Open"}
+        {props.ereg ? "F-Reg" : (props.successText || "Open")}
       </Button>
     </div>
   );

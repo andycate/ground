@@ -4,6 +4,14 @@
 			"type": "flightV4",
 			"address": "10.0.0.42"
 		},
+		"oreg": {
+			"type": "ereg",
+			"address": "10.0.0.61"
+		},
+		"freg": {
+			"type": "ereg",
+			"address": "10.0.0.62"
+		},
 		"ac1": {
 			"type": "ac",
 			"address": "10.0.0.11"
@@ -31,82 +39,88 @@
 			"layout": "9-grid",
 			"slots": [
 				{
-					"type": "ereg (graph)",
+					"type": "graph",
 					"values": [
 						{
-							"field": "pt.ptValue0",
-							"name": "PT 0",
+							"field": "oreg.upstreamPressure",
+							"name": "O-Reg Press",
 							"units": "PSI",
 							"color": [255, 0, 0]
 						},
 						{
-							"field": "pt.ptValue1",
-							"name": "PT 1",
+							"field": "freg.upstreamPressure",
+							"name": "F-Reg Press",
 							"units": "PSI",
-							"color": [0, 0, 255]
+							"color": [0, 255, 0]
 						}
 					]
 				},
 				{
-					"type": "ereg (graph)",
+					"type": "graph",
 					"values": [
 						{
-							"field": "tc.tcValue0",
-							"name": "TC 0",
-							"units": "C",
+							"field": "oreg.downstreamPressure",
+							"name": "LOX Pressure",
+							"units": "PSI",
 							"color": [255, 0, 0]
 						},
 						{
-							"field": "tc.tcValue1",
-							"name": "TC 1",
+							"field": "oreg.pressureSetpoint",
+							"name": "Setpoint",
 							"units": "C",
-							"color": [0, 0, 255]
+							"color": [0, 255, 0]
 						}
 					]
 				},
 				{
-					"type": "ereg (graph)",
+					"type": "graph",
 					"values": [
 						{
-							"field": "lc.lcValue0",
-							"name": "LC 0",
-							"units": "lbs",
+							"field": "freg.downstreamPressure",
+							"name": "Fuel Pressure",
+							"units": "PSI",
 							"color": [255, 0, 0]
 						},
 						{
-							"field": "lc.lcValue1",
-							"name": "LC 1",
-							"units": "lbs",
-							"color": [0, 0, 255]
+							"field": "freg.pressureSetpoint",
+							"name": "Setpoint",
+							"units": "C",
+							"color": [0, 255, 0]
 						}
 					]
 				},
 				{
-					"type": "ereg (six-square)",
+					"type": "six-square",
 					"values": [
 						{
-							"field": "pt.ptSupply24Voltage",
-							"name": "PT Voltage",
-							"units": "V"
+							"field": "oreg.pressureSetpointConfig",
+							"name": "LOX Setpoint",
+							"units": "PSI"
 						},
 						{
-							"field": "pt.ptSupply24Current",
-							"name": "PT Current",
+							"field": "freg.pressureSetpointConfig",
+							"name": "Fuel Setpoint",
+							"units": "PSI"
+						},
+						{
+							"field": "oreg.flowDuration",
+							"name": "Burn Time (O-Reg)",
+							"units": "s"
+						},
+						{
+							"field": "oreg.currentA",
+							"name": "LOX Motor Current",
 							"units": "mA"
 						},
 						{
-							"field": "pt.ptSupply24Power",
-							"name": "PT Power",
-							"units": "mW"
+							"field": "freg.currentA",
+							"name": "Fuel Motor Current",
+							"units": "mA"
 						},
 						{
-							"field": null
-						},
-						{
-							"field": null
-						},
-						{
-							"field": null
+							"field": "freg.flowDuration",
+							"name": "Burn Time (F-Reg)",
+							"units": "s"
 						}
 					]
 				},
@@ -133,53 +147,67 @@
 					]
 				},
 				{
+					"type": "six-square",
+					"values": [
+						{
+							"field": "oreg.fullyClosedSwitch",
+							"name": "LOX Closed Switch",
+							"units": ""
+						},
+						{
+							"field": "oreg.fullyOpenSwitch",
+							"name": "LOX Open Switch",
+							"units": ""
+						},
+						{
+							"field": null
+						},
+						{
+							"field": "freg.fullyClosedSwitch",
+							"name": "Fuel Closed Switch",
+							"units": ""
+						},
+						{
+							"field": "freg.fullyOpenSwitch",
+							"name": "Fuel Open Switch",
+							"units": ""
+						},
+						{
+							"field": null
+						}
+					]
+				},
+				{
 					"type": "graph",
 					"values": [
 						{
-							"field": "cap-fill.loxCapVal",
-							"name": "LOX Cap Fill Value",
-							"units": "pF",
+							"field": "oreg.encoderAngle",
+							"name": "LOX Encoder Angle",
+							"units": "",
 							"color": [255, 0, 0]
 						},
 						{
-							"field": "cap-fill.fuelCapVal",
-							"name": "Fuel Cap Fill Value",
-							"units": "pF",
+							"field": "oreg.angleSetpoint",
+							"name": "Setpoint",
+							"units": "",
 							"color": [0, 255, 0]
 						}
 					]
 				},
 				{
-					"type": "ereg (graph)",
+					"type": "graph",
 					"values": [
 						{
-							"field": "pt.ptValue0",
-							"name": "PT 0",
-							"units": "PSI",
+							"field": "freg.encoderAngle",
+							"name": "Fuel Encoder Angle",
+							"units": "",
 							"color": [255, 0, 0]
 						},
 						{
-							"field": "pt.ptValue1",
-							"name": "PT 1",
-							"units": "PSI",
-							"color": [0, 0, 255]
-						}
-					]
-				},
-				{
-					"type": "ereg (graph)",
-					"values": [
-						{
-							"field": "pt.ptValue0",
-							"name": "PT 0",
-							"units": "PSI",
-							"color": [255, 0, 0]
-						},
-						{
-							"field": "pt.ptValue1",
-							"name": "PT 1",
-							"units": "PSI",
-							"color": [0, 0, 255]
+							"field": "freg.angleSetpoint",
+							"name": "Setpoint",
+							"units": "",
+							"color": [0, 255, 0]
 						}
 					]
 				}
@@ -256,6 +284,40 @@
 							"field": "pt.ptSupply24Current",
 							"name": "PT",
 							"units": "mA"
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "cap-fill.loxCapVal",
+							"name": "LOX Cap Fill Value",
+							"units": "pF",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "cap-fill.fuelCapVal",
+							"name": "Fuel Cap Fill Value",
+							"units": "pF",
+							"color": [0, 255, 0]
+						}
+					]
+				},
+				{
+					"type": "graph",
+					"values": [
+						{
+							"field": "oreg.motorPower",
+							"name": "LOX Motor Power",
+							"units": "",
+							"color": [255, 0, 0]
+						},
+						{
+							"field": "freg.motorPower",
+							"name": "Fuel Motor Power",
+							"units": "",
+							"color": [0, 255, 0]
 						}
 					]
 				}
@@ -336,19 +398,43 @@
 					]
 				},
 				{
-					"type": "ereg (graph)",
+					"type": "graph",
 					"values": [
 						{
-							"field": "tc.tcValue0",
-							"name": "TC 0",
-							"units": "C",
+							"field": "oreg.currentA",
+							"name": "OReg IA",
+							"units": "mA",
 							"color": [255, 0, 0]
 						},
 						{
-							"field": "tc.tcValue1",
-							"name": "TC 1",
-							"units": "C",
+							"field": "oreg.currentB",
+							"name": "OReg IB",
+							"units": "mA",
+							"color": [0, 255, 0]
+						},
+						{
+							"field": "oreg.currentC",
+							"name": "OReg IC",
+							"units": "mA",
 							"color": [0, 0, 255]
+						},
+						{
+							"field": "freg.currentA",
+							"name": "FReg IA",
+							"units": "mA",
+							"color": [255, 0, 255]
+						},
+						{
+							"field": "freg.currentB",
+							"name": "FReg IB",
+							"units": "mA",
+							"color": [200, 200, 0]
+						},
+						{
+							"field": "freg.currentC",
+							"name": "FReg IC",
+							"units": "mA",
+							"color": [0, 255, 255]
 						}
 					]
 				},
@@ -423,19 +509,43 @@
 					]
 				},
 				{
-					"type": "ereg (graph)",
+					"type": "graph",
 					"values": [
 						{
-							"field": "lc.lcValue0",
-							"name": "LC 0",
-							"units": "lbs",
+							"field": "oreg.boardTemp1",
+							"name": "OReg Temp1",
+							"units": "C",
 							"color": [255, 0, 0]
 						},
 						{
-							"field": "lc.lcValue1",
-							"name": "LC 1",
-							"units": "lbs",
+							"field": "oreg.boardTemp2",
+							"name": "OReg Temp2",
+							"units": "C",
+							"color": [0, 255, 0]
+						},
+						{
+							"field": "oreg.motorTemp",
+							"name": "OReg Mtr Tmp",
+							"units": "C",
 							"color": [0, 0, 255]
+						},
+						{
+							"field": "freg.boardTemp1",
+							"name": "FReg Temp1",
+							"units": "C",
+							"color": [255, 0, 255]
+						},
+						{
+							"field": "freg.boardTemp2",
+							"name": "FReg Temp2",
+							"units": "C",
+							"color": [200, 200, 0]
+						},
+						{
+							"field": "freg.motorTemp",
+							"name": "FReg Mtr Tmp",
+							"units": "C",
+							"color": [0, 255, 255]
 						}
 					]
 				},
@@ -863,7 +973,22 @@
 							}
 						},
 						{
-							"type": null
+							"id": "eregPartialOpen",
+							"type": "ereg-timed",
+							"name": "E-Reg Partial Open",
+							"field": "",
+							"actions": {
+								"lox-timed": {
+									"type": "signal-timed",
+									"board": "oreg",
+									"packet": 202
+								},
+								"fuel-timed": {
+									"type": "signal-timed",
+									"board": "freg",
+									"packet": 202
+								}
+							}
 						},
 						{
 							"type": null
@@ -875,6 +1000,68 @@
 				},
 				{
 					"type": "launch"
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "eregDiagnostic",
+							"type": "ereg",
+							"name": "Run Diagnostic",
+							"field": "",
+							"actions": {
+								"lox": {
+									"type": "signal",
+									"board": "oreg",
+									"packet": 204
+								},
+								"fuel": {
+									"type": "signal",
+									"board": "freg",
+									"packet": 204
+								}
+							}
+						},
+						{
+							"id": "eregZero",
+							"type": "ereg",
+							"name": "Zero",
+							"field": "",
+							"actions": {
+								"lox": {
+									"type": "signal",
+									"board": "oreg",
+									"packet": 205
+								},
+								"fuel": {
+									"type": "signal",
+									"board": "freg",
+									"packet": 205
+								}
+							}
+						},
+						{
+							"id": "eregStaticPress",
+							"type": "ereg",
+							"name": "Static Press",
+							"field": "",
+							"actions": {
+								"lox": {
+									"type": "signal",
+									"board": "oreg",
+									"packet": 203
+								},
+								"fuel": {
+									"type": "signal",
+									"board": "freg",
+									"packet": 203
+								}
+							}
+						},
+						{
+							"type": null
+						}
+					]
 				}
 			]
 		}

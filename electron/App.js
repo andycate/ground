@@ -9,6 +9,7 @@ const TCBoard = require('./Boards/TCBoard');
 const LCBoard = require('./Boards/LCBoard');
 const ACBoard = require('./Boards/ACBoard');
 const { initTime, fletcher16Partitioned } = require('./Packet');
+const EregBoard = require('./Boards/EregBoard');
 
 let lastThrust12 = 0.0;
 // let lastThrust34 = 0.0;
@@ -28,6 +29,8 @@ class App {
     this.handleSendCustomMessage = this.handleSendCustomMessage.bind(this)
     this.addBackendFunc = this.addBackendFunc.bind(this);
     this.sendPacket = this.sendPacket.bind(this);
+    this.sendSignalPacket = this.sendSignalPacket.bind(this);
+    this.sendSignalTimedPacket = this.sendSignalTimedPacket.bind(this);
     this.launch = this.launch.bind(this);
     this.abort = this.abort.bind(this);
   }
@@ -43,7 +46,8 @@ class App {
       "pt": PTBoard,
       "tc": TCBoard,
       "lc": LCBoard,
-      "ac": ACBoard
+      "ac": ACBoard,
+      "ereg": EregBoard
     };
 
     for (let boardName in this.config.boards) {
@@ -198,6 +202,8 @@ class App {
     this.addIPC('send-custom-message', this.handleSendCustomMessage, false);
 
     this.addIPC('send-packet', this.sendPacket);
+    this.addIPC('send-signal-packet', this.sendSignalPacket);
+    this.addIPC('send-signal-timed-packet', this.sendSignalTimedPacket);
     this.addIPC('launch', this.launch);
     this.addIPC('abort', this.abort);
 
@@ -291,6 +297,47 @@ class App {
     // this.port.server.send(buf, 42070, this.boards[board].address);
   }
 
+  sendSignalPacket(_, board, packet) {
+    let buf = App.generateSignalPacket(packet);
+    this.port.send(this.boards[board].address, buf);
+  }
+
+  sendSignalTimedPacket(_, board, packet, time) {
+    let buf = App.generateSignalTimedPacket(packet, time);
+    this.port.send(this.boards[board].address, buf);
+  }
+
+  static generateSignalPacket(id) {
+    let idBuf = Buffer.alloc(1);
+    idBuf.writeUInt8(id);
+    let len = 0;
+    let values = [];
+    let lenBuf = Buffer.alloc(1);
+    lenBuf.writeUInt8(len);
+    let tsOffsetBuf = Buffer.alloc(4)
+    tsOffsetBuf.writeUInt32LE(Date.now() - initTime);
+    let checksumBuf = Buffer.alloc(2);
+    checksumBuf.writeUInt16LE(fletcher16Partitioned([idBuf, lenBuf, tsOffsetBuf, ...values]));
+    return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...values]);
+  }
+
+  static generateSignalTimedPacket(id, time) {
+    let idBuf = Buffer.alloc(1);
+    idBuf.writeUInt8(id);
+    let len = 4;
+    let values = [];
+    let timeBuf = Buffer.alloc(4);
+    timeBuf.writeUInt32LE(time);
+    values.push(timeBuf);
+    let lenBuf = Buffer.alloc(1);
+    lenBuf.writeUInt8(len);
+    let tsOffsetBuf = Buffer.alloc(4)
+    tsOffsetBuf.writeUInt32LE(Date.now() - initTime);
+    let checksumBuf = Buffer.alloc(2);
+    checksumBuf.writeUInt16LE(fletcher16Partitioned([idBuf, lenBuf, tsOffsetBuf, ...values]));
+    return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...values]);
+  }
+
   static generateActuatorPacket(id, number, command, time) {
     let idBuf = Buffer.alloc(1);
     idBuf.writeUInt8(id);
@@ -319,10 +366,14 @@ class App {
 
   launch() {
     console.log("launch");
+    this.sendSignalPacket(null, "oreg", 200);
+    this.sendSignalPacket(null, "freg", 200);
   }
 
   abort() {
     console.log("abort");
+    this.sendSignalPacket(null, "oreg", 201);
+    this.sendSignalPacket(null, "freg", 201);
   }
 }
 

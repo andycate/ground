@@ -53,7 +53,7 @@ const styles = (theme) => ({
   },
 });
 
-class ButtonGroupRBVTimed extends Component {
+class ButtonGroupEregTimed extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -93,14 +93,14 @@ class ButtonGroupRBVTimed extends Component {
 
   setOpenTimed() {
     const { timeField } = this.state;
-    const { timed_open } = this.props;
-    timed_open(timeField);
+    const { timed_fuel } = this.props;
+    timed_fuel(timeField);
   }
 
   setClosedTimed() {
     const { timeField } = this.state;
-    const { timed_close } = this.props;
-    timed_close(timeField);
+    const { timed_lox } = this.props;
+    timed_lox(timeField);
   }
 
   componentDidMount() {
@@ -166,17 +166,17 @@ class ButtonGroupRBVTimed extends Component {
             <SendIcon />
           </IconButton>
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <OpenCloseButtonGroup
             isOpen={this.state.openClicked}
             setOpen={this.setOpen}
             setClosed={this.setClosed}
             disabled={this.state.disabled || false}
           />
-        </Grid>
+        </Grid> */}
       </GroupLabel>
     );
   }
 }
 
-export default withTheme(withStyles(styles)(ButtonGroupRBVTimed));
+export default withTheme(withStyles(styles)(ButtonGroupEregTimed));

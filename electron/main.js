@@ -8,6 +8,7 @@ const fs = require('fs');
 const App = require('./App');
 
 const config = JSON.parse(fs.readFileSync(process.argv[2]));
+const windowsList = process.argv.length <= 3 ? Object.keys(config.windows) : process.argv.slice(3);
 
 let backendApp = new App(config);
 let selector, window1, window2;
@@ -17,7 +18,7 @@ function createWindow () {
   const touchBar = createTouchBar(backendApp);
   // TouchBar End
 
-  for (let windowName in config.windows) {
+  for (let windowName of windowsList) {
     let b64config = Buffer.from(JSON.stringify(config)).toString("base64");
     let url = (isDev ? `http://127.0.0.1:3000#/${windowName}&${b64config}` : `file://${path.join(__dirname, `../index.html#${windowName}&${b64config}`)}`);
     let window = new BrowserWindow({
@@ -40,7 +41,7 @@ function createWindow () {
     });
     window.webContents.once('did-finish-load', () => {
       backendApp.addWebContents(window.webContents);
-      if(backendApp.webContents.length === Object.keys(config.windows).length){
+      if(backendApp.webContents.length === windowsList.length){
         // backendApp.initApp()
       }
     });
