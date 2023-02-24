@@ -3,11 +3,11 @@ const { TouchBarLabel, TouchBarButton, TouchBarSpacer, TouchBarPopover, TouchBar
 const isDev = require('electron-is-dev');
 const path = require('path');
 const url = require('url');
-const fs = require('fs');
 
 const App = require('./App');
+const readConfig = require('./configParser');
 
-const config = JSON.parse(fs.readFileSync(process.argv[2]));
+const config = readConfig(process.argv[2]);
 const windowsList = process.argv.length <= 3 ? Object.keys(config.windows) : process.argv.slice(3);
 
 let backendApp = new App(config);
