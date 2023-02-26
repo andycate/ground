@@ -41,7 +41,6 @@ export function buttonAction(action) {
         comms.sendPacket(action.board, action.packet, action.number == null ? -1 : action.number, 5, 0);
         break;
       case "enable":
-        console.log(buttonEnabledManager);
         let enableButton = buttonEnabledManager[action.id];
         if (enableButton !== undefined) {
           enableButton(true);

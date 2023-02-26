@@ -101,22 +101,38 @@ class App {
   updateState(timestamp, update, dbrecord = true) {
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
+    let mappedUpdate = {};
+    Object.keys(update).forEach(_k => {
+      if (this.config.influxMap[_k] !== undefined) {
+        mappedUpdate[this.config.influxMap[_k]] = update[_k];
+      }
+      else {
+        let board = _k.split(".")[0]
+        let field = _k.split(".")[1]
+        if (board === "freg" || board === "oreg" || field === "boardConnected" || field === "boardKbps") {
+          mappedUpdate[board + "_" + _k.split(".")[1]] = update[_k];
+        }
+        else {
+          mappedUpdate[_k.split(".")[1]] = update[_k];
+        }
+      }
+    })
     if (dbrecord) {
       // if update value is not number -> add to syslog as well
-      Object.keys(update).forEach(_k => {
-        if(typeof update[_k] !== 'number'){
-          if(update[_k].message){
-            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${update[_k].message}`, update[_k].tags)
+      Object.keys(mappedUpdate).forEach(_k => {
+        if(typeof mappedUpdate[_k] !== 'number'){
+          if(mappedUpdate[_k].message){
+            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${mappedUpdate[_k].message}`, mappedUpdate[_k].tags)
           }else{
-            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${update[_k]}`)
+            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${mappedUpdate[_k]}`)
           }
         }
       })
-      this.influxDB.handleStateUpdate(timestamp, update);
+      this.influxDB.handleStateUpdate(timestamp, mappedUpdate);
     }
 
-    if(Object.keys(update).includes("totalThrust12")) {
-      lastThrust12 = update['totalThrust12']; // update total thrust value
+    if(Object.keys(mappedUpdate).includes("totalThrust12")) {
+      lastThrust12 = mappedUpdate['totalThrust12']; // update total thrust value
       this.updateState(timestamp, {"totalThrust": lastThrust12});
     }
     // if(Object.keys(update).includes("totalThrust34")) {

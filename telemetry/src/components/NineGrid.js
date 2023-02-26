@@ -18,6 +18,7 @@ import Field from "./Field";
 import ErrorSquare from "./ErrorSquare";
 import FourButtonSquare from "./FourButtonSquare";
 import LaunchButton from "./LaunchButton";
+import ProgressBarsSquare from "./ProgressBarsSquare";
 
 // const fields = [
 //   [
@@ -186,6 +187,19 @@ class NineGrid extends Component {
                         case "launch":
                           return (
                             <LaunchButton />
+                          )
+                        case "progress":
+                          return (
+                            <ProgressBarsSquare fields={
+                              field.values.map(value => ({
+                                field: value.field,
+                                name: value.name,
+                                units: value.units,
+                                color: value.color,
+                                minValue: value.minValue,
+                                delta: value.delta
+                              }))}
+                            />
                           )
                         default:
                           return (

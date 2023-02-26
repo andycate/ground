@@ -33,6 +33,63 @@
 			"address": "10.0.0.21"
 		}
 	},
+	"influxMap": {
+		"ac1.acSupply24Voltage": "ac1Supply24Voltage",
+		"ac1.acSupply24Current": "ac1Supply24Current",
+		"ac1.acSupply24Power": "ac1Supply24Power",
+		"ac1.actuatorState0": "n2FlowState",
+		"ac1.actuatorState1": "empty1State",
+		"ac1.actuatorState2": "empty2State",
+		"ac1.actuatorState3": "armState",
+		"ac1.actuatorState4": "loxMainState",
+		"ac1.actuatorState5": "fuelMainState",
+		"ac1.actuatorState6": "empty6State",
+		"ac1.actuatorState7": "empty7State",
+		"ac1.actuatorContinuity0": "n2FlowContinuity",
+		"ac1.actuatorContinuity1": "empty1Continuity",
+		"ac1.actuatorContinuity2": "empty2Continuity",
+		"ac1.actuatorContinuity3": "armContinuity",
+		"ac1.actuatorContinuity4": "loxMainContinuity",
+		"ac1.actuatorContinuity5": "fuelMainContinuity",
+		"ac1.actuatorContinuity6": "empty6Continuity",
+		"ac1.actuatorContinuity7": "empty7Continuity",
+		"ac1.actuatorCurrent0": "n2FlowCurrent",
+		"ac1.actuatorCurrent1": "empty1Current",
+		"ac1.actuatorCurrent2": "empty2Current",
+		"ac1.actuatorCurrent3": "armCurrent",
+		"ac1.actuatorCurrent4": "loxMainCurrent",
+		"ac1.actuatorCurrent5": "fuelMainCurrent",
+		"ac1.actuatorCurrent6": "empty6Current",
+		"ac1.actuatorCurrent7": "empty7Current",
+
+		"ac2.acSupply24Voltage": "ac2Supply24Voltage",
+		"ac2.acSupply24Current": "ac2Supply24Current",
+		"ac2.acSupply24Power": "ac2Supply24Power",
+		"ac2.actuatorState0": "n2FillState",
+		"ac2.actuatorState1": "n2VentState",
+		"ac2.actuatorState2": "igniterState",
+		"ac2.actuatorState3": "loxVentState",
+		"ac2.actuatorState4": "fuelVentState",
+		"ac2.actuatorState5": "igniterRelayState",
+		"ac2.actuatorState6": "loxGemsState",
+		"ac2.actuatorState7": "fuelGemsState",
+		"ac2.actuatorContinuity0": "n2FillContinuity",
+		"ac2.actuatorContinuity1": "n2VentContinuity",
+		"ac2.actuatorContinuity2": "igniterContinuity",
+		"ac2.actuatorContinuity3": "loxVentContinuity",
+		"ac2.actuatorContinuity4": "fuelVentContinuity",
+		"ac2.actuatorContinuity5": "igniterRelayContinuity",
+		"ac2.actuatorContinuity6": "loxGemsContinuity",
+		"ac2.actuatorContinuity7": "fuelGemsContinuity",
+		"ac2.actuatorCurrent0": "n2FillCurrent",
+		"ac2.actuatorCurrent1": "n2VentCurrent",
+		"ac2.actuatorCurrent2": "igniterCurrent",
+		"ac2.actuatorCurrent3": "loxVentCurrent",
+		"ac2.actuatorCurrent4": "fuelVentCurrent",
+		"ac2.actuatorCurrent5": "igniterRelayCurrent",
+		"ac2.actuatorCurrent6": "loxGemsCurrent",
+		"ac2.actuatorCurrent7": "fuelGemsCurrent"
+	},
 	"windows": {
 		"display1": {
 			"name": "Display 1",
@@ -733,25 +790,25 @@
 							"field": "ac2.actuatorState3",
 							"actions": {
 								"enable": {
-									"type": "extend-full",
-									"board": "ac2",
-									"packet": 100,
-									"number": 3
-								},
-								"disable": {
 									"type": "retract-full",
 									"board": "ac2",
 									"packet": 100,
 									"number": 3
 								},
+								"disable": {
+									"type": "extend-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 3
+								},
 								"enable-timed": {
-									"type": "extend-timed",
+									"type": "retract-timed",
 									"board": "ac2",
 									"packet": 100,
 									"number": 3
 								},
 								"disable-timed": {
-									"type": "retract-timed",
+									"type": "extend-timed",
 									"board": "ac2",
 									"packet": 100,
 									"number": 3
@@ -765,25 +822,25 @@
 							"field": "ac2.actuatorState4",
 							"actions": {
 								"enable": {
-									"type": "extend-full",
-									"board": "ac2",
-									"packet": 100,
-									"number": 4
-								},
-								"disable": {
 									"type": "retract-full",
 									"board": "ac2",
 									"packet": 100,
 									"number": 4
 								},
+								"disable": {
+									"type": "extend-full",
+									"board": "ac2",
+									"packet": 100,
+									"number": 4
+								},
 								"enable-timed": {
-									"type": "extend-timed",
+									"type": "retract-timed",
 									"board": "ac2",
 									"packet": 100,
 									"number": 4
 								},
 								"disable-timed": {
-									"type": "retract-timed",
+									"type": "extend-timed",
 									"board": "ac2",
 									"packet": 100,
 									"number": 4
@@ -1073,425 +1130,6 @@
 							"type": null
 						}
 					]
-				}
-			]
-		}
-	},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	"comment": "================================== Ignore all the stuff below this ==================================",
-	"windows_dev": {
-		"controls": {
-			"name": "Controls",
-			"layout": "9-grid",
-			"slots": [
-				{
-					"type": "logs"
-				},
-				{
-					"type": "launch"
-				},
-				{
-					"type": "four-button",
-					"buttons": [
-						{
-							"id": "ac0",
-							"type": "timed",
-							"name": "Actuator 0 (Timed RBV)",
-							"field": "ac.actuatorState0",
-							"actions": {
-								"enable": {
-									"type": "extend-full",
-									"board": "ac",
-									"packet": 1,
-									"number": 0
-								},
-								"disable": {
-									"type": "retract-full",
-									"board": "ac",
-									"packet": 1,
-									"number": 0
-								},
-								"enable-timed": {
-									"type": "extend-timed",
-									"board": "ac",
-									"packet": 1,
-									"number": 0
-								},
-								"disable-timed": {
-									"type": "retract-timed",
-									"board": "ac",
-									"packet": 1,
-									"number": 0
-								}
-							}
-						},
-						{
-							"id": "ac0Switch",
-							"type": "switch",
-							"name": "AC 0 Enable",
-							"field": "",
-							"actions": {
-								"enable": {
-									"type": "enable",
-									"id": "ac0"
-								},
-								"disable": {
-									"type": "disable",
-									"id": "ac0"
-								}
-							}
-						},
-						{
-							"type": null
-						},
-						{
-							"id": "ac1",
-							"type": "valve",
-							"name": "Actuator 1 (Solenoid)",
-							"field": "ac.actuatorState1",
-							"actions": {
-								"enable": {
-									"type": "on",
-									"board": "ac",
-									"packet": 1,
-									"number": 1
-								},
-								"disable": {
-									"type": "off",
-									"board": "ac",
-									"packet": 1,
-									"number": 1
-								}
-							}
-						}
-					]
-				},
-				{
-					"type": "four-button",
-					"buttons": [
-						{
-							"id": "pressFlow",
-							"type": "timed",
-							"name": "Press Flow RBV",
-							"field": "flight.pressurantFlowRBVstate",
-							"actions": {
-								"enable": {
-									"type": "extend-full",
-									"board": "flight",
-									"packet": 6
-								},
-								"disable": {
-									"type": "retract-full",
-									"board": "flight",
-									"packet": 6
-								},
-								"timed": {
-									"type": "actuate-timed",
-									"board": "flight",
-									"packet": 6
-								}
-							}
-						},
-						{
-							"id": "pressFlowSwitch",
-							"type": "switch",
-							"name": "Press Flow Enable",
-							"field": "",
-							"actions": {
-								"enable": {
-									"type": "enable",
-									"id": "pressFlow"
-								},
-								"disable": {
-									"type": "disable",
-									"id": "pressFlow"
-								}
-							}
-						},
-						{
-							"type": null
-						},
-						{
-							"id": "rqd",
-							"type": "valve",
-							"name": "N2 RQD",
-							"field": "ac.actuatorState0",
-							"actions": {
-								"enable": {
-									"type": "extend-full",
-									"board": "ac",
-									"packet": 5
-								},
-								"disable": {
-									"type": "retract-full",
-									"board": "ac",
-									"packet": 1,
-									"number": 0
-								}
-							}
-						}
-					]
-				},
-				{
-					"type": "four-button",
-					"buttons": [
-						{
-							"id": "pressFlow",
-							"type": "timed",
-							"name": "Press Flow RBV",
-							"field": "flight.pressurantFlowRBVstate",
-							"actions": {
-								"enable": {
-									"type": "extend-full",
-									"board": "flight",
-									"packet": 6
-								},
-								"disable": {
-									"type": "retract-full",
-									"board": "flight",
-									"packet": 6
-								},
-								"timed": {
-									"type": "actuate-timed",
-									"board": "flight",
-									"packet": 6
-								}
-							}
-						},
-						{
-							"id": "pressFlowSwitch",
-							"type": "switch",
-							"name": "Press Flow Enable",
-							"field": "",
-							"actions": {
-								"enable": {
-									"type": "enable",
-									"id": "pressFlow"
-								},
-								"disable": {
-									"type": "disable",
-									"id": "pressFlow"
-								}
-							}
-						},
-						{
-							"id": "loxGems",
-							"type": "valve",
-							"name": "LOX GEMS Valve",
-							"field": "flight.loxGEMSstate",
-							"actions": {
-								"enable": {
-									"type": "extend-full",
-									"board": "flight",
-									"packet": 4
-								},
-								"disable": {
-									"type": "retract-full",
-									"board": "flight",
-									"packet": 4
-								}
-							}
-						},
-						{
-							"id": "fuelGems",
-							"type": "valve",
-							"name": "Fuel GEMS Valve",
-							"field": "flight.fuelGEMSstate",
-							"actions": {
-								"enable": {
-									"type": "extend-full",
-									"board": "flight",
-									"packet": 5
-								},
-								"disable": {
-									"type": "retract-full",
-									"board": "flight",
-									"packet": 5
-								}
-							}
-						}
-					]
-				}
-			]
-		},
-		"main": {
-			"name": "Main",
-			"layout": "9-grid",
-			"slots": [
-				{
-					"type": "graph",
-					"values": [
-						{
-							"field": "flight.ptValue.0",
-							"name": "Flight PT 0",
-							"units": "PSI",
-							"color": [255, 0, 0]
-						}
-					]
-				},
-				{
-					"type": "graph",
-					"values": [
-						{
-							"field": "flight.ptValue.1",
-							"name": "Flight PT 1",
-							"units": "PSI",
-							"color": [0, 255, 0]
-						}
-					]
-				},
-				{
-					"type": "graph",
-					"values": [
-						{
-							"field": "flight.ptValue.2",
-							"name": "Flight PT 2",
-							"units": "PSI",
-							"color": [0, 0, 255]
-						}
-					]
-				},
-				{
-					"type": "six-square",
-					"values": [
-						{
-							"field": "pt.ptValue.0",
-							"name": "Ground PT 0",
-							"units": "PSI"
-						},
-						{
-							"field": "pt.ptValue.1",
-							"name": "Ground PT 1",
-							"units": "PSI"
-						},
-						{
-							"field": "pt.ptValue.2",
-							"name": "Ground PT 2",
-							"units": "PSI"
-						},
-						{
-							"field": "pt.ptValue.3",
-							"name": "Ground PT 3",
-							"units": "PSI"
-						},
-						{
-							"field": "pt.ptValue.4",
-							"name": "Ground PT 4",
-							"units": "PSI"
-						},
-						{
-							"field": "pt.ptValue.5",
-							"name": "Ground PT 5",
-							"units": "PSI"
-						}
-					]
-				},
-				{
-					"type": "six-square",
-					"values": [
-						{
-							"field": "tc.tcValue.0",
-							"name": "Ground TC 0",
-							"units": "ºC"
-						},
-						{
-							"field": "tc.tcValue.0",
-							"name": "Ground TC 0",
-							"units": "ºC"
-						},
-						{
-							"field": "tc.tcValue.0",
-							"name": "Ground TC 0",
-							"units": "ºC"
-						},
-						{
-							"field": "tc.tcValue.0",
-							"name": "Ground TC 0",
-							"units": "ºC"
-						},
-						{
-							"field": null
-						},
-						{
-							"field": null
-						}
-					]
-				},
-				{
-					"type": "graph",
-					"values": [
-						{
-							"field": "flight.ptValue.3",
-							"name": "Flight PT 3",
-							"units": "PSI",
-							"color": [255, 255, 0]
-						},
-						{
-							"field": "flight.ptValue.4",
-							"name": "Flight PT 4",
-							"units": "PSI",
-							"color": [0, 255, 255]
-						}
-					]
-				},
-				{
-					"type": "graph",
-					"values": [
-						{
-							"field": "flight.loxCapVal",
-							"name": "LOX Cap Fill",
-							"units": "pF",
-							"color": [255, 0, 255]
-						},
-						{
-							"field": "flight.loxCapAvg",
-							"name": "LOX Cap Fill (Filtered)",
-							"units": "pF",
-							"color": [255, 127, 255]
-						}
-					]
-				},
-				{
-					"type": "graph",
-					"values": [
-						{
-							"field": "flight.fuelCapVal",
-							"name": "Fuel Cap Fill",
-							"units": "pF",
-							"color": [255, 127, 0]
-						},
-						{
-							"field": "flight.fuelCapAvg",
-							"name": "Fuel Cap Fill (Filtered)",
-							"units": "pF",
-							"color": [255, 0, 127]
-						}
-					]
-				},
-				{
-					"type": "logs"
 				}
 			]
 		}

@@ -58,6 +58,9 @@ class Navbar extends Component {
   updateBoardKbps(timestamp, boardName, value) {
     let boardState = {};
     boardState[boardName + ".kbps"] = value;
+    if (value > 0) {
+      boardState[boardName + ".connected"] = true;
+    }
     this.setState(boardState);
   }
 

@@ -74,22 +74,6 @@ class FlightV4 extends Board {
         ["fuelGEMSstate", asUInt8]
       ],
 
-      // LOX Cap Fill
-      9: [
-        ["loxCapVal", asFloat],
-        ["loxCapAvg", asFloat],
-        ["loxCapTemperature", asFloat],
-        ["loxCapRefVal", asFloat]
-      ],
-
-      // Fuel Cap Fill
-      10: [
-        ["fuelCapVal", asFloat],
-        ["fuelCapAvg", asFloat],
-        ["fuelCapTemperature", asFloat],
-        ["fuelCapRefVal", asFloat]
-      ],
-
       // Press Flow RBV
       11: [
         ["pressurantFlowRBVstate", asUInt8],
@@ -154,6 +138,22 @@ class FlightV4 extends Board {
         ["tcValue1", asFloat],
         ["tcValue2", asFloat],
         ["tcValue3", asFloat]
+      ],
+
+      // LOX Cap Fill
+      21: [
+        ["loxCapVal", asFloat],
+        ["loxCapAvg", asFloat],
+        ["loxCapTemperature", asFloat],
+        ["loxCapRefVal", asFloat]
+      ],
+
+      // Fuel Cap Fill
+      22: [
+        ["fuelCapVal", asFloat],
+        ["fuelCapAvg", asFloat],
+        ["fuelCapTemperature", asFloat],
+        ["fuelCapRefVal", asFloat]
       ]
     }
   }
