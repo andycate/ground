@@ -185,7 +185,7 @@
 					"type": "graph",
 					"values": [
 						{
-							"field": "pt.ptValue0",
+							"field": "pt.ptValue1",
 							"name": "LOX Injector PT",
 							"units": "PSI",
 							"color": [255, 0, 0]
@@ -196,7 +196,7 @@
 					"type": "graph",
 					"values": [
 						{
-							"field": "pt.ptValue1",
+							"field": "pt.ptValue2",
 							"name": "Fuel Injector PT",
 							"units": "PSI",
 							"color": [255, 0, 0]
@@ -386,6 +386,68 @@
 							"name": "LOX Vent Current",
 							"units": "mA",
 							"color": [255, 0, 0]
+						}
+					]
+				},
+				{
+					"type": "four-button",
+					"buttons": [
+						{
+							"id": "eregP",
+							"type": "ereg-timed",
+							"name": "E-Reg P",
+							"field": "",
+							"actions": {
+								"lox-timed": {
+									"type": "signal-timed",
+									"board": "oreg",
+									"packet": 206
+								},
+								"fuel-timed": {
+									"type": "signal-timed",
+									"board": "freg",
+									"packet": 206
+								}
+							}
+						},
+						{
+							"id": "eregI",
+							"type": "ereg-timed",
+							"name": "E-Reg I",
+							"field": "",
+							"actions": {
+								"lox-timed": {
+									"type": "signal-timed",
+									"board": "oreg",
+									"packet": 207
+								},
+								"fuel-timed": {
+									"type": "signal-timed",
+									"board": "freg",
+									"packet": 207
+								}
+							}
+						},
+						{
+							"id": "eregD",
+							"type": "ereg-timed",
+							"name": "E-Reg D",
+							"field": "",
+							"actions": {
+								"lox-timed": {
+									"type": "signal-timed",
+									"board": "oreg",
+									"packet": 208
+								},
+								"fuel-timed": {
+									"type": "signal-timed",
+									"board": "freg",
+									"packet": 208
+								}
+							}
+						},
+						{
+							"type": null
 						}
 					]
 				}
@@ -1133,5 +1195,26 @@
 				}
 			]
 		}
+	},
+	"comment": {
+		"type": "progress",
+		"values": [
+			{
+				"field": "cap-fill.loxCapVal",
+				"name": "LOX Cap Fill",
+				"units": "pF",
+				"color": [255, 0, 0],
+				"minValue": 50,
+				"delta": 0.5
+			},
+			{
+				"field": "cap-fill.fuelCapVal",
+				"name": "Fuel Cap Fill",
+				"units": "pF",
+				"color": [0, 255, 0],
+				"minValue": 50,
+				"delta": 0.5
+			}
+		]
 	}
 }
