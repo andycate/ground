@@ -799,26 +799,8 @@
 									"packet": 100,
 									"number": 0
 								}
-							}
-						},
-						{
-							"id": "pressSwitch",
-							"type": "switch",
-							"name": "Press Enable",
-							"field": "",
-							"actions": {
-								"enable": {
-									"type": "enable",
-									"id": "press"
-								},
-								"disable": {
-									"type": "disable",
-									"id": "press"
-								}
-							}
-						},
-						{
-							"type": null
+							},
+							"safe": true
 						},
 						{
 							"id": "arm",
@@ -839,6 +821,12 @@
 									"number": 3
 								}
 							}
+						},
+						{
+							"type": null
+						},
+						{
+							"type": null
 						}
 					]
 				},

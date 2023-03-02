@@ -20,12 +20,13 @@ class ButtonGroup extends Component {
     this.state = {
       commsOpenReading: false,
       btnOpen: false,
-      disabled: false
+      disabled: this.props.safe
     };
 
     this.updateOpen = this.updateOpen.bind(this);
     this.setOpen = this.setOpen.bind(this);
     this.setClosed = this.setClosed.bind(this);
+    this.setDisabled = this.setDisabled.bind(this);
   }
 
   updateOpen(timestamp, value) {
@@ -60,8 +61,12 @@ class ButtonGroup extends Component {
     removeButtonEnabledListener(this.props.buttonId);
   }
 
+  setDisabled(enabled) {
+    this.setState({ disabled: !enabled });
+  }
+
   render() {
-    const { classes, theme, text, children } = this.props;
+    const { classes, theme, text, children, safe } = this.props;
     const { commsOpenReading, btnOpen, disabled } = this.state;
     return (
       <GroupLabel
@@ -71,6 +76,7 @@ class ButtonGroup extends Component {
             ? theme.palette.success.main
             : theme.palette.error.main
         }
+        safe={safe} classes={classes} changeState={this.setDisabled}
       >
         <Grid item>
           <OpenCloseButtonGroup

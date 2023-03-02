@@ -180,7 +180,8 @@ class NineGrid extends Component {
                                 value.type,
                                 value.name,
                                 value.field,
-                                value.actions
+                                value.actions,
+                                value.safe || false
                               ])}
                             />
                           )

@@ -60,7 +60,7 @@ class ButtonGroupRBVTimed extends Component {
       status: 0,
       openClicked: false,
       timeField: 0, // ms
-      disabled: false,
+      disabled: this.props.safe,
     };
 
     this.updateStatus = this.updateStatus.bind(this);
@@ -69,6 +69,7 @@ class ButtonGroupRBVTimed extends Component {
     this.setClosed = this.setClosed.bind(this);
     this.setOpenTimed = this.setOpenTimed.bind(this);
     this.setClosedTimed = this.setClosedTimed.bind(this);
+    this.setDisabled = this.setDisabled.bind(this);
   }
 
   updateStatus(timestamp, value) {
@@ -117,8 +118,12 @@ class ButtonGroupRBVTimed extends Component {
     removeButtonEnabledListener(this.props.buttonId);
   }
 
+  setDisabled(enabled) {
+    this.setState({ disabled: !enabled });
+  }
+
   render() {
-    const { classes, theme, text, noClose } = this.props;
+    const { classes, theme, text, noClose, safe } = this.props;
     const { status, openClicked, timeField } = this.state;
     let sColor = null;
     switch (status) {
@@ -133,7 +138,7 @@ class ButtonGroupRBVTimed extends Component {
         break;
     }
     return (
-      <GroupLabel text={text} barColor={sColor}>
+      <GroupLabel text={text} barColor={sColor} safe={safe} classes={classes} changeState={this.setDisabled}>
         <Grid item xs={12}>
           <IconButton
             variant="contained"
