@@ -14,11 +14,13 @@ class ButtonGroupEreg extends Component {
     this.state = {
       status: 0,
       openClicked: false,
+      disabled: this.props.safe
     };
 
     this.updateStatus = this.updateStatus.bind(this);
     this.setOpen = this.setOpen.bind(this);
     this.setClosed = this.setClosed.bind(this);
+    this.setDisabled = this.setDisabled.bind(this);
   }
 
   updateStatus(timestamp, value) {
@@ -47,9 +49,13 @@ class ButtonGroupEreg extends Component {
     comms.removeSubscriber(field, this.updateStatus);
   }
 
+  setDisabled(enabled) {
+    this.setState({ disabled: !enabled });
+  }
+
   render() {
-    const { classes, theme, text } = this.props;
-    const { status, openClicked } = this.state;
+    const { classes, theme, text, safe } = this.props;
+    const { status, openClicked, disabled } = this.state;
     let sColor = null;
     switch (status) {
       case 0:
@@ -66,12 +72,14 @@ class ButtonGroupEreg extends Component {
       <GroupLabel
         text={text}
         barColor={sColor}
+        safe={safe} classes={classes} changeState={this.setDisabled}
       >
         <Grid item>
           <OpenCloseButtonGroup
             isOpen={openClicked}
             setClosed={this.setClosed}
             setOpen={this.setOpen}
+            disabled={disabled}
             ereg
           />
         </Grid>

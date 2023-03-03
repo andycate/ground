@@ -343,7 +343,7 @@ class App {
     let len = 4;
     let values = [];
     let timeBuf = Buffer.alloc(4);
-    timeBuf.writeUInt32LE(time);
+    timeBuf.writeFloatLE(time);
     values.push(timeBuf);
     let lenBuf = Buffer.alloc(1);
     lenBuf.writeUInt8(len);

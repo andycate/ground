@@ -56,6 +56,7 @@ class FourButton extends Component {
                               close={buttonAction(obj[4].disable)}
                               field={obj[3]}
                               text={obj[2]}
+                              safe={obj[5]}
                             />
                           )
                         case "timed":
@@ -67,6 +68,7 @@ class FourButton extends Component {
                               timed_open={buttonAction(obj[4]["enable-timed"])}
                               timed_close={buttonAction(obj[4]["disable-timed"])}
                               text={obj[2]}
+                              safe={obj[5]}
                             />
                           )
                         case "switch":
@@ -75,6 +77,7 @@ class FourButton extends Component {
                               open={buttonAction(obj[4].enable)}
                               close={buttonAction(obj[4].disable)}
                               text={obj[2]}
+                              safe={obj[5]}
                             />
                           )
                         case "ereg":
@@ -85,6 +88,7 @@ class FourButton extends Component {
                               lox={buttonAction(obj[4].lox)}
                               field={obj[3]}
                               text={obj[2]}
+                              safe={obj[5]}
                             />
                           )
                         case "ereg-timed":
@@ -96,6 +100,7 @@ class FourButton extends Component {
                               timed_fuel={buttonAction(obj[4]["fuel-timed"])}
                               timed_lox={buttonAction(obj[4]["lox-timed"])}
                               text={obj[2]}
+                              safe={obj[5]}
                             />
                           )
                         default:
