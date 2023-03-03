@@ -19,11 +19,11 @@ read [these](https://nodejs.org/en/download/) instructions
 to install it. Once node is installed, clone this repository:
 `git clone https://github.com/Space-Enterprise-at-Berkeley/ground.git`
 
-Then, `cd` into this directory and run `npm i`. This will install all the
-dependencies required by this project that are defined in
+
+Then, `cd` into this directory and run `npm i`. If running on a Mac M1, run `arch -x86_64 npm i` instead.
+This will install all the dependencies required by this project that are defined in
 the `package.json` file. Next, `cd` into the `telemetry` directory
-and run `npm i`. The `telemetry` directory contains all the code for the web based UI. 
-~~The `remote` directory contains all the code for the web page
+and run `npm i`. The `telemetry` directory contains all the code for the web based UI. If running on a Mac M1, run `export NODE_OPTIONS=--openssl-legacy-provider`. This will need to be run every time a new Terminal session is begun. ~~The `remote` directory contains all the code for the web page
 that can be loaded on your phone to view pressure values
 remotely over wifi.~~
 
@@ -41,7 +41,7 @@ a new directory in your home directory called `GroundStation`,
 where it will store data files.
 
 To start the ground station, first `cd` from the top level, project `ground` directory into the `telemetry` directory
-and run `npm run start`. This will start the "backend" of the Dashboard. Next open a **new** terminal window (the previous one must stay open for the dashboard to work) and make sure you are in the top level `ground` directory. Run `npm run start [config file]` or `npm run start [config file] [...window IDs]` to open either all the windows from a config or a specified list. 
+and run `npm run start`. This will start the "backend" of the Dashboard. Next open a **new** terminal window (the previous one must stay open for the dashboard to work) and make sure you are in the top level `ground` directory. Run ~~`npm run start [config file]` or~~ `npm run start [config file] [...window IDs]` to open either all the windows from a config or a specified list. 
 
 ~~If you would like to run the remote viewing web page, open a new
 terminal window and `cd` into the `remote` directory. Then run
