@@ -312,20 +312,7 @@ class Control extends Component {
                   text="N2 RQD"
                 />
               </Grid>
-              {/* <Grid item xs={4}>
-                <ButtonGroup
-                  open={comms.openPressRQD} //todo remap
-                  close={comms.closePressRQD}
-                  field="pressRQDState"
-                  text="LOx Dome Heater"
-                />
-                <ButtonGroup
-                  open={comms.openPressRQD} //todo remap
-                  close={comms.closePressRQD}
-                  field="pressRQDState"
-                  text="Fuel Dome Heater"
-                />
-              </Grid> */}
+
               <Grid item xs={4}>
                 <ButtonGroupRBVTimed
                   open={comms.closeloxFillRBV}

@@ -329,6 +329,12 @@ class App {
       this.sendPacket(null, "ac1", 100, 5, 5, 0); // Open fuel main (reversed command)
       this.sendSignalPacket(null, "oreg", 200); // Launch o-reg
       this.sendSignalPacket(null, "freg", 200); // Launch f-reg
+
+      // close arm at end
+      // check if igniter enabled
+      // if enabled, fire igniter
+      // check arm, main valve currents first
+
     }, 2000);
   }
 
@@ -337,6 +343,21 @@ class App {
     // This is not complete nor correct; the abort tasks list is confusing
 
     console.log("abort");
+
+    // deactivate igniter
+    // open lox gems
+    // open fuel gems
+    // begin ereg abort procedure/send ereg aborts
+    // (for vertical) open main valve vent
+    // open arm 
+    // close lox main
+    // close fuel main
+    // wait for valves closing
+    // (for vertical) close main valve vent
+    // close arm
+
+
+    // open arming 
     this.sendPacket(null, "ac1", 100, 4, 4, 0); // Close LOX main (reversed command)
     this.sendPacket(null, "ac1", 100, 5, 4, 0); // Close fuel main (reversed command)
     this.sendPacket(null, "ac2", 100, 6, 4, 0); // Open LOX GEMS
