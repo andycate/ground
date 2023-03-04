@@ -194,13 +194,13 @@
 					"field": "ac1.actuatorState4",
 					"actions": {
 						"enable": {
-							"type": "off",
+							"type": "on",
 							"board": "ac1",
 							"packet": 100,
 							"number": 4
 						},
 						"disable": {
-							"type": "on",
+							"type": "off",
 							"board": "ac1",
 							"packet": 100,
 							"number": 4
@@ -214,13 +214,13 @@
 					"field": "ac1.actuatorState5",
 					"actions": {
 						"enable": {
-							"type": "off",
+							"type": "on",
 							"board": "ac1",
 							"packet": 100,
 							"number": 5
 						},
 						"disable": {
-							"type": "on",
+							"type": "off",
 							"board": "ac1",
 							"packet": 100,
 							"number": 5
