@@ -41,14 +41,10 @@ class LaunchButton extends Component {
 
   beginLaunchSequence() {
     comms.beginLaunchSequence();
-    comms.sendPacket("ac1", 100, 4, 5, 0);
-    comms.sendPacket("ac1", 100, 5, 5, 0);
   }
 
   abortAll() {
     comms.abortAll();
-    comms.sendPacket("ac1", 100, 4, 4, 0);
-    comms.sendPacket("ac1", 100, 5, 4, 0);
   }
 
   componentDidMount() {

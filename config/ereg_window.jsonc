@@ -1,0 +1,179 @@
+{
+	"name": "E-Reg",
+	"layout": "9-grid",
+	"slots": [
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "oreg.upstreamPressure",
+					"name": "O-Reg Press",
+					"units": "PSI",
+					"color": [255, 0, 0]
+				},
+				{
+					"field": "freg.upstreamPressure",
+					"name": "F-Reg Press",
+					"units": "PSI",
+					"color": [0, 255, 0]
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "oreg.downstreamPressure",
+					"name": "LOX Pressure",
+					"units": "PSI",
+					"color": [255, 0, 0]
+				},
+				{
+					"field": "oreg.pressureSetpoint",
+					"name": "Setpoint",
+					"units": "C",
+					"color": [0, 255, 0]
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "freg.downstreamPressure",
+					"name": "Fuel Pressure",
+					"units": "PSI",
+					"color": [255, 0, 0]
+				},
+				{
+					"field": "freg.pressureSetpoint",
+					"name": "Setpoint",
+					"units": "C",
+					"color": [0, 255, 0]
+				}
+			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "oreg.pressureSetpointConfig",
+					"name": "LOX Setpoint",
+					"units": "PSI"
+				},
+				{
+					"field": "freg.pressureSetpointConfig",
+					"name": "Fuel Setpoint",
+					"units": "PSI"
+				},
+				{
+					"field": "oreg.flowDuration",
+					"name": "Burn Time (O-Reg)",
+					"units": "s"
+				},
+				{
+					"field": "oreg.currentA",
+					"name": "LOX Motor Current",
+					"units": "mA"
+				},
+				{
+					"field": "freg.currentA",
+					"name": "Fuel Motor Current",
+					"units": "mA"
+				},
+				{
+					"field": "freg.flowDuration",
+					"name": "Burn Time (F-Reg)",
+					"units": "s"
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "pt.ptValue1",
+					"name": "LOX Injector PT",
+					"units": "PSI",
+					"color": [255, 0, 0]
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "pt.ptValue2",
+					"name": "Fuel Injector PT",
+					"units": "PSI",
+					"color": [255, 0, 0]
+				}
+			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "oreg.fullyClosedSwitch",
+					"name": "LOX Closed Switch",
+					"units": ""
+				},
+				{
+					"field": "oreg.fullyOpenSwitch",
+					"name": "LOX Open Switch",
+					"units": ""
+				},
+				{
+					"field": null
+				},
+				{
+					"field": "freg.fullyClosedSwitch",
+					"name": "Fuel Closed Switch",
+					"units": ""
+				},
+				{
+					"field": "freg.fullyOpenSwitch",
+					"name": "Fuel Open Switch",
+					"units": ""
+				},
+				{
+					"field": null
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "oreg.encoderAngle",
+					"name": "LOX Encoder Angle",
+					"units": "",
+					"color": [255, 0, 0]
+				},
+				{
+					"field": "oreg.angleSetpoint",
+					"name": "Setpoint",
+					"units": "",
+					"color": [0, 255, 0]
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "freg.encoderAngle",
+					"name": "Fuel Encoder Angle",
+					"units": "",
+					"color": [255, 0, 0]
+				},
+				{
+					"field": "freg.angleSetpoint",
+					"name": "Setpoint",
+					"units": "",
+					"color": [0, 255, 0]
+				}
+			]
+		}
+	]
+}

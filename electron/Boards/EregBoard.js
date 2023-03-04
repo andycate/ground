@@ -77,7 +77,13 @@ class EregBoard extends Board {
       ],
 
 	  // Abort
-	  9: []
+	  9: [],
+
+    // Overcurrent Trigger
+    10: [
+      ["avgCurrent", asFloat],
+      ["bufferSize", asFloat]
+    ]
     }
   }
 }

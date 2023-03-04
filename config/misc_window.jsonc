@@ -1,0 +1,261 @@
+{
+	"name": "Miscellaneous",
+	"layout": "9-grid",
+	"slots": [
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "cap-fill.flightSupply8Voltage",
+					"name": "CF",
+					"units": "V"
+				},
+				{
+					"field": "ac1.acSupply24Voltage",
+					"name": "AC1",
+					"units": "V"
+				},
+				{
+					"field": "ac2.acSupply24Voltage",
+					"name": "AC2",
+					"units": "V"
+				},
+				{
+					"field": "tc.tcSupply24Voltage",
+					"name": "TC",
+					"units": "V"
+				},
+				{
+					"field": "lc.lcSupply24Voltage",
+					"name": "LC",
+					"units": "V"
+				},
+				{
+					"field": "pt.ptSupply24Voltage",
+					"name": "PT",
+					"units": "V"
+				}
+			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "cap-fill.flightSupply8Current",
+					"name": "CF",
+					"units": "mA"
+				},
+				{
+					"field": "ac1.acSupply24Current",
+					"name": "AC1",
+					"units": "mA"
+				},
+				{
+					"field": "ac2.acSupply24Current",
+					"name": "AC2",
+					"units": "mA"
+				},
+				{
+					"field": "tc.tcSupply24Current",
+					"name": "TC",
+					"units": "mA"
+				},
+				{
+					"field": "lc.lcSupply24Current",
+					"name": "LC",
+					"units": "mA"
+				},
+				{
+					"field": "pt.ptSupply24Current",
+					"name": "PT",
+					"units": "mA"
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "cap-fill.loxCapVal",
+					"name": "LOX Cap Fill Value",
+					"units": "pF",
+					"color": [255, 0, 0]
+				},
+				{
+					"field": "cap-fill.fuelCapVal",
+					"name": "Fuel Cap Fill Value",
+					"units": "pF",
+					"color": [0, 255, 0]
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "oreg.motorPower",
+					"name": "LOX Motor Power",
+					"units": "",
+					"color": [255, 0, 0]
+				},
+				{
+					"field": "freg.motorPower",
+					"name": "Fuel Motor Power",
+					"units": "",
+					"color": [0, 255, 0]
+				}
+			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "ac2.actuatorCurrent3",
+					"name": "LOX Vent Current",
+					"units": "mA",
+					"color": [255, 0, 0]
+				}
+			]
+		},
+		{
+			"type": "four-button",
+			"buttons": [
+				{
+					"id": "eregP",
+					"type": "ereg-timed",
+					"name": "E-Reg P",
+					"field": "",
+					"actions": {
+						"lox-timed": {
+							"type": "signal-timed",
+							"board": "oreg",
+							"packet": 206
+						},
+						"fuel-timed": {
+							"type": "signal-timed",
+							"board": "freg",
+							"packet": 206
+						}
+					}
+				},
+				{
+					"id": "eregI",
+					"type": "ereg-timed",
+					"name": "E-Reg I",
+					"field": "",
+					"actions": {
+						"lox-timed": {
+							"type": "signal-timed",
+							"board": "oreg",
+							"packet": 207
+						},
+						"fuel-timed": {
+							"type": "signal-timed",
+							"board": "freg",
+							"packet": 207
+						}
+					}
+				},
+				{
+					"id": "eregD",
+					"type": "ereg-timed",
+					"name": "E-Reg D",
+					"field": "",
+					"actions": {
+						"lox-timed": {
+							"type": "signal-timed",
+							"board": "oreg",
+							"packet": 208
+						},
+						"fuel-timed": {
+							"type": "signal-timed",
+							"board": "freg",
+							"packet": 208
+						}
+					}
+				},
+				{
+					"type": null
+				}
+			]
+		},
+		{
+			"type": "four-button",
+			"buttons": [
+				{
+					"id": "zeroLC",
+					"type": "ereg-timed",
+					"name": "Zero LC",
+					"field": "",
+					"actions": {
+						"lox-timed": {
+							"type": "zero",
+							"board": "lc",
+							"packet": 100
+						},
+						"fuel-timed": {
+							"type": "zero",
+							"board": "lc",
+							"packet": 100
+						}
+					}
+				},
+				{
+					"id": "zeroPT",
+					"type": "ereg-timed",
+					"name": "Zero PT",
+					"field": "",
+					"actions": {
+						"lox-timed": {
+							"type": "zero",
+							"board": "pt",
+							"packet": 100
+						},
+						"fuel-timed": {
+							"type": "zero",
+							"board": "pt",
+							"packet": 100
+						}
+					}
+				},
+				{
+					"type": null
+				},
+				{
+					"type": null
+				}
+			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "oreg.avgCurrent",
+					"name": "O OC Avg",
+					"units": "mA"
+				},
+				{
+					"field": null
+				},
+				{
+					"field": "oreg.bufferSize",
+					"name": "O OC Buffer",
+					"units": ""
+				},
+				{
+					"field": "freg.avgCurrent",
+					"name": "F OC Avg",
+					"units": "mA"
+				},
+				{
+					"field": null
+				},
+				{
+					"field": "freg.bufferSize",
+					"name": "F OC Buffer",
+					"units": ""
+				}
+			]
+		}
+	]
+}

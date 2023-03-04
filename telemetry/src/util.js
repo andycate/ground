@@ -58,6 +58,14 @@ export function buttonAction(action) {
       case "signal-timed":
         comms.sendSignalPacketTimed(action.board, action.packet, args[0]);
         break;
+      case "start-pings":
+        setInterval(() => {
+          comms.sendSignalPacket(action.board, action.packet);
+        }, action.delay);
+        break;
+      case "zero":
+        comms.sendZeroPacket(action.board, action.packet, args[0]);
+        break;
       default:
         return;
     }
