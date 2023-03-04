@@ -95,13 +95,13 @@
 				{
 					"field": "oreg.motorPower",
 					"name": "LOX Motor Power",
-					"units": "",
+					"units": "%",
 					"color": [255, 0, 0]
 				},
 				{
 					"field": "freg.motorPower",
 					"name": "Fuel Motor Power",
-					"units": "",
+					"units": "%",
 					"color": [0, 255, 0]
 				}
 			]

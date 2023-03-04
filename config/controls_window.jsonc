@@ -379,7 +379,7 @@
 				{
 					"id": "eregAbort",
 					"type": "ereg",
-					"name": "Abort E-Reg",
+					"name": "Reset E-Reg",
 					"field": "",
 					"actions": {
 						"lox": {
