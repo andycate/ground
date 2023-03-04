@@ -72,14 +72,14 @@
 					"units": "s"
 				},
 				{
-					"field": "oreg.currentA",
-					"name": "LOX Motor Current",
-					"units": "mA"
+					"field": "oreg.fullyClosedSwitch",
+					"name": "LOX Closed Switch",
+					"units": ""
 				},
 				{
-					"field": "freg.currentA",
-					"name": "Fuel Motor Current",
-					"units": "mA"
+					"field": "freg.fullyClosedSwitch",
+					"name": "Fuel Closed Switch",
+					"units": ""
 				},
 				{
 					"field": "freg.flowDuration",
@@ -111,33 +111,19 @@
 			]
 		},
 		{
-			"type": "six-square",
+			"type": "graph",
 			"values": [
 				{
-					"field": "oreg.fullyClosedSwitch",
-					"name": "LOX Closed Switch",
-					"units": ""
+					"field": "oreg.motorPower",
+					"name": "LOX Motor Power",
+					"units": "mA",
+					"color": [255, 0, 0]
 				},
 				{
-					"field": "oreg.fullyOpenSwitch",
-					"name": "LOX Open Switch",
-					"units": ""
-				},
-				{
-					"field": null
-				},
-				{
-					"field": "freg.fullyClosedSwitch",
-					"name": "Fuel Closed Switch",
-					"units": ""
-				},
-				{
-					"field": "freg.fullyOpenSwitch",
-					"name": "Fuel Open Switch",
-					"units": ""
-				},
-				{
-					"field": null
+					"field": "freg.motorPower",
+					"name": "Fuel Motor Power",
+					"units": "mA",
+					"color": [0, 255, 0]
 				}
 			]
 		},

@@ -324,18 +324,18 @@ class App {
   launch() {
     console.log("launch");
     this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
+    this.sendPacket(null, "ac1", 100, 4, 5, 0); // Open LOX main (reversed command)
+    this.sendPacket(null, "ac1", 100, 5, 5, 0); // Open fuel main (reversed command)
+    this.sendSignalPacket(null, "oreg", 200); // Launch o-reg
+    this.sendSignalPacket(null, "freg", 200); // Launch f-reg
     setTimeout(() => {
-      this.sendPacket(null, "ac1", 100, 4, 5, 0); // Open LOX main (reversed command)
-      this.sendPacket(null, "ac1", 100, 5, 5, 0); // Open fuel main (reversed command)
-      this.sendSignalPacket(null, "oreg", 200); // Launch o-reg
-      this.sendSignalPacket(null, "freg", 200); // Launch f-reg
+      this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
+    }, 1000);
 
       // close arm at end
       // check if igniter enabled
       // if enabled, fire igniter
       // check arm, main valve currents first
-
-    }, 2000);
   }
 
   abort() {
@@ -356,18 +356,17 @@ class App {
     // (for vertical) close main valve vent
     // close arm
 
-
-    // open arming 
-    this.sendPacket(null, "ac1", 100, 4, 4, 0); // Close LOX main (reversed command)
-    this.sendPacket(null, "ac1", 100, 5, 4, 0); // Close fuel main (reversed command)
+    this.sendPacket(null, "ac2", 100, 2, 5, 0); // Close igniter
     this.sendPacket(null, "ac2", 100, 6, 4, 0); // Open LOX GEMS
     this.sendPacket(null, "ac2", 100, 7, 4, 0); // Open fuel GEMS
     this.sendSignalPacket(null, "oreg", 201); // Abort o-reg
     this.sendSignalPacket(null, "freg", 201); // Abort f-reg
-    this.sendPacket(null, "ac2", 100, 2, 5, 0); // Close igniter
+    this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
+    this.sendPacket(null, "ac1", 100, 4, 4, 0); // Close LOX main (reversed command)
+    this.sendPacket(null, "ac1", 100, 5, 4, 0); // Close fuel main (reversed command)
     setTimeout(() => {
       this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
-    }, 2000);
+    }, 1000);
   }
 }
 
