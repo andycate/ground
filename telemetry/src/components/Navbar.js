@@ -96,7 +96,7 @@ class Navbar extends Component {
           <div className={classes.spacer}/>
           {
             Object.keys(this.config.boards).map(boardName => (
-              <Button className={this.state[boardName + ".connected"] ? classes.connectedButton : classes.disconnectedButton}>{boardName} - {this.state[boardName + ".kbps"]} kbps</Button>
+              <Button className={this.state[boardName + ".connected"] ? classes.connectedButton : classes.disconnectedButton}>{boardName} - {this.state[boardName + ".kbps"]}</Button>
             ))
           }
           <div className={classes.spacer}/>

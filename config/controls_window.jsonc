@@ -377,20 +377,20 @@
 					}
 				},
 				{
-					"id": "eregZero",
+					"id": "eregAbort",
 					"type": "ereg",
-					"name": "Zero",
+					"name": "Abort E-Reg",
 					"field": "",
 					"actions": {
 						"lox": {
 							"type": "signal",
 							"board": "oreg",
-							"packet": 205
+							"packet": 201
 						},
 						"fuel": {
 							"type": "signal",
 							"board": "freg",
-							"packet": 205
+							"packet": 201
 						}
 					}
 				},

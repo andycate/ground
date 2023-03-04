@@ -66,6 +66,10 @@ class Board {
    * @returns {Packet|null} packet with parsed data
    */
   parseMsgBuf(buf) {
+    if (buf.length == 0) {
+      console.debug("Received empty packet");
+      return null;
+    }
     // Packet format:
     // [ ________ | ________ | ________ ________ ________ ________ | ________ ________ | ________ ... ________ ]
     // [    id    |   len    |              runTime                |       checkSum    |          data         ]
