@@ -30,5 +30,13 @@
 	"lc": {
 		"type": "lc",
 		"address": "10.0.0.21"
+	},
+	"loxinjreg": {
+		"type": "ereg",
+		"address": "10.0.0.28" // @Zander TODO
+	},
+	"fuelinjreg": {
+		"type": "ereg",
+		"address": "10.0.0.27" // @Zander TODO 
 	}
 }
