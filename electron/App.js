@@ -340,7 +340,18 @@ class App {
       }, 10);
     }, 10);
 
-    setTimeout(this.abort, 5250);
+    setTimeout(() => {
+      this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
+      setTimeout(() => {
+        this.sendPacket(null, "ac1", 100, 4, 5, 0); // Close LOX main
+        setTimeout(() => {
+          this.sendPacket(null, "ac1", 100, 5, 5, 0); // Close fuel main
+          setTimeout(() => {
+            this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
+          }, 2000);
+        }, 10);
+      }, 10);
+    }, 30000);
 
       // close arm at end
       // check if igniter enabled
@@ -382,8 +393,14 @@ class App {
                 setTimeout(() => {
                   this.sendPacket(null, "ac1", 100, 5, 5, 0); // Close fuel main
                   setTimeout(() => {
-                    this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
-                  }, 2000);
+                    this.sendPacket(null, "ac2", 100, 3, 0, 0); // Open LOX Vent
+                    setTimeout(() => {
+                      this.sendPacket(null, "ac2", 100, 4, 0, 0); // Open fuel vent
+                      setTimeout(() => {
+                        this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
+                      }, 2000);
+                    }, 10);
+                  }, 10);
                 }, 10);
               }, 10);
             }, 10);
