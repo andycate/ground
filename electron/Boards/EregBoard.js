@@ -40,50 +40,50 @@ class EregBoard extends Board {
         ["flowDuration", asFloat]
       ],
 
-	  // Diagnostic
-      3: [
-        ["motorDirPass", asUInt8],
-        ["servoDirPass", asUInt8]
-      ],
+      // Diagnostic
+        3: [
+          ["motorDirPass", asUInt8],
+          ["servoDirPass", asUInt8]
+        ],
 
-	  // State Transition Error
-      4: [
-        ["errorCode", asUInt8]
-      ],
+      // State Transition Error
+        4: [
+          ["errorCode", asUInt8]
+        ],
 
-	  // Flow State
-      5: [
-        ["flowState", asUInt8]
-      ],
+      // Flow State
+        5: [
+          ["flowState", asUInt8]
+        ],
 
-	  // Limit Switch
-      6: [
-        ["fullyClosedSwitch", asFloat],
-        ["fullyOpenSwitch", asFloat]
-      ],
+      // Limit Switch
+        6: [
+          ["fullyClosedSwitch", asFloat],
+          ["fullyOpenSwitch", asFloat]
+        ],
 
-	  // Phase Currents
-      7: [
-        ["currentA", asFloat],
-        ["currentB", asFloat],
-        ["currentC", asFloat]
-      ],
+      // Phase Currents
+        7: [
+          ["currentA", asFloat],
+          ["currentB", asFloat],
+          ["currentC", asFloat]
+        ],
 
-	  // Temperatures
-      8: [
-        ["boardTempA", asFloat],
-        ["boardTempB", asFloat],
-        ["motorTemp", asFloat]
-      ],
+      // Temperatures
+        8: [
+          ["boardTempA", asFloat],
+          ["boardTempB", asFloat],
+          ["motorTemp", asFloat]
+        ],
 
-	  // Abort
-	  9: [],
+      // Abort
+      9: [],
 
-    // Overcurrent Trigger
-    10: [
-      ["avgCurrent", asFloat],
-      ["bufferSize", asFloat]
-    ]
+      // Overcurrent Trigger
+      10: [
+        ["avgCurrent", asFloat],
+        ["bufferSize", asFloat]
+      ]
     }
   }
 }

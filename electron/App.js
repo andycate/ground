@@ -351,7 +351,7 @@ class App {
           }, 2000);
         }, 10);
       }, 10);
-    }, 30000);
+    }, this.config.burnTime);
 
       // close arm at end
       // check if igniter enabled

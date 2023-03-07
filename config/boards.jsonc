@@ -31,12 +31,12 @@
 		"type": "lc",
 		"address": "10.0.0.21"
 	},
-	"loxinjreg": {
+	"ioreg": {
 		"type": "ereg",
-		"address": "10.0.0.28" // @Zander TODO
+		"address": "10.0.0.28"
 	},
-	"fuelinjreg": {
+	"ifreg": {
 		"type": "ereg",
-		"address": "10.0.0.27" // @Zander TODO 
+		"address": "10.0.0.27"
 	}
 }
