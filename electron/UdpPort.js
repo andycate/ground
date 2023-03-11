@@ -9,10 +9,9 @@ class UdpPort {
    * @param {Number} port
    * @param {Function} updateStateCallback
    */
-  constructor(address, port, updateStateCallback, config) {
+  constructor(address, port, updateStateCallback) {
     this.address = address;
     this.port = port;
-    this.config = config;
     this.server = dgram.createSocket('udp4');
     /**
      * @type {Object.<String, Board>}
@@ -43,6 +42,10 @@ class UdpPort {
           msg = msg.slice(1+addressLen)
         }else{
           let id = msg.readUInt8(0);
+          if (rinfo.address === "10.0.0.12" && id > 4) {
+            console.log(msg.readUInt8(0));
+            console.log(msg.toString('hex').match(/../g).join(' '));
+          }
           if (id === 133) { // Abort stuff
             let abortReason = msg.readUInt8(9);
             console.log("Abort reason: " + abortReason);
