@@ -66,13 +66,12 @@ class UdpPort {
 
     this.server.on('listening', () => {
       const address = this.server.address();
-      this.server.setBroadcast(true);
-      this.server.setMulticastTTL(128);
-      for (let board in this.config.boards) {
-        let ipChunks = this.config.boards[board].address.split(".");
-        this.server.addMembership('224.0.5.' + ipChunks[3]);
-      }
-       // repeat for each board
+      // this.server.setBroadcast(true);
+      // this.server.setMulticastTTL(128);
+      // for (let board in this.config.boards) {
+      //   let ipChunks = this.config.boards[board].address.split(".");
+      //   this.server.addMembership('224.0.5.' + ipChunks[3]);
+      // }
       console.log(`server listening ${address.address}:${address.port}`);
     });
 
