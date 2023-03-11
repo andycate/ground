@@ -32,29 +32,34 @@ class UdpPort {
     });
 
     this.server.on('message', (msg, rinfo) => {
-      // console.log(rinfo.address);
-      let board
-      if(rinfo.address === '127.0.0.1'){
-        const addressLen = msg.readUInt8(0)
-        const devAddress = msg.toString("utf8", 1, 1+addressLen)
-        board = this.boards[devAddress]
-        msg = msg.slice(1+addressLen)
-      }else{
-        let id = msg.readUInt8(0);
-        if (id === 133) { // Abort stuff
-          let abortReason = msg.readUInt8(9);
-          console.log("Abort reason: " + abortReason);
-          fs.appendFile("./abortlog.txt", Date.now().toString() + " " + rinfo.address + " " + abortReason + "\n", "utf8", () => {});
+      try {
+        // console.log(rinfo.address);
+        let board
+        if(rinfo.address === '127.0.0.1'){
+          const addressLen = msg.readUInt8(0)
+          const devAddress = msg.toString("utf8", 1, 1+addressLen)
+          board = this.boards[devAddress]
+          msg = msg.slice(1+addressLen)
+        }else{
+          let id = msg.readUInt8(0);
+          if (id === 133) { // Abort stuff
+            let abortReason = msg.readUInt8(9);
+            console.log("Abort reason: " + abortReason);
+            fs.appendFile("./abortlog.txt", new Date().toLocaleString("en-US", {timeZone: "America/Los_Angeles"}) + " " + rinfo.address + " " + abortReason + "\n", "utf8", () => {});
+          }
+          board = this.boards[rinfo.address];
         }
-        board = this.boards[rinfo.address];
+        if(!board) return;
+        board.updateRcvRate(msg.length);
+        const packet = board.parseMsgBuf(msg);
+        if (packet) {
+          const update = board.processPacket(packet);
+          if (update === undefined) return;
+          this.updateStateCallback(packet.timestamp, update);
+        }
       }
-      if(!board) return;
-      board.updateRcvRate(msg.length);
-      const packet = board.parseMsgBuf(msg);
-      if (packet) {
-        const update = board.processPacket(packet);
-        if (update === undefined) return;
-        this.updateStateCallback(packet.timestamp, update);
+      catch (e) {
+        console.log(e);
       }
     });
 

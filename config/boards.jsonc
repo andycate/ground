@@ -31,12 +31,16 @@
 		"type": "lc",
 		"address": "10.0.0.21"
 	},
-	"ioreg": {
-		"type": "ereg",
-		"address": "10.0.0.28"
-	},
-	"ifreg": {
-		"type": "ereg",
-		"address": "10.0.0.27"
+	// "ioreg": {
+	// 	"type": "ereg",
+	// 	"address": "10.0.0.28"
+	// },
+	// "ifreg": {
+	// 	"type": "ereg",
+	// 	"address": "10.0.0.27"
+	// },
+	"rtd": {
+		"type": "flightV4",
+		"address": "10.0.0.81"
 	}
 }

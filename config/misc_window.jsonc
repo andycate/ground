@@ -282,6 +282,23 @@
 					"units": "s"
 				}
 			]
+		},
+		{
+			"type": "graph",
+			"values": [
+				{
+					"field": "rtd.rtd0",
+					"name": "RTD 0",
+					"units": "C",
+					"color": [255, 0, 0]
+				}
+				// {
+				// 	"field": "rtd.rtd1",
+				// 	"name": "RTD 1",
+				// 	"units": "C",
+				// 	"color": [0, 255, 0]
+				// }
+			]
 		}
 	]
 }

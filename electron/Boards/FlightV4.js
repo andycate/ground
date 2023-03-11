@@ -132,12 +132,10 @@ class FlightV4 extends Board {
         ["ptValue7", asFloat]
       ],
 
-      // TC Value
+      // RTD Value
       20: [
-        ["tcValue0", asFloat],
-        ["tcValue1", asFloat],
-        ["tcValue2", asFloat],
-        ["tcValue3", asFloat]
+        ["rtd0", asFloat]
+        // ["rtd1", asFloat]
       ],
 
       // LOX Cap Fill

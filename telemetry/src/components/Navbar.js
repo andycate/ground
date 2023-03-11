@@ -93,6 +93,7 @@ class Navbar extends Component {
     return (
       <AppBar position="static" color="default" elevation={0} className={classes.bar}>
         <Toolbar variant="dense">
+          <p>{"Flow Time: " + this.config.burnTime}</p>
           <div className={classes.spacer}/>
           {
             Object.keys(this.config.boards).map(boardName => (
