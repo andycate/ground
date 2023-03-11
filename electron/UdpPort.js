@@ -42,6 +42,9 @@ class UdpPort {
           msg = msg.slice(1+addressLen)
         }else{
           let id = msg.readUInt8(0);
+          if (rinfo.address === "10.0.0.12" && id > 4) {
+            console.log(msg.readUInt8(0))
+          }
           if (id === 133) { // Abort stuff
             let abortReason = msg.readUInt8(9);
             console.log("Abort reason: " + abortReason);
