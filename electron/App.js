@@ -41,7 +41,7 @@ class App {
    * Separate init function from constructor to ensure WebContents are present before accepting IPC invocations
    */
   initApp() {
-    this.port = new UdpPort('0.0.0.0', 42069, this.updateState, this.config);
+    this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
 
     const boardTypes = {
       "flightV4": FlightV4,
