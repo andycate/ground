@@ -9,9 +9,10 @@ class UdpPort {
    * @param {Number} port
    * @param {Function} updateStateCallback
    */
-  constructor(address, port, updateStateCallback) {
+  constructor(address, port, updateStateCallback, config) {
     this.address = address;
     this.port = port;
+    this.config = config;
     this.server = dgram.createSocket('udp4');
     /**
      * @type {Object.<String, Board>}
@@ -42,10 +43,6 @@ class UdpPort {
           msg = msg.slice(1+addressLen)
         }else{
           let id = msg.readUInt8(0);
-          if (rinfo.address === "10.0.0.12" && id > 4) {
-            console.log(msg.readUInt8(0));
-            console.log(msg.toString('hex').match(/../g).join(' '));
-          }
           if (id === 133) { // Abort stuff
             let abortReason = msg.readUInt8(9);
             console.log("Abort reason: " + abortReason);
@@ -69,6 +66,13 @@ class UdpPort {
 
     this.server.on('listening', () => {
       const address = this.server.address();
+      this.server.setBroadcast(true);
+      this.server.setMulticastTTL(128);
+      for (let board in this.config.boards) {
+        let ipChunks = this.config.boards[board].address.split(".");
+        this.server.addMembership('224.0.5.' + ipChunks[3]);
+      }
+       // repeat for each board
       console.log(`server listening ${address.address}:${address.port}`);
     });
 
