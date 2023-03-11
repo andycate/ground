@@ -18,7 +18,7 @@ class ButtonGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      commsOpenReading: false,
+      status: 0,
       btnOpen: false,
       disabled: this.props.safe
     };
@@ -30,7 +30,7 @@ class ButtonGroup extends Component {
   }
 
   updateOpen(timestamp, value) {
-    this.setState({ commsOpenReading: value });
+    this.setState({ status: value });
   }
 
   setOpen() {
@@ -66,16 +66,16 @@ class ButtonGroup extends Component {
   }
 
   render() {
-    const { classes, theme, text, children, safe } = this.props;
-    const { commsOpenReading, btnOpen, disabled } = this.state;
+    const { classes, theme, text, children, safe, green } = this.props;
+    const { status, btnOpen, disabled } = this.state;
+    let sColor = theme.palette.error.main;
+    if (green.includes(status)) {
+      sColor = theme.palette.success.main;
+    }
     return (
       <GroupLabel
         text={text}
-        barColor={
-          commsOpenReading
-            ? theme.palette.success.main
-            : theme.palette.error.main
-        }
+        barColor={sColor}
         safe={safe} classes={classes} changeState={this.setDisabled}
       >
         <Grid item>

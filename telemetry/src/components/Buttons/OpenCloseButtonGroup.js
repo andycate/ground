@@ -60,7 +60,7 @@ export default function OpenCloseButtonGroup({
         variant="text"
         className={isOpen ? classes.closedButtonOutline : classes.closedButton}
         onClick={setClosed}
-        disabled={props.disabled || false}
+        disabled={props.ereg ? (props.disabled || false) : false}
         disableRipple
         size="small"
       >

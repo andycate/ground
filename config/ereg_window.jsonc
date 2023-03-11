@@ -57,34 +57,34 @@
 			"type": "six-square",
 			"values": [
 				{
-					"field": "oreg.pressureSetpointConfig",
-					"name": "LOX Setpoint",
+					"field": "oreg.upstreamPressure",
+					"name": "LOX Press",
 					"units": "PSI"
 				},
 				{
-					"field": "freg.pressureSetpointConfig",
-					"name": "Fuel Setpoint",
+					"field": "oreg.downstreamPressure",
+					"name": "LOX Tank",
 					"units": "PSI"
 				},
 				{
-					"field": "oreg.flowDuration",
-					"name": "Burn Time (O-Reg)",
-					"units": "s"
+					"field": "oreg.pressureSetpoint",
+					"name": "Lox SetP",
+					"units": "PSI"
 				},
 				{
-					"field": "oreg.fullyClosedSwitch",
-					"name": "LOX Closed Switch",
-					"units": ""
+					"field": "freg.upstreamPressure",
+					"name": "Fuel Press",
+					"units": "PSI"
 				},
 				{
-					"field": "freg.fullyClosedSwitch",
-					"name": "Fuel Closed Switch",
-					"units": ""
+					"field": "freg.downstreamPressure",
+					"name": "Fuel Tank",
+					"units": "PSI"
 				},
 				{
-					"field": "freg.flowDuration",
-					"name": "Burn Time (F-Reg)",
-					"units": "s"
+					"field": "freg.pressureSetpoint",
+					"name": "Fuel SetP",
+					"units": "PSI"
 				}
 			]
 		},

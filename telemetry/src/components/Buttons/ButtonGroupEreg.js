@@ -54,19 +54,11 @@ class ButtonGroupEreg extends Component {
   }
 
   render() {
-    const { classes, theme, text, safe } = this.props;
+    const { classes, theme, text, safe, green } = this.props;
     const { status, openClicked, disabled } = this.state;
-    let sColor = null;
-    switch (status) {
-      case 0:
-        sColor = theme.palette.error.main;
-        break;
-      case 1:
-        sColor = theme.palette.success.main;
-        break;
-      case 2:
-        sColor = theme.palette.warning.main;
-        break;
+    let sColor = theme.palette.error.main;
+    if (green.includes(status)) {
+      sColor = theme.palette.success.main;
     }
     return (
       <GroupLabel

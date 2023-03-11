@@ -109,6 +109,7 @@ class NineGrid extends Component {
   constructor(props) {
     super(props);
     this.windowConfig = props.windowConfig;
+    this.config = props.config;
     // this.lastPressRocValue = 0;
     // this.lastPressRocTime = window.performance.now();
     // this.rocValues = [];
@@ -181,13 +182,14 @@ class NineGrid extends Component {
                                 value.name,
                                 value.field,
                                 value.actions,
-                                value.safe || false
+                                value.safe || false,
+                                value.green || []
                               ])}
                             />
                           )
                         case "launch":
                           return (
-                            <LaunchButton />
+                            <LaunchButton mode={this.config.mode} />
                           )
                         case "progress":
                           return (

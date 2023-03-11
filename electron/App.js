@@ -23,6 +23,7 @@ class App {
     this.commandFuncs = {};
     this.config = config;
     this.boards = {};
+    this.lastValues = {};
 
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
@@ -104,6 +105,7 @@ class App {
     this.sendStateUpdate(timestamp, update);
     let mappedUpdate = {};
     Object.keys(update).forEach(_k => {
+      this.lastValues[_k] = update[_k];
       if (this.config.influxMap[_k] !== undefined) {
         mappedUpdate[this.config.influxMap[_k]] = update[_k];
       }
@@ -179,10 +181,12 @@ class App {
 
   addIPC(channel, handler, dbrecord = true) {
     let updateFunc = (...args) => {
-      const update = {
-        [channel]: args.length > 1 ? `invoked with arg(s): ${args.slice(1).join(", ")}` : 'invoked'
-      };
-      this.updateState(Date.now(), update, dbrecord)
+      if (args[2] !== 209) {
+        const update = {
+          [channel]: args.length > 1 ? `invoked with arg(s): ${args.slice(1).join(", ")}` : 'invoked'
+        };
+        this.updateState(Date.now(), update, dbrecord)
+      }
       return handler(...args);
     }
     ipcMain.handle(channel, updateFunc);
@@ -321,37 +325,89 @@ class App {
     return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...values]);
   }
 
+  static generateAbortPacket(config, reason) {
+    let idBuf = Buffer.alloc(1);
+    idBuf.writeUInt8(133);
+    let len = 2;
+    let values = [];
+    let systemModeBuf = Buffer.alloc(1);
+    systemModeBuf.writeUInt8(config.mode);
+    values.push(systemModeBuf);
+    let reasonBuf = Buffer.alloc(1);
+    reasonBuf.writeUInt8(reason);
+    values.push(reasonBuf);
+    let lenBuf = Buffer.alloc(1);
+    lenBuf.writeUInt8(len);
+    let tsOffsetBuf = Buffer.alloc(4)
+    tsOffsetBuf.writeUInt32LE(Date.now() - initTime);
+    let checksumBuf = Buffer.alloc(2);
+    checksumBuf.writeUInt16LE(fletcher16Partitioned([idBuf, lenBuf, tsOffsetBuf, ...values]));
+    return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...values]);
+  }
+
+  static generateLaunchPacket(config) {
+    let idBuf = Buffer.alloc(1);
+    idBuf.writeUInt8(149);
+    let len = 5;
+    let values = [];
+    let systemModeBuf = Buffer.alloc(1);
+    systemModeBuf.writeUInt8(config.mode);
+    values.push(systemModeBuf);
+    let launchDurationBuf = Buffer.alloc(4);
+    launchDurationBuf.writeUInt16LE(config.burnTime);
+    values.push(launchDurationBuf);
+    let lenBuf = Buffer.alloc(1);
+    lenBuf.writeUInt8(len);
+    let tsOffsetBuf = Buffer.alloc(4)
+    tsOffsetBuf.writeUInt32LE(Date.now() - initTime);
+    let checksumBuf = Buffer.alloc(2);
+    checksumBuf.writeUInt16LE(fletcher16Partitioned([idBuf, lenBuf, tsOffsetBuf, ...values]));
+    return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...values]);
+  }
+
   launch() {
     console.log("launch");
-    this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
-    setTimeout(() => {
-      this.sendPacket(null, "ac1", 100, 4, 4, 0); // Open LOX main
-      setTimeout(() => {
-        this.sendPacket(null, "ac1", 100, 5, 4, 0); // Open fuel main
-        setTimeout(() => {
-          this.sendSignalPacket(null, "oreg", 200); // Launch o-reg
-          setTimeout(() => {
-            this.sendSignalPacket(null, "freg", 200); // Launch f-reg
-            setTimeout(() => {
-              this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
-            }, 2000);
-          }, 10);
-        }, 10);
-      }, 10);
-    }, 10);
+    if (this.config.mode === 0 || this.config.mode === 1) {
+      if (this.lastValues["ac1.actuatorContinuity0"] === undefined || this.lastValues["ac1.actuatorContinuity0"] < 1) {
+        this.abortWithReason(4); // Igniter no continuity abort
+        return;
+      }
+      if (this.lastValues["ac1.actuatorContinuity1"] === undefined || this.lastValues["ac1.actuatorContinuity1"] < 1) {
+        this.abortWithReason(5); // Breakwire no continuity abort
+        return;
+      }
+    }
+    let buf = App.generateLaunchPacket(this.config);
+    this.port.send(this.boards[this.config.controller].address, buf);
+    // this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
+    // setTimeout(() => {
+    //   this.sendPacket(null, "ac1", 100, 4, 4, 0); // Open LOX main
+    //   setTimeout(() => {
+    //     this.sendPacket(null, "ac1", 100, 5, 4, 0); // Open fuel main
+    //     setTimeout(() => {
+    //       this.sendSignalPacket(null, "oreg", 200); // Launch o-reg
+    //       setTimeout(() => {
+    //         this.sendSignalPacket(null, "freg", 200); // Launch f-reg
+    //         setTimeout(() => {
+    //           this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
+    //         }, 2000);
+    //       }, 10);
+    //     }, 10);
+    //   }, 10);
+    // }, 10);
 
-    setTimeout(() => {
-      this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
-      setTimeout(() => {
-        this.sendPacket(null, "ac1", 100, 4, 5, 0); // Close LOX main
-        setTimeout(() => {
-          this.sendPacket(null, "ac1", 100, 5, 5, 0); // Close fuel main
-          setTimeout(() => {
-            this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
-          }, 2000);
-        }, 10);
-      }, 10);
-    }, this.config.burnTime);
+    // setTimeout(() => {
+    //   this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
+    //   setTimeout(() => {
+    //     this.sendPacket(null, "ac1", 100, 4, 5, 0); // Close LOX main
+    //     setTimeout(() => {
+    //       this.sendPacket(null, "ac1", 100, 5, 5, 0); // Close fuel main
+    //       setTimeout(() => {
+    //         this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
+    //       }, 2000);
+    //     }, 10);
+    //   }, 10);
+    // }, this.config.burnTime);
 
       // close arm at end
       // check if igniter enabled
@@ -359,11 +415,17 @@ class App {
       // check arm, main valve currents first
   }
 
+  abortWithReason(reason) {
+    console.log("abort " + reason);
+    let buf = App.generateAbortPacket(this.config, reason);
+    this.port.broadcast(buf);
+  }
+
   abort() {
 
     // This is not complete nor correct; the abort tasks list is confusing
 
-    console.log("abort");
+    this.abortWithReason(3);
 
     // deactivate igniter
     // open lox gems
@@ -377,37 +439,37 @@ class App {
     // (for vertical) close main valve vent
     // close arm
 
-    this.sendPacket(null, "ac2", 100, 2, 5, 0); // Close igniter
-    setTimeout(() => {
-      this.sendPacket(null, "ac2", 100, 6, 4, 0); // Open LOX GEMS
-      setTimeout(() => {
-        this.sendPacket(null, "ac2", 100, 7, 4, 0); // Open fuel GEMS
-        setTimeout(() => {
-          this.sendSignalPacket(null, "oreg", 201); // Abort o-reg
-          setTimeout(() => {
-            this.sendSignalPacket(null, "freg", 201); // Abort f-reg
-            setTimeout(() => {
-              this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
-              setTimeout(() => {
-                this.sendPacket(null, "ac1", 100, 4, 5, 0); // Close LOX main
-                setTimeout(() => {
-                  this.sendPacket(null, "ac1", 100, 5, 5, 0); // Close fuel main
-                  setTimeout(() => {
-                    this.sendPacket(null, "ac2", 100, 3, 0, 0); // Open LOX Vent
-                    setTimeout(() => {
-                      this.sendPacket(null, "ac2", 100, 4, 0, 0); // Open fuel vent
-                      setTimeout(() => {
-                        this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
-                      }, 2000);
-                    }, 10);
-                  }, 10);
-                }, 10);
-              }, 10);
-            }, 10);
-          }, 10);
-        }, 10);
-      }, 10);
-    }, 10);
+    // this.sendPacket(null, "ac2", 100, 2, 5, 0); // Close igniter
+    // setTimeout(() => {
+    //   this.sendPacket(null, "ac2", 100, 6, 4, 0); // Open LOX GEMS
+    //   setTimeout(() => {
+    //     this.sendPacket(null, "ac2", 100, 7, 4, 0); // Open fuel GEMS
+    //     setTimeout(() => {
+    //       this.sendSignalPacket(null, "oreg", 201); // Abort o-reg
+    //       setTimeout(() => {
+    //         this.sendSignalPacket(null, "freg", 201); // Abort f-reg
+    //         setTimeout(() => {
+    //           this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
+    //           setTimeout(() => {
+    //             this.sendPacket(null, "ac1", 100, 4, 5, 0); // Close LOX main
+    //             setTimeout(() => {
+    //               this.sendPacket(null, "ac1", 100, 5, 5, 0); // Close fuel main
+    //               setTimeout(() => {
+    //                 this.sendPacket(null, "ac2", 100, 3, 0, 0); // Open LOX Vent
+    //                 setTimeout(() => {
+    //                   this.sendPacket(null, "ac2", 100, 4, 0, 0); // Open fuel vent
+    //                   setTimeout(() => {
+    //                     this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
+    //                   }, 2000);
+    //                 }, 10);
+    //               }, 10);
+    //             }, 10);
+    //           }, 10);
+    //         }, 10);
+    //       }, 10);
+    //     }, 10);
+    //   }, 10);
+    // }, 10);
   }
 }
 

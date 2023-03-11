@@ -107,17 +107,6 @@
 			]
 		},
 		{
-			"type": "graph",
-			"values": [
-				{
-					"field": "ac2.actuatorCurrent3",
-					"name": "LOX Vent Current",
-					"units": "mA",
-					"color": [255, 0, 0]
-				}
-			]
-		},
-		{
 			"type": "four-button",
 			"buttons": [
 				{
@@ -198,7 +187,8 @@
 							"board": "lc",
 							"packet": 100
 						}
-					}
+					},
+					"safe": true
 				},
 				{
 					"id": "zeroPT",
@@ -216,7 +206,8 @@
 							"board": "pt",
 							"packet": 100
 						}
-					}
+					},
+					"safe": true
 				},
 				{
 					"type": null
@@ -254,6 +245,41 @@
 					"field": "freg.bufferSize",
 					"name": "F OC Buffer",
 					"units": ""
+				}
+			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "oreg.pressureSetpointConfig",
+					"name": "LOX Setpoint",
+					"units": "PSI"
+				},
+				{
+					"field": "freg.pressureSetpointConfig",
+					"name": "Fuel Setpoint",
+					"units": "PSI"
+				},
+				{
+					"field": "oreg.flowDuration",
+					"name": "Burn Time (O-Reg)",
+					"units": "s"
+				},
+				{
+					"field": "oreg.fullyClosedSwitch",
+					"name": "LOX Closed Switch",
+					"units": ""
+				},
+				{
+					"field": "freg.fullyClosedSwitch",
+					"name": "Fuel Closed Switch",
+					"units": ""
+				},
+				{
+					"field": "freg.flowDuration",
+					"name": "Burn Time (F-Reg)",
+					"units": "s"
 				}
 			]
 		}

@@ -6,7 +6,7 @@
 			"type": "six-square",
 			"values": [
 				{
-					"field": "ac1.actuatorContinuity0",
+					"field": "ac2.actuatorContinuity2",
 					"name": "N2 Flow",
 					"units": "V"
 				},
@@ -51,23 +51,23 @@
 					"units": "V"
 				},
 				{
-					"field": "ac2.actuatorContinuity2",
+					"field": "ac1.actuatorContinuity0",
 					"name": "Igniter",
 					"units": "V"
 				},
 				{
-					"field": "ac2.actuatorContinuity3",
+					"field": "ac2.actuatorContinuity4",
 					"name": "LOX Vent",
 					"units": "V"
 				},
 				{
-					"field": "ac2.actuatorContinuity4",
+					"field": "ac2.actuatorContinuity5",
 					"name": "Fuel Vent",
 					"units": "V"
 				},
 				{
-					"field": "ac2.actuatorContinuity5",
-					"name": "Igniter Relay",
+					"field": "ac1.actuatorContinuity1",
+					"name": "Breakwire",
 					"units": "V"
 				}
 			]
@@ -117,7 +117,7 @@
 			"type": "six-square",
 			"values": [
 				{
-					"field": "ac1.actuatorCurrent0",
+					"field": "ac2.actuatorCurrent2",
 					"name": "N2 Flow",
 					"units": "mA"
 				},
@@ -162,23 +162,23 @@
 					"units": "mA"
 				},
 				{
-					"field": "ac2.actuatorCurrent2",
+					"field": "ac1.actuatorCurrent0",
 					"name": "Igniter",
 					"units": "mA"
 				},
 				{
-					"field": "ac2.actuatorCurrent3",
+					"field": "ac2.actuatorCurrent4",
 					"name": "LOX Vent",
 					"units": "mA"
 				},
 				{
-					"field": "ac2.actuatorCurrent4",
+					"field": "ac2.actuatorCurrent5",
 					"name": "Fuel Vent",
 					"units": "mA"
 				},
 				{
-					"field": "ac2.actuatorCurrent5",
-					"name": "Igniter Relay",
+					"field": "ac1.actuatorCurrent1",
+					"name": "Breakwire",
 					"units": "mA"
 				}
 			]

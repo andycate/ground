@@ -7,5 +7,7 @@
 		"sensors": "$sensors_window.jsonc",
 		"controls": "$controls_window.jsonc"
 	},
-	"burnTime": 30000 // ms
+	"burnTime": 30000, // ms
+	"mode": 1, // 0 = launch, 1 = hotfire, 2 = coldflow, 3 = gasflow
+	"controller": "ac1"
 }

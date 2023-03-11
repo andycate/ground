@@ -60,7 +60,22 @@ class LaunchButton extends Component {
   }
 
   render() {
-    const { children, classes, fields } = this.props;
+    const { children, classes, fields, mode } = this.props;
+    let launchText = "";
+    switch (mode) {
+      case 0:
+        launchText = "Launch"
+        break;
+      case 1:
+        launchText = "Burn"
+        break;
+      case 2:
+        launchText = "Flow"
+        break;
+      case 3:
+        launchText = "Gas Flow"
+        break;
+    }
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
@@ -69,7 +84,7 @@ class LaunchButton extends Component {
 			<BigButton
 				disabled={this.state.disabled}
 				onClick={this.beginLaunchSequence}
-				text="Launch"
+				text={launchText}
 			/>
 			</Grid>
 			<Grid item xs={12}>

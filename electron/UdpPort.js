@@ -1,5 +1,5 @@
 const dgram = require('dgram');
-
+const fs = require('fs');
 const Packet = require('./Packet');
 
 class UdpPort {
@@ -32,6 +32,7 @@ class UdpPort {
     });
 
     this.server.on('message', (msg, rinfo) => {
+      // console.log(rinfo.address);
       let board
       if(rinfo.address === '127.0.0.1'){
         const addressLen = msg.readUInt8(0)
@@ -39,6 +40,12 @@ class UdpPort {
         board = this.boards[devAddress]
         msg = msg.slice(1+addressLen)
       }else{
+        let id = msg.readUInt8(0);
+        if (id === 133) { // Abort stuff
+          let abortReason = msg.readUInt8(9);
+          console.log("Abort reason: " + abortReason);
+          fs.appendFile("./abortlog.txt", Date.now().toString() + " " + rinfo.address + " " + abortReason + "\n", "utf8", () => {});
+        }
         board = this.boards[rinfo.address];
       }
       if(!board) return;
@@ -86,11 +93,15 @@ class UdpPort {
    * @param {Function} cb
     */
   send(address, data, print=true, cb) {
-    if (print) {
+    if (print && data.toString('hex').substring(0, 2) !== "d1") {
       process.stdout.write(data.toString('hex').match(/../g).join(' '));
+      console.log(` sent to [${address}] `);
     }
-    console.log(` sent to [${address}] `);
     this.server.send(data, this.port, address, cb);
+  }
+
+  broadcast(data, print=true, cb) {
+    this.send("10.0.0.255", data, print, cb);
   }
 }
 
