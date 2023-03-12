@@ -35,6 +35,7 @@ class LaunchButton extends Component {
     this.state = {
       disabled: true
     }
+    this.countdown = React.createRef();
     this.beginLaunchSequence = this.beginLaunchSequence.bind(this);
     this.abortAll = this.abortAll.bind(this);
   }

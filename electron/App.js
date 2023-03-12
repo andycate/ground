@@ -368,21 +368,27 @@ class App {
 
   launch() {
     console.log("launch");
+    const delay = 30;
+    setTimeout(() => {
+      if (this.config.mode === 0 || this.config.mode === 1) {
+        if (this.lastValues["ac1.actuatorContinuity0"] === undefined || this.lastValues["ac1.actuatorContinuity0"] < 1) {
+          console.log("Igniter no continuity detected");
+          // this.abortWithReason(4); // Igniter no continuity abort
+          return;
+        }
+        if (this.lastValues["ac1.actuatorContinuity1"] === undefined || this.lastValues["ac1.actuatorContinuity1"] < 1) {
+          console.log("Igniter no continuity detected");
+          // this.abortWithReason(5); // Breakwire no continuity abort
+          return;
+        }
+      }
+      console.log("actual launch");
+      let buf = App.generateLaunchPacket(this.config);
+      this.port.send(this.boards[this.config.controller].address, buf);
+    }, delay * 1000);
+
     // console.log(this.lastValues);
-    if (this.config.mode === 0 || this.config.mode === 1) {
-      if (this.lastValues["ac1.actuatorContinuity0"] === undefined || this.lastValues["ac1.actuatorContinuity0"] < 1) {
-        console.log("Igniter no continuity detected");
-        // this.abortWithReason(4); // Igniter no continuity abort
-        return;
-      }
-      if (this.lastValues["ac1.actuatorContinuity1"] === undefined || this.lastValues["ac1.actuatorContinuity1"] < 1) {
-        console.log("Igniter no continuity detected");
-        // this.abortWithReason(5); // Breakwire no continuity abort
-        return;
-      }
-    }
-    let buf = App.generateLaunchPacket(this.config);
-    this.port.send(this.boards[this.config.controller].address, buf);
+
     // this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
     // setTimeout(() => {
     //   this.sendPacket(null, "ac1", 100, 4, 4, 0); // Open LOX main
