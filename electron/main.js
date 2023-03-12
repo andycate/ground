@@ -7,10 +7,11 @@ const url = require('url');
 const App = require('./App');
 const readConfig = require('./configParser');
 
-const config = readConfig(process.argv[2]);
-const windowsList = process.argv.length <= 3 ? Object.keys(config.windows) : process.argv.slice(3);
+const port = parseInt(process.argv[2])
+const config = readConfig(process.argv[3]);
+const windowsList = process.argv.length <= 4 ? Object.keys(config.windows) : process.argv.slice(4);
 
-let backendApp = new App(config);
+let backendApp = new App(config, port);
 let selector, window1, window2;
 function createWindow () {
 

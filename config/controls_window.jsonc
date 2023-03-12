@@ -233,9 +233,9 @@
 							"board": "ac2",
 							"packet": 100,
 							"number": 6
-						},
-						"green": [0, 1]
-					}
+						}
+					},
+					"green": [0, 1]
 				},
 				{
 					"id": "fuelGems",
@@ -254,9 +254,9 @@
 							"board": "ac2",
 							"packet": 100,
 							"number": 7
-						},
-						"green": [0, 1]
-					}
+						}
+					},
+					"green": [0, 1]
 				},
 				{
 					"id": "loxMain",
@@ -347,25 +347,25 @@
 					"field": "ac2.actuatorState1",
 					"actions": {
 						"enable": {
-							"type": "extend-full",
-							"board": "ac2",
-							"packet": 100,
-							"number": 1
-						},
-						"disable": {
 							"type": "retract-full",
 							"board": "ac2",
 							"packet": 100,
 							"number": 1
 						},
+						"disable": {
+							"type": "extend-full",
+							"board": "ac2",
+							"packet": 100,
+							"number": 1
+						},
 						"enable-timed": {
-							"type": "extend-timed",
+							"type": "retract-timed",
 							"board": "ac2",
 							"packet": 100,
 							"number": 1
 						},
 						"disable-timed": {
-							"type": "retract-timed",
+							"type": "extend-timed",
 							"board": "ac2",
 							"packet": 100,
 							"number": 1

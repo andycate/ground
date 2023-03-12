@@ -15,7 +15,7 @@ let lastThrust12 = 0.0;
 // let lastThrust34 = 0.0;
 
 class App {
-  constructor(config) {
+  constructor(config, port) {
     this.webContents = [];
     // this.state = new State(model);
     this.state = new State({});
@@ -24,6 +24,7 @@ class App {
     this.config = config;
     this.boards = {};
     this.lastValues = {};
+    this.recvPort = port;
 
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
@@ -41,7 +42,7 @@ class App {
    * Separate init function from constructor to ensure WebContents are present before accepting IPC invocations
    */
   initApp() {
-    this.port = new UdpPort('0.0.0.0', 42069, this.updateState);
+    this.port = new UdpPort('0.0.0.0', this.recvPort, this.updateState);
 
     const boardTypes = {
       "flightV4": FlightV4,
@@ -367,6 +368,7 @@ class App {
 
   launch() {
     console.log("launch");
+    // console.log(this.lastValues);
     if (this.config.mode === 0 || this.config.mode === 1) {
       if (this.lastValues["ac1.actuatorContinuity0"] === undefined || this.lastValues["ac1.actuatorContinuity0"] < 1) {
         this.abortWithReason(4); // Igniter no continuity abort

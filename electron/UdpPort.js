@@ -13,6 +13,7 @@ class UdpPort {
     this.address = address;
     this.port = port;
     this.server = dgram.createSocket('udp4');
+    this.broadcastServer = dgram.createSocket('udp4');
     /**
      * @type {Object.<String, Board>}
      */
@@ -31,6 +32,11 @@ class UdpPort {
       this.server.close();
     });
 
+    this.broadcastServer.on('error', (err) => {
+      console.log(`${this.address}:${this.port} server error:\n${err.stack}`);
+      this.broadcastServer.close();
+    });
+
     this.server.on('message', (msg, rinfo) => {
       try {
         // console.log(rinfo.address);
@@ -42,9 +48,45 @@ class UdpPort {
           msg = msg.slice(1+addressLen)
         }else{
           let id = msg.readUInt8(0);
-          if (rinfo.address === "10.0.0.12" && id > 4) {
-            console.log(msg.readUInt8(0));
-            console.log(msg.toString('hex').match(/../g).join(' '));
+          if (rinfo.address === "10.0.0.11" && id > 4) {
+            // console.log(msg.readUInt8(0));
+            // console.log(msg.toString('hex').match(/../g).join(' '));
+          }
+          if (id === 133) { // Abort stuff
+            let abortReason = msg.readUInt8(9);
+            console.log("Abort reason: " + abortReason);
+            fs.appendFile("./abortlog.txt", new Date().toLocaleString("en-US", {timeZone: "America/Los_Angeles"}) + " " + rinfo.address + " " + abortReason + "\n", "utf8", () => {});
+          }
+          board = this.boards[rinfo.address];
+        }
+        if(!board) return;
+        board.updateRcvRate(msg.length);
+        const packet = board.parseMsgBuf(msg);
+        if (packet) {
+          const update = board.processPacket(packet);
+          if (update === undefined) return;
+          this.updateStateCallback(packet.timestamp, update);
+        }
+      }
+      catch (e) {
+        console.log(e);
+      }
+    });
+
+    this.broadcastServer.on('message', (msg, rinfo) => {
+      try {
+        // console.log(rinfo.address);
+        let board
+        if(rinfo.address === '127.0.0.1'){
+          const addressLen = msg.readUInt8(0)
+          const devAddress = msg.toString("utf8", 1, 1+addressLen)
+          board = this.boards[devAddress]
+          msg = msg.slice(1+addressLen)
+        }else{
+          let id = msg.readUInt8(0);
+          if (rinfo.address === "10.0.0.11" && id > 4) {
+            // console.log(msg.readUInt8(0));
+            // console.log(msg.toString('hex').match(/../g).join(' '));
           }
           if (id === 133) { // Abort stuff
             let abortReason = msg.readUInt8(9);
@@ -78,7 +120,20 @@ class UdpPort {
       console.log(`server listening ${address.address}:${address.port}`);
     });
 
+    this.broadcastServer.on('listening', () => {
+      const address = this.broadcastServer.address();
+      // this.server.setBroadcast(true);
+      // this.server.setMulticastTTL(128);
+      // for (let board in this.config.boards) {
+      //   let ipChunks = this.config.boards[board].address.split(".");
+      //   this.server.addMembership('224.0.5.' + ipChunks[3]);
+      // }
+      console.log(`server listening ${address.address}:${address.port}`);
+    });
+
     this.server.bind(this.port, this.address);
+
+    this.broadcastServer.bind(42099, this.address);
   }
 
   /**
@@ -112,7 +167,7 @@ class UdpPort {
       process.stdout.write(data.toString('hex').match(/../g).join(' '));
       console.log(` sent to [${address}] `);
     }
-    this.server.send(data, this.port, address, cb);
+    this.broadcastServer.send(data, 42099, address, cb);
   }
 
   broadcast(data, print=true, cb) {
