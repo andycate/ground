@@ -371,11 +371,13 @@ class App {
     // console.log(this.lastValues);
     if (this.config.mode === 0 || this.config.mode === 1) {
       if (this.lastValues["ac1.actuatorContinuity0"] === undefined || this.lastValues["ac1.actuatorContinuity0"] < 1) {
-        this.abortWithReason(4); // Igniter no continuity abort
+        console.log("Igniter no continuity detected");
+        // this.abortWithReason(4); // Igniter no continuity abort
         return;
       }
       if (this.lastValues["ac1.actuatorContinuity1"] === undefined || this.lastValues["ac1.actuatorContinuity1"] < 1) {
-        this.abortWithReason(5); // Breakwire no continuity abort
+        console.log("Igniter no continuity detected");
+        // this.abortWithReason(5); // Breakwire no continuity abort
         return;
       }
     }
