@@ -51,7 +51,7 @@
 					"units": "V"
 				},
 				{
-					"field": "ac1.actuatorContinuity0",
+					"field": "ac1.actuatorContinuity7",
 					"name": "Igniter",
 					"units": "V"
 				},
@@ -162,7 +162,7 @@
 					"units": "mA"
 				},
 				{
-					"field": "ac1.actuatorCurrent0",
+					"field": "ac1.actuatorCurrent7",
 					"name": "Igniter",
 					"units": "mA"
 				},
@@ -227,12 +227,6 @@
 		{
 			"type": "graph",
 			"values": [
-				{
-					"field": "lc.lcValue0",
-					"name": "LC 0",
-					"units": "lbs",
-					"color": [255, 0, 0]
-				},
 				{
 					"field": "lc.lcValue1",
 					"name": "LC 1",

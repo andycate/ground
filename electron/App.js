@@ -368,16 +368,16 @@ class App {
 
   launch() {
     console.log("launch");
-    const delay = 30;
-    setTimeout(() => {
+    // const delay = 30;
+    // setTimeout(() => {
       if (this.config.mode === 0 || this.config.mode === 1) {
-        if (this.lastValues["ac1.actuatorContinuity0"] === undefined || this.lastValues["ac1.actuatorContinuity0"] < 1) {
+        if (this.lastValues["ac1.actuatorContinuity7"] === undefined || this.lastValues["ac1.actuatorContinuity7"] < 1) {
           console.log("Igniter no continuity detected");
           // this.abortWithReason(4); // Igniter no continuity abort
           return;
         }
         if (this.lastValues["ac1.actuatorContinuity1"] === undefined || this.lastValues["ac1.actuatorContinuity1"] < 1) {
-          console.log("Igniter no continuity detected");
+          console.log("Breakwire no continuity detected");
           // this.abortWithReason(5); // Breakwire no continuity abort
           return;
         }
@@ -385,7 +385,7 @@ class App {
       console.log("actual launch");
       let buf = App.generateLaunchPacket(this.config);
       this.port.send(this.boards[this.config.controller].address, buf);
-    }, delay * 1000);
+    // }, delay * 1000);
 
     // console.log(this.lastValues);
 
