@@ -111,6 +111,7 @@ class InfluxDB {
 
     for (let k of Object.keys(update)) {
       if (isNaN(update[k])) continue;
+      if (!isFinite(update[k])) continue;
       this.pointsBuffer.push({
         measurement: k,
         tags: this.tags,
@@ -131,6 +132,7 @@ class InfluxDB {
         this.pointsBuffer = [];
         return true;
       } catch (e) {
+        console.log("error writing to influx", e);
         return false;
       }
     }

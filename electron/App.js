@@ -105,40 +105,40 @@ class App {
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
     let mappedUpdate = {};
-    Object.keys(update).forEach(_k => {
-      this.lastValues[_k] = update[_k];
-      if (this.config.influxMap[_k] !== undefined) {
-        mappedUpdate[this.config.influxMap[_k]] = update[_k];
-      }
-      else {
-        let board = _k.split(".")[0]
-        let field = _k.split(".")[1]
-        if (board === "freg" || board === "oreg" || field === "boardConnected" || field === "boardKbps") {
-          mappedUpdate[board + "_" + _k.split(".")[1]] = update[_k];
-        }
-        else {
-          mappedUpdate[_k.split(".")[1]] = update[_k];
-        }
-      }
-    })
+    // Object.keys(update).forEach(_k => {
+    //   // this.lastValues[_k] = update[_k];
+    //   if (this.config.influxMap[_k] !== undefined) {
+    //     mappedUpdate[this.config.influxMap[_k]] = update[_k];
+    //   }
+    //   else {
+    //     let board = _k.split(".")[0]
+    //     let field = _k.split(".")[1]
+    //     if (board === "freg" || board === "oreg" || field === "boardConnected" || field === "boardKbps") {
+    //       mappedUpdate[board + "_" + _k.split(".")[1]] = update[_k];
+    //     }
+    //     else {
+    //       mappedUpdate[_k.split(".")[1]] = update[_k];
+    //     }
+    //   }
+    // })
     if (dbrecord) {
       // if update value is not number -> add to syslog as well
-      Object.keys(mappedUpdate).forEach(_k => {
-        if(typeof mappedUpdate[_k] !== 'number'){
-          if(mappedUpdate[_k].message){
-            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${mappedUpdate[_k].message}`, mappedUpdate[_k].tags)
+      Object.keys(update).forEach(_k => {
+        if(typeof update[_k] !== 'number'){
+          if(update[_k].message){
+            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${update[_k].message}`, update[_k].tags)
           }else{
-            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${mappedUpdate[_k]}`)
+            this.influxDB.handleSysLogUpdate(timestamp, `${_k} -> ${update[_k]}`)
           }
         }
       })
-      this.influxDB.handleStateUpdate(timestamp, mappedUpdate);
+      this.influxDB.handleStateUpdate(timestamp, update);
     }
 
-    if(Object.keys(mappedUpdate).includes("totalThrust12")) {
-      lastThrust12 = mappedUpdate['totalThrust12']; // update total thrust value
-      this.updateState(timestamp, {"totalThrust": lastThrust12});
-    }
+    // if(Object.keys(mappedUpdate).includes("totalThrust12")) {
+    //   lastThrust12 = mappedUpdate['totalThrust12']; // update total thrust value
+    //   this.updateState(timestamp, {"totalThrust": lastThrust12});
+    // }
     // if(Object.keys(update).includes("totalThrust34")) {
     //   lastThrust34 = update['totalThrust34'];
     //   this.updateState(timestamp, {"totalThrust": lastThrust12 + lastThrust34});
@@ -370,18 +370,18 @@ class App {
     console.log("launch");
     // const delay = 30;
     // setTimeout(() => {
-      if (this.config.mode === 0 || this.config.mode === 1) {
-        if (this.lastValues["ac1.actuatorContinuity7"] === undefined || this.lastValues["ac1.actuatorContinuity7"] < 1) {
-          console.log("Igniter no continuity detected");
-          // this.abortWithReason(4); // Igniter no continuity abort
-          return;
-        }
-        if (this.lastValues["ac1.actuatorContinuity1"] === undefined || this.lastValues["ac1.actuatorContinuity1"] < 1) {
-          console.log("Breakwire no continuity detected");
-          // this.abortWithReason(5); // Breakwire no continuity abort
-          return;
-        }
-      }
+      // if (this.config.mode === 0 || this.config.mode === 1) {
+      //   if (this.lastValues["ac1.actuatorContinuity7"] === undefined || this.lastValues["ac1.actuatorContinuity7"] < 1) {
+      //     console.log("Igniter no continuity detected");
+      //     // this.abortWithReason(4); // Igniter no continuity abort
+      //     return;
+      //   }
+      //   if (this.lastValues["ac1.actuatorContinuity1"] === undefined || this.lastValues["ac1.actuatorContinuity1"] < 1) {
+      //     console.log("Breakwire no continuity detected");
+      //     // this.abortWithReason(5); // Breakwire no continuity abort
+      //     return;
+      //   }
+      // }
       console.log("actual launch");
       let buf = App.generateLaunchPacket(this.config);
       this.port.send(this.boards[this.config.controller].address, buf);
