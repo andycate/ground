@@ -129,6 +129,7 @@ class UdpPort {
       //   this.server.addMembership('224.0.5.' + ipChunks[3]);
       // }
       console.log(`server listening ${address.address}:${address.port}`);
+      this.broadcastServer.setBroadcast(true);
     });
 
     this.server.bind(this.port, this.address);

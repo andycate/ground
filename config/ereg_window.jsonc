@@ -103,7 +103,7 @@
 			"type": "graph",
 			"values": [
 				{
-					"field": "pt.ptValue4",
+					"field": "pt.ptValue5",
 					"name": "Fuel Injector PT",
 					"units": "PSI",
 					"color": [255, 0, 0]
