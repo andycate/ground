@@ -153,7 +153,7 @@ class App {
    */
   sendStateUpdate(timestamp, update) {
     for (let wc of this.webContents) {
-      if (wc.isDestroyed) {
+      if (wc.isDestroyed()) {
         continue;
       }
       wc.send('state-update', {
@@ -165,7 +165,7 @@ class App {
 
   sendDarkModeUpdate(isDark) {
     for (let wc of this.webContents) {
-      if (wc.isDestroyed) {
+      if (wc.isDestroyed()) {
         continue;
       }
       wc.send('set-darkmode', isDark);
