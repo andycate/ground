@@ -37,7 +37,7 @@ function createWindow () {
     window.loadURL(url);
     window.setTouchBar(touchBar)
     window.on('closed', function () {
-      backendApp.removeWebContents(window.webContents);
+      // backendApp.removeWebContents(window.webContents);
       window = null;
     });
     window.webContents.once('did-finish-load', () => {
@@ -120,8 +120,8 @@ app.on('window-all-closed', function () {
 
 app.on('before-quit', () => {
   console.log('quitting');
-  backendApp.removeWebContents(window1.webContents);
-  backendApp.removeWebContents(window2.webContents);
+  // backendApp.removeWebContents(window1.webContents);
+  // backendApp.removeWebContents(window2.webContents);
 });
 
 ipcMain.handle('app-info', async (event) => {
