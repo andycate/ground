@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, globalShortcut, TouchBar } = require('electron');
+const { app, BrowserWindow, ipcMain, TouchBar } = require('electron');
 const { TouchBarLabel, TouchBarButton, TouchBarSpacer, TouchBarPopover, TouchBarSegmentedControl, TouchBarScrubber } = TouchBar
 const isDev = require('electron-is-dev');
 const path = require('path');
@@ -96,9 +96,9 @@ function createSelectorWindow() {
 // Some APIs can only be used after this event occurs
 app.on('ready', () => {
   // createSelectorWindow();
-  const ret = globalShortcut.register('F17', () => {
-    backendApp.abort();
-  })
+  // const ret = globalShortcut.register('F17', () => {
+  //   backendApp.abort();
+  // })
 
   backendApp.initApp()
 
