@@ -115,9 +115,11 @@ class App {
       else {
         let [board, field] = _k.split(".");
         if (board === "freg" || board === "oreg" || field === "boardConnected" || field === "boardKbps") {
+          this.config.influxMap[_k] = _k;
           mappedUpdate[_k] = update[_k];
         }
         else {
+          this.config.influxMap[_k] = field;
           mappedUpdate[field] = update[_k];
         }
       }
