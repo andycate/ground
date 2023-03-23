@@ -41,7 +41,7 @@ a new directory in your home directory called `GroundStation`,
 where it will store data files.
 
 To start the ground station, first `cd` from the top level, project `ground` directory into the `telemetry` directory
-and run `npm run start`. This will start the "backend" of the Dashboard. Next open a **new** terminal window (the previous one must stay open for the dashboard to work) and make sure you are in the top level `ground` directory. Run ~~`npm run start [config file]` or~~ `npm run start [config file] [...window IDs]` to open either all the windows from a config or a specified list. 
+and run `npm run start`. This will start the "backend" of the Dashboard. Next open a **new** terminal window (the previous one must stay open for the dashboard to work) and make sure you are in the top level `ground` directory. Run `npm run start [port] [config file] [...window IDs]` to open either all the windows from a config or a specified list. 
 
 ~~If you would like to run the remote viewing web page, open a new
 terminal window and `cd` into the `remote` directory. Then run

@@ -15,10 +15,20 @@ class EregBoard extends Board {
         ["firmwareCommitHash", asASCIIString]
       ],
 
-      // Telemetry
+      // Pressure Telemetry
       1: [
-        ["upstreamPressure", asFloat],
-        ["downstreamPressure", asFloat],
+        ["filteredUpstreamPressure1", asFloat],
+        ["filteredUpstreamPressure2", asFloat],
+        ["filteredDownstreamPressure1", asFloat],
+        ["filteredDownstreamPressure2", asFloat],
+        ["rawUpstreamPressure1", asFloat],
+        ["rawUpstreamPressure2", asFloat],
+        ["rawDownstreamPressure1", asFloat],
+        ["rawDownstreamPressure2", asFloat],
+      ],
+
+      // Motor Telemetry
+      2: [
         ["encoderAngle", asFloat],
         ["angleSetpoint", asFloat],
         ["pressureSetpoint", asFloat],
@@ -29,7 +39,7 @@ class EregBoard extends Board {
       ],
 
       // Config
-      2: [
+      3: [
         ["pressureSetpointConfig", asFloat],
         ["pOuterNominal", asFloat],
         ["iOuterNominal", asFloat],
@@ -41,43 +51,40 @@ class EregBoard extends Board {
       ],
 
       // Diagnostic
-        3: [
-          ["motorDirPass", asUInt8],
-          ["servoDirPass", asUInt8]
-        ],
+      4: [
+        ["motorDirPass", asUInt8],
+        ["servoDirPass", asUInt8]
+      ],
 
       // State Transition Error
-        4: [
-          ["errorCode", asUInt8]
-        ],
+      5: [
+        ["errorCode", asUInt8]
+      ],
 
       // Flow State
-        5: [
-          ["flowState", asUInt8]
-        ],
+      6: [
+        ["flowState", asUInt8]
+      ],
 
       // Limit Switch
-        6: [
-          ["fullyClosedSwitch", asFloat],
-          ["fullyOpenSwitch", asFloat]
-        ],
+      7: [
+        ["fullyClosedSwitch", asFloat],
+        ["fullyOpenSwitch", asFloat]
+      ],
 
       // Phase Currents
-        7: [
-          ["currentA", asFloat],
-          ["currentB", asFloat],
-          ["currentC", asFloat]
-        ],
+      8: [
+        ["currentA", asFloat],
+        ["currentB", asFloat],
+        ["currentC", asFloat]
+      ],
 
       // Temperatures
-        8: [
-          ["boardTempA", asFloat],
-          ["boardTempB", asFloat],
-          ["motorTemp", asFloat]
-        ],
-
-      // Abort
-      9: [],
+      9: [
+        ["boardTempA", asFloat],
+        ["boardTempB", asFloat],
+        ["motorTemp", asFloat]
+      ],
 
       // Overcurrent Trigger
       10: [
