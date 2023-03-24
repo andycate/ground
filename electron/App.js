@@ -104,7 +104,7 @@ class App {
   updateState(timestamp, update, dbrecord = true) {
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
-    let mappedUpdate = update
+    let mappedUpdate = {};
     // console.time("map");
     for (let _k in update) {
       // console.time(_k);
