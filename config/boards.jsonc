@@ -1,11 +1,11 @@
 {
 	"lox-capfill": {
 		"type": "flightV4",
-		"address": "10.0.0.71"
+		"address": "10.0.0.72"
 	},
 	"fuel-capfill": {
 		"type": "flightV4",
-		"address": "10.0.0.72"
+		"address": "10.0.0.71"
 	},
 	"oreg": {
 		"type": "ereg",

@@ -289,13 +289,13 @@
 				{
 					"field": "pt.ptValue1",
 					"name": "RTD 0",
-					"units": "V",
+					"units": "mV",
 					"color": [255, 0, 0]
 				},
 				{
 				 	"field": "pt.ptValue5",
 				 	"name": "RTD 1",
-				 	"units": "V",
+				 	"units": "mV",
 				 	"color": [0, 255, 0]
 				}
 			]
