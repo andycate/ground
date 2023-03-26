@@ -76,13 +76,13 @@
 			"type": "graph",
 			"values": [
 				{
-					"field": "cap-fill.loxCapVal",
+					"field": "lox-capfill.capVal",
 					"name": "LOX Cap Fill Value",
 					"units": "pF",
 					"color": [255, 0, 0]
 				},
 				{
-					"field": "cap-fill.fuelCapVal",
+					"field": "fuel-capfill.capVal",
 					"name": "Fuel Cap Fill Value",
 					"units": "pF",
 					"color": [0, 255, 0]
@@ -287,17 +287,17 @@
 			"type": "graph",
 			"values": [
 				{
-					"field": "rtd.rtd0",
+					"field": "pt.ptValue1",
 					"name": "RTD 0",
-					"units": "C",
+					"units": "V",
 					"color": [255, 0, 0]
+				},
+				{
+				 	"field": "pt.ptValue5",
+				 	"name": "RTD 1",
+				 	"units": "V",
+				 	"color": [0, 255, 0]
 				}
-				// {
-				// 	"field": "rtd.rtd1",
-				// 	"name": "RTD 1",
-				// 	"units": "C",
-				// 	"color": [0, 255, 0]
-				// }
 			]
 		}
 	]

@@ -19,7 +19,8 @@ class FlightV4 extends Board {
       1: [
         ["flightSupply8Voltage", asFloat],
         ["flightSupply8Current", asFloat],
-        ["flightSupply8Power", asFloat]
+        ["flightSupply8Power", asFloat],
+        
       ],
 
       // IMU Telemetry
@@ -135,24 +136,24 @@ class FlightV4 extends Board {
       // RTD Value
       20: [
         ["rtd0", asFloat]
-        // ["rtd1", asFloat]
+        ["rtd1", asFloat]
       ],
 
-      // LOX Cap Fill
+      // Cap Fill
       21: [
-        ["loxCapVal", asFloat],
-        ["loxCapAvg", asFloat],
-        ["loxCapTemperature", asFloat],
-        ["loxCapRefVal", asFloat]
+        ["capVal", asFloat],
+        ["capAvg", asFloat],
+        //["loxCapTemperature", asFloat],
+        ["capRefVal", asFloat]
       ],
 
-      // Fuel Cap Fill
+      /* // Fuel Cap Fill
       22: [
         ["fuelCapVal", asFloat],
         ["fuelCapAvg", asFloat],
-        ["fuelCapTemperature", asFloat],
+        //["fuelCapTemperature", asFloat],
         ["fuelCapRefVal", asFloat]
-      ]
+      ] */
     }
   }
 }

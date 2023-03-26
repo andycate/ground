@@ -1,7 +1,11 @@
 {
-	"cap-fill": {
+	"lox-capfill": {
 		"type": "flightV4",
-		"address": "10.0.0.42"
+		"address": "10.0.0.71"
+	},
+	"fuel-capfill": {
+		"type": "flightV4",
+		"address": "10.0.0.72"
 	},
 	"oreg": {
 		"type": "ereg",
@@ -30,7 +34,7 @@
 	"lc": {
 		"type": "lc",
 		"address": "10.0.0.21"
-	},
+	}
 	// "ioreg": {
 	// 	"type": "ereg",
 	// 	"address": "10.0.0.28"
@@ -39,8 +43,8 @@
 	// 	"type": "ereg",
 	// 	"address": "10.0.0.27"
 	// },
-	"rtd": {
-		"type": "flightV4",
-		"address": "10.0.0.81"
-	}
+	// "rtd": {
+	// 	"type": "flightV4",
+	// 	"address": "10.0.0.81"
+	// }
 }
