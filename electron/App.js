@@ -114,7 +114,7 @@ class App {
       }
       else {
         let [board, field] = _k.split(".");
-        if (board === "freg" || board === "oreg" || field === "boardConnected" || field === "boardKbps") {
+        if (board === "freg" || board === "oreg" || field === "boardConnected" || field === "boardKbps" || board === "fuel-capfill" || board === "lox-capfill") {
           this.config.influxMap[_k] = _k;
           mappedUpdate[_k] = update[_k];
         }
