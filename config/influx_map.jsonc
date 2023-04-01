@@ -1,6 +1,9 @@
 {
 	"pt.ptValue0": "loxInjectorPT",
-	"pt.ptValue5": "fuelInjectorPT",
+	"pt.ptValue4": "fuelInjectorPT",
+
+	"pt.ptValue1": "loxRTD",
+	"pt.ptValue5": "fuelRTD",
 
 	"ac1.acSupply24Voltage": "ac1Supply24Voltage",
 	"ac1.acSupply24Current": "ac1Supply24Current",
