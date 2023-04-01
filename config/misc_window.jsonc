@@ -288,13 +288,13 @@
 			"values": [
 				{
 					"field": "pt.ptValue1",
-					"name": "RTD 0",
+					"name": "RTD LOx",
 					"units": "mV",
 					"color": [255, 0, 0]
 				},
 				{
 				 	"field": "pt.ptValue5",
-				 	"name": "RTD 1",
+				 	"name": "RTD Fuel",
 				 	"units": "mV",
 				 	"color": [0, 255, 0]
 				}
