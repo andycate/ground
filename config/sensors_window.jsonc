@@ -46,7 +46,7 @@
 					"units": "V"
 				},
 				{
-					"field": "ac2.actuatorContinuity1",
+					"field": "ac2.actuatorContinuity3",
 					"name": "N2 Vent",
 					"units": "V"
 				},
@@ -157,7 +157,7 @@
 					"units": "mA"
 				},
 				{
-					"field": "ac2.actuatorCurrent1",
+					"field": "ac2.actuatorCurrent3",
 					"name": "N2 Vent",
 					"units": "mA"
 				},

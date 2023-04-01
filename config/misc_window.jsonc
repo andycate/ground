@@ -287,7 +287,7 @@
 			"type": "graph",
 			"values": [
 				{
-					"field": "pt.ptValue1",
+					"field": "pt.ptValue1", //-0.676 * mean("value") + 2901.7
 					"name": "RTD LOx",
 					"units": "mV",
 					"color": [255, 0, 0]
