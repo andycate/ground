@@ -344,31 +344,31 @@
 					"id": "pressVent",
 					"type": "timed",
 					"name": "Press Vent RBV",
-					"field": "ac2.actuatorState1",
+					"field": "ac2.actuatorState3",
 					"actions": {
 						"enable": {
 							"type": "retract-full",
 							"board": "ac2",
 							"packet": 100,
-							"number": 1
+							"number": 3
 						},
 						"disable": {
 							"type": "extend-full",
 							"board": "ac2",
 							"packet": 100,
-							"number": 1
+							"number": 3
 						},
 						"enable-timed": {
 							"type": "retract-timed",
 							"board": "ac2",
 							"packet": 100,
-							"number": 1
+							"number": 3
 						},
 						"disable-timed": {
 							"type": "extend-timed",
 							"board": "ac2",
 							"packet": 100,
-							"number": 1
+							"number": 3
 						}
 					},
 					"green": [0, 1]
