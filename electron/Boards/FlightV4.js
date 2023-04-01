@@ -141,19 +141,19 @@ class FlightV4 extends Board {
 
       // Cap Fill
       21: [
-        ["capVal", asFloat],
-        ["capAvg", asFloat],
-        //["loxCapTemperature", asFloat],
-        ["capRefVal", asFloat]
+        ["loxCapVal", asFloat],
+        ["loxCapAvg", asFloat],
+        ["loxCapTemperature", asFloat],
+        ["loxCapRefVal", asFloat]
       ],
 
-      /* // Fuel Cap Fill
+      // Fuel Cap Fill
       22: [
         ["fuelCapVal", asFloat],
         ["fuelCapAvg", asFloat],
-        //["fuelCapTemperature", asFloat],
+        ["fuelCapTemperature", asFloat],
         ["fuelCapRefVal", asFloat]
-      ] */
+      ]
     }
   }
 }
