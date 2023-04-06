@@ -13,17 +13,17 @@ export class GroupLabel extends Component {
     this.stateChange = (_, e) => {
       this.setState({checked: e});
       this.props.changeState(e);
-      if (e) {
-        this.timeoutId = setTimeout(() => {
-          console.log(1);
-          console.log(this.switchRef);
-          this.setState({checked: false});
-          this.stateChange(null, false);
-        }, 5000)
-      }
-      else {
-        clearTimeout(this.timeoutId);
-      }
+      // if (e) {
+      //   this.timeoutId = setTimeout(() => {
+      //     console.log(1);
+      //     console.log(this.switchRef);
+      //     this.setState({checked: false});
+      //     this.stateChange(null, false);
+      //   }, 5000)
+      // }
+      // else {
+      //   clearTimeout(this.timeoutId);
+      // }
     }
   }
 

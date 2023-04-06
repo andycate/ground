@@ -158,7 +158,12 @@ class NineGrid extends Component {
                               field.values.map(value => [
                                 value.field,
                                 value.name,
-                                value.units
+                                value.units,
+                                null,
+                                null,
+                                null,
+                                null,
+                                value.func
                               ])}
                             />
                           )
