@@ -308,7 +308,7 @@
 				{
 					"id": "pressFill",
 					"type": "timed",
-					"name": "Press Fill 1 RBV",
+					"name": "LP (B) Press Fill RBV",
 					"field": "ac2.actuatorState0",
 					"actions": {
 						"enable": {
@@ -390,8 +390,8 @@
 				{
 					"id": "pressFill2",
 					"type": "timed",
-					"name": "Press Fill 2 RBV",
-					"field": "ac1.actuatorState2",
+					"name": "HP (B) Press Fill RBV",
+					"field": "ac1.actuatorState6",
 					"actions": {
 						"enable": {
 							// "type": "retract-full",
