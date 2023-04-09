@@ -245,8 +245,8 @@
 			"type": "graph",
 			"values": [
 				{
-					"field": "tc.tcValue0",
-					"name": "Engn TC 0",
+					"field": "tc.tcValue6",
+					"name": "Engn TC 6",
 					"units": "C",
 					"color": [255, 0, 0]
 				},
