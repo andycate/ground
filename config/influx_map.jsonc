@@ -11,7 +11,7 @@
 
 	"ac1.actuatorState0": "empty0State",
 	"ac1.actuatorState1": "breakwireState",
-	"ac1.actuatorState2": "empty2State",
+	"ac1.actuatorState2": "n2Fill2State",
 	"ac1.actuatorState3": "armState",
 	"ac1.actuatorState4": "loxMainState",
 	"ac1.actuatorState5": "fuelMainState",
@@ -20,7 +20,7 @@
 
 	"ac1.actuatorContinuity0": "empty0Continuity",
 	"ac1.actuatorContinuity1": "breakwireContinuity",
-	"ac1.actuatorContinuity2": "empty2Continuity",
+	"ac1.actuatorContinuity2": "n2Fill2Continuity", //added
 	"ac1.actuatorContinuity3": "armContinuity",
 	"ac1.actuatorContinuity4": "loxMainContinuity",
 	"ac1.actuatorContinuity5": "fuelMainContinuity",
@@ -29,7 +29,7 @@
 
 	"ac1.actuatorCurrent0": "empty0Current",
 	"ac1.actuatorCurrent1": "breakwireCurrent",
-	"ac1.actuatorCurrent2": "empty2Current",
+	"ac1.actuatorCurrent2": "n2Fill2Current", //added
 	"ac1.actuatorCurrent3": "armCurrent",
 	"ac1.actuatorCurrent4": "loxMainCurrent",
 	"ac1.actuatorCurrent5": "fuelMainCurrent",
