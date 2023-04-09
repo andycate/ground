@@ -8,7 +8,7 @@
 				{
 					"id": "press",
 					"type": "timed",
-					"name": "Pressurant",
+					"name": "Press Flow RBV",
 					"field": "ac2.actuatorState2",
 					"actions": {
 						"enable": {
