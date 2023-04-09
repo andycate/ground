@@ -6,8 +6,8 @@
 			"type": "six-square",
 			"values": [
 				{
-					"field": "cap-fill.flightSupply8Voltage",
-					"name": "CF",
+					"field": "ac1.actuatorContinuity6",
+					"name": "HIGH Press Fill",
 					"units": "V"
 				},
 				{
@@ -41,8 +41,8 @@
 			"type": "six-square",
 			"values": [
 				{
-					"field": "cap-fill.flightSupply8Current",
-					"name": "CF",
+					"field": "ac1.actuatorCurrent6",
+					"name": "HIGH Press Fill",
 					"units": "mA"
 				},
 				{

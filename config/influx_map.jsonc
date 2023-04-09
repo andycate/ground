@@ -20,7 +20,7 @@
 
 	"ac1.actuatorContinuity0": "empty0Continuity",
 	"ac1.actuatorContinuity1": "breakwireContinuity",
-	"ac1.actuatorContinuity2": "mventContinuity", //added
+	"ac1.actuatorContinuity2": "mventContinuity", 
 	"ac1.actuatorContinuity3": "armContinuity",
 	"ac1.actuatorContinuity4": "loxMainContinuity",
 	"ac1.actuatorContinuity5": "fuelMainContinuity",
@@ -29,7 +29,7 @@
 
 	"ac1.actuatorCurrent0": "empty0Current",
 	"ac1.actuatorCurrent1": "breakwireCurrent",
-	"ac1.actuatorCurrent2": "mventCurrent", //added
+	"ac1.actuatorCurrent2": "mventCurrent", 
 	"ac1.actuatorCurrent3": "armCurrent",
 	"ac1.actuatorCurrent4": "loxMainCurrent",
 	"ac1.actuatorCurrent5": "fuelMainCurrent",

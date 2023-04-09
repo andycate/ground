@@ -42,7 +42,7 @@
 			"values": [
 				{
 					"field": "ac2.actuatorContinuity0",
-					"name": "N2 Fill",
+					"name": "LOW Press Fill",
 					"units": "V"
 				},
 				{
@@ -153,7 +153,7 @@
 			"values": [
 				{
 					"field": "ac2.actuatorCurrent0",
-					"name": "N2 Fill",
+					"name": "LOW Press Fill",
 					"units": "mA"
 				},
 				{
