@@ -404,19 +404,19 @@
 							"type": "extend-full",
 							"board": "ac1",
 							"packet": 100,
-							"number": 2
+							"number": 6
 						},
 						"enable-timed": {
 							"type": "retract-timed",
 							"board": "ac1",
 							"packet": 100,
-							"number": 2
+							"number": 6
 						},
 						"disable-timed": {
 							"type": "extend-timed",
 							"board": "ac1",
 							"packet": 100,
-							"number": 2
+							"number": 6
 						}
 					},
 					"safe": true,
