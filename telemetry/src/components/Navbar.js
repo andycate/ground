@@ -28,7 +28,9 @@ const styles = theme => ({
 class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      influxState: 0
+    };
     this.config = props.config;
     this.boardConnectedCallbacks = {};
     this.boardKbpsCallbacks = {};
@@ -47,6 +49,8 @@ class Navbar extends Component {
 
     this.updateBoardConnected = this.updateBoardConnected.bind(this);
     this.updateBoardKbps = this.updateBoardKbps.bind(this);
+    this.updateInfluxState = this.updateInfluxState.bind(this);
+    this.updateInfluxDatabase = this.updateInfluxDatabase.bind(this);
   }
 
   updateBoardConnected(timestamp, boardName, value) {
@@ -62,6 +66,14 @@ class Navbar extends Component {
       boardState[boardName + ".connected"] = true;
     }
     this.setState(boardState);
+  }
+
+  updateInfluxState(timestamp, value) {
+    this.setState({influxState: value});
+  }
+
+  updateInfluxDatabase(timestamp, value) {
+    this.setState({influxDatabase: value});
   }
 
   async componentDidMount() {
@@ -97,10 +109,13 @@ class Navbar extends Component {
           <div className={classes.spacer}/>
           {
             Object.keys(this.config.boards).map(boardName => (
-              <Button className={this.state[boardName + ".connected"] ? classes.connectedButton : classes.disconnectedButton}>{boardName} - {this.state[boardName + ".kbps"]}</Button>
+              <Button className={this.state[boardName + ".connected"] ? classes.connectedButton : classes.disconnectedButton}>{boardName} - {Math.round(this.state[boardName + ".kbps"])}</Button>
             ))
           }
           <div className={classes.spacer}/>
+          {/* <p>
+            Influx: {this.state.influxState === 0 && "Not Connected"}{this.state.influxState === 1 && this.state.influxDatabase}{this.state.influxState === 2 && "Error"}
+          </p> */}
           <Tooltip title='Toggle light/dark theme'>
             <IconButton
               color="inherit"

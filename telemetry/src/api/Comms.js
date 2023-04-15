@@ -25,6 +25,7 @@ class Comms {
 
   stateUpdate(event, payload) {
     const { timestamp, update } = payload;
+    // console.log(payload);
     for (let k of Object.keys(update)) {
       const subs = this.subscribers[k];
       if (subs !== undefined) {

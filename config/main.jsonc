@@ -6,7 +6,8 @@
 		"misc": "$misc_window.jsonc",
 		"sensors": "$sensors_window.jsonc",
 		"controls": "$controls_window.jsonc"
-	},	
+	},
+	"preprocessors": "$preprocessors.jsonc",
 	"burnTime": 45000, // ms
 	"mode": 1, // 0 = launch, 1 = hotfire, 2 = coldflow, 3 = gasflow
 	"controller": "ac1"

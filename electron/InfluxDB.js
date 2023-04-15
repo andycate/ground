@@ -11,7 +11,8 @@ const procedureSteps = {
 };
 
 class InfluxDB {
-  constructor() {
+  constructor(app) {
+    this.app = app;
     this.influx = null;
     this.database = null;
     this.tags = {
@@ -51,6 +52,7 @@ class InfluxDB {
   }
 
   setDatabase(database) {
+    this.app.updateState(Date.now(), {"influxState": 1, "influxDatabase": database}, false);
     this.database = database;
   }
 
@@ -106,8 +108,10 @@ class InfluxDB {
   }
 
   async handleStateUpdate(timestamp, update) {
-    if (this.influx === null) return;
-    if (this.database === null) return;
+    if (this.influx === null || this.database === null) {
+      this.app.updateState(Date.now(), {"influxState": 0}, false);
+      return;
+    }
 
     for (let k of Object.keys(update)) {
       if (isNaN(update[k])) continue;
@@ -133,6 +137,7 @@ class InfluxDB {
         return true;
       } catch (e) {
         console.log("error writing to influx", e);
+        this.app.updateState(Date.now(), {"influxState": 2}, false);
         return false;
       }
     }

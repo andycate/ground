@@ -1,9 +1,9 @@
 {
-	"lox-capfill": {
+	"ocap": {
 		"type": "flightV4",
 		"address": "10.0.0.72"
 	},
-	"fuel-capfill": {
+	"fcap": {
 		"type": "flightV4",
 		"address": "10.0.0.42"
 	},

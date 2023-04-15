@@ -101,7 +101,7 @@ class Board {
       }
 
       let offset = 0;
-
+      
       for (const [_, parser, __] of packetDef) {
         const [value, byteLen] = parser(dataBuf, offset);
         values.push(value);
