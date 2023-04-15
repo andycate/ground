@@ -80,6 +80,8 @@ class Navbar extends Component {
     for (let boardName in this.config.boards) {
       comms.addSubscriber(boardName + ".boardConnected", this.boardConnectedCallbacks[boardName]);
       comms.addSubscriber(boardName + ".boardKbps", this.boardKbpsCallbacks[boardName]);
+      comms.addSubscriber("influxState", this.updateInfluxState);
+      comms.addSubscriber("influxDatabase", this.updateInfluxDatabase);
     }
 
     for (let boardName in this.config.boards) {
@@ -113,9 +115,9 @@ class Navbar extends Component {
             ))
           }
           <div className={classes.spacer}/>
-          {/* <p>
+          <p>
             Influx: {this.state.influxState === 0 && "Not Connected"}{this.state.influxState === 1 && this.state.influxDatabase}{this.state.influxState === 2 && "Error"}
-          </p> */}
+          </p>
           <Tooltip title='Toggle light/dark theme'>
             <IconButton
               color="inherit"

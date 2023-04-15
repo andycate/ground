@@ -111,14 +111,14 @@ class App {
    * @param dbrecord should store in db?
    */
   updateState(timestamp, update, dbrecord = true) {
-    for (let _k in update) {
-      if (this.preprocessors[_k] == null) {
-        continue;
-      }
-      for (let p of this.preprocessors[_k]) {
-        update[p[1]] = p[0](update[_k], timestamp);
-      }
-    }
+    // for (let _k in update) {
+    //   if (this.preprocessors[_k] == null) {
+    //     continue;
+    //   }
+    //   for (let p of this.preprocessors[_k]) {
+    //     update[p[1]] = p[0](update[_k], timestamp);
+    //   }
+    // }
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
     let mappedUpdate = {};
@@ -234,9 +234,7 @@ class App {
    */
   setupIPC() {
     console.debug('setting up ipc channels')
-    this.addIPC('connect-influx', (e, host, port, protocol, username, password) => {
-      this.influxDB.connect(host, port, protocol, username, password)
-    }, false);
+    this.addIPC('connect-influx', (e, host, port, protocol, username, password) => this.influxDB.connect(host, port, protocol, username, password), false);
     this.addIPC('get-databases', this.influxDB.getDatabaseNames);
     this.addIPC('set-database', (e, database) => this.influxDB.setDatabase(database));
     this.addIPC('set-darkmode', (e, isDark) => this.sendDarkModeUpdate(isDark), false);

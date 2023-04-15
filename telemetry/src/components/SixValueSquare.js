@@ -42,7 +42,7 @@ class SixValueSquare extends Component {
                     unit={obj[2]}
                     decimals={obj[5] || 1}
                     threshold={obj[6] || null}
-                    modifyValue={obj[7] ? getFunction(obj[7]) : null}
+                    modifyValue={obj[7] || null}
                     thresholdColor={obj[8] || '#27AE60'}
                 />
               </Grid>
