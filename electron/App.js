@@ -111,14 +111,14 @@ class App {
    * @param dbrecord should store in db?
    */
   updateState(timestamp, update, dbrecord = true) {
-    // for (let _k in update) {
-    //   if (this.preprocessors[_k] == null) {
-    //     continue;
-    //   }
-    //   for (let p of this.preprocessors[_k]) {
-    //     update[p[1]] = p[0](update[_k], timestamp);
-    //   }
-    // }
+    for (let _k in update) {
+      if (this.preprocessors[_k] == null) {
+        continue;
+      }
+      for (let p of this.preprocessors[_k]) {
+        update[p[1]] = p[0](update[_k], timestamp);
+      }
+    }
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
     let mappedUpdate = {};

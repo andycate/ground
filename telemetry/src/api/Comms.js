@@ -120,7 +120,11 @@ class Comms {
   }
 
   async connectInflux(host, port, protocol, username, password) {
-    return await this.ipc.invoke('connect-influx', host, port, protocol, username, password);
+    // console.log(1);
+    let call = this.ipc.invoke('connect-influx', host, port, protocol, username, password);
+    let ret = await call;
+    // console.log(ret);
+    return ret;
   }
 
   async getDatabases() {
