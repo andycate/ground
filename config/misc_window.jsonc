@@ -76,13 +76,13 @@
 			"type": "graph",
 			"values": [
 				{
-					"field": "cap.loxCapVal",
+					"field": "flight.loxCapVal",
 					"name": "LOX Cap Fill Value",
 					"units": "pF",
 					"color": [255, 0, 0]
 				},
 				{
-					"field": "cap.fuelCapVal",
+					"field": "flight.fuelCapVal",
 					"name": "Fuel Cap Fill Value",
 					"units": "pF",
 					"color": [0, 255, 0]

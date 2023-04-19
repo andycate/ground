@@ -1,0 +1,162 @@
+{
+	"name": "Flight",
+	"layout": "9-grid",
+	"slots": [
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "flight.gpsLatitude",
+					"name": "Latitude",
+					"units": ""
+				},
+				{
+					"field": "flight.gpsLongitude",
+					"name": "Longitude",
+					"units": ""
+				},
+				{
+					"field": "flight.gpsAltitude",
+					"name": "Altitude",
+					"units": ""
+				},
+				{
+					"field": "flight.gpsSpeed",
+					"name": "Speed",
+					"units": ""
+				},
+				{
+					"field": "flight.numGpsSats",
+					"name": "Satellites",
+					"units": ""
+				},
+				{
+					"field": null
+				}
+			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "flight.isRecording",
+					"name": "Recording",
+					"units": ""
+				},
+				{
+					"field": "flight.blackboxWritten",
+					"name": "Bytes Written",
+					"units": ""
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				}
+			]
+		},
+		{
+			"type": "orientation",
+			"qw": "flight.qW",
+			"qx": "flight.qX",
+			"qy": "flight.qY",
+			"qz": "flight.qZ"
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "flight.baroAltitude",
+					"name": "Altitude",
+					"units": ""
+				},
+				{
+					"field": "flight.baroPressure",
+					"name": "Pressure",
+					"units": ""
+				},
+				{
+					"field": "flight.baroTemperature",
+					"name": "Temperature",
+					"units": ""
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				}
+			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "flight.accelX",
+					"name": "Accel X",
+					"units": ""
+				},
+				{
+					"field": "flight.accelY",
+					"name": "Accel Y",
+					"units": ""
+				},
+				{
+					"field": "flight.accelZ",
+					"name": "Accel Z",
+					"units": ""
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				}
+			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "flight.qW",
+					"name": "qW",
+					"units": ""
+				},
+				{
+					"field": "flight.qX",
+					"name": "qX",
+					"units": ""
+				},
+				{
+					"field": "flight.qY",
+					"name": "qY",
+					"units": ""
+				},
+				{
+					"field": "flight.qZ",
+					"name": "qZ",
+					"units": ""
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				}
+			]
+		}
+	]
+}
