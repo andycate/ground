@@ -33,6 +33,7 @@ class InfluxDB {
     this._pushSysLog = this._pushSysLog.bind(this);
     this.throttledSysLogPush = throttle(this._pushSysLog, 250);
     this.lastTimeStamp = Date.now();
+    this.lastState = 0;
   }
 
   connect(host, port, protocol, username, password) {
@@ -52,6 +53,7 @@ class InfluxDB {
   }
 
   setDatabase(database) {
+    this.lastState = 1;
     this.app.updateState(Date.now(), {"influxState": 1, "influxDatabase": database}, false);
     this.database = database;
   }
@@ -109,7 +111,10 @@ class InfluxDB {
 
   async handleStateUpdate(timestamp, update) {
     if (this.influx === null || this.database === null) {
-      this.app.updateState(Date.now(), {"influxState": 0}, false);
+      if (this.lastState !== 0) {
+        this.lastState = 0;
+        this.app.updateState(Date.now(), {"influxState": 0}, false);
+      }
       return;
     }
 
@@ -137,7 +142,10 @@ class InfluxDB {
         return true;
       } catch (e) {
         console.log("error writing to influx", e);
-        this.app.updateState(Date.now(), {"influxState": 2}, false);
+        if (this.lastState !== 2) {
+          this.lastState = 2;
+          this.app.updateState(Date.now(), {"influxState": 2}, false);
+        }
         return false;
       }
     }

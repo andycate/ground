@@ -2,8 +2,8 @@
 	"pt.ptValue0": "loxInjectorPT",
 	"pt.ptValue4": "fuelInjectorPT",
 
-	"pt.ptValue1": "loxRTDrawVoltage",
-	"pt.ptValue5": "fuelRTDrawVoltage",
+	"pt.ptValue1": "loxRTDRawVoltage",
+	"pt.ptValue5": "fuelRTDRawVoltage",
 	"pt.ptValue1@rtd": "loxRTD",
 	"pt.ptValue5@rtd": "fuelRTD",
 
