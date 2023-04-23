@@ -35,32 +35,38 @@
 				}
 			]
 		},
+		// {
+		// 	"type": "six-square",
+		// 	"values": [
+		// 		{
+		// 			"field": "flight.isRecording",
+		// 			"name": "Recording",
+		// 			"units": ""
+		// 		},
+		// 		{
+		// 			"field": "flight.blackboxWritten",
+		// 			"name": "Bytes Written",
+		// 			"units": ""
+		// 		},
+		// 		{
+		// 			"field": null
+		// 		},
+		// 		{
+		// 			"field": null
+		// 		},
+		// 		{
+		// 			"field": null
+		// 		},
+		// 		{
+		// 			"field": null
+		// 		}
+		// 	]
+		// },
 		{
-			"type": "six-square",
-			"values": [
-				{
-					"field": "flight.isRecording",
-					"name": "Recording",
-					"units": ""
-				},
-				{
-					"field": "flight.blackboxWritten",
-					"name": "Bytes Written",
-					"units": ""
-				},
-				{
-					"field": null
-				},
-				{
-					"field": null
-				},
-				{
-					"field": null
-				},
-				{
-					"field": null
-				}
-			]
+			// <Map fieldLat={"gpsLatitude"} fieldLong={"gpsLongitude"} />
+			"type": "gpsmap", 
+			"gpsLatitude": "flight.gpsLatitude",
+			"gpsLongitude": "flight.gpsLongitude"
 		},
 		{
 			"type": "orientation",
