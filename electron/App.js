@@ -10,6 +10,7 @@ const LCBoard = require('./Boards/LCBoard');
 const ACBoard = require('./Boards/ACBoard');
 const { initTime, fletcher16Partitioned } = require('./Packet');
 const EregBoard = require('./Boards/EregBoard');
+const { getPreprocessor } = require('./Preprocessors');
 
 let lastThrust12 = 0.0;
 // let lastThrust34 = 0.0;
@@ -19,12 +20,13 @@ class App {
     this.webContents = [];
     // this.state = new State(model);
     this.state = new State({});
-    this.influxDB = new InfluxDB();
+    this.influxDB = new InfluxDB(this);
     this.commandFuncs = {};
     this.config = config;
     this.boards = {};
     this.lastValues = {};
     this.recvPort = port;
+    this.preprocessors = {};
 
     this.updateState = this.updateState.bind(this);
     this.sendDarkModeUpdate = this.sendDarkModeUpdate.bind(this);
@@ -76,6 +78,13 @@ class App {
       );
     }
 
+    for (let field in this.config.preprocessors) {
+      this.preprocessors[field] = [];
+      for (let processor of this.config.preprocessors[field]) {
+        this.preprocessors[field].push([getPreprocessor(processor.func, processor.args || []), field + "@" + processor.suffix]);
+      }
+    }
+
     // Begin TouchBar
     // this.abort = this.addBackendFunc('abort', this.groundComputer.abort)
     // End TouchBar
@@ -102,6 +111,14 @@ class App {
    * @param dbrecord should store in db?
    */
   updateState(timestamp, update, dbrecord = true) {
+    for (let _k in update) {
+      if (this.preprocessors[_k] == null) {
+        continue;
+      }
+      for (let p of this.preprocessors[_k]) {
+        update[p[1]] = p[0](update[_k], timestamp);
+      }
+    }
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
     let mappedUpdate = {};
@@ -114,7 +131,7 @@ class App {
       }
       else {
         let [board, field] = _k.split(".");
-        if (board === "freg" || board === "oreg" || field === "boardConnected" || field === "boardKbps" || board === "fuel-capfill" || board === "lox-capfill") {
+        if (board === "freg" || board === "oreg" || field === "boardConnected" || field === "boardKbps" || board === "fcap" || board === "ocap") {
           this.config.influxMap[_k] = _k;
           mappedUpdate[_k] = update[_k];
         }

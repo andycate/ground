@@ -19,6 +19,7 @@ import ErrorSquare from "./ErrorSquare";
 import FourButtonSquare from "./FourButtonSquare";
 import LaunchButton from "./LaunchButton";
 import ProgressBarsSquare from "./ProgressBarsSquare";
+import RocketOrientation from "./RocketOrientation";
 
 // const fields = [
 //   [
@@ -207,6 +208,15 @@ class NineGrid extends Component {
                                 minValue: value.minValue,
                                 delta: value.delta
                               }))}
+                            />
+                          )
+                        case "orientation":
+                          return (
+                            <RocketOrientation
+                              fieldQW={field.qw}
+                              fieldQX={field.qx}
+                              fieldQY={field.qy}
+                              fieldQZ={field.qz}
                             />
                           )
                         default:

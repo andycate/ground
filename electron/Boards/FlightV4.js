@@ -19,8 +19,7 @@ class FlightV4 extends Board {
       1: [
         ["flightSupply8Voltage", asFloat],
         ["flightSupply8Current", asFloat],
-        ["flightSupply8Power", asFloat],
-        
+        ["flightSupply8Power", asFloat]
       ],
 
       // IMU Telemetry
@@ -40,7 +39,7 @@ class FlightV4 extends Board {
         ["#", asUInt8],
         ["baroAltitude", asFloat],
         ["baroPressure", asFloat],
-        ["baroTemperature", asFloat],
+        ["baroTemperature", asFloat]
       ],
 
       // GPS Telemetry
@@ -55,13 +54,13 @@ class FlightV4 extends Board {
 
       // LOX GEMS IV
       5: [
-        ["loxGEMSvoltage", asFloat]
+        ["loxGEMSvoltage", asFloat],
         ["loxGEMScurrent", asFloat]
       ],
       
       // Fuel GEMS IV
       6: [
-        ["fuelGEMSvoltage", asFloat]
+        ["fuelGEMSvoltage", asFloat],
         ["fuelGEMScurrent", asFloat]
       ],
 
@@ -87,7 +86,7 @@ class FlightV4 extends Board {
         ["apogeeTime", asUInt32],
         ["apogeeAltitudeDetected", asUInt32],
         ["mainChuteDeployTime", asUInt32],
-        ["drogueChuteDeployTime", asUInt32],
+        ["drogueChuteDeployTime", asUInt32]
       ],
 
       // Vehicle State
@@ -135,7 +134,7 @@ class FlightV4 extends Board {
 
       // RTD Value
       20: [
-        ["rtd0", asFloat]
+        ["rtd0", asFloat],
         ["rtd1", asFloat]
       ],
 

@@ -8,7 +8,7 @@
 				{
 					"id": "press",
 					"type": "timed",
-					"name": "Pressurant",
+					"name": "Press Flow RBV",
 					"field": "ac2.actuatorState2",
 					"actions": {
 						"enable": {
@@ -308,7 +308,7 @@
 				{
 					"id": "pressFill",
 					"type": "timed",
-					"name": "Press Fill RBV",
+					"name": "LOW Press Fill RBV",
 					"field": "ac2.actuatorState0",
 					"actions": {
 						"enable": {
@@ -388,20 +388,39 @@
 			"type": "four-button",
 			"buttons": [
 				{
-					"id": "launchEnable",
-					"type": "switch",
-					"name": "Launch Enable",
-					"field": "",
+					"id": "pressFill2",
+					"type": "timed",
+					"name": "HIGH Press Fill RBV",
+					"field": "ac1.actuatorState6",
 					"actions": {
 						"enable": {
-							"type": "enable",
-							"id": "launch"
+							// "type": "retract-full",
+							// "board": "ac2",
+							// "packet": 100,
+							// "number": 0
+							"type": null
 						},
 						"disable": {
-							"type": "disable",
-							"id": "launch"
+							"type": "extend-full",
+							"board": "ac1",
+							"packet": 100,
+							"number": 6
+						},
+						"enable-timed": {
+							"type": "retract-timed",
+							"board": "ac1",
+							"packet": 100,
+							"number": 6
+						},
+						"disable-timed": {
+							"type": "extend-timed",
+							"board": "ac1",
+							"packet": 100,
+							"number": 6
 						}
-					}
+					},
+					"safe": true,
+					"green": [0, 1]
 				},
 				{
 					"id": "eregPartialOpen",
@@ -426,7 +445,20 @@
 					"type": null
 				},
 				{
-					"type": null
+					"id": "launchEnable",
+					"type": "switch",
+					"name": "Launch Enable",
+					"field": "",
+					"actions": {
+						"enable": {
+							"type": "enable",
+							"id": "launch"
+						},
+						"disable": {
+							"type": "disable",
+							"id": "launch"
+						}
+					}
 				}
 			]
 		},

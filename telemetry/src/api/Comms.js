@@ -25,6 +25,7 @@ class Comms {
 
   stateUpdate(event, payload) {
     const { timestamp, update } = payload;
+    // console.log(payload);
     for (let k of Object.keys(update)) {
       const subs = this.subscribers[k];
       if (subs !== undefined) {
@@ -119,7 +120,11 @@ class Comms {
   }
 
   async connectInflux(host, port, protocol, username, password) {
-    return await this.ipc.invoke('connect-influx', host, port, protocol, username, password);
+    // console.log(1);
+    let call = this.ipc.invoke('connect-influx', host, port, protocol, username, password);
+    let ret = await call;
+    // console.log(ret);
+    return ret;
   }
 
   async getDatabases() {

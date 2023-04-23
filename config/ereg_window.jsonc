@@ -109,16 +109,14 @@
 			"type": "six-square",
 			"values": [
 				{
-					"field": "oreg.filteredUpstreamPressure1",
+					"field": "oreg.filteredUpstreamPressure1@roc",
 					"name": "LOX Press RoC",
-					"units": "PSI",
-					"func": "roc"
+					"units": "PSI/s"
 				},
 				{
-					"field": "freg.filteredUpwnstreamPressure1",
+					"field": "freg.filteredUpstreamPressure1@roc",
 					"name": "Fuel Press RoC",
-					"units": "PSI",
-					"func": "roc"
+					"units": "PSI/s"
 				},
 				{
 					"field": null
