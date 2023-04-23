@@ -223,8 +223,8 @@ class NineGrid extends Component {
                         case "gpsmap": 
                           return (
                             <Map 
-                              fieldLat={field.gpsLatitude} 
-                              fieldLong={field.gpsLongitude} 
+                              gpsLongitude={field.gpsLatitude} 
+                              gpsLatitude={field.gpsLongitude} 
                             />
                         )
                         default:
