@@ -21,15 +21,19 @@
 					"units": ""
 				},
 				{
-					"field": null
-				},
-				{
 					"field": "flight.numGpsSats",
 					"name": "Satellites",
 					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.drogueDep",
+					"name": "Drogue",
+					"units": ""
+				},
+				{
+					"field": "flight.mainDep",
+					"name": "Main",
+					"units": ""
 				}
 			]
 		},
@@ -87,7 +91,9 @@
 					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.apogee",
+					"name": "Apogee",
+					"units": ""
 				},
 				{
 					"field": "flight.filteredAltitude",
@@ -158,10 +164,14 @@
 					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.busVoltage",
+					"name": "FC",
+					"units": "V"
 				},
 				{
-					"field": null
+					"field": "flight.shuntCurrent",
+					"name": "FC",
+					"units": "A"
 				},
 				{
 					"field": null

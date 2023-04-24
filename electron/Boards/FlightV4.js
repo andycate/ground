@@ -72,6 +72,20 @@ class FlightV4 extends Board {
         ["breakwire1", asFloat]
       ],
 
+      8: [
+        ["busVoltage", asFloat],
+        ["shuntCurrent", asFloat],
+        ["power", asFloat]
+      ],
+
+      10: [
+        ["launched", asUInt8],
+        ["burnout", asUInt8],
+        ["apogee", asUInt8],
+        ["drogueDep", asUInt8],
+        ["mainDep", asUInt8]
+      ],
+
       // // LOX GEMS IV
       // 5: [
       //   ["loxGEMSvoltage", asFloat],
