@@ -15,128 +15,148 @@ class FlightV4 extends Board {
         ["firmwareCommitHash", asASCIIString]
       ],
 
-      // 8V Supply Stats
-      1: [
-        ["flightSupply8Voltage", asFloat],
-        ["flightSupply8Current", asFloat],
-        ["flightSupply8Power", asFloat]
+      // kalman filter values
+      2: [
+        ["filteredAltitude", asFloat],
+        ["filteredVelocity", asFloat],
+        ["filteredAccel", asFloat]
       ],
 
       // IMU Telemetry
-      2: [
-        ["#", asUInt8],
-        ["qW", asFloat],
-        ["qX", asFloat],
-        ["qY", asFloat],
-        ["qZ", asFloat],
+      3: [
         ["accelX", asFloat],
         ["accelY", asFloat],
-        ["accelZ", asFloat]
+        ["accelZ", asFloat],
+        ["gyroX", asFloat],
+        ["gyroY", asFloat],
+        ["gyroZ", asFloat],
+        ["accelX2", asFloat],
+        ["accelY2", asFloat],
+        ["accelZ2", asFloat]
       ],
 
       // Barometer Telemetry
-      3: [
-        ["#", asUInt8],
+      5: [
         ["baroAltitude", asFloat],
-        ["baroPressure", asFloat],
+        ["baroPressure2", asFloat],
         ["baroTemperature", asFloat]
       ],
 
       // GPS Telemetry
       4: [
+        ["gpsAltitude", asFloat],
         ["gpsLatitude", asFloat],
         ["gpsLongitude", asFloat],
-        ["gpsAltitude", asFloat],
-        ["gpsSpeed", asFloat],
-        ["validGpsFix", asUInt8],
         ["numGpsSats", asUInt8]
       ],
 
-      // LOX GEMS IV
-      5: [
-        ["loxGEMSvoltage", asFloat],
-        ["loxGEMScurrent", asFloat]
-      ],
-      
-      // Fuel GEMS IV
       6: [
-        ["fuelGEMSvoltage", asFloat],
-        ["fuelGEMScurrent", asFloat]
+        ["chute1Curr", asFloat],
+        ["video1Curr", asFloat],
+        ["video0Curr", asFloat],
+        ["chute0Curr", asFloat],
+        ["valve1Curr", asFloat],
+        ["valve0Curr", asFloat],
+        ["rbvCurr", asFloat],
+        ["breakwire0", asFloat]
       ],
 
-      // LOX GEMS State
       7: [
-        ["loxGEMSstate", asUInt8]
+        ["chute1Cont", asFloat],
+        ["video1Cont", asFloat],
+        ["video0Cont", asFloat],
+        ["chute0Cont", asFloat],
+        ["valve1Cont", asFloat],
+        ["valve0Cont", asFloat],
+        ["rbvCont", asFloat],
+        ["breakwire1", asFloat]
       ],
+
+      // // LOX GEMS IV
+      // 5: [
+      //   ["loxGEMSvoltage", asFloat],
+      //   ["loxGEMScurrent", asFloat]
+      // ],
       
-      // LOX GEMS State
-      8: [
-        ["fuelGEMSstate", asUInt8]
-      ],
+      // // Fuel GEMS IV
+      // 6: [
+      //   ["fuelGEMSvoltage", asFloat],
+      //   ["fuelGEMScurrent", asFloat]
+      // ],
 
-      // Press Flow RBV
-      11: [
-        ["pressurantFlowRBVstate", asUInt8],
-        ["pressurantFlowRBVvoltage", asFloat],
-        ["pressurantFlowRBVcurrent", asFloat]
-      ],
-
-      // Apogee
-      12: [
-        ["apogeeTime", asUInt32],
-        ["apogeeAltitudeDetected", asUInt32],
-        ["mainChuteDeployTime", asUInt32],
-        ["drogueChuteDeployTime", asUInt32]
-      ],
-
-      // Vehicle State
-      13: [
-        ["vehicleState", asUInt8]
-      ],
-
-      // Blackbox Bytes Written
-      14: [
-        ["blackboxWritten", asUInt32],
-        ["isRecording", asUInt8]
-      ],
-
-      // Flight OC Event
-      15: [],
-
-      // AutoVent Status
-      16: [
-        ["autoVentStatus", asUInt8]
-      ],
-
-      // Breakwire 1 State
-      17: [
-        ["breakWire1Voltage", asFloat],
-        ["breakWire1Current", asFloat]
-      ],
+      // // LOX GEMS State
+      // 7: [
+      //   ["loxGEMSstate", asUInt8]
+      // ],
       
-      // Breakwire 2 State
-      18: [
-        ["breakWire2Voltage", asFloat],
-        ["breakWire2Current", asFloat]
-      ],
+      // // LOX GEMS State
+      // 8: [
+      //   ["fuelGEMSstate", asUInt8]
+      // ],
 
-      // PT Value
-      19: [
-        ["ptValue1", asFloat],
-        ["ptValue2", asFloat],
-        ["ptValue0", asFloat],
-        ["ptValue3", asFloat],
-        ["ptValue4", asFloat],
-        ["ptValue5", asFloat],
-        ["ptValue6", asFloat],
-        ["ptValue7", asFloat]
-      ],
+      // // Press Flow RBV
+      // 11: [
+      //   ["pressurantFlowRBVstate", asUInt8],
+      //   ["pressurantFlowRBVvoltage", asFloat],
+      //   ["pressurantFlowRBVcurrent", asFloat]
+      // ],
 
-      // RTD Value
-      20: [
-        ["rtd0", asFloat],
-        ["rtd1", asFloat]
-      ],
+      // // Apogee
+      // 12: [
+      //   ["apogeeTime", asUInt32],
+      //   ["apogeeAltitudeDetected", asUInt32],
+      //   ["mainChuteDeployTime", asUInt32],
+      //   ["drogueChuteDeployTime", asUInt32]
+      // ],
+
+      // // Vehicle State
+      // 13: [
+      //   ["vehicleState", asUInt8]
+      // ],
+
+      // // Blackbox Bytes Written
+      // 14: [
+      //   ["blackboxWritten", asUInt32],
+      //   ["isRecording", asUInt8]
+      // ],
+
+      // // Flight OC Event
+      // 15: [],
+
+      // // AutoVent Status
+      // 16: [
+      //   ["autoVentStatus", asUInt8]
+      // ],
+
+      // // Breakwire 1 State
+      // 17: [
+      //   ["breakWire1Voltage", asFloat],
+      //   ["breakWire1Current", asFloat]
+      // ],
+      
+      // // Breakwire 2 State
+      // 18: [
+      //   ["breakWire2Voltage", asFloat],
+      //   ["breakWire2Current", asFloat]
+      // ],
+
+      // // PT Value
+      // 19: [
+      //   ["ptValue1", asFloat],
+      //   ["ptValue2", asFloat],
+      //   ["ptValue0", asFloat],
+      //   ["ptValue3", asFloat],
+      //   ["ptValue4", asFloat],
+      //   ["ptValue5", asFloat],
+      //   ["ptValue6", asFloat],
+      //   ["ptValue7", asFloat]
+      // ],
+
+      // // RTD Value
+      // 20: [
+      //   ["rtd0", asFloat],
+      //   ["rtd1", asFloat]
+      // ],
 
       // Cap Fill
       21: [

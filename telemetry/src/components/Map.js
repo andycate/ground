@@ -145,6 +145,7 @@ function Map({ gpsLatitude, gpsLongitude, classes }) {
 
   function handleLatUpdate(timestamp, data) {
     nextLat = data;
+    console.log(data);
   }
 
   function handleLongUpdate(timestamp, data) {

@@ -21,9 +21,7 @@
 					"units": ""
 				},
 				{
-					"field": "flight.gpsSpeed",
-					"name": "Speed",
-					"units": ""
+					"field": null
 				},
 				{
 					"field": "flight.numGpsSats",
@@ -68,13 +66,13 @@
 			"gpsLatitude": "flight.gpsLatitude",
 			"gpsLongitude": "flight.gpsLongitude"
 		},
-		{
-			"type": "orientation",
-			"qw": "flight.qW",
-			"qx": "flight.qX",
-			"qy": "flight.qY",
-			"qz": "flight.qZ"
-		},
+		// {
+		// 	"type": "orientation",
+		// 	"qw": "flight.qW",
+		// 	"qx": "flight.qX",
+		// 	"qy": "flight.qY",
+		// 	"qz": "flight.qZ"
+		// },
 		{
 			"type": "six-square",
 			"values": [
@@ -84,23 +82,27 @@
 					"units": ""
 				},
 				{
-					"field": "flight.baroPressure",
+					"field": "flight.baroPressure2",
 					"name": "Pressure",
 					"units": ""
 				},
 				{
-					"field": "flight.baroTemperature",
-					"name": "Temperature",
+					"field": null
+				},
+				{
+					"field": "flight.filteredAltitude",
+					"name": "Filt Alt",
 					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.filteredVelocity",
+					"name": "Filt Vel",
+					"units": ""
 				},
 				{
-					"field": null
-				},
-				{
-					"field": null
+					"field": "flight.filteredAccel",
+					"name": "Filt Accel",
+					"units": ""
 				}
 			]
 		},
@@ -123,10 +125,14 @@
 					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.breakwire0",
+					"name": "Breakwire 0",
+					"units": "V"
 				},
 				{
-					"field": null
+					"field": "flight.breakwire1",
+					"name": "Breakwire 1",
+					"units": "V"
 				},
 				{
 					"field": null
@@ -137,24 +143,22 @@
 			"type": "six-square",
 			"values": [
 				{
-					"field": "flight.qW",
-					"name": "qW",
+					"field": "flight.gyroX",
+					"name": "gyroX",
 					"units": ""
 				},
 				{
-					"field": "flight.qX",
-					"name": "qX",
+					"field": "flight.gyroY",
+					"name": "gyroY",
 					"units": ""
 				},
 				{
-					"field": "flight.qY",
-					"name": "qY",
+					"field": "flight.gyroZ",
+					"name": "gyroZ",
 					"units": ""
 				},
 				{
-					"field": "flight.qZ",
-					"name": "qZ",
-					"units": ""
+					"field": null
 				},
 				{
 					"field": null
