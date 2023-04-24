@@ -21,54 +21,62 @@
 					"units": ""
 				},
 				{
-					"field": "flight.gpsSpeed",
-					"name": "Speed",
-					"units": ""
-				},
-				{
 					"field": "flight.numGpsSats",
 					"name": "Satellites",
 					"units": ""
 				},
 				{
-					"field": null
-				}
-			]
-		},
-		{
-			"type": "six-square",
-			"values": [
-				{
-					"field": "flight.isRecording",
-					"name": "Recording",
+					"field": "flight.drogueDep",
+					"name": "Drogue",
 					"units": ""
 				},
 				{
-					"field": "flight.blackboxWritten",
-					"name": "Bytes Written",
+					"field": "flight.mainDep",
+					"name": "Main",
 					"units": ""
-				},
-				{
-					"field": null
-				},
-				{
-					"field": null
-				},
-				{
-					"field": null
-				},
-				{
-					"field": null
 				}
 			]
 		},
+		// {
+		// 	"type": "six-square",
+		// 	"values": [
+		// 		{
+		// 			"field": "flight.isRecording",
+		// 			"name": "Recording",
+		// 			"units": ""
+		// 		},
+		// 		{
+		// 			"field": "flight.blackboxWritten",
+		// 			"name": "Bytes Written",
+		// 			"units": ""
+		// 		},
+		// 		{
+		// 			"field": null
+		// 		},
+		// 		{
+		// 			"field": null
+		// 		},
+		// 		{
+		// 			"field": null
+		// 		},
+		// 		{
+		// 			"field": null
+		// 		}
+		// 	]
+		// },
 		{
-			"type": "orientation",
-			"qw": "flight.qW",
-			"qx": "flight.qX",
-			"qy": "flight.qY",
-			"qz": "flight.qZ"
+			// <Map fieldLat={"gpsLatitude"} fieldLong={"gpsLongitude"} />
+			"type": "gpsmap", 
+			"gpsLatitude": "flight.gpsLatitude",
+			"gpsLongitude": "flight.gpsLongitude"
 		},
+		// {
+		// 	"type": "orientation",
+		// 	"qw": "flight.qW",
+		// 	"qx": "flight.qX",
+		// 	"qy": "flight.qY",
+		// 	"qz": "flight.qZ"
+		// },
 		{
 			"type": "six-square",
 			"values": [
@@ -78,23 +86,29 @@
 					"units": ""
 				},
 				{
-					"field": "flight.baroPressure",
+					"field": "flight.baroPressure2",
 					"name": "Pressure",
 					"units": ""
 				},
 				{
-					"field": "flight.baroTemperature",
-					"name": "Temperature",
+					"field": "flight.apogee",
+					"name": "Apogee",
 					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.filteredAltitude",
+					"name": "Filt Alt",
+					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.filteredVelocity",
+					"name": "Filt Vel",
+					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.filteredAccel",
+					"name": "Filt Accel",
+					"units": ""
 				}
 			]
 		},
@@ -117,10 +131,14 @@
 					"units": ""
 				},
 				{
-					"field": null
+					"field": "flight.breakwire0",
+					"name": "Breakwire 0",
+					"units": "V"
 				},
 				{
-					"field": null
+					"field": "flight.breakwire1",
+					"name": "Breakwire 1",
+					"units": "V"
 				},
 				{
 					"field": null
@@ -131,27 +149,29 @@
 			"type": "six-square",
 			"values": [
 				{
-					"field": "flight.qW",
-					"name": "qW",
+					"field": "flight.gyroX",
+					"name": "gyroX",
 					"units": ""
 				},
 				{
-					"field": "flight.qX",
-					"name": "qX",
+					"field": "flight.gyroY",
+					"name": "gyroY",
 					"units": ""
 				},
 				{
-					"field": "flight.qY",
-					"name": "qY",
+					"field": "flight.gyroZ",
+					"name": "gyroZ",
 					"units": ""
 				},
 				{
-					"field": "flight.qZ",
-					"name": "qZ",
-					"units": ""
+					"field": "flight.busVoltage",
+					"name": "FC",
+					"units": "V"
 				},
 				{
-					"field": null
+					"field": "flight.shuntCurrent",
+					"name": "FC",
+					"units": "A"
 				},
 				{
 					"field": null

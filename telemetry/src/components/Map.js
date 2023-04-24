@@ -84,7 +84,7 @@ function SwitchStyle({ setSelectedStyle, selectedStyle }) {
   );
 }
 
-function Map({ field, classes }) {
+function Map({ gpsLatitude, gpsLongitude, classes }) {
   const [selectedStyle, setSelectedStyle] = useState(mapStyles[0].url)
   const [viewport, setViewport] = useState({
     longitude: defaultLong,
@@ -125,12 +125,12 @@ function Map({ field, classes }) {
   }, [])
 
   useEffect(() => {
-    comms.addSubscriber('gpsLatitude', handleLatUpdate);
-    comms.addSubscriber('gpsLongitude', handleLongUpdate);
+    comms.addSubscriber(gpsLatitude, handleLatUpdate);
+    comms.addSubscriber(gpsLongitude, handleLongUpdate);
     comms.addDarkModeListener(handleDarkMode);
     return () => {
-      comms.removeSubscriber('gpsLatitude', handleLatUpdate);
-      comms.removeSubscriber('gpsLongitude', handleLongUpdate);
+      comms.removeSubscriber(gpsLatitude, handleLatUpdate);
+      comms.removeSubscriber(gpsLongitude, handleLongUpdate);
       comms.removeDarkModeListener(handleDarkMode)
     }
   }, [])
@@ -144,23 +144,20 @@ function Map({ field, classes }) {
   }
 
   function handleLatUpdate(timestamp, data) {
-    if(data !== 0) {
-      nextLat = data;
-    }
+    nextLat = data;
+    console.log(data);
   }
 
   function handleLongUpdate(timestamp, data) {
-    if(data !== 0 && nextLat !== 0) {
-      setViewport(_viewport => ({
-        ..._viewport,
-        longitude: data,
-        latitude: nextLat,
-        transitionDuration: 500,
-        transitionInterpolator: new FlyToInterpolator()
-      }));
-      // TODO: depending on rate of data, may need to reduce / simplify path
-      _setCoordinateHistory(prev => ([...prev, [data, nextLat]]))
-    }
+    setViewport(_viewport => ({
+      ..._viewport,
+      longitude: data,
+      latitude: nextLat,
+      transitionDuration: 500,
+      transitionInterpolator: new FlyToInterpolator()
+    }));
+    // TODO: depending on rate of data, may need to reduce / simplify path
+    _setCoordinateHistory(prev => ([...prev, [data, nextLat]]))
   }
 
   return (

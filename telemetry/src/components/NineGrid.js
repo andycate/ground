@@ -20,6 +20,7 @@ import FourButtonSquare from "./FourButtonSquare";
 import LaunchButton from "./LaunchButton";
 import ProgressBarsSquare from "./ProgressBarsSquare";
 import RocketOrientation from "./RocketOrientation";
+import Map from "./Map";
 
 // const fields = [
 //   [
@@ -219,6 +220,13 @@ class NineGrid extends Component {
                               fieldQZ={field.qz}
                             />
                           )
+                        case "gpsmap": 
+                          return (
+                            <Map 
+                              gpsLatitude={field.gpsLatitude}
+                              gpsLongitude={field.gpsLongitude}
+                            />
+                        )
                         default:
                           return (
                             <ErrorSquare error={`Field type "${field.type}" not found`} />
