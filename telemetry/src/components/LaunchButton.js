@@ -74,6 +74,9 @@ class LaunchButton extends Component {
         launchText = "Flow"
         break;
       case 3:
+        launchText = "Flow (With Igniter)"
+        break;
+      case 4:
         launchText = "Gas Flow"
         break;
     }
