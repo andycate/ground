@@ -86,6 +86,10 @@ class FlightV4 extends Board {
         ["mainDep", asUInt8]
       ],
 
+      11: [
+        ["rssi", asFloat]
+      ],
+
       // // LOX GEMS IV
       // 5: [
       //   ["loxGEMSvoltage", asFloat],
@@ -177,7 +181,8 @@ class FlightV4 extends Board {
         ["loxCapVal", asFloat],
         ["loxCapAvg", asFloat],
         ["loxCapTemperature", asFloat],
-        ["loxCapRefVal", asFloat]
+        ["loxCapRefVal", asFloat],
+        ["loxCapRawVal", asFloat]
       ],
 
       // Fuel Cap Fill
@@ -185,7 +190,8 @@ class FlightV4 extends Board {
         ["fuelCapVal", asFloat],
         ["fuelCapAvg", asFloat],
         ["fuelCapTemperature", asFloat],
-        ["fuelCapRefVal", asFloat]
+        ["fuelCapRefVal", asFloat],
+        ["fuelCapRawVal", asFloat]
       ]
     }
   }
