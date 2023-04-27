@@ -226,7 +226,8 @@
 					"units": "mA"
 				},
 				{
-					"field": null
+					"field": "ac2.loxAutoventPressure",
+					"name": "O Autovent"
 				},
 				{
 					"field": "oreg.bufferSize",
@@ -239,7 +240,8 @@
 					"units": "mA"
 				},
 				{
-					"field": null
+					"field": "ac2.fuelAutoventPressure",
+					"name": "F Autovent"
 				},
 				{
 					"field": "freg.bufferSize",

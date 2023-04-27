@@ -56,6 +56,12 @@ class ACBoard extends Board {
         ["actuatorCurrent5", asFloat],
         ["actuatorCurrent6", asFloat],
         ["actuatorCurrent7", asFloat]
+      ],
+
+      // Autovent
+      5: [
+        ["loxAutoventPressure", asFloat],
+        ["fuelAutoventPressure", asFloat]
       ]
     }
   }
