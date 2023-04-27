@@ -88,7 +88,8 @@
 				{
 					"field": "flight.baroPressure2",
 					"name": "Pressure",
-					"units": ""
+					"units": "",
+					"decimals": 2
 				},
 				{
 					"field": "flight.apogee",
@@ -141,7 +142,9 @@
 					"units": "V"
 				},
 				{
-					"field": null
+					"field": "flight.bbWritten",
+					"name": "Black Box",
+					"units": ""
 				}
 			]
 		},
@@ -177,6 +180,38 @@
 					"field": null
 				}
 			]
+		},
+		{
+			"type": "six-square",
+			"values": [
+				{
+					"field": "flight.video0Curr",
+					"name": "Video0",
+					"units": "A"
+				},
+				{
+					"field": "flight.video0Cont",
+					"name": "Video0",
+					"units": "V"
+				},
+				{
+					"field": "flight.video1Curr",
+					"name": "Video1",
+					"units": "A"
+				},
+				{
+					"field": "flight.video1Cont",
+					"name": "Video1",
+					"units": "V"
+				},
+				{
+					"field": null
+				},
+				{
+					"field": null
+				}
+			]
 		}
+
 	]
 }

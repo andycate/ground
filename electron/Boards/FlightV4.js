@@ -90,6 +90,10 @@ class FlightV4 extends Board {
         ["rssi", asFloat]
       ],
 
+      12: [
+        ["bbWritten", asUInt32]
+      ],
+
       // // LOX GEMS IV
       // 5: [
       //   ["loxGEMSvoltage", asFloat],
