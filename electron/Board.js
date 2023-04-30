@@ -103,9 +103,13 @@ class Board {
       let offset = 0;
       
       for (const [_, parser, __] of packetDef) {
-        const [value, byteLen] = parser(dataBuf, offset);
-        values.push(value);
-        offset += byteLen;
+        try { 
+          const [value, byteLen] = parser(dataBuf, offset);
+          values.push(value);
+          offset += byteLen;
+        } catch(err) {
+          console.log(`issue parsing with packet id: ${id}`);
+        }
       }
 
       return new Packet(id, values, timestamp);
