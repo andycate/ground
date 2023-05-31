@@ -29,19 +29,6 @@ class Board {
     }, 1000);
   }
 
-  sendPacket(id, values) {
-    const p = new Packet(id, values);
-    const buf = p.toBuffer()
-    if (!buf) {
-      console.debug(`[id ${id}] Outbound packet's packet data typing definition could not be found. Not sent.`)
-      return false
-    }
-    // write string version of packet for debugging purposes, disable socket data print
-    process.stdout.write(p.stringify())
-    this.port.send(this.address, buf, false);
-    return true;
-  }
-
   /**
    * Uses the offset given in the first packet received from the board to calculate subsequent packet arrival times
    * @param runTime {number} is the received running duration of the board (in ms)

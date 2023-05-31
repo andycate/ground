@@ -1,7 +1,3 @@
-const { OUTBOUND_PACKET_DEFS } = require("./packetDefs");
-const Interpolation = require("./Interpolation");
-const { FLOAT, UINT8, UINT32, UINT16 } = Interpolation.TYPES
-
 class Packet {
   /**
    *
@@ -29,53 +25,6 @@ class Packet {
     const pack = `{${data}|${Packet.fletcher16(Buffer.from(data, 'binary')).toString(16)}}`;
     // console.log(pack);
     return pack;
-  }
-
-  toBuffer() {
-    const packetDef = OUTBOUND_PACKET_DEFS[this.id]
-    if (!packetDef) {
-      console.debug(`[${this.id}] Packet ID is not defined in the OUTBOUND_PACKET_DEFS.`)
-      return
-    }
-    /**
-     * @type {Array.<Buffer>}
-     */
-    const dataBufArr = this.values.map((value, idx) => {
-      switch (packetDef[idx]) {
-        case FLOAT: {
-          const _buf = Buffer.alloc(4)
-          _buf.writeFloatLE(value)
-          return _buf
-        }
-        case UINT8: {
-          const _buf = Buffer.alloc(1)
-          _buf.writeUInt8(value)
-          return _buf
-        }
-        case UINT16: {
-          const _buf = Buffer.alloc(2)
-          _buf.writeUInt16LE(value)
-          return _buf
-        }
-        case UINT32: {
-          const _buf = Buffer.alloc(4)
-          _buf.writeUInt32LE(value)
-          return _buf
-        }
-      }
-    })
-
-    const idBuf = Buffer.alloc(1)
-    idBuf.writeUInt8(this.id)
-    const lenBuf = Buffer.alloc(1)
-    lenBuf.writeUInt8(dataBufArr.reduce((acc, cur) => acc + cur.length, 0))
-    const tsOffsetBuf = Buffer.alloc(4)
-    tsOffsetBuf.writeUInt32LE(Date.now() - Packet.initTime)
-
-    const checksumBuf = Buffer.alloc(2)
-    checksumBuf.writeUInt16LE(Packet.fletcher16Partitioned([idBuf, lenBuf, tsOffsetBuf, ...dataBufArr]))
-
-    return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...dataBufArr])
   }
 
   /**
