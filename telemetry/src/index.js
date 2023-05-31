@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import { HashRouter, Switch, Route, useLocation, Router, BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
 import "./index.css";
-import WindowSelector from "./WindowSelector";
-import Main from "./Main";
-import Control from "./Control";
-import Aux1 from "./Aux1";
-import Aux2 from "./Aux2";
-import { ThemeProvider, createTheme, CssBaseline, Typography } from "@material-ui/core";
+import { ThemeProvider, createTheme, CssBaseline } from "@material-ui/core";
 import Settings from "./components/Settings";
 import Navbar from "./components/Navbar";
 import comms from "./api/Comms";

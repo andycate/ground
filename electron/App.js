@@ -1,4 +1,4 @@
-const { ipcMain, TouchBar } = require('electron');
+const { ipcMain } = require('electron');
 
 const State = require('./State');
 const UdpPort = require('./UdpPort');
@@ -12,13 +12,9 @@ const { initTime, fletcher16Partitioned } = require('./Packet');
 const EregBoard = require('./Boards/EregBoard');
 const { getPreprocessor } = require('./Preprocessors');
 
-let lastThrust12 = 0.0;
-// let lastThrust34 = 0.0;
-
 class App {
   constructor(config, port) {
     this.webContents = [];
-    // this.state = new State(model);
     this.state = new State({});
     this.influxDB = new InfluxDB(this);
     this.commandFuncs = {};
@@ -85,10 +81,6 @@ class App {
       }
     }
 
-    // Begin TouchBar
-    // this.abort = this.addBackendFunc('abort', this.groundComputer.abort)
-    // End TouchBar
-
     this.setupIPC();
   }
   
@@ -122,10 +114,7 @@ class App {
     this.state.updateState(timestamp, update);
     this.sendStateUpdate(timestamp, update);
     let mappedUpdate = {};
-    // console.time("map");
     for (let _k in update) {
-      // console.time(_k);
-      // this.lastValues[_k] = update[_k];
       if (this.config.influxMap[_k] !== undefined) {
         mappedUpdate[this.config.influxMap[_k]] = update[_k];
       }
@@ -140,9 +129,7 @@ class App {
           mappedUpdate[field] = update[_k];
         }
       }
-      // console.timeEnd(_k);
     }
-    // console.timeEnd("map");
     if (dbrecord) {
       // if update value is not number -> add to syslog as well
       Object.keys(mappedUpdate).forEach(_k => {
@@ -389,59 +376,10 @@ class App {
     console.log("launch");
     // const delay = 30;
     // setTimeout(() => {
-      // if (this.config.mode === 0 || this.config.mode === 1) {
-      //   if (this.lastValues["ac1.actuatorContinuity7"] === undefined || this.lastValues["ac1.actuatorContinuity7"] < 1) {
-      //     console.log("Igniter no continuity detected");
-      //     // this.abortWithReason(4); // Igniter no continuity abort
-      //     return;
-      //   }
-      //   if (this.lastValues["ac1.actuatorContinuity1"] === undefined || this.lastValues["ac1.actuatorContinuity1"] < 1) {
-      //     console.log("Breakwire no continuity detected");
-      //     // this.abortWithReason(5); // Breakwire no continuity abort
-      //     return;
-      //   }
-      // }
       console.log("actual launch");
       let buf = App.generateLaunchPacket(this.config);
       this.port.send(this.boards[this.config.controller].address, buf);
     // }, delay * 1000);
-
-    // console.log(this.lastValues);
-
-    // this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
-    // setTimeout(() => {
-    //   this.sendPacket(null, "ac1", 100, 4, 4, 0); // Open LOX main
-    //   setTimeout(() => {
-    //     this.sendPacket(null, "ac1", 100, 5, 4, 0); // Open fuel main
-    //     setTimeout(() => {
-    //       this.sendSignalPacket(null, "oreg", 200); // Launch o-reg
-    //       setTimeout(() => {
-    //         this.sendSignalPacket(null, "freg", 200); // Launch f-reg
-    //         setTimeout(() => {
-    //           this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
-    //         }, 2000);
-    //       }, 10);
-    //     }, 10);
-    //   }, 10);
-    // }, 10);
-
-    // setTimeout(() => {
-    //   this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
-    //   setTimeout(() => {
-    //     this.sendPacket(null, "ac1", 100, 4, 5, 0); // Close LOX main
-    //     setTimeout(() => {
-    //       this.sendPacket(null, "ac1", 100, 5, 5, 0); // Close fuel main
-    //       setTimeout(() => {
-    //         this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
-    //       }, 2000);
-    //     }, 10);
-    //   }, 10);
-    // }, this.config.burnTime);
-
-      // close arm at end
-      // check if igniter enabled
-      // if enabled, fire igniter
-      // check arm, main valve currents first
   }
 
   abortWithReason(reason) {
@@ -451,54 +389,7 @@ class App {
   }
 
   abort() {
-
-    // This is not complete nor correct; the abort tasks list is confusing
-
     this.abortWithReason(3);
-
-    // deactivate igniter
-    // open lox gems
-    // open fuel gems
-    // begin ereg abort procedure/send ereg aborts
-    // (for vertical) open main valve vent
-    // open arm 
-    // close lox main
-    // close fuel main
-    // wait for valves closing
-    // (for vertical) close main valve vent
-    // close arm
-
-    // this.sendPacket(null, "ac2", 100, 2, 5, 0); // Close igniter
-    // setTimeout(() => {
-    //   this.sendPacket(null, "ac2", 100, 6, 4, 0); // Open LOX GEMS
-    //   setTimeout(() => {
-    //     this.sendPacket(null, "ac2", 100, 7, 4, 0); // Open fuel GEMS
-    //     setTimeout(() => {
-    //       this.sendSignalPacket(null, "oreg", 201); // Abort o-reg
-    //       setTimeout(() => {
-    //         this.sendSignalPacket(null, "freg", 201); // Abort f-reg
-    //         setTimeout(() => {
-    //           this.sendPacket(null, "ac1", 100, 3, 4, 0); // Open ARM
-    //           setTimeout(() => {
-    //             this.sendPacket(null, "ac1", 100, 4, 5, 0); // Close LOX main
-    //             setTimeout(() => {
-    //               this.sendPacket(null, "ac1", 100, 5, 5, 0); // Close fuel main
-    //               setTimeout(() => {
-    //                 this.sendPacket(null, "ac2", 100, 3, 0, 0); // Open LOX Vent
-    //                 setTimeout(() => {
-    //                   this.sendPacket(null, "ac2", 100, 4, 0, 0); // Open fuel vent
-    //                   setTimeout(() => {
-    //                     this.sendPacket(null, "ac1", 100, 3, 5, 0); // Close ARM
-    //                   }, 2000);
-    //                 }, 10);
-    //               }, 10);
-    //             }, 10);
-    //           }, 10);
-    //         }, 10);
-    //       }, 10);
-    //     }, 10);
-    //   }, 10);
-    // }, 10);
   }
 }
 

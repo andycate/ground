@@ -1,7 +1,5 @@
 import { Typography } from '@material-ui/core';
-import { Component, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import Control from '../Control';
+import { Component } from 'react';
 import NineGrid from './NineGrid';
 
 
