@@ -59,6 +59,30 @@ class Interpolation {
   static asUInt32(buffer, offset) {
     return [buffer.readUInt32LE(offset), 4]
   }
+
+  static genFloat(value) {
+    let buf = Buffer.alloc(4);
+    buf.writeFloatLE(value);
+    return [buf, 4];
+  }
+
+  static genUInt8(value) {
+    let buf = Buffer.alloc(1);
+    buf.writeUInt8(value);
+    return [buf, 1];
+  }
+
+  static genUInt16(value) {
+    let buf = Buffer.alloc(2);
+    buf.writeUInt16LE(value);
+    return [buf, 2];
+  }
+
+  static genUInt32(value) {
+    let buf = Buffer.alloc(4);
+    buf.writeUInt32LE(value);
+    return [buf, 4];
+  }
 }
 
 module.exports = Interpolation;
