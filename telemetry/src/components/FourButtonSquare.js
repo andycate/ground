@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { withStyles, withTheme } from "@material-ui/core/styles";
 import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
 
-import Field from "./Field";
 import ButtonGroup from "./Buttons/ButtonGroup";
 import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";
 import { buttonAction } from "../util";
