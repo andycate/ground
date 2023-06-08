@@ -98,8 +98,6 @@ class FourButton extends Component {
                           return (
                             <ButtonGroupEregTimed
                               buttonId={obj[0]}
-                              // open={buttonAction(obj[4].enable)}
-                              // close={buttonAction(obj[4].disable)}
                               timed_fuel={buttonAction(obj[4]["fuel-timed"])}
                               timed_lox={buttonAction(obj[4]["lox-timed"])}
                               text={obj[2]}
@@ -115,19 +113,6 @@ class FourButton extends Component {
                 </Grid>
               ))
             }
-            {/* {fields.map((obj) => (
-              <Grid item xs={4} className={classes.item}>
-                <Field
-                    field={obj[0]}
-                    name={obj[1]}
-                    unit={obj[2]}
-                    decimals={obj[5] || 1}
-                    threshold={obj[6] || null}
-                    modifyValue={obj[7] || null}
-                    thresholdColor={obj[8] || '#27AE60'}
-                />
-              </Grid>
-            ))} */}
             {children}
           </Grid>
         </CardContent>
