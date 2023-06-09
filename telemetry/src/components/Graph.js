@@ -5,6 +5,7 @@ import { withStyles, withTheme } from '@material-ui/core/styles';
 import { Card, CardContent } from '@material-ui/core';
 
 import comms from '../api/Comms';
+import SquareControls from './SquareControls';
 
 const styles = theme => ({
   root: {
@@ -184,6 +185,7 @@ class Graph extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} />
           <table className={classes.legend}>
             <tbody>
               <tr>

@@ -6,6 +6,7 @@ import { Card, CardContent, Grid } from "@material-ui/core";
 import { addButtonEnabledListener, removeButtonEnabledListener } from "../util";
 import BigButton from "./Buttons/BigButton";
 import comms from "../api/Comms";
+import SquareControls from "./SquareControls";
 
 const styles = (theme) => ({
   root: {
@@ -82,21 +83,23 @@ class LaunchButton extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} />
           <Grid container spacing={1} className={classes.container}>
-		  <Grid item xs={12}>
-			<BigButton
-				disabled={this.state.disabled}
-				onClick={this.beginLaunchSequence}
-				text={launchText}
-			/>
-			</Grid>
-			<Grid item xs={12}>
-			<BigButton
-				onClick={this.abortAll}
-				text="Abort"
-				isRed
-			/>
-			</Grid>
+            <Grid item xs={12}></Grid>
+            <Grid item xs={12}>
+              <BigButton
+                disabled={this.state.disabled}
+                onClick={this.beginLaunchSequence}
+                text={launchText}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <BigButton
+                onClick={this.abortAll}
+                text="Abort"
+                isRed
+              />
+            </Grid>
           </Grid>
         </CardContent>
       </Card>

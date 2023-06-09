@@ -4,6 +4,7 @@ import { withStyles, withTheme } from "@material-ui/core/styles";
 import { Card, CardContent, Grid } from "@material-ui/core";
 
 import Field from "./Field";
+import SquareControls from "./SquareControls";
 
 const styles = (theme) => ({
   root: {
@@ -30,6 +31,7 @@ class SixValueSquare extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} />
           <Grid container spacing={1} className={classes.container}>
             {fields.map((obj) => (
               <Grid item xs={4} className={classes.item}>

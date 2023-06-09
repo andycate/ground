@@ -5,6 +5,7 @@ import { Card, CardContent, Grid, LinearProgress, Typography, useTheme } from "@
 
 import Field from "./Field";
 import comms from '../api/Comms';
+import SquareControls from "./SquareControls";
 
 const styles = (theme) => ({
   root: {
@@ -108,6 +109,7 @@ class ProgressBarsSquare extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} />
           {
             fields.map(field => (
               <div>

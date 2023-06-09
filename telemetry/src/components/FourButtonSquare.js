@@ -9,6 +9,7 @@ import { buttonAction } from "../util";
 import SwitchButton from "./Buttons/SwitchButton";
 import ButtonGroupEreg from "./Buttons/ButtonGroupEreg";
 import ButtonGroupEregTimed from "./Buttons/ButtonGroupEregTimed";
+import SquareControls from "./SquareControls";
 
 const styles = (theme) => ({
   root: {
@@ -38,6 +39,7 @@ class FourButton extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} />
           <Grid container spacing={1} className={classes.container}>
             {
               fields.map((obj) => (

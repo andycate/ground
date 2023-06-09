@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
 import { Card, CardContent, Grid, Typography, useTheme } from "@material-ui/core";
+import SquareControls from "./SquareControls";
 
 const styles = (theme) => ({
   root: {
@@ -34,6 +35,7 @@ class ErrorSquare extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} />
           <Grid container spacing={1} className={classes.container}>
             <Typography variant='h6'>
               {error}

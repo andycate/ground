@@ -13,6 +13,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import comms from '../api/Comms';
 import { Room } from "@material-ui/icons";
+import SquareControls from './SquareControls';
 
 const styles = theme => ({
   root: {
@@ -60,7 +61,7 @@ function SwitchStyle({ setSelectedStyle, selectedStyle }) {
     background: 'rgba(255,255,255,0.45)',
     right: 0,
     minWidth: 80,
-    top: 0
+    bottom: 30
   };
 
   return (
@@ -84,7 +85,7 @@ function SwitchStyle({ setSelectedStyle, selectedStyle }) {
   );
 }
 
-function Map({ gpsLatitude, gpsLongitude, classes }) {
+function Map({ gpsLatitude, gpsLongitude, classes, reset }) {
   const [selectedStyle, setSelectedStyle] = useState(mapStyles[0].url)
   const [viewport, setViewport] = useState({
     longitude: defaultLong,
@@ -162,6 +163,7 @@ function Map({ gpsLatitude, gpsLongitude, classes }) {
 
   return (
     <Grid container spacing={1} alignItems='center' className={classes.root}>
+      <SquareControls reset={reset} />
       <Grid item xs={12} className={classes.fullHeight}>
         <ReactMapGL
           {...viewport}

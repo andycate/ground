@@ -9,6 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import comms from '../api/Comms';
+import SquareControls from './SquareControls';
 
 const OrbitControls = OrbitControlsFactory(THREE);
 
@@ -149,6 +150,7 @@ class RocketOrientation extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} />
           <div ref={this.sizeDetector} className={classes.sizeDetector}>
           </div>
         </CardContent>
