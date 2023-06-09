@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Grid, Button, Box } from "@material-ui/core";
+import { withTheme } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 
 import comms from "../../api/Comms";
 import GroupLabel from "./GroupLabel";
-import OpenCloseButtonGroup from "./OpenCloseButtonGroup";
+import EregButtonGroup from "./EregButtonGroup";
 
 
 class ButtonGroupEreg extends Component {
@@ -67,12 +67,11 @@ class ButtonGroupEreg extends Component {
         safe={safe} classes={classes} changeState={this.setDisabled}
       >
         <Grid item>
-          <OpenCloseButtonGroup
+          <EregButtonGroup
             isOpen={openClicked}
             setClosed={this.setClosed}
             setOpen={this.setOpen}
             disabled={disabled}
-            ereg
           />
         </Grid>
       </GroupLabel>

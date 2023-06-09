@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 
-import Field from "./Field";
-import ButtonGroup from "./Buttons/ButtonGroup";
-import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";
-import { addButtonEnabledListener, buttonAction, removeButtonEnabledListener } from "../util";
-import SwitchButton from "./Buttons/SwitchButton";
+import { addButtonEnabledListener, removeButtonEnabledListener } from "../util";
 import BigButton from "./Buttons/BigButton";
 import comms from "../api/Comms";
 
@@ -61,7 +57,7 @@ class LaunchButton extends Component {
   }
 
   render() {
-    const { children, classes, fields, mode } = this.props;
+    const { classes, mode } = this.props;
     let launchText = "";
     switch (mode) {
       case 0:
@@ -78,6 +74,9 @@ class LaunchButton extends Component {
         break;
       case 4:
         launchText = "Gas Flow"
+        break;
+      default:
+        launchText = "Unknown Mode"
         break;
     }
     return (

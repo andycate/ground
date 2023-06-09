@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 
 import ButtonGroup from "./Buttons/ButtonGroup";
 import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";

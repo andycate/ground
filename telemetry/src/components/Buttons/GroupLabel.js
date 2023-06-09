@@ -1,6 +1,20 @@
 import React, { Component } from "react";
-import { withTheme } from "@material-ui/core/styles";
+import { withStyles, withTheme } from "@material-ui/core/styles";
 import {Grid, Typography, Box, Switch} from '@material-ui/core'
+
+const styles = theme => ({
+  switchBase: {
+    color:  theme.palette.error.main,
+    "&$checked": {
+      color:  theme.palette.success.main
+    },
+    "&$checked + $track": {
+      backgroundColor:  theme.palette.success.main
+    }
+  },
+  checked: {},
+  track: {}
+});
 
 export class GroupLabel extends Component {
   constructor (props) {
@@ -49,14 +63,13 @@ export class GroupLabel extends Component {
         </Grid>
         {safe &&
           <Switch
-            // focusVisibleClassName={classes.focusVisible}
             disableRipple
-            classes={{
-              // switchBase: classes.switchBase,
-              // track: classes.track,
-              // checked: classes.checked
-            }}
             onChange={this.stateChange}
+            classes={{
+              switchBase: classes.switchBase,
+              track: classes.track,
+              checked: classes.checked
+            }}
             ref={this.switchRef}
             checked={this.state.checked}
           />
@@ -67,4 +80,4 @@ export class GroupLabel extends Component {
   }
 }
 
-export default withTheme(GroupLabel);
+export default withTheme(withStyles(styles)(GroupLabel));

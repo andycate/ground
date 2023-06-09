@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
-import { Card, CardContent, Grid, Typography } from '@material-ui/core';
-
-import green from '@material-ui/core/colors/green';
+import { Grid, Typography } from '@material-ui/core';
 
 import comms from '../api/Comms';
 
 import gas1Wav from "../media/gas1.wav";
 import gas2Wav from "../media/gas2.wav";
 import gas3Wav from "../media/gas3.wav";
-
-
 
 const styles = theme => ({
   root: {

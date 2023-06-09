@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 
 import Field from "./Field";
 
@@ -24,9 +24,6 @@ const styles = (theme) => ({
 });
 
 class SixValueSquare extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { children, classes, fields } = this.props;

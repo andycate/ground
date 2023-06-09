@@ -3,8 +3,6 @@ import React, { Component } from "react";
 import { withStyles, withTheme } from "@material-ui/core/styles";
 import { Card, CardContent, Grid, Typography, useTheme } from "@material-ui/core";
 
-import Field from "./Field";
-
 const styles = (theme) => ({
   root: {
     height: "100%",

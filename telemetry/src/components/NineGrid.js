@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import "@fontsource/roboto";
-import {
-  createTheme,
-  withStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
-import {Box, Container, Grid, Typography} from "@material-ui/core";
+import {withStyles, withTheme} from "@material-ui/core/styles";
+import {Container, Grid} from "@material-ui/core";
 
 import Graph from "./Graph";
 import SixValueSquare from "./SixValueSquare";
@@ -151,4 +147,4 @@ class NineGrid extends Component {
   }
 }
 
-export default withStyles(styles)(NineGrid);
+export default withTheme(withStyles(styles)(NineGrid));

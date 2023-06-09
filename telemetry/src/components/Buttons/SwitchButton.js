@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
-import { Grid, Button, Box } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Switch from '@material-ui/core/Switch';
 
 import comms from '../../api/Comms';
 import GroupLabel from './GroupLabel';
-import { buttonAction } from '../../util';
 
 const styles = theme => ({
   switchBase: {
@@ -28,7 +27,7 @@ const statusBox = {
   style: { width: '9rem', height: '1rem' },
 };
 
-class ButtonGroupRBV extends Component {
+class SwitchButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,7 +93,7 @@ class ButtonGroupRBV extends Component {
       case 1:
         sColor = theme.palette.success.main;
         break;
-      case 2:
+      default:
         sColor = theme.palette.warning.main;
         break;
     }
@@ -117,4 +116,4 @@ class ButtonGroupRBV extends Component {
   }
 }
 
-export default withTheme(withStyles(styles)(ButtonGroupRBV));
+export default withTheme(withStyles(styles)(SwitchButton));

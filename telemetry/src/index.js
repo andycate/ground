@@ -49,21 +49,43 @@ class App extends Component {
         type: this.state.isDark ? "dark" : "light",
         primary: {
           main: "#43a047",
-          darker: "#388e3c",
+          // darker: "#388e3c",
           contrastText: "#fff",
         },
         success: {
           main: "#43a047",
-          darker: "#388e3c",
+          // darker: "#388e3c",
+          contrastText: "#fff",
+        },
+        error: {
+          main: "#d32f2f",
           contrastText: "#fff",
         },
         secondary: {
           main: "#1976d2",
-          darker: "#115293",
+          // darker: "#115293",
           contrastText: "#fff",
         },
         neutral: {
           main: "#64748B",
+          contrastText: "#fff",
+        },
+        enabled: {
+          main: "#43a047",
+          // darker: "#388e3c",
+          contrastText: "#fff",
+        },
+        disabled: {
+          main: "#d32f2f",
+          contrastText: "#fff",
+        },
+        lox: {
+          main: "#0288d1",
+          // darker: "#388e3c",
+          contrastText: "#fff",
+        },
+        fuel: {
+          main: "#9c27b0",
           contrastText: "#fff",
         },
       },
