@@ -4,7 +4,6 @@ import { withStyles, withTheme } from '@material-ui/core/styles';
 import { FormControl, Grid, MenuItem, Select } from '@material-ui/core';
 import ReactMapGL, {
   AttributionControl,
-  FlyToInterpolator,
   Layer, Marker,
   ScaleControl,
   Source
@@ -153,9 +152,9 @@ function Map({ gpsLatitude, gpsLongitude, classes, reset, locked }) {
     setViewport(_viewport => ({
       ..._viewport,
       longitude: data,
-      latitude: nextLat,
-      transitionDuration: 500,
-      transitionInterpolator: new FlyToInterpolator()
+      latitude: nextLat
+      // transitionDuration: 500,
+      // transitionInterpolator: new FlyToInterpolator()
     }));
     // TODO: depending on rate of data, may need to reduce / simplify path
     _setCoordinateHistory(prev => ([...prev, [data, nextLat]]))
