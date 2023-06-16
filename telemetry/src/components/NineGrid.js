@@ -77,6 +77,7 @@ class NineGrid extends Component {
 
     this.fixLayout = this.fixLayout.bind(this);
     this.resetItem = this.resetItem.bind(this);
+    this.setSlotConfig = this.setSlotConfig.bind(this);
   }
 
   fixLayout(layout) {
@@ -97,14 +98,21 @@ class NineGrid extends Component {
 
   resetItem(index) {
     return () => {
-      console.log(index);
+      let newSlots = [...this.state.slots];
+      newSlots[index] = {};
+      this.setState({slots: newSlots});
+    }
+  }
+
+  setSlotConfig(index) {
+    return (conf) => {
+      console.log(index + " " + conf);
     }
   }
 
   render() {
     const { layout, slots } = this.state;
     const { locked } = this.props;
-    console.log(slots);
     return (
       <ResponsiveGridLayout
         isResizable={false}
@@ -227,7 +235,11 @@ class NineGrid extends Component {
                     )
                     case undefined:
                       return (
-                        <CreateSquare />
+                        <CreateSquare
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          setSlotConfig={this.setSlotConfig(index)}
+                        />
                       )
                     default:
                       return (
