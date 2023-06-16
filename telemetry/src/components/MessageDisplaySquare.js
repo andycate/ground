@@ -423,6 +423,7 @@ const LogMessageHistory = forwardRef(({ logs: _logs, classes, deleteLogs, availa
             <div>Event Logs</div>
             <Box position={'relative'}>
               <Box className={classes.floatingButton}>
+                
                 <Button
                   variant={'contained'}
                   size={'small'}
@@ -631,11 +632,12 @@ class MessageDisplaySquare
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <SquareControls reset={this.props.reset} />
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <LogMessageHistory classes={classes} logs={this.state.logs}
             ref={this.listRef}
             availableMessageDestinations={this.state.availableMessageDestinations}
             deleteLogs={this.deleteLogs}/>
+            reset={this.props.reset} locked={this.props.locked}
         </CardContent>
       </Card>
     );

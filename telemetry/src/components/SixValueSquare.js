@@ -31,7 +31,7 @@ class SixValueSquare extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <SquareControls reset={this.props.reset} />
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <Grid container spacing={1} className={classes.container}>
             {fields.map((obj) => (
               <Grid item xs={4} className={classes.item}>

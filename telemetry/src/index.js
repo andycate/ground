@@ -12,13 +12,19 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      locked: true,
       isDark: false,
       showSettings: false
     };
 
+    this.toggleLocked = this.toggleLocked.bind(this);
     this.changeLightDark = this.changeLightDark.bind(this);
     this.openSettings = this.openSettings.bind(this);
     this.closeSettings = this.closeSettings.bind(this);
+  }
+
+  toggleLocked() {
+    this.setState({ locked: !this.state.locked })
   }
 
   changeLightDark() {
@@ -100,11 +106,13 @@ class App extends Component {
         />
         <BrowserRouter>
           <Navbar
+            toggleLocked={this.toggleLocked}
+            locked={this.state.locked}
             changeLightDark={this.changeLightDark}
             openSettings={this.openSettings}
             config={JSON.parse(atob(window.location.hash.split("&")[1]))}
           />
-          <LayoutSwitch />
+          <LayoutSwitch locked={this.state.locked} />
         </BrowserRouter>
       </ThemeProvider>
     );

@@ -83,7 +83,7 @@ class LaunchButton extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <SquareControls reset={this.props.reset} />
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <Grid container spacing={1} className={classes.container}>
             <Grid item xs={12}></Grid>
             <Grid item xs={12}>

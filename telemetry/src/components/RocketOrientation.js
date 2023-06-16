@@ -150,7 +150,7 @@ class RocketOrientation extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <SquareControls reset={this.props.reset} />
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <div ref={this.sizeDetector} className={classes.sizeDetector}>
           </div>
         </CardContent>

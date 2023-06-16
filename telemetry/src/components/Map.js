@@ -85,7 +85,7 @@ function SwitchStyle({ setSelectedStyle, selectedStyle }) {
   );
 }
 
-function Map({ gpsLatitude, gpsLongitude, classes, reset }) {
+function Map({ gpsLatitude, gpsLongitude, classes, reset, locked }) {
   const [selectedStyle, setSelectedStyle] = useState(mapStyles[0].url)
   const [viewport, setViewport] = useState({
     longitude: defaultLong,
@@ -163,7 +163,7 @@ function Map({ gpsLatitude, gpsLongitude, classes, reset }) {
 
   return (
     <Grid container spacing={1} alignItems='center' className={classes.root}>
-      <SquareControls reset={reset} />
+      <SquareControls reset={reset} locked={locked} />
       <Grid item xs={12} className={classes.fullHeight}>
         <ReactMapGL
           {...viewport}

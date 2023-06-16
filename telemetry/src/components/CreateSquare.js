@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Card, CardContent, Grid, Typography, useTheme } from "@material-ui/core";
-import SquareControls from "./SquareControls";
+import { Card, CardContent, Grid, IconButton } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 
 const styles = (theme) => ({
   root: {
@@ -26,20 +26,24 @@ class ErrorSquare extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: props.error
+      
     }
   }
 
   render() {
-    const { classes, error } = this.props;
+    const { classes, openCreatePopup } = this.props;
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <SquareControls reset={this.props.reset} locked={this.props.locked} />
-          <Grid container spacing={1} className={classes.container}>
-            <Typography variant='h6'>
-              {error}
-            </Typography>
+          <Grid container spacing={1} className={classes.container} style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+            <div style={{display: "block", marginLeft: "auto", marginRight: "auto"}}>
+              <IconButton style={{display: "block", marginLeft: "auto", marginRight: "auto"}}
+                  color="inherit"
+                  onClick={ openCreatePopup }
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
           </Grid>
         </CardContent>
       </Card>

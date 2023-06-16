@@ -185,7 +185,7 @@ class Graph extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <SquareControls reset={this.props.reset} />
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <table className={classes.legend}>
             <tbody>
               <tr>

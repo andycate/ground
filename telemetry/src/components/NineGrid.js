@@ -16,6 +16,7 @@ import Map from "./Map";
 
 import { Responsive } from "react-grid-layout";
 import clsx from "clsx"
+import CreateSquare from "./CreateSquare";
 
 const ResponsiveGridLayout = NineGridWidthHeightProvideRGL(Responsive)
 
@@ -44,7 +45,18 @@ class NineGrid extends Component {
     super(props);
     this.windowConfig = props.windowConfig;
     this.config = props.config;
+
+    let slots = [];
+    for (let slot of this.windowConfig.slots) {
+      console.log(slot);
+      slots.push(slot);
+    }
+    for (let i = slots.length; i < 9; i ++) {
+      slots.push({});
+    }
+
     this.state = {
+      slots: slots,
       layout: [
         { i: "0", x: 0, y: 0, w: 1, h: 1 },
         { i: "1", x: 1, y: 0, w: 1, h: 1 },
@@ -57,6 +69,7 @@ class NineGrid extends Component {
         { i: "8", x: 2, y: 2, w: 1, h: 1 }
       ]
     }
+
     this.itemRefs = [];
     for (let i = 0; i < 9; i ++) {
       this.itemRefs[i] = React.createRef();
@@ -67,12 +80,9 @@ class NineGrid extends Component {
   }
 
   fixLayout(layout) {
-    console.log(layout);
     const maxY = 2;
     const maxRowXs = layout.map((item) => item.y === maxY ? item.x : null).filter((value) => value !== null);
-    console.log(maxRowXs);
     const missingX = [0, 1, 2].find(value => maxRowXs.every(maxRowX => maxRowX !== value));
-    console.log(missingX);
     return layout.map(item => {
       if (item.y > maxY) {
         return {
@@ -92,8 +102,9 @@ class NineGrid extends Component {
   }
 
   render() {
-    const { layout } = this.state;
-    console.log(layout);
+    const { layout, slots } = this.state;
+    const { locked } = this.props;
+    console.log(slots);
     return (
       <ResponsiveGridLayout
         isResizable={false}
@@ -105,7 +116,7 @@ class NineGrid extends Component {
         draggableHandle=".handle"
       >
         {
-          this.windowConfig.slots.map((field, index) => (
+          slots.map((field, index) => (
             <div key={index.toString()} ref={this.itemRefs[index]}>
               {
                 (() => {
@@ -114,12 +125,14 @@ class NineGrid extends Component {
                       return (
                         <MessageDisplaySquare
                           reset={this.resetItem(index)}
+                          locked={locked}
                         />
                       )
                     case "six-square":
                       return (
                         <SixValueSquare
                           reset={this.resetItem(index)}
+                          locked={locked}
                           fields={
                             field.values.map(value => [
                               value.field,
@@ -138,6 +151,7 @@ class NineGrid extends Component {
                       return (
                         <Graph
                           reset={this.resetItem(index)}
+                          locked={locked}
                           fields={
                             field.values.map(value => ({
                               field: value.field,
@@ -152,6 +166,7 @@ class NineGrid extends Component {
                       return (
                         <FourButtonSquare
                           reset={this.resetItem(index)}
+                          locked={locked}
                           fields={
                             field.buttons.map(value => [
                               value.id,
@@ -169,6 +184,7 @@ class NineGrid extends Component {
                       return (
                         <LaunchButton
                           reset={this.resetItem(index)}
+                          locked={locked}
                           mode={this.config.mode}
                         />
                       )
@@ -176,6 +192,7 @@ class NineGrid extends Component {
                       return (
                         <ProgressBarsSquare
                           reset={this.resetItem(index)}
+                          locked={locked}
                           fields={
                             field.values.map(value => ({
                               field: value.field,
@@ -192,6 +209,7 @@ class NineGrid extends Component {
                       return (
                         <RocketOrientation
                           reset={this.resetItem(index)}
+                          locked={locked}
                           fieldQW={field.qw}
                           fieldQX={field.qx}
                           fieldQY={field.qy}
@@ -202,14 +220,20 @@ class NineGrid extends Component {
                       return (
                         <Map
                           reset={this.resetItem(index)}
+                          locked={locked}
                           gpsLatitude={field.gpsLatitude}
                           gpsLongitude={field.gpsLongitude}
                         />
                     )
+                    case undefined:
+                      return (
+                        <CreateSquare />
+                      )
                     default:
                       return (
                         <ErrorSquare
                           reset={this.resetItem(index)}
+                          locked={locked}
                           error={`Field type "${field.type}" not found`}
                         />
                       )
@@ -253,10 +277,7 @@ function NineGridWidthHeightProvideRGL(ComposedComponent) {
     onWindowResize = () => {
       if (!this.mounted) return;
       const node = this.elementRef.current;
-      console.log(window.innerWidth);
-      console.log(window.innerHeight);
       if (node instanceof HTMLElement && node.offsetWidth && node.offsetHeight) {
-        console.log(node.offsetTop)
         this.setState({width: window.innerWidth, rowHeight: (window.innerHeight - node.offsetTop - 40) / 3});
       }
     };

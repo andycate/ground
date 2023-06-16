@@ -109,7 +109,7 @@ class ProgressBarsSquare extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
-          <SquareControls reset={this.props.reset} />
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           {
             fields.map(field => (
               <div>
