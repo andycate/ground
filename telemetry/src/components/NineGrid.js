@@ -106,13 +106,16 @@ class NineGrid extends Component {
 
   setSlotConfig(index) {
     return (conf) => {
-      console.log(index + " " + conf);
+      let newSlots = [...this.state.slots];
+      newSlots[index] = conf;
+      this.setState({slots: newSlots});
     }
   }
 
   render() {
     const { layout, slots } = this.state;
     const { locked } = this.props;
+    console.log(slots)
     return (
       <ResponsiveGridLayout
         isResizable={false}

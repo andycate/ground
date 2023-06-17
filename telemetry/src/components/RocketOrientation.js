@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import * as THREE from 'three';
-import OrbitControlsFactory from 'three-orbit-controls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
@@ -10,8 +10,6 @@ import CardContent from '@material-ui/core/CardContent';
 
 import comms from '../api/Comms';
 import SquareControls from './SquareControls';
-
-const OrbitControls = OrbitControlsFactory(THREE);
 
 const styles = theme => ({
   root: {

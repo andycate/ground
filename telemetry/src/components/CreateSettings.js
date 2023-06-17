@@ -31,8 +31,17 @@ class CreateSettings extends Component {
     this.state = {
       type: "logs",
 
-      gpsLatitude: "",
-      gpsLongitude: ""
+      sixSquareField: ["", "", "", "", "", ""],
+      sixSquareName: ["", "", "", "", "", ""],
+      sixSquareUnits: ["", "", "", "", "", ""],
+
+      orientationW: "",
+      orientationX: "",
+      orientationY: "",
+      orientationZ: "",
+
+      mapLatitude: "",
+      mapLongitude: ""
     };
 	}
 
@@ -42,12 +51,57 @@ class CreateSettings extends Component {
   componentWillUnmount() {
   }
 
-  setConfig() {
-    console.log(this.state.type);
+  generateConfig() {
+    switch (this.state.type) {
+      case "logs":
+        return {
+          type: "logs"
+        };
+      case "six-square":
+        let sixSquareFields = [];
+        for (let i = 0; i < 6; i ++) {
+          if (this.state.sixSquareField[i] === "") {
+            sixSquareFields.push({
+              field: null
+            });
+          }
+          else {
+            sixSquareFields.push({
+              field: this.state.sixSquareField[i],
+              name: this.state.sixSquareName[i],
+              units: this.state.sixSquareUnits[i]
+            });
+          }
+        }
+        return {
+          type: "six-square",
+          values: sixSquareFields
+        }
+      case "launch":
+        return {
+          type: "launch"
+        }
+      case "orientation":
+        return {
+          type: "orientation",
+          qw: this.state.orientationW,
+          qx: this.state.orientationX,
+          qy: this.state.orientationY,
+          qz: this.state.orientationZ
+        };
+      case "gpsmap":
+        return {
+          type: "gpsmap",
+          gpsLatitude: this.state.mapLatitude,
+          gpsLongitude: this.state.mapLongitude
+        };
+      default:
+        return {};
+    }
   }
 
   render() {
-    const { classes, open, closeCreateSettings } = this.props;
+    const { classes, open, closeCreateSettings, setSlotConfig } = this.props;
     const {
       type
     } = this.state;
@@ -77,27 +131,102 @@ class CreateSettings extends Component {
                 (() => {
                   switch (type) {
                     case "logs":
-                      return (null);
+                      return (null)
                     case "six-square":
-                      return (null);
+                      return (
+                        <div style={{display: "grid", gridTemplateColumns: "auto auto auto", rowGap: "20px"}}>
+                          {
+                            [0, 1, 2, 3, 4, 5].map(index => (
+                              <div style={{float: "left"}}>
+                                <TextField
+                                  value={this.state.sixSquareField[index]}
+                                  label="field"
+                                  onChange={(e) => {
+                                    let newFields = [...this.state.sixSquareField];
+                                    newFields[index] = e.target.value;
+                                    this.setState({sixSquareField: newFields});
+                                  }}
+                                  className={classes.fields}
+                                />
+                                <TextField
+                                  value={this.state.sixSquareName[index]}
+                                  label="name"
+                                  onChange={(e) => {
+                                    let newNames = [...this.state.sixSquareName];
+                                    newNames[index] = e.target.value;
+                                    this.setState({sixSquareName: newNames});
+                                  }}
+                                  className={classes.fields}
+                                />
+                                <TextField
+                                  value={this.state.sixSquareUnits[index]}
+                                  label="units"
+                                  onChange={(e) => {
+                                    let newUnits = [...this.state.sixSquareUnits];
+                                    newUnits[index] = e.target.value;
+                                    this.setState({sixSquareUnits: newUnits});
+                                  }}
+                                  className={classes.fields}
+                                />
+                              </div>
+                            ))
+                          }
+                        </div>
+                      )
                     case "graph":
-                      return (null);
+                      return (null)
                     case "four-button":
-                      return (null);
+                      return (null)
                     case "launch":
-                      return (null);
+                      return (null)
                     case "orientation":
-                      return (null);
+                      return (
+                        <>
+                          <TextField
+                            value={this.state.orientationW}
+                            label="qw field"
+                            onChange={(e) => this.setState({orientationW: e.target.value})}
+                            className={classes.fields}
+                          />
+                          <TextField
+                            value={this.state.orientationX}
+                            label="qx field"
+                            onChange={(e) => this.setState({orientationX: e.target.value})}
+                            className={classes.fields}
+                          />
+                          <TextField
+                            value={this.state.orientationY}
+                            label="qy field"
+                            onChange={(e) => this.setState({orientationY: e.target.value})}
+                            className={classes.fields}
+                          />
+                          <TextField
+                            value={this.state.orientationZ}
+                            label="qz field"
+                            onChange={(e) => this.setState({orientationZ: e.target.value})}
+                            className={classes.fields}
+                          />
+                        </>
+                      )
                     case "gpsmap":
                       return (
-                        <TextField
-                          value={this.state.gpsLatitude}
-                          label="latitude field"
-                          onChange={(e) => this.setState({gpsLatitude: e.target.value})}
-                        />
-                      );
+                        <>
+                          <TextField
+                            value={this.state.gpsLatitude}
+                            label="latitude field"
+                            onChange={(e) => this.setState({mapLatitude: e.target.value})}
+                            className={classes.fields}
+                          />
+                          <TextField
+                            value={this.state.gpsLongitude}
+                            label="longitude field"
+                            onChange={(e) => this.setState({mapLongitude: e.target.value})}
+                            className={classes.fields}
+                          />
+                        </>
+                      )
                     default:
-                      return (null);
+                      return (null)
                   }
                 })()
               }
@@ -110,7 +239,7 @@ class CreateSettings extends Component {
           </Button>
           <Button onClick={ () => {
             closeCreateSettings();
-            this.setConfig();
+            setSlotConfig(this.generateConfig());
           } } color="success">
             Set
           </Button>
