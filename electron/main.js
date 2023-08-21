@@ -25,7 +25,9 @@ function createWindow () {
       show: false,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
-        devTools: isDev
+        devTools: isDev,
+        nodeIntegration: true,
+        contextIsolation: false
       },
       icon: __dirname + '/Icons/Icons.icns'
     });

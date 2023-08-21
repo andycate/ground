@@ -1,13 +1,15 @@
 import moment from 'moment';
 
-const { ipcRenderer } = window;
+const { ipcRenderer } = window.require("electron");
 
 class Comms {
   constructor(ipc) {
+    console.log("Comms exist");
     this.subscribers = {};
     this.universalSubscribers = [];
     this.darkmodeListeners = [];
     this.ipc = ipc;
+    console.log(this.ipc);
     this.stateUpdate = this.stateUpdate.bind(this);
     this.darkmodeUpdate = this.darkmodeUpdate.bind(this);
 
