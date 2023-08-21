@@ -48,7 +48,6 @@ class NineGrid extends Component {
 
     let slots = [];
     for (let slot of this.windowConfig.slots) {
-      console.log(slot);
       slots.push(slot);
     }
     for (let i = slots.length; i < 9; i ++) {
@@ -115,7 +114,6 @@ class NineGrid extends Component {
   render() {
     const { layout, slots } = this.state;
     const { locked } = this.props;
-    console.log(slots)
     return (
       <ResponsiveGridLayout
         isResizable={false}

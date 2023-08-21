@@ -4,6 +4,10 @@ import { withTheme, withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogContent, DialogActions, Button, Typography, TextField, Select, MenuItem } from '@material-ui/core';
+import { ColorPicker } from 'material-ui-color';
+
+import AddIcon from "@material-ui/icons/Add";
+import CloseIcon from "@material-ui/icons/Close";
 
 const styles = theme => ({
   head: {
@@ -34,6 +38,8 @@ class CreateSettings extends Component {
       sixSquareField: ["", "", "", "", "", ""],
       sixSquareName: ["", "", "", "", "", ""],
       sixSquareUnits: ["", "", "", "", "", ""],
+
+      graphFields: [],
 
       orientationW: "",
       orientationX: "",
@@ -76,6 +82,19 @@ class CreateSettings extends Component {
         return {
           type: "six-square",
           values: sixSquareFields
+        }
+      case "graph":
+        let graphFields = [];
+        for (let f of this.state.graphFields) {
+          console.log(f.color);
+          let graphColorRegex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(f.color);
+          f.color = [parseInt(graphColorRegex[1], 16), parseInt(graphColorRegex[2], 16), parseInt(graphColorRegex[3], 16)];
+          graphFields.push(f);
+        }
+        console.log(graphFields);
+        return {
+          type: "graph",
+          values: graphFields
         }
       case "launch":
         return {
@@ -174,7 +193,72 @@ class CreateSettings extends Component {
                         </div>
                       )
                     case "graph":
-                      return (null)
+                      return (
+                        <div style={{display: "grid", gridTemplateColumns: "auto auto auto auto auto", rowGap: "20px"}}>
+                          {
+                            this.state.graphFields.map((field, i) => (
+                              <>
+                                <CloseIcon
+                                  width={10}
+                                  onClick={() => {
+                                    let newFields = [...this.state.graphFields];
+                                    newFields.splice(i, 1);
+                                    this.setState({graphFields: newFields});
+                                  }}
+                                />
+                                <TextField
+                                  value={field.field}
+                                  label="field"
+                                  onChange={(e) => {
+                                    let newFields = [...this.state.graphFields];
+                                    newFields[i].field = e.target.value;
+                                    this.setState({graphFields: newFields});
+                                  }}
+                                />
+                                <TextField
+                                  value={field.name}
+                                  label="name"
+                                  onChange={(e) => {
+                                    let newFields = [...this.state.graphFields];
+                                    newFields[i].name = e.target.value;
+                                    this.setState({graphFields: newFields});
+                                  }}
+                                />
+                                <ColorPicker
+                                  value={field.color}
+                                  onChange={(c) => {
+                                    let newFields = [...this.state.graphFields];
+                                    newFields[i].color = c;
+                                    this.setState({graphFields: newFields});
+                                  }}
+                                />
+                                <TextField
+                                  value={field.units}
+                                  label="units"
+                                  onChange={(e) => {
+                                    let newFields = [...this.state.graphFields];
+                                    newFields[i].units = e.target.value;
+                                    this.setState({graphFields: newFields});
+                                  }}
+                                />
+                              </>
+                            ))
+                          }
+                          <AddIcon
+                            width={20}
+                            onClick={() => {
+                              let newFields = [...this.state.graphFields];
+                              newFields.push({
+                                field: "",
+                                name: "",
+                                color: "#" + Math.floor(Math.random() * 16777215).toString(16),
+                                units: ""
+                              })
+                              this.setState({graphFields: newFields});
+                            }}
+                          />
+                        </div>
+                      )
                     case "four-button":
                       return (null)
                     case "launch":
