@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 
-import Field from "./Field";
 import ButtonGroup from "./Buttons/ButtonGroup";
 import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";
 import { buttonAction } from "../util";
 import SwitchButton from "./Buttons/SwitchButton";
 import ButtonGroupEreg from "./Buttons/ButtonGroupEreg";
 import ButtonGroupEregTimed from "./Buttons/ButtonGroupEregTimed";
+import SquareControls from "./SquareControls";
 
 const styles = (theme) => ({
   root: {
@@ -39,6 +39,7 @@ class FourButton extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <Grid container spacing={1} className={classes.container}>
             {
               fields.map((obj) => (
@@ -99,8 +100,6 @@ class FourButton extends Component {
                           return (
                             <ButtonGroupEregTimed
                               buttonId={obj[0]}
-                              // open={buttonAction(obj[4].enable)}
-                              // close={buttonAction(obj[4].disable)}
                               timed_fuel={buttonAction(obj[4]["fuel-timed"])}
                               timed_lox={buttonAction(obj[4]["lox-timed"])}
                               text={obj[2]}
@@ -116,19 +115,6 @@ class FourButton extends Component {
                 </Grid>
               ))
             }
-            {/* {fields.map((obj) => (
-              <Grid item xs={4} className={classes.item}>
-                <Field
-                    field={obj[0]}
-                    name={obj[1]}
-                    unit={obj[2]}
-                    decimals={obj[5] || 1}
-                    threshold={obj[6] || null}
-                    modifyValue={obj[7] || null}
-                    thresholdColor={obj[8] || '#27AE60'}
-                />
-              </Grid>
-            ))} */}
             {children}
           </Grid>
         </CardContent>

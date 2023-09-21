@@ -17,6 +17,7 @@ import { Virtuoso } from 'react-virtuoso'
 
 import throttle from 'lodash.throttle';
 import { GENERIC_FILTERS, ROOT_OPTION_GROUPING } from "../config/textbox-display-config";
+import SquareControls from "./SquareControls";
 
 const BOARD_CONNECTION_FIELDS = [
   "flightConnected",
@@ -417,11 +418,12 @@ const LogMessageHistory = forwardRef(({ logs: _logs, classes, deleteLogs, availa
     <LogMessageContext.Provider value={{ optionGroupState, toggleOptionRootNode }}>
       <Box height={'100%'} display={'flex'} flexDirection={'column'}>
         <Box position={'relative'}>
-          <Box position={'absolute'} top={0} left={0} right={0} display={'flex'} flexDirection={'row'}
+          <Box position={'absolute'} top={0} left={0} right={60} display={'flex'} flexDirection={'row'}
             justifyContent={'space-between'} zIndex={19} className={classes.floatingBackBoard} mr={3}>
             <div>Event Logs</div>
             <Box position={'relative'}>
               <Box className={classes.floatingButton}>
+                
                 <Button
                   variant={'contained'}
                   size={'small'}
@@ -630,10 +632,12 @@ class MessageDisplaySquare
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <LogMessageHistory classes={classes} logs={this.state.logs}
             ref={this.listRef}
             availableMessageDestinations={this.state.availableMessageDestinations}
             deleteLogs={this.deleteLogs}/>
+            reset={this.props.reset} locked={this.props.locked}
         </CardContent>
       </Card>
     );

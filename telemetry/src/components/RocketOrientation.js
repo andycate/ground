@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import * as THREE from 'three';
-import OrbitControlsFactory from 'three-orbit-controls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
@@ -9,8 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import comms from '../api/Comms';
-
-const OrbitControls = OrbitControlsFactory(THREE);
+import SquareControls from './SquareControls';
 
 const styles = theme => ({
   root: {
@@ -149,6 +148,7 @@ class RocketOrientation extends Component {
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <div ref={this.sizeDetector} className={classes.sizeDetector}>
           </div>
         </CardContent>

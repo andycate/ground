@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import { HashRouter, Switch, Route, useLocation, Router, BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import ReactDOM from "react-dom";
 import "./index.css";
-import WindowSelector from "./WindowSelector";
-import Main from "./Main";
-import Control from "./Control";
-import Aux1 from "./Aux1";
-import Aux2 from "./Aux2";
-import { ThemeProvider, createTheme, CssBaseline, Typography } from "@material-ui/core";
+import { ThemeProvider, createTheme, CssBaseline } from "@material-ui/core";
 import Settings from "./components/Settings";
 import Navbar from "./components/Navbar";
 import comms from "./api/Comms";
@@ -17,13 +12,19 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      locked: true,
       isDark: false,
       showSettings: false
     };
 
+    this.toggleLocked = this.toggleLocked.bind(this);
     this.changeLightDark = this.changeLightDark.bind(this);
     this.openSettings = this.openSettings.bind(this);
     this.closeSettings = this.closeSettings.bind(this);
+  }
+
+  toggleLocked() {
+    this.setState({ locked: !this.state.locked })
   }
 
   changeLightDark() {
@@ -54,21 +55,43 @@ class App extends Component {
         type: this.state.isDark ? "dark" : "light",
         primary: {
           main: "#43a047",
-          darker: "#388e3c",
+          // darker: "#388e3c",
           contrastText: "#fff",
         },
         success: {
           main: "#43a047",
-          darker: "#388e3c",
+          // darker: "#388e3c",
+          contrastText: "#fff",
+        },
+        error: {
+          main: "#d32f2f",
           contrastText: "#fff",
         },
         secondary: {
           main: "#1976d2",
-          darker: "#115293",
+          // darker: "#115293",
           contrastText: "#fff",
         },
         neutral: {
           main: "#64748B",
+          contrastText: "#fff",
+        },
+        enabled: {
+          main: "#43a047",
+          // darker: "#388e3c",
+          contrastText: "#fff",
+        },
+        disabled: {
+          main: "#d32f2f",
+          contrastText: "#fff",
+        },
+        lox: {
+          main: "#0288d1",
+          // darker: "#388e3c",
+          contrastText: "#fff",
+        },
+        fuel: {
+          main: "#9c27b0",
           contrastText: "#fff",
         },
       },
@@ -83,11 +106,13 @@ class App extends Component {
         />
         <BrowserRouter>
           <Navbar
+            toggleLocked={this.toggleLocked}
+            locked={this.state.locked}
             changeLightDark={this.changeLightDark}
             openSettings={this.openSettings}
             config={JSON.parse(atob(window.location.hash.split("&")[1]))}
           />
-          <LayoutSwitch />
+          <LayoutSwitch locked={this.state.locked} />
         </BrowserRouter>
       </ThemeProvider>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Grid, Button, IconButton, Box, TextField, Switch } from "@material-ui/core";
+import { Grid, IconButton, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 
 import comms from "../../api/Comms";
@@ -50,6 +50,12 @@ const styles = (theme) => ({
   },
   redSendButton: {
     color: theme.palette.error.main + " !important",
+  },
+  greenSendButton: {
+    color: theme.palette.success.main + " !important",
+  },
+  graySendButton: {
+    color: theme.palette.neutral.main + " !important",
   },
 });
 
@@ -153,11 +159,11 @@ class ButtonGroupRBVTimed extends Component {
             }}
           />
           <IconButton
-            color="primary"
             variant="contained"
             onClick={this.setOpenTimed}
             disabled={this.state.disabled || false}
             disableRipple
+            className={this.state.disabled ? classes.graySendButton : classes.greenSendButton}
             size="small"
           >
             <SendIcon />

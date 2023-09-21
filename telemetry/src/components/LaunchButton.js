@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 
-import Field from "./Field";
-import ButtonGroup from "./Buttons/ButtonGroup";
-import ButtonGroupRBVTimed from "./Buttons/ButtonGroupRBVTimed";
-import { addButtonEnabledListener, buttonAction, removeButtonEnabledListener } from "../util";
-import SwitchButton from "./Buttons/SwitchButton";
+import { addButtonEnabledListener, removeButtonEnabledListener } from "../util";
 import BigButton from "./Buttons/BigButton";
 import comms from "../api/Comms";
+import SquareControls from "./SquareControls";
 
 const styles = (theme) => ({
   root: {
@@ -61,7 +58,7 @@ class LaunchButton extends Component {
   }
 
   render() {
-    const { children, classes, fields, mode } = this.props;
+    const { classes, mode } = this.props;
     let launchText = "";
     switch (mode) {
       case 0:
@@ -79,25 +76,30 @@ class LaunchButton extends Component {
       case 4:
         launchText = "Gas Flow"
         break;
+      default:
+        launchText = "Unknown Mode"
+        break;
     }
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <Grid container spacing={1} className={classes.container}>
-		  <Grid item xs={12}>
-			<BigButton
-				disabled={this.state.disabled}
-				onClick={this.beginLaunchSequence}
-				text={launchText}
-			/>
-			</Grid>
-			<Grid item xs={12}>
-			<BigButton
-				onClick={this.abortAll}
-				text="Abort"
-				isRed
-			/>
-			</Grid>
+            <Grid item xs={12}></Grid>
+            <Grid item xs={12}>
+              <BigButton
+                disabled={this.state.disabled}
+                onClick={this.beginLaunchSequence}
+                text={launchText}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <BigButton
+                onClick={this.abortAll}
+                text="Abort"
+                isRed
+              />
+            </Grid>
           </Grid>
         </CardContent>
       </Card>

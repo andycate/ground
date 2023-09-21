@@ -38,8 +38,9 @@ class FlightV4 extends Board {
       // Barometer Telemetry
       5: [
         ["baroAltitude", asFloat],
-        ["baroPressure2", asFloat],
         ["baroTemperature", asFloat]
+        ["baroPressure2", asFloat],
+        ["baroTemperature2", asFloat]
       ],
 
       // GPS Telemetry

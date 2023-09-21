@@ -29,19 +29,6 @@ class Board {
     }, 1000);
   }
 
-  sendPacket(id, values) {
-    const p = new Packet(id, values);
-    const buf = p.toBuffer()
-    if (!buf) {
-      console.debug(`[id ${id}] Outbound packet's packet data typing definition could not be found. Not sent.`)
-      return false
-    }
-    // write string version of packet for debugging purposes, disable socket data print
-    process.stdout.write(p.stringify())
-    this.port.send(this.address, buf, false);
-    return true;
-  }
-
   /**
    * Uses the offset given in the first packet received from the board to calculate subsequent packet arrival times
    * @param runTime {number} is the received running duration of the board (in ms)
@@ -103,9 +90,13 @@ class Board {
       let offset = 0;
       
       for (const [_, parser, __] of packetDef) {
-        const [value, byteLen] = parser(dataBuf, offset);
-        values.push(value);
-        offset += byteLen;
+        try { 
+          const [value, byteLen] = parser(dataBuf, offset);
+          values.push(value);
+          offset += byteLen;
+        } catch(err) {
+          console.log(`issue parsing with packet id: ${id}`);
+        }
       }
 
       return new Packet(id, values, timestamp);
@@ -177,7 +168,8 @@ class Board {
 
   resetWatchdog() {
     if (!this.isConnected) {
-      this.sendPacket(0, []);
+      let ping = Board.generatePacket(0);
+      this.port.send(this.address, ping);
       this.onConnect();
     }
     this.isConnected = true;
@@ -188,6 +180,27 @@ class Board {
       this.firstRecvOffset = -1;
       this.onDisconnect();
     }, 1000);
+  }
+
+  static generatePacket(id, ...vals) {
+    let idBuf = Buffer.alloc(1);
+    idBuf.writeUInt8(id);
+    let len = 0;
+    let values = [];
+
+    for (let v of vals) {
+      let [valBuf, bufLen] = v[1](v[0]);
+      values.push(valBuf);
+      len += bufLen;
+    }
+
+    let lenBuf = Buffer.alloc(1);
+    lenBuf.writeUInt8(len);
+    let tsOffsetBuf = Buffer.alloc(4)
+    tsOffsetBuf.writeUInt32LE(Date.now() - Packet.initTime);
+    let checksumBuf = Buffer.alloc(2);
+    checksumBuf.writeUInt16LE(Packet.fletcher16Partitioned([idBuf, lenBuf, tsOffsetBuf, ...values]));
+    return Buffer.concat([idBuf, lenBuf, tsOffsetBuf, checksumBuf, ...values]);
   }
 }
 

@@ -1,6 +1,5 @@
 const dgram = require('dgram');
 const fs = require('fs');
-const Packet = require('./Packet');
 
 class UdpPort {
   /**
@@ -147,14 +146,14 @@ class UdpPort {
   register(address, board) {
     this.boards[address] = board;
     // Windows sometimes only accepts packets from an address/port AFTER making an outbound connection to it first.
-    if (process.platform === 'win32') {
-      this.send(address, new Packet(0, [0]).toBuffer(), error => {
-        if (!error) {
-          return
-        }
-        console.debug(`could not connect to the board on address: ${address}. Error: ${error.toString()}`)
-      });
-    }
+    // if (process.platform === 'win32') {
+    //   this.send(address, Buffer.alloc(0), error => {
+    //     if (!error) {
+    //       return
+    //     }
+    //     console.debug(`could not connect to the board on address: ${address}. Error: ${error.toString()}`)
+    //   });
+    // }
   }
 
   /**

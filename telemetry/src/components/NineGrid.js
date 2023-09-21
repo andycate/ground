@@ -1,20 +1,12 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import "@fontsource/roboto";
-import {
-  createTheme,
-  withStyles,
-  ThemeProvider,
-} from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import {Box, Container, Grid, Typography} from "@material-ui/core";
+import {withStyles, withTheme} from "@material-ui/core/styles";
+import {Container, Grid} from "@material-ui/core";
 
 import Graph from "./Graph";
 import SixValueSquare from "./SixValueSquare";
 
-import comms from "../api/Comms";
 import MessageDisplaySquare from "./MessageDisplaySquare";
-import Field from "./Field";
 import ErrorSquare from "./ErrorSquare";
 import FourButtonSquare from "./FourButtonSquare";
 import LaunchButton from "./LaunchButton";
@@ -22,70 +14,11 @@ import ProgressBarsSquare from "./ProgressBarsSquare";
 import RocketOrientation from "./RocketOrientation";
 import Map from "./Map";
 
-// const fields = [
-//   [
-//     {
-//       name: "pressurantPT",
-//       color: [70, 1, 155],
-//       unit: "PSI",
-//     },
-//   ],
-//   [
-//     {
-//       name: "loxTankPT",
-//       color: [0, 126, 254],
-//       unit: "PSI",
-//     },
-//   ],
-//   [
-//     {
-//       name: "fuelTankPT",
-//       color: [0, 187, 0],
-//       unit: "PSI",
-//     },
-//   ],
-//   [
-//     {
-//       name: "loxInjectorPT",
-//       color: [221, 0, 0],
-//       unit: "PSI",
-//     },
-//     {
-//       name: "fuelInjectorPT",
-//       color: [70, 1, 155],
-//       unit: "PSI",
-//     },
-//   ],
-//   [
-//     {
-//       name: "loxCapVal",
-//       color: [59, 126, 161],
-//       unit: "pF",
-//       precision: 3,
-//     },
-//     {
-//       name: "loxCapValFiltered",
-//       color: [0, 50, 98],
-//       unit: "pF",
-//       precision: 3,
-//     },
-    
-//   ],
-//   [
-//     {
-//       name: "fuelCapVal",
-//       color: [253, 181, 21],
-//       unit: "pF",
-//       precision: 3,
-//     },
-//     {
-//       name: "fuelCapValFiltered",
-//       color: [196, 130, 14],
-//       unit: "pF",
-//       precision: 3,
-//       },
-//   ],
-// ];
+import { Responsive } from "react-grid-layout";
+import clsx from "clsx"
+import CreateSquare from "./CreateSquare";
+
+const ResponsiveGridLayout = NineGridWidthHeightProvideRGL(Responsive)
 
 const styles = (theme) => ({
   root: {
@@ -112,186 +45,276 @@ class NineGrid extends Component {
     super(props);
     this.windowConfig = props.windowConfig;
     this.config = props.config;
-    // this.lastPressRocValue = 0;
-    // this.lastPressRocTime = window.performance.now();
-    // this.rocValues = [];
 
-    // this.calcPressRoc = this.calcPressRoc.bind(this);
+    let slots = [];
+    for (let slot of this.windowConfig.slots) {
+      slots.push(slot);
+    }
+    for (let i = slots.length; i < 9; i ++) {
+      slots.push({});
+    }
+
+    this.state = {
+      slots: slots,
+      layout: [
+        { i: "0", x: 0, y: 0, w: 1, h: 1 },
+        { i: "1", x: 1, y: 0, w: 1, h: 1 },
+        { i: "2", x: 2, y: 0, w: 1, h: 1 },
+        { i: "3", x: 0, y: 1, w: 1, h: 1 },
+        { i: "4", x: 1, y: 1, w: 1, h: 1 },
+        { i: "5", x: 2, y: 1, w: 1, h: 1 },
+        { i: "6", x: 0, y: 2, w: 1, h: 1 },
+        { i: "7", x: 1, y: 2, w: 1, h: 1 },
+        { i: "8", x: 2, y: 2, w: 1, h: 1 }
+      ]
+    }
+
+    this.itemRefs = [];
+    for (let i = 0; i < 9; i ++) {
+      this.itemRefs[i] = React.createRef();
+    }
+
+    this.fixLayout = this.fixLayout.bind(this);
+    this.resetItem = this.resetItem.bind(this);
+    this.setSlotConfig = this.setSlotConfig.bind(this);
   }
 
-  // calcPressRoc(value) {
-    
-  //   const currentPressRocTime = window.performance.now();
-  //   const delta_press_roc = (value - this.lastPressRocValue) * 1000.0 / (currentPressRocTime - this.lastPressRocTime);
-    
-  //   this.rocValues.unshift(delta_press_roc);
-  //   if (this.rocValues.length > 30) {
-  //     this.rocValues.pop();
-  //   }
-  //   this.lastPressRocTime = currentPressRocTime;
-  //   this.lastPressRocValue = value;
+  fixLayout(layout) {
+    const maxY = 2;
+    const maxRowXs = layout.map((item) => item.y === maxY ? item.x : null).filter((value) => value !== null);
+    const missingX = [0, 1, 2].find(value => maxRowXs.every(maxRowX => maxRowX !== value));
+    return layout.map(item => {
+      if (item.y > maxY) {
+        return {
+          ...item,
+          y: maxY,
+          x: missingX
+        }
+      }
+      return item;
+    });
+  }
 
-  //   let sum = 0;
-  //   for (let rocVal of this.rocValues) {
-  //     sum += Number(rocVal);
-  //   }
-  //   return sum / this.rocValues.length;
-  // }
+  resetItem(index) {
+    return () => {
+      let newSlots = [...this.state.slots];
+      newSlots[index] = {};
+      this.setState({slots: newSlots});
+    }
+  }
+
+  setSlotConfig(index) {
+    return (conf) => {
+      let newSlots = [...this.state.slots];
+      newSlots[index] = conf;
+      this.setState({slots: newSlots});
+    }
+  }
 
   render() {
-    const { classes } = this.props;
+    const { layout, slots } = this.state;
+    const { locked } = this.props;
     return (
-      <React.Fragment>
-        <Container maxWidth="xl" className={classes.container}>
-          <Grid container spacing={1} className={classes.row}>
-            {
-              this.windowConfig.slots.map(field => (
-                <Grid item={1} xs={4} className={classes.item}>
-                  {
-                    (() => {
-                      switch (field.type) {
-                        case "logs":
-                          return (
-                            <MessageDisplaySquare />
-                          )
-                        case "six-square":
-                          return (
-                            <SixValueSquare fields={
-                              field.values.map(value => [
-                                value.field,
-                                value.name,
-                                value.units,
-                                null,
-                                null,
-                                null,
-                                null,
-                                value.func
-                              ])}
-                            />
-                          )
-                        case "graph":
-                          return (
-                            <Graph fields={
-                              field.values.map(value => ({
-                                field: value.field,
-                                name: value.name,
-                                color: value.color,
-                                unit: value.units
-                              }))}
-                            />
-                          )
-                        case "four-button":
-                          return (
-                            <FourButtonSquare fields={
-                              field.buttons.map(value => [
-                                value.id,
-                                value.type,
-                                value.name,
-                                value.field,
-                                value.actions,
-                                value.safe || false,
-                                value.green || []
-                              ])}
-                            />
-                          )
-                        case "launch":
-                          return (
-                            <LaunchButton mode={this.config.mode} />
-                          )
-                        case "progress":
-                          return (
-                            <ProgressBarsSquare fields={
-                              field.values.map(value => ({
-                                field: value.field,
-                                name: value.name,
-                                units: value.units,
-                                color: value.color,
-                                minValue: value.minValue,
-                                delta: value.delta
-                              }))}
-                            />
-                          )
-                        case "orientation":
-                          return (
-                            <RocketOrientation
-                              fieldQW={field.qw}
-                              fieldQX={field.qx}
-                              fieldQY={field.qy}
-                              fieldQZ={field.qz}
-                            />
-                          )
-                        case "gpsmap": 
-                          return (
-                            <Map 
-                              gpsLatitude={field.gpsLatitude}
-                              gpsLongitude={field.gpsLongitude}
-                            />
-                        )
-                        default:
-                          return (
-                            <ErrorSquare error={`Field type "${field.type}" not found`} />
-                          )
-                      }
-                    })()
+      <ResponsiveGridLayout
+        isResizable={false}
+        layouts={{lg: layout, md: layout, sm: layout, xs: layout, xxs: layout}}
+        cols={{lg: 3, md: 3, sm: 3, xs: 3, xxs: 3}}
+        maxRows={3}
+        onLayoutChange={l => this.setState({layout: this.fixLayout(l)})}
+        isBounded={true}
+        draggableHandle=".handle"
+      >
+        {
+          slots.map((field, index) => (
+            <div key={index.toString()} ref={this.itemRefs[index]}>
+              {
+                (() => {
+                  switch (field.type) {
+                    case "logs":
+                      return (
+                        <MessageDisplaySquare
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                        />
+                      )
+                    case "six-square":
+                      return (
+                        <SixValueSquare
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          fields={
+                            field.values.map(value => [
+                              value.field,
+                              value.name,
+                              value.units,
+                              null,
+                              null,
+                              null,
+                              null,
+                              value.func
+                            ])
+                          }
+                        />
+                      )
+                    case "graph":
+                      return (
+                        <Graph
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          fields={
+                            field.values.map(value => ({
+                              field: value.field,
+                              name: value.name,
+                              color: value.color,
+                              unit: value.units
+                            }))
+                          }
+                        />
+                      )
+                    case "four-button":
+                      return (
+                        <FourButtonSquare
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          fields={
+                            field.buttons.map(value => [
+                              value.id,
+                              value.type,
+                              value.name,
+                              value.field,
+                              value.actions,
+                              value.safe || false,
+                              value.green || []
+                            ])
+                          }
+                        />
+                      )
+                    case "launch":
+                      return (
+                        <LaunchButton
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          mode={this.config.mode}
+                        />
+                      )
+                    case "progress":
+                      return (
+                        <ProgressBarsSquare
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          fields={
+                            field.values.map(value => ({
+                              field: value.field,
+                              name: value.name,
+                              units: value.units,
+                              color: value.color,
+                              minValue: value.minValue,
+                              delta: value.delta
+                            }))
+                          }
+                        />
+                      )
+                    case "orientation":
+                      return (
+                        <RocketOrientation
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          fieldQW={field.qw}
+                          fieldQX={field.qx}
+                          fieldQY={field.qy}
+                          fieldQZ={field.qz}
+                        />
+                      )
+                    case "gpsmap": 
+                      return (
+                        <Map
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          gpsLatitude={field.gpsLatitude}
+                          gpsLongitude={field.gpsLongitude}
+                        />
+                    )
+                    case undefined:
+                      return (
+                        <CreateSquare
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          setSlotConfig={this.setSlotConfig(index)}
+                        />
+                      )
+                    default:
+                      return (
+                        <ErrorSquare
+                          reset={this.resetItem(index)}
+                          locked={locked}
+                          error={`Field type "${field.type}" not found`}
+                        />
+                      )
                   }
-                </Grid>
-              ))
-            }
-            {/* {fields.slice(0, 3).map((field) => (
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph fields={field} />
-              </Grid>
-            ))}
-
-            <Grid item={1} xs={4} className={classes.item}>
-              <SixValueSquare
-                fields={[
-                  ["LOX DOME", "loxDomePT", "PSI"],
-                  ["RQD Pressure", "rqdPT", "PSI"],
-                  ["Purge Bottle", "purgePT", "PSI"],
-                  ["Fuel DOME", "fuelDomePT", "PSI"],
-                  ["PressPT ROC", "pressurantPT", "PSI/S", 1, 35, this.calcPressRoc, '#E25241'],
-                  ["Main Valve PT", "mainValvePT", "PSI"],
-                ]}
-              />
-            </Grid>
-
-            <Grid item={1} xs={4} className={classes.item}>
-              <SixValueSquare
-                fields={[
-                  ["Burn Time", "autoBurnTime", "us", 2],
-                  ["LOx Lead", "autoLoxLead", "us", 2],
-                  ["Igniter Abort Enable", "autoIgniterAbortEnabled", "", 0, 1],
-                  ["Breakwire Abort Enable", "autoBreakwireAbortEnabled", "", 0, 1],
-                ]}
-              />
-            </Grid>
-
-            {fields.slice(3, 6).map((field) => (
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph fields={field} />
-              </Grid>
-            ))}
-
-            
-            {fields.slice(6).map((field) => (
-              <Grid item={1} xs={4} className={classes.item}>
-                <Graph fields={field} />
-              </Grid>
-            ))}
-
-            <Grid item={1} xs={4} className={classes.item}>
-              <MessageDisplaySquare />
-            </Grid> */}
-
-          </Grid>
-        </Container>
-      </React.Fragment>
-    );
+                })()
+              }
+            </div>
+          ))
+        }
+      </ResponsiveGridLayout>
+    )
   }
 }
 
-// NineGrid.propTypes = {
-//   classes: PropTypes.object.isRequired,
-// };
-export default withStyles(styles)(NineGrid);
+function NineGridWidthHeightProvideRGL(ComposedComponent) {
+  return class WidthHeightProvider extends React.Component {
+
+    static defaultProps = {
+      measureBeforeMount: false
+    };
+
+    state = {
+      width: 1280,
+      height: 720
+    };
+
+    elementRef = React.createRef();
+    mounted = false;
+
+    componentDidMount() {
+      this.mounted = true;
+      window.addEventListener("resize", this.onWindowResize);
+      this.onWindowResize();
+    }
+
+    componentWillUnmount() {
+      this.mounted = false;
+      window.removeEventListener("resize", this.onWindowResize);
+    }
+
+    onWindowResize = () => {
+      if (!this.mounted) return;
+      const node = this.elementRef.current;
+      if (node instanceof HTMLElement && node.offsetWidth && node.offsetHeight) {
+        this.setState({width: window.innerWidth, rowHeight: (window.innerHeight - node.offsetTop - 40) / 3});
+      }
+    };
+
+    render() {
+      const { measureBeforeMount, ...rest } = this.props;
+      if (measureBeforeMount && !this.mounted) {
+        return (
+          <div
+            className={clsx(this.props.className, "react-grid-layout")}
+            style={this.props.style}
+            ref={this.elementRef}
+          />
+        )
+      }
+      return (
+        <ComposedComponent
+          innerRef={this.elementRef}
+          {...rest}
+          {...this.state}
+        />
+      )
+    }
+  }
+}
+
+export default withTheme(withStyles(styles)(NineGrid));

@@ -2,7 +2,6 @@ const { app, BrowserWindow, ipcMain, TouchBar } = require('electron');
 const { TouchBarLabel, TouchBarButton, TouchBarSpacer, TouchBarPopover, TouchBarSegmentedControl, TouchBarScrubber } = TouchBar
 const isDev = require('electron-is-dev');
 const path = require('path');
-const url = require('url');
 
 const App = require('./App');
 const readConfig = require('./configParser');
@@ -26,7 +25,9 @@ function createWindow () {
       show: false,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
-        devTools: isDev
+        devTools: isDev,
+        nodeIntegration: true,
+        contextIsolation: false
       },
       icon: __dirname + '/Icons/Icons.icns'
     });
@@ -37,14 +38,10 @@ function createWindow () {
     window.loadURL(url);
     window.setTouchBar(touchBar)
     window.on('closed', function () {
-      // backendApp.removeWebContents(window.webContents);
       window = null;
     });
     window.webContents.once('did-finish-load', () => {
       backendApp.addWebContents(window.webContents);
-      if(backendApp.webContents.length === windowsList.length){
-        // backendApp.initApp()
-      }
     });
     window.once('ready-to-show', () => {
       window.show();
@@ -53,62 +50,12 @@ function createWindow () {
 
 }
 
-function createSelectorWindow() {
-  let selectorUrl = (isDev ? 'http://127.0.0.1:3000#/selector' : `file://${path.join(__dirname, '../index.html#selector')}`);
-  selector = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      devTools: isDev,
-    },
-    icon: __dirname + '/Icons/Icons.icns'
-  });
-  selector.setSize(200, 100);
-  selector.center();
-  selector.setTitle('Selector');
-  // selector.maximize();
-  if(!isDev) {
-    selector.removeMenu();
-  }
-  selector.loadURL(selectorUrl);
-  selector.on('closed', function () {
-    selector = null;
-  });
-  // selector.webContents.once('did-finish-load', () => {
-  //   backendApp.addWebContents(selector.webContents);
-  // });
-  selector.once('ready-to-show', () => {
-    selector.show();
-  });
-
-  ipcMain.handleOnce('open-main-windows', (e) => {
-    selector.close();
-    createWindow(true);
-  });
-  ipcMain.handleOnce('open-aux-windows', (e) => {
-    selector.close();
-    createWindow(false);
-  });
-}
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs
 app.on('ready', () => {
-  // createSelectorWindow();
-  // const ret = globalShortcut.register('F17', () => {
-  //   backendApp.abort();
-  // })
-
   backendApp.initApp()
-
   createWindow()
-
-  // if(isDev) {
-  //   createWindow(isMainDev);
-  // } else {
-  //   createSelectorWindow();
-  // }
 });
 
 
@@ -120,8 +67,6 @@ app.on('window-all-closed', function () {
 
 app.on('before-quit', () => {
   console.log('quitting');
-  // backendApp.removeWebContents(window1.webContents);
-  // backendApp.removeWebContents(window2.webContents);
 });
 
 ipcMain.handle('app-info', async (event) => {

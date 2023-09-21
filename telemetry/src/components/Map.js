@@ -4,7 +4,6 @@ import { withStyles, withTheme } from '@material-ui/core/styles';
 import { FormControl, Grid, MenuItem, Select } from '@material-ui/core';
 import ReactMapGL, {
   AttributionControl,
-  FlyToInterpolator,
   Layer, Marker,
   ScaleControl,
   Source
@@ -13,6 +12,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 import comms from '../api/Comms';
 import { Room } from "@material-ui/icons";
+import SquareControls from './SquareControls';
 
 const styles = theme => ({
   root: {
@@ -60,7 +60,7 @@ function SwitchStyle({ setSelectedStyle, selectedStyle }) {
     background: 'rgba(255,255,255,0.45)',
     right: 0,
     minWidth: 80,
-    top: 0
+    bottom: 30
   };
 
   return (
@@ -84,7 +84,7 @@ function SwitchStyle({ setSelectedStyle, selectedStyle }) {
   );
 }
 
-function Map({ gpsLatitude, gpsLongitude, classes }) {
+function Map({ gpsLatitude, gpsLongitude, classes, reset, locked }) {
   const [selectedStyle, setSelectedStyle] = useState(mapStyles[0].url)
   const [viewport, setViewport] = useState({
     longitude: defaultLong,
@@ -152,9 +152,9 @@ function Map({ gpsLatitude, gpsLongitude, classes }) {
     setViewport(_viewport => ({
       ..._viewport,
       longitude: data,
-      latitude: nextLat,
-      transitionDuration: 500,
-      transitionInterpolator: new FlyToInterpolator()
+      latitude: nextLat
+      // transitionDuration: 500,
+      // transitionInterpolator: new FlyToInterpolator()
     }));
     // TODO: depending on rate of data, may need to reduce / simplify path
     _setCoordinateHistory(prev => ([...prev, [data, nextLat]]))
@@ -162,6 +162,7 @@ function Map({ gpsLatitude, gpsLongitude, classes }) {
 
   return (
     <Grid container spacing={1} alignItems='center' className={classes.root}>
+      <SquareControls reset={reset} locked={locked} />
       <Grid item xs={12} className={classes.fullHeight}>
         <ReactMapGL
           {...viewport}

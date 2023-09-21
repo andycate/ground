@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
-import { Card, CardContent, Grid, Typography } from '@material-ui/core';
-
-import green from '@material-ui/core/colors/green';
+import { Grid, Typography } from '@material-ui/core';
 
 import comms from '../api/Comms';
+
+import gas1Wav from "../media/gas1.wav";
+import gas2Wav from "../media/gas2.wav";
+import gas3Wav from "../media/gas3.wav";
 
 const styles = theme => ({
   root: {
@@ -31,6 +33,7 @@ class Field extends Component {
 
     this.handleValueUpdate = this.handleValueUpdate.bind(this);
     this.updateDisplay = this.updateDisplay.bind(this);
+    this.playGas = this.playGas.bind(this);
   }
 
   handleValueUpdate(timestamp, value) {
@@ -38,6 +41,13 @@ class Field extends Component {
     this.value = modifyValue ? modifyValue(value, timestamp) : value;
     if(this.animationID === null) {
       this.animationID = requestAnimationFrame(this.updateDisplay);
+    }
+    if(this.props.field === "freg.filteredUpstreamPressure1@roc") {
+      if(this.value > 10.0 && !this.lockoutTime) {
+        this.playGas();
+        this.lockoutTime = true;
+        setTimeout(() => {this.lockoutTime = false;}, 120 * 1000);
+      }
     }
   }
 
@@ -48,6 +58,17 @@ class Field extends Component {
       this.colorRef.current.style.backgroundColor = this.props.thresholdColor;
     } else {
       this.colorRef.current.style.backgroundColor = '';
+    }
+  }
+
+  playGas() {
+    const r = Math.random();
+    if(r < 0.33) {
+      new Audio(gas1Wav).play();
+    } else if (r < 0.66) {
+      new Audio(gas2Wav).play();
+    } else {
+      new Audio(gas3Wav).play();
     }
   }
 

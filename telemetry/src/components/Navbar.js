@@ -3,6 +3,8 @@ import { withStyles, withTheme } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Tooltip, IconButton, Button } from '@material-ui/core';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import SettingsIcon from '@material-ui/icons/Settings';
+import LockIcon from '@material-ui/icons/Lock';
+import LockOpenIcon from '@material-ui/icons/LockOpen'
 
 import comms from '../api/Comms';
 
@@ -102,7 +104,9 @@ class Navbar extends Component {
   render() {
     const { classes,
             changeLightDark,
-            openSettings } = this.props;
+            openSettings,
+            toggleLocked,
+            locked } = this.props;
 
     return (
       <AppBar position="static" color="default" elevation={0} className={classes.bar}>
@@ -118,6 +122,23 @@ class Navbar extends Component {
           <p>
             Influx: {this.state.influxState === 0 && "Not Connected"}{this.state.influxState === 1 && this.state.influxDatabase}{this.state.influxState === 2 && "Error"}
           </p>
+          <Tooltip title='Lock/unlock'>
+            <IconButton
+              color="inherit"
+              onClick={ toggleLocked }
+            >
+              {
+                locked && (
+                  <LockIcon />
+                )
+              }
+              {
+                !locked && (
+                  <LockOpenIcon />
+                )
+              }
+            </IconButton>
+          </Tooltip>
           <Tooltip title='Toggle light/dark theme'>
             <IconButton
               color="inherit"

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { withStyles, withTheme } from '@material-ui/core/styles';
-import { Card, Box, CardContent, Grid, Typography, Stepper, Step, StepContent, StepLabel } from '@material-ui/core';
+import { Card, Box, Typography, Stepper, Step, StepLabel } from '@material-ui/core';
 
 import Wav10 from '../media/10.wav';
 import Wav9 from '../media/9.wav';

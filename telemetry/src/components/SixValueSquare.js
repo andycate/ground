@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 
 import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Card, CardContent, Grid, useTheme } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 
 import Field from "./Field";
+import SquareControls from "./SquareControls";
 
 const styles = (theme) => ({
   root: {
@@ -24,15 +25,13 @@ const styles = (theme) => ({
 });
 
 class SixValueSquare extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { children, classes, fields } = this.props;
     return (
       <Card className={classes.root}>
         <CardContent className={classes.cardContent}>
+          <SquareControls reset={this.props.reset} locked={this.props.locked} />
           <Grid container spacing={1} className={classes.container}>
             {fields.map((obj) => (
               <Grid item xs={4} className={classes.item}>

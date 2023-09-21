@@ -48,8 +48,14 @@ const styles = (theme) => ({
   txtField: {
     width: "4rem",
   },
-  redSendButton: {
-    color: theme.palette.error.main + " !important",
+  loxSendButton: {
+    color: theme.palette.lox.main + " !important",
+  },
+  fuelSendButton: {
+    color: theme.palette.fuel.main + " !important",
+  },
+  graySendButton: {
+    color: theme.palette.neutral.main + " !important",
   },
 });
 
@@ -137,7 +143,7 @@ class ButtonGroupEregTimed extends Component {
             onClick={this.setClosedTimed}
             disabled={this.state.disabled || false}
             disableRipple
-            className={classes.redSendButton}
+            className={this.state.disabled ? classes.graySendButton : classes.loxSendButton}
             size="small"
           >
             <SendIcon />
@@ -153,24 +159,16 @@ class ButtonGroupEregTimed extends Component {
             }}
           />
           <IconButton
-            color="primary"
             variant="contained"
             onClick={this.setOpenTimed}
             disabled={this.state.disabled || false}
             disableRipple
+            className={this.state.disabled ? classes.graySendButton : classes.fuelSendButton}
             size="small"
           >
             <SendIcon />
           </IconButton>
         </Grid>
-        {/* <Grid item xs={12}>
-          <OpenCloseButtonGroup
-            isOpen={this.state.openClicked}
-            setOpen={this.setOpen}
-            setClosed={this.setClosed}
-            disabled={this.state.disabled || false}
-          />
-        </Grid> */}
       </GroupLabel>
     );
   }

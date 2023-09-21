@@ -1,7 +1,5 @@
 import { Typography } from '@material-ui/core';
-import { Component, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import Control from '../Control';
+import { Component } from 'react';
 import NineGrid from './NineGrid';
 
 
@@ -15,6 +13,7 @@ class LayoutSwitch extends Component {
   }
   render() {
     const { hash } = this.state;
+    const { locked } = this.props;
     let config = JSON.parse(atob(hash[1]));
     let window = config.windows[hash[0].substring(2)];
     if (window === undefined) {
@@ -26,7 +25,7 @@ class LayoutSwitch extends Component {
     }
     if (window.layout === "9-grid") {
       return (
-        <NineGrid windowConfig={window} config={config} />
+        <NineGrid windowConfig={window} config={config} locked={locked} />
       )
     }
     return (
