@@ -1,0 +1,32 @@
+{
+	"name": "TVC",
+	"layout": "9-grid",
+	"slots": [
+        {
+			"type": "four-button",
+			"buttons": [
+				{
+					"id": "tvcStart",
+					"type": "valve",
+					"name": "TVC Start",
+					"field": "ac2.actuatorState6",
+					"actions": {
+						"enable": {
+							"type": "on",
+							"board": "tvc",
+							"packet": 2,
+							"number": 0
+						},
+						"disable": {
+							"type": "off",
+							"board": "tvc",
+							"packet": 4,
+							"number": 0
+						}
+					},
+					"green": [0, 1]
+                }
+            ]
+		}
+    ]
+}

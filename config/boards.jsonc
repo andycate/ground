@@ -34,6 +34,10 @@
 	"lc": {
 		"type": "lc",
 		"address": "10.0.0.21"
+	},
+	"tvc": {
+		"type": "tvc",
+		"address": "10.0.0.88"
 	}
 	// "ioreg": {
 	// 	"type": "ereg",

@@ -8,6 +8,7 @@ const PTBoard = require('./Boards/PTBoard');
 const TCBoard = require('./Boards/TCBoard');
 const LCBoard = require('./Boards/LCBoard');
 const ACBoard = require('./Boards/ACBoard');
+const TVCBoard = require('./Boards/TVCBoard');
 const { initTime, fletcher16Partitioned } = require('./Packet');
 const EregBoard = require('./Boards/EregBoard');
 const { getPreprocessor } = require('./Preprocessors');
@@ -52,7 +53,8 @@ class App {
       "tc": TCBoard,
       "lc": LCBoard,
       "ac": ACBoard,
-      "ereg": EregBoard
+      "ereg": EregBoard,
+      "tvc": TVCBoard
     };
 
     for (let boardName in this.config.boards) {
