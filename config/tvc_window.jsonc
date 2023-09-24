@@ -14,13 +14,13 @@
 						"enable": {
 							"type": "on",
 							"board": "tvc",
-							"packet": 2,
+							"packet": 102,
 							"number": 0
 						},
 						"disable": {
 							"type": "off",
 							"board": "tvc",
-							"packet": 4,
+							"packet": 104,
 							"number": 0
 						}
 					},
@@ -35,13 +35,13 @@
 						"enable": {
 							"type": "on",
 							"board": "tvc",
-							"packet": 3,
+							"packet": 103,
 							"number": 0
 						},
 						"disable": {
 							"type": "off",
 							"board": "tvc",
-							"packet": 3,
+							"packet": 103,
 							"number": 0
 						}
 					},
@@ -62,12 +62,12 @@
 						"enable-timed": {
 							"type": "signal-timed",
 							"board": "tvc",
-							"packet": 6
+							"packet": 106
 						},
 						"disable-timed": {
 							"type": "signal-timed",
 							"board": "tvc",
-							"packet": 6
+							"packet": 106
 						}
 					}
 				},
@@ -86,12 +86,12 @@
 						"enable-timed": {
 							"type": "signal-timed",
 							"board": "tvc",
-							"packet": 5
+							"packet": 105
 						},
 						"disable-timed": {
 							"type": "signal-timed",
 							"board": "tvc",
-							"packet": 5
+							"packet": 105
 						}
 					}
 				}
