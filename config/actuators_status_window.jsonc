@@ -1,0 +1,8 @@
+{
+	"name": "Actuators Status",
+	"layout": "9-grid",
+	"slots": [
+		{
+		}
+	]
+}
