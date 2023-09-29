@@ -1,12 +1,39 @@
 {
-	// "cap": {
-	// 	"type": "flightV4",
-	// 	"address": "10.0.0.42"
-	// },
-	"flight": {
-		"type": "flightV4",
-		// "address": "192.168.43.42" 
-		"address": "10.0.0.42"
+	"ac0": {
+		"type": "ac",
+		"address": "10.0.0.11"
+	},
+	"ac1": {
+		"type": "ac",
+		"address": "10.0.0.12"
+	},
+	"ac2": {
+		"type": "ac",
+		"address": "10.0.0.13"
+	},
+	"tc": {
+		"type": "tc",
+		"address": "10.0.0.51"
+	},
+	"pt0": {
+		"type": "pt",
+		"address": "10.0.0.31"
+	},
+	"pt1": {
+		"type": "pt",
+		"address": "10.0.0.32"
+	},
+	"pt2": {
+		"type": "pt",
+		"address": "10.0.0.33"
+	},
+	"lc0": {
+		"type": "lc",
+		"address": "10.0.0.21"
+	},
+	"lc1": {
+		"type": "lc",
+		"address": "10.0.0.22"
 	},
 	"oreg": {
 		"type": "ereg",
@@ -15,41 +42,5 @@
 	"freg": {
 		"type": "ereg",
 		"address": "10.0.0.62"
-	},
-	"ac1": {
-		"type": "ac",
-		"address": "10.0.0.11"
-	},
-	"ac2": {
-		"type": "ac",
-		"address": "10.0.0.12"
-	},
-	"tc": {
-		"type": "tc",
-		"address": "10.0.0.51"
-	},
-	"pt": {
-		"type": "pt",
-		"address": "10.0.0.31"
-	},
-	"lc": {
-		"type": "lc",
-		"address": "10.0.0.21"
-	},
-	"tvc": {
-		"type": "tvc",
-		"address": "10.0.0.88"
 	}
-	// "ioreg": {
-	// 	"type": "ereg",
-	// 	"address": "10.0.0.28"
-	// },
-	// "ifreg": {
-	// 	"type": "ereg",
-	// 	"address": "10.0.0.27"
-	// },
-	// "rtd": {
-	// 	"type": "flightV4",
-	// 	"address": "10.0.0.81"
-	// }
 }
