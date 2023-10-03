@@ -7,6 +7,7 @@
 
 # testing
 /coverage
+abortlog.txt
 
 # production
 /build
@@ -18,6 +19,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.eslintcache
 
 npm-debug.log*
 yarn-debug.log*
@@ -25,3 +27,11 @@ yarn-error.log*
 
 #influx
 persist
+
+# Webstorm
+.idea
+
+# Lock file for pnpm manager
+pnpm-lock.yaml
+
+.vscode
